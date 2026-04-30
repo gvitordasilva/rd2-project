@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: obramanager_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: obramanager
+      POSTGRES_PASSWORD: obramanager123
+      POSTGRES_DB: obramanager
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U obramanager"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: ./obra-manager
+      dockerfile: Dockerfile
+    container_name: obramanager_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "postgresql://obramanager:obramanager123@postgres:5432/obramanager?schema=public"
+      NODE_ENV: production
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - uploads_data:/app/uploads
+
+volumes:
+  postgres_data:
+  uploads_data:

@@ -1,0 +1,347 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  GERENTE
+  FINANCEIRO
+  VISUALIZADOR
+}
+
+enum ObraStatus {
+  PLANEJAMENTO
+  EM_ANDAMENTO
+  PARALISADA
+  CONCLUIDA
+}
+
+enum FuncionarioStatus {
+  ATIVO
+  INATIVO
+  AFASTADO
+}
+
+enum FuncionarioTipo {
+  CLT
+  PJ
+  DIARIA
+  EMPREITEIRO
+}
+
+enum Periodicidade {
+  DIARIO
+  SEMANAL
+  QUINZENAL
+  MENSAL
+}
+
+enum MaquinarioStatus {
+  PROPRIO
+  LOCADO
+}
+
+enum TransacaoTipo {
+  ENTRADA
+  SAIDA
+}
+
+enum TransacaoStatus {
+  PENDENTE
+  PAGO
+  CANCELADO
+}
+
+enum AlertaTipo {
+  VENCIMENTO_LOCACAO
+  PAGAMENTO_FUNCIONARIO
+  PRAZO_OBRA
+  DESPESA_PENDENTE
+}
+
+model Organization {
+  id        String   @id @default(cuid())
+  nome      String
+  slug      String   @unique
+  ativo     Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users      User[]
+  obras      Obra[]
+  funcionarios  Funcionario[]
+  maquinarios   Maquinario[]
+  transacoes    TransacaoFinanceira[]
+  categorias    CategoriaFinanceira[]
+  alertas       Alerta[]
+  documentos    Documento[]
+  pagamentos    Pagamento[]
+  cargos        Cargo[]
+  orcamentos    Orcamento[]
+
+  @@index([slug])
+}
+
+model Cargo {
+  id             String       @id @default(cuid())
+  nome           String
+  descricao      String?
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@unique([nome, organizationId])
+  @@index([organizationId])
+}
+
+model User {
+  id             String        @id @default(cuid())
+  nome           String
+  email          String        @unique
+  senha          String
+  perfil         UserRole      @default(VISUALIZADOR)
+  ativo          Boolean       @default(true)
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  obras      Obra[]
+  documentos Documento[]
+  transacoes TransacaoFinanceira[]
+
+  @@index([email])
+  @@index([organizationId])
+}
+
+model Obra {
+  id                String       @id @default(cuid())
+  nome              String
+  endereco          String
+  bairro            String?
+  cidade            String
+  estado            String
+  cep               String
+  responsavel       String
+  cliente           String
+  dataInicio        DateTime
+  dataPrevisaoFim   DateTime
+  status            ObraStatus   @default(PLANEJAMENTO)
+  descricao         String?
+  observacoes       String?
+  fotoPath          String?
+  orcamentoPrevisto Decimal?     @db.Decimal(15, 2)
+  organizationId    String
+  organization      Organization @relation(fields: [organizationId], references: [id])
+  userId            String
+  user              User         @relation(fields: [userId], references: [id])
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  funcionarios Funcionario[]
+  maquinarios  Maquinario[]
+  transacoes   TransacaoFinanceira[]
+  categorias   CategoriaFinanceira[]
+  alertas      Alerta[]
+  documentos   Documento[]
+  pagamentos   Pagamento[]
+
+  @@index([status])
+  @@index([userId])
+  @@index([organizationId])
+  @@index([dataInicio])
+}
+
+model Funcionario {
+  id             String            @id @default(cuid())
+  nome           String
+  cpf            String
+  cargo          String
+  tipo           FuncionarioTipo
+  valorPagamento Decimal           @db.Decimal(10, 2)
+  periodicidade  Periodicidade
+  dadosBancarios String?
+  contato        String?
+  dataAdmissao   DateTime
+  status         FuncionarioStatus @default(ATIVO)
+  fotoPath       String?
+  organizationId String
+  organization   Organization      @relation(fields: [organizationId], references: [id])
+  obraId         String
+  obra           Obra              @relation(fields: [obraId], references: [id], onDelete: Cascade)
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  pagamentos Pagamento[]
+
+  @@index([obraId])
+  @@index([organizationId])
+  @@index([status])
+  @@index([cpf])
+}
+
+model Pagamento {
+  id              String       @id @default(cuid())
+  funcionarioId   String
+  funcionario     Funcionario  @relation(fields: [funcionarioId], references: [id], onDelete: Cascade)
+  obraId          String
+  obra            Obra         @relation(fields: [obraId], references: [id], onDelete: Cascade)
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id])
+  valor           Decimal      @db.Decimal(10, 2)
+  dataPagamento   DateTime
+  referencia      String?
+  comprovantePath String?
+  createdAt       DateTime     @default(now())
+
+  @@index([funcionarioId])
+  @@index([obraId])
+  @@index([organizationId])
+  @@index([dataPagamento])
+}
+
+model Maquinario {
+  id                    String           @id @default(cuid())
+  nome                  String
+  tipo                  String
+  marca                 String?
+  modelo                String?
+  numeroSerie           String?
+  status                MaquinarioStatus
+  locadoraNome          String?
+  locadoraContato       String?
+  dataInicioLocacao     DateTime?
+  dataVencimentoLocacao DateTime?
+  valorLocacao          Decimal?         @db.Decimal(10, 2)
+  periodicidadeLocacao  Periodicidade?
+  contratoPath          String?
+  observacoes           String?
+  fotoPath              String?
+  organizationId        String
+  organization          Organization     @relation(fields: [organizationId], references: [id])
+  obraId                String
+  obra                  Obra             @relation(fields: [obraId], references: [id], onDelete: Cascade)
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @updatedAt
+
+  @@index([obraId])
+  @@index([organizationId])
+  @@index([status])
+  @@index([dataVencimentoLocacao])
+}
+
+model TransacaoFinanceira {
+  id             String          @id @default(cuid())
+  tipo           TransacaoTipo
+  valor          Decimal         @db.Decimal(15, 2)
+  data           DateTime
+  categoria      String
+  subcategoria   String?
+  descricao      String
+  fornecedor     String?
+  formaPagamento String?
+  status         TransacaoStatus @default(PENDENTE)
+  arquivoPath    String?
+  organizationId String
+  organization   Organization    @relation(fields: [organizationId], references: [id])
+  obraId         String
+  obra           Obra            @relation(fields: [obraId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User            @relation(fields: [userId], references: [id])
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  @@index([obraId])
+  @@index([organizationId])
+  @@index([tipo])
+  @@index([status])
+  @@index([data])
+}
+
+model CategoriaFinanceira {
+  id             String        @id @default(cuid())
+  nome           String
+  tipo           TransacaoTipo
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  obraId         String?
+  obra           Obra?         @relation(fields: [obraId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([obraId])
+}
+
+model Alerta {
+  id             String       @id @default(cuid())
+  tipo           AlertaTipo
+  mensagem       String
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  obraId         String
+  obra           Obra         @relation(fields: [obraId], references: [id], onDelete: Cascade)
+  entidadeId     String?
+  entidadeTipo   String?
+  lido           Boolean      @default(false)
+  dataExpiracao  DateTime?
+  createdAt      DateTime     @default(now())
+
+  @@index([obraId])
+  @@index([organizationId])
+  @@index([lido])
+  @@index([tipo])
+}
+
+model Orcamento {
+  id             String       @id @default(cuid())
+  titulo         String
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  empresa        String?
+  cnpj           String?
+  responsavel    String?
+  contato        String?
+  cliente        String?
+  cnpjCliente    String?
+  nomeObra       String?
+  area           Float        @default(0)
+  endereco       String?
+  dataOrcamento  DateTime?
+  validade       Int          @default(15)
+  margem         Float        @default(0)
+  desconto       Float        @default(0)
+  obs            String?
+  rows           Json         @default("[]")
+  status         String       @default("RASCUNHO")
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@index([organizationId])
+}
+
+model Documento {
+  id             String       @id @default(cuid())
+  nome           String
+  tipo           String
+  path           String
+  tamanho        Int
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  obraId         String
+  obra           Obra         @relation(fields: [obraId], references: [id], onDelete: Cascade)
+  entidadeId     String?
+  entidadeTipo   String?
+  uploadedBy     String
+  user           User         @relation(fields: [uploadedBy], references: [id])
+  createdAt      DateTime     @default(now())
+
+  @@index([obraId])
+  @@index([organizationId])
+  @@index([entidadeId])
+}
