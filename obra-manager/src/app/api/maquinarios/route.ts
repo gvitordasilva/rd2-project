@@ -4,6 +4,7 @@ import { requireAuth } from "@/lib/rbac";
 import { maquinarioSchema } from "@/lib/validations";
 import { successResponse, errorResponse } from "@/lib/api-response";
 import { saveUploadedFile } from "@/lib/upload";
+import { logAudit } from "@/lib/audit";
 
 export async function GET(req: NextRequest) {
   const auth = await requireAuth(req, "maquinario:read");
@@ -16,7 +17,7 @@ export async function GET(req: NextRequest) {
   const status = searchParams.get("status");
   const search = searchParams.get("search");
 
-  const where: Record<string, unknown> = {};
+  const where: Record<string, unknown> = { deletedAt: null };
   if (auth.user.organizationId) where.organizationId = auth.user.organizationId;
   if (obraId) where.obraId = obraId;
   if (status) where.status = status;
@@ -97,6 +98,8 @@ export async function POST(req: NextRequest) {
         organizationId: auth.user.organizationId,
       },
     });
+
+    await logAudit({ user: auth.user, req, acao: "CREATE", entidade: "Maquinario", entidadeId: maquinario.id, dadosDepois: maquinario });
 
     return successResponse(maquinario, 201);
   } catch (err) {

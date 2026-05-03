@@ -4,6 +4,8 @@ import { requireAuth } from "@/lib/rbac";
 import { obraSchema } from "@/lib/validations";
 import { successResponse, errorResponse, notFoundResponse } from "@/lib/api-response";
 import { saveUploadedFile } from "@/lib/upload";
+import { logAudit } from "@/lib/audit";
+import { toMoney, subMoney } from "@/lib/money";
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const auth = await requireAuth(req, "obras:read");
@@ -13,11 +15,11 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
   const orgWhere = auth.user.organizationId ? { organizationId: auth.user.organizationId } : {};
 
   const obra = await prisma.obra.findFirst({
-    where: { id, ...orgWhere },
+    where: { id, deletedAt: null, ...orgWhere },
     include: {
       _count: { select: { funcionarios: true, maquinarios: true, transacoes: true, documentos: true } },
-      funcionarios: { where: { status: "ATIVO" }, take: 5, orderBy: { nome: "asc" } },
-      maquinarios: { take: 5, orderBy: { nome: "asc" } },
+      funcionarios: { where: { deletedAt: null }, orderBy: { nome: "asc" } },
+      maquinarios: { where: { deletedAt: null }, orderBy: { nome: "asc" } },
       alertas: { where: { lido: false }, orderBy: { createdAt: "desc" }, take: 10 },
     },
   });
@@ -35,11 +37,14 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     }),
   ]);
 
+  const totalEntradas = toMoney(entradas._sum.valor);
+  const totalSaidas = toMoney(saidas._sum.valor);
+
   return successResponse({
     ...obra,
-    totalEntradas: Number(entradas._sum.valor || 0),
-    totalSaidas: Number(saidas._sum.valor || 0),
-    saldoFinanceiro: Number(entradas._sum.valor || 0) - Number(saidas._sum.valor || 0),
+    totalEntradas,
+    totalSaidas,
+    saldoFinanceiro: subMoney(totalEntradas, totalSaidas),
   });
 }
 
@@ -49,7 +54,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 
   const { id } = await params;
   const orgWhere = auth.user.organizationId ? { organizationId: auth.user.organizationId } : {};
-  const existing = await prisma.obra.findFirst({ where: { id, ...orgWhere } });
+  const existing = await prisma.obra.findFirst({ where: { id, deletedAt: null, ...orgWhere } });
   if (!existing) return notFoundResponse("Obra não encontrada");
 
   try {
@@ -87,6 +92,8 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
       },
     });
 
+    await logAudit({ user: auth.user, req, acao: "UPDATE", entidade: "Obra", entidadeId: id, dadosAntes: existing, dadosDepois: obra });
+
     return successResponse(obra);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Erro interno";
@@ -100,9 +107,19 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
 
   const { id } = await params;
   const orgWhere = auth.user.organizationId ? { organizationId: auth.user.organizationId } : {};
-  const existing = await prisma.obra.findFirst({ where: { id, ...orgWhere } });
+  const existing = await prisma.obra.findFirst({ where: { id, deletedAt: null, ...orgWhere } });
   if (!existing) return notFoundResponse("Obra não encontrada");
 
-  await prisma.obra.delete({ where: { id } });
+  const now = new Date();
+
+  // Soft delete em cascata: obra + funcionários + maquinários vinculados
+  await prisma.$transaction([
+    prisma.obra.update({ where: { id }, data: { deletedAt: now } }),
+    prisma.funcionario.updateMany({ where: { obraId: id, deletedAt: null }, data: { deletedAt: now } }),
+    prisma.maquinario.updateMany({ where: { obraId: id, deletedAt: null }, data: { deletedAt: now } }),
+  ]);
+
+  await logAudit({ user: auth.user, req, acao: "DELETE", entidade: "Obra", entidadeId: id, dadosAntes: existing });
+
   return successResponse({ deleted: true });
 }

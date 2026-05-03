@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import {
   Building2, MapPin, Calendar, Users, Wrench, DollarSign, Edit, Trash2,
-  TrendingUp, TrendingDown, AlertTriangle, Loader2
+  TrendingUp, TrendingDown, AlertTriangle, Loader2, Plus
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,36 @@ import { useToast } from "@/components/ui/toast";
 import { ObraFormDialog } from "@/components/forms/obra-form";
 import { formatCurrency, formatDate, STATUS_OBRA_LABELS, STATUS_OBRA_COLORS } from "@/lib/utils";
 import { differenceInDays } from "date-fns";
+
+interface Funcionario {
+  id: string;
+  nome: string;
+  cargo: string;
+  tipo: string;
+  status: string;
+  valorPagamento: number;
+  periodicidade: string;
+  contato: string | null;
+  dataAdmissao: string;
+  cpf: string;
+}
+
+interface Maquinario {
+  id: string;
+  nome: string;
+  tipo: string;
+  marca: string | null;
+  modelo: string | null;
+  numeroSerie: string | null;
+  status: string;
+  locadoraNome: string | null;
+  locadoraContato: string | null;
+  dataInicioLocacao: string | null;
+  dataVencimentoLocacao: string | null;
+  valorLocacao: number | null;
+  periodicidadeLocacao: string | null;
+  observacoes: string | null;
+}
 
 interface ObraDetalhe {
   id: string;
@@ -36,8 +66,8 @@ interface ObraDetalhe {
   totalSaidas: number;
   saldoFinanceiro: number;
   _count: { funcionarios: number; maquinarios: number; transacoes: number; documentos: number };
-  funcionarios: { id: string; nome: string; cargo: string; status: string }[];
-  maquinarios: { id: string; nome: string; tipo: string; status: string; dataVencimentoLocacao: string | null }[];
+  funcionarios: Funcionario[];
+  maquinarios: Maquinario[];
   alertas: { id: string; tipo: string; mensagem: string; createdAt: string }[];
 }
 
@@ -196,61 +226,181 @@ export default function ObraDetalhePage() {
         </TabsContent>
 
         <TabsContent value="funcionarios">
-          <Card>
-            <CardContent className="p-4 space-y-2">
-              {obra.funcionarios.length === 0 ? (
-                <p className="text-center py-8 text-[var(--muted-foreground)]">Nenhum funcionário ativo</p>
-              ) : (
-                obra.funcionarios.map((f) => (
-                  <div key={f.id} className="flex items-center justify-between py-2 border-b border-[var(--border)] last:border-0">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-[var(--primary)] flex items-center justify-center text-white text-xs font-bold">{f.nome.charAt(0)}</div>
-                      <div>
-                        <p className="text-sm font-medium">{f.nome}</p>
-                        <p className="text-xs text-[var(--muted-foreground)]">{f.cargo}</p>
+          {obra.funcionarios.length === 0 ? (
+            <Card>
+              <CardContent className="py-12 text-center">
+                <Users className="w-10 h-10 mx-auto text-[var(--muted-foreground)] mb-3" />
+                <p className="text-[var(--muted-foreground)] mb-4">Nenhum funcionário cadastrado nesta obra</p>
+                <a href="/funcionarios">
+                  <Button size="sm"><Plus className="w-4 h-4" /> Cadastrar funcionário</Button>
+                </a>
+              </CardContent>
+            </Card>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              {obra.funcionarios.map((f) => {
+                const TIPO_COLORS: Record<string, string> = {
+                  CLT: "bg-blue-100 text-blue-700",
+                  PJ: "bg-purple-100 text-purple-700",
+                  DIARIA: "bg-amber-100 text-amber-700",
+                  EMPREITEIRO: "bg-orange-100 text-orange-700",
+                };
+                const PERIODO_LABEL: Record<string, string> = {
+                  DIARIO: "dia", SEMANAL: "sem.", QUINZENAL: "quin.", MENSAL: "mês",
+                };
+                return (
+                  <Card key={f.id} className={f.status !== "ATIVO" ? "opacity-60" : ""}>
+                    <CardContent className="p-4">
+                      <div className="flex items-start justify-between gap-3 mb-3">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-full bg-[var(--primary)] flex items-center justify-center text-white font-bold text-sm shrink-0">
+                            {f.nome.charAt(0).toUpperCase()}
+                          </div>
+                          <div>
+                            <p className="font-semibold text-[var(--foreground)]">{f.nome}</p>
+                            <p className="text-xs text-[var(--muted-foreground)]">{f.cargo}</p>
+                          </div>
+                        </div>
+                        <div className="flex gap-1.5 shrink-0 flex-wrap justify-end">
+                          <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${TIPO_COLORS[f.tipo] || "bg-slate-100 text-slate-600"}`}>
+                            {f.tipo}
+                          </span>
+                          <Badge variant={f.status === "ATIVO" ? "success" : f.status === "AFASTADO" ? "outline" : "secondary"}>
+                            {f.status}
+                          </Badge>
+                        </div>
                       </div>
-                    </div>
-                    <Badge variant={f.status === "ATIVO" ? "success" : "secondary"}>{f.status}</Badge>
-                  </div>
-                ))
-              )}
-            </CardContent>
-          </Card>
+
+                      <div className="border-t border-[var(--border)] pt-3 grid grid-cols-2 gap-y-2 gap-x-4 text-xs">
+                        <div>
+                          <p className="text-[var(--muted-foreground)] mb-0.5">Remuneração</p>
+                          <p className="font-semibold text-[var(--foreground)]">
+                            {formatCurrency(f.valorPagamento)}
+                            <span className="text-[var(--muted-foreground)] font-normal">/{PERIODO_LABEL[f.periodicidade] || f.periodicidade}</span>
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-[var(--muted-foreground)] mb-0.5">Admissão</p>
+                          <p className="font-medium text-[var(--foreground)]">{formatDate(f.dataAdmissao)}</p>
+                        </div>
+                        {f.contato && (
+                          <div>
+                            <p className="text-[var(--muted-foreground)] mb-0.5">Contato</p>
+                            <p className="font-medium text-[var(--foreground)]">{f.contato}</p>
+                          </div>
+                        )}
+                        <div>
+                          <p className="text-[var(--muted-foreground)] mb-0.5">CPF</p>
+                          <p className="font-medium text-[var(--foreground)] font-mono">
+                            {f.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "***.$2.***-**")}
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
         </TabsContent>
 
         <TabsContent value="maquinarios">
-          <Card>
-            <CardContent className="p-4 space-y-2">
-              {obra.maquinarios.length === 0 ? (
-                <p className="text-center py-8 text-[var(--muted-foreground)]">Nenhum equipamento</p>
-              ) : (
-                obra.maquinarios.map((m) => {
-                  const diasVenc = m.dataVencimentoLocacao ? differenceInDays(new Date(m.dataVencimentoLocacao), new Date()) : null;
-                  return (
-                    <div key={m.id} className="flex items-center justify-between py-2 border-b border-[var(--border)] last:border-0">
-                      <div className="flex items-center gap-3">
-                        <Wrench className="w-5 h-5 text-[var(--muted-foreground)]" />
-                        <div>
-                          <p className="text-sm font-medium">{m.nome}</p>
-                          <p className="text-xs text-[var(--muted-foreground)]">{m.tipo}</p>
+          {obra.maquinarios.length === 0 ? (
+            <Card>
+              <CardContent className="py-12 text-center">
+                <Wrench className="w-10 h-10 mx-auto text-[var(--muted-foreground)] mb-3" />
+                <p className="text-[var(--muted-foreground)] mb-4">Nenhum equipamento cadastrado nesta obra</p>
+                <a href="/maquinarios">
+                  <Button size="sm"><Plus className="w-4 h-4" /> Cadastrar equipamento</Button>
+                </a>
+              </CardContent>
+            </Card>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              {obra.maquinarios.map((m) => {
+                const diasVenc = m.dataVencimentoLocacao
+                  ? differenceInDays(new Date(m.dataVencimentoLocacao), new Date())
+                  : null;
+                const vencColor = diasVenc === null ? "" : diasVenc < 0 ? "text-red-600" : diasVenc <= 7 ? "text-orange-500" : "text-emerald-600";
+                const vencBg = diasVenc === null ? "" : diasVenc < 0 ? "bg-red-50 border-red-200" : diasVenc <= 7 ? "bg-amber-50 border-amber-200" : "bg-emerald-50 border-emerald-200";
+                const PERIODO_LABEL: Record<string, string> = {
+                  DIARIO: "dia", SEMANAL: "semana", QUINZENAL: "quinzena", MENSAL: "mês",
+                };
+                return (
+                  <Card key={m.id}>
+                    <CardContent className="p-4">
+                      <div className="flex items-start justify-between gap-3 mb-3">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center shrink-0">
+                            <Wrench className="w-5 h-5 text-slate-600" />
+                          </div>
+                          <div>
+                            <p className="font-semibold text-[var(--foreground)]">{m.nome}</p>
+                            <p className="text-xs text-[var(--muted-foreground)]">
+                              {m.tipo}{m.marca ? ` • ${m.marca}` : ""}{m.modelo ? ` ${m.modelo}` : ""}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        {diasVenc !== null && (
-                          <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${diasVenc < 3 ? "bg-red-100 text-red-700" : diasVenc < 7 ? "bg-yellow-100 text-yellow-700" : "bg-green-100 text-green-700"}`}>
-                            {diasVenc < 0 ? "Vencido" : `Vence em ${diasVenc}d`}
-                          </span>
-                        )}
-                        <Badge variant={m.status === "PROPRIO" ? "secondary" : "info"}>
+                        <Badge variant={m.status === "PROPRIO" ? "secondary" : "info"} className="shrink-0">
                           {m.status === "PROPRIO" ? "Próprio" : "Locado"}
                         </Badge>
                       </div>
-                    </div>
-                  );
-                })
-              )}
-            </CardContent>
-          </Card>
+
+                      <div className="border-t border-[var(--border)] pt-3 space-y-2 text-xs">
+                        {m.status === "LOCADO" && (
+                          <>
+                            {m.locadoraNome && (
+                              <div className="flex items-center justify-between">
+                                <span className="text-[var(--muted-foreground)]">Locadora</span>
+                                <span className="font-medium text-[var(--foreground)]">{m.locadoraNome}</span>
+                              </div>
+                            )}
+                            {m.locadoraContato && (
+                              <div className="flex items-center justify-between">
+                                <span className="text-[var(--muted-foreground)]">Contato locadora</span>
+                                <span className="font-medium text-[var(--foreground)]">{m.locadoraContato}</span>
+                              </div>
+                            )}
+                            {m.valorLocacao && (
+                              <div className="flex items-center justify-between">
+                                <span className="text-[var(--muted-foreground)]">Valor locação</span>
+                                <span className="font-semibold text-[var(--foreground)]">
+                                  {formatCurrency(m.valorLocacao)}/{m.periodicidadeLocacao ? PERIODO_LABEL[m.periodicidadeLocacao] || m.periodicidadeLocacao : "—"}
+                                </span>
+                              </div>
+                            )}
+                            {(m.dataInicioLocacao || m.dataVencimentoLocacao) && (
+                              <div className={`flex items-center justify-between rounded-lg border px-2.5 py-1.5 ${vencBg}`}>
+                                <span className="text-[var(--muted-foreground)]">
+                                  {m.dataInicioLocacao ? formatDate(m.dataInicioLocacao) : "—"}
+                                  {" → "}
+                                  {m.dataVencimentoLocacao ? formatDate(m.dataVencimentoLocacao) : "—"}
+                                </span>
+                                {diasVenc !== null && (
+                                  <span className={`font-semibold ${vencColor}`}>
+                                    {diasVenc < 0 ? `Vencido há ${Math.abs(diasVenc)}d` : diasVenc === 0 ? "Vence hoje" : `Vence em ${diasVenc}d`}
+                                  </span>
+                                )}
+                              </div>
+                            )}
+                          </>
+                        )}
+                        {m.numeroSerie && (
+                          <div className="flex items-center justify-between">
+                            <span className="text-[var(--muted-foreground)]">N° Série</span>
+                            <span className="font-mono text-[var(--foreground)]">{m.numeroSerie}</span>
+                          </div>
+                        )}
+                        {m.observacoes && (
+                          <p className="text-[var(--muted-foreground)] italic pt-1 border-t border-[var(--border)]">{m.observacoes}</p>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
         </TabsContent>
 
         <TabsContent value="alertas">

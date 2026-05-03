@@ -4,6 +4,8 @@ import { requireAuth } from "@/lib/rbac";
 import { obraSchema } from "@/lib/validations";
 import { successResponse, errorResponse } from "@/lib/api-response";
 import { saveUploadedFile } from "@/lib/upload";
+import { logAudit } from "@/lib/audit";
+import { subMoney, toMoney } from "@/lib/money";
 
 export async function GET(req: NextRequest) {
   const auth = await requireAuth(req, "obras:read");
@@ -15,7 +17,7 @@ export async function GET(req: NextRequest) {
   const status = searchParams.get("status");
   const search = searchParams.get("search");
 
-  const where: Record<string, unknown> = {};
+  const where: Record<string, unknown> = { deletedAt: null };
   if (auth.user.organizationId) where.organizationId = auth.user.organizationId;
   if (status) where.status = status;
   if (search) {
@@ -39,23 +41,31 @@ export async function GET(req: NextRequest) {
     prisma.obra.count({ where }),
   ]);
 
-  const obrasWithStats = await Promise.all(
-    obras.map(async (obra) => {
-      const [entradas, saidas] = await Promise.all([
-        prisma.transacaoFinanceira.aggregate({
-          where: { obraId: obra.id, tipo: "ENTRADA", status: { not: "CANCELADO" } },
-          _sum: { valor: true },
-        }),
-        prisma.transacaoFinanceira.aggregate({
-          where: { obraId: obra.id, tipo: "SAIDA", status: { not: "CANCELADO" } },
-          _sum: { valor: true },
-        }),
-      ]);
-      const totalEntradas = Number(entradas._sum.valor || 0);
-      const totalSaidas = Number(saidas._sum.valor || 0);
-      return { ...obra, totalEntradas, totalSaidas, saldoFinanceiro: totalEntradas - totalSaidas };
-    })
-  );
+  // Fix N+1: busca totais financeiros de todas as obras em 2 queries (groupBy)
+  const obraIds = obras.map((o) => o.id);
+  const orgFilter = auth.user.organizationId ? { organizationId: auth.user.organizationId } : {};
+
+  const [entradasGroup, saidasGroup] = await Promise.all([
+    prisma.transacaoFinanceira.groupBy({
+      by: ["obraId"],
+      where: { obraId: { in: obraIds }, ...orgFilter, tipo: "ENTRADA", status: { not: "CANCELADO" } },
+      _sum: { valor: true },
+    }),
+    prisma.transacaoFinanceira.groupBy({
+      by: ["obraId"],
+      where: { obraId: { in: obraIds }, ...orgFilter, tipo: "SAIDA", status: { not: "CANCELADO" } },
+      _sum: { valor: true },
+    }),
+  ]);
+
+  const entMap = new Map(entradasGroup.map((e) => [e.obraId, e._sum.valor]));
+  const saiMap = new Map(saidasGroup.map((s) => [s.obraId, s._sum.valor]));
+
+  const obrasWithStats = obras.map((obra) => {
+    const ent = toMoney(entMap.get(obra.id));
+    const sai = toMoney(saiMap.get(obra.id));
+    return { ...obra, totalEntradas: ent, totalSaidas: sai, saldoFinanceiro: subMoney(ent, sai) };
+  });
 
   return successResponse({
     data: obrasWithStats,
@@ -109,6 +119,8 @@ export async function POST(req: NextRequest) {
         organizationId: auth.user.organizationId,
       },
     });
+
+    await logAudit({ user: auth.user, req, acao: "CREATE", entidade: "Obra", entidadeId: obra.id, dadosDepois: obra });
 
     return successResponse(obra, 201);
   } catch (err) {

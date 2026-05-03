@@ -8,6 +8,8 @@ export async function GET(req: NextRequest) {
   if (auth instanceof Response) return auth;
 
   const { searchParams } = new URL(req.url);
+  const page = Number(searchParams.get("page") || 1);
+  const pageSize = Math.min(Number(searchParams.get("pageSize") || 20), 100);
   const obraId = searchParams.get("obraId");
   const lido = searchParams.get("lido");
   const tipo = searchParams.get("tipo");
@@ -18,19 +20,29 @@ export async function GET(req: NextRequest) {
   if (lido !== null && lido !== undefined) where.lido = lido === "true";
   if (tipo) where.tipo = tipo;
 
-  const alertas = await prisma.alerta.findMany({
-    where,
-    orderBy: { createdAt: "desc" },
-    take: 50,
-    include: { obra: { select: { nome: true } } },
-  });
+  const [alertas, total, totalNaoLidos] = await Promise.all([
+    prisma.alerta.findMany({
+      where,
+      orderBy: { createdAt: "desc" },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      include: { obra: { select: { nome: true } } },
+    }),
+    prisma.alerta.count({ where }),
+    prisma.alerta.count({
+      where: {
+        lido: false,
+        ...(auth.user.organizationId ? { organizationId: auth.user.organizationId } : {}),
+      },
+    }),
+  ]);
 
-  const totalNaoLidos = await prisma.alerta.count({
-    where: {
-      lido: false,
-      ...(auth.user.organizationId ? { organizationId: auth.user.organizationId } : {}),
-    },
+  return successResponse({
+    data: alertas,
+    total,
+    page,
+    pageSize,
+    totalPages: Math.ceil(total / pageSize),
+    totalNaoLidos,
   });
-
-  return successResponse({ data: alertas, totalNaoLidos });
 }

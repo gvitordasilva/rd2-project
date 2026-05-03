@@ -8,25 +8,52 @@ export async function GET(req: NextRequest) {
   if (auth instanceof Response) return auth;
   if (!auth.user.organizationId) return errorResponse("Sem organização", 403);
 
-  const orcamentos = await prisma.orcamento.findMany({
-    where: { organizationId: auth.user.organizationId },
-    orderBy: { updatedAt: "desc" },
-    select: {
-      id: true,
-      titulo: true,
-      cliente: true,
-      nomeObra: true,
-      area: true,
-      status: true,
-      margem: true,
-      desconto: true,
-      rows: true,
-      createdAt: true,
-      updatedAt: true,
-    },
-  });
+  const { searchParams } = new URL(req.url);
+  const page = Number(searchParams.get("page") || 1);
+  const pageSize = Math.min(Number(searchParams.get("pageSize") || 20), 100);
+  const status = searchParams.get("status");
+  const search = searchParams.get("search");
 
-  return successResponse(orcamentos);
+  const where: Record<string, unknown> = { organizationId: auth.user.organizationId };
+  if (status) where.status = status;
+  if (search) {
+    where.OR = [
+      { titulo: { contains: search, mode: "insensitive" } },
+      { cliente: { contains: search, mode: "insensitive" } },
+      { nomeObra: { contains: search, mode: "insensitive" } },
+    ];
+  }
+
+  const [orcamentos, total] = await Promise.all([
+    prisma.orcamento.findMany({
+      where,
+      orderBy: { updatedAt: "desc" },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      select: {
+        id: true,
+        titulo: true,
+        cliente: true,
+        nomeObra: true,
+        area: true,
+        status: true,
+        margem: true,
+        desconto: true,
+        rows: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    }),
+    prisma.orcamento.count({ where }),
+  ]);
+
+  return successResponse({
+    data: orcamentos,
+    total,
+    page,
+    pageSize,
+    totalPages: Math.ceil(total / pageSize),
+  });
 }
 
 export async function POST(req: NextRequest) {

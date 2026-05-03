@@ -6,10 +6,11 @@ import { successResponse, errorResponse } from "@/lib/api-response";
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const auth = await requireAuth(req);
   if (auth instanceof Response) return auth;
+  if (!auth.user.organizationId) return errorResponse("Sem organização", 403);
   const { id } = await params;
 
   const orc = await prisma.orcamento.findFirst({
-    where: { id, organizationId: auth.user.organizationId ?? undefined },
+    where: { id, organizationId: auth.user.organizationId },
   });
   if (!orc) return errorResponse("Não encontrado", 404);
   return successResponse(orc);

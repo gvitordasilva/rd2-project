@@ -84,10 +84,10 @@ export function ObraFormDialog({ open, onClose, onSuccess, initialData }: ObraFo
         orcamentoPrevisto: data.orcamentoPrevisto ? Number(data.orcamentoPrevisto) : undefined,
       };
       if (isEditing) {
-        await apiFetch(`/api/obras/${initialData!.id}`, { method: "PUT", body: JSON.stringify(body) });
+        await apiFetch(`/api/obras/${initialData!.id}`, { method: "PUT", body });
         toast({ title: "Obra atualizada com sucesso!", variant: "success" });
       } else {
-        await apiFetch("/api/obras", { method: "POST", body: JSON.stringify(body) });
+        await apiFetch("/api/obras", { method: "POST", body });
         toast({ title: "Obra cadastrada com sucesso!", variant: "success" });
       }
       onSuccess();

@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useApi } from "@/hooks/use-api";
 import { useToast } from "@/components/ui/toast";
+import { TooltipIcon } from "@/components/ui/tooltip";
 
 const schema = z.object({
   nome: z.string().min(3),
@@ -42,6 +43,7 @@ export function FuncionarioFormDialog({ open, onClose, onSuccess, initialData }:
   const { apiFetch } = useApi();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [loadingData, setLoadingData] = useState(false);
   const [obras, setObras] = useState<Obra[]>([]);
   const [cargos, setCargos] = useState<Cargo[]>([]);
   const [cargoInput, setCargoInput] = useState("");
@@ -57,8 +59,10 @@ export function FuncionarioFormDialog({ open, onClose, onSuccess, initialData }:
 
   useEffect(() => {
     if (open) {
-      reset({ tipo: "CLT", periodicidade: "MENSAL", status: "ATIVO", ...initialData });
-      setCargoInput(initialData?.cargo || "");
+      const draft = !isEditing ? (() => { try { const r = localStorage.getItem("draft:funcionario"); return r ? JSON.parse(r) : {}; } catch { return {}; } })() : {};
+      reset({ tipo: "CLT", periodicidade: "MENSAL", status: "ATIVO", ...draft, ...initialData });
+      setCargoInput(initialData?.cargo || draft?.cargo || "");
+      setLoadingData(true);
       Promise.all([
         apiFetch<{ data: { data: Obra[] } }>("/api/obras", { params: { pageSize: 100 } }),
         apiFetch<{ data: Cargo[] }>("/api/cargos"),
@@ -67,7 +71,8 @@ export function FuncionarioFormDialog({ open, onClose, onSuccess, initialData }:
           setObras(obrasRes.data.data);
           setCargos(cargosRes.data);
         })
-        .catch(() => {});
+        .catch(() => {})
+        .finally(() => setLoadingData(false));
     }
   }, [open]);
 
@@ -81,6 +86,13 @@ export function FuncionarioFormDialog({ open, onClose, onSuccess, initialData }:
     setShowCargoDropdown(false);
   };
 
+  const saveDraft = (values: Partial<FormData>) => {
+    if (isEditing) return;
+    try { localStorage.setItem("draft:funcionario", JSON.stringify(values)); } catch {}
+  };
+
+  const clearDraft = () => { try { localStorage.removeItem("draft:funcionario"); } catch {} };
+
   const onSubmit = async (data: FormData) => {
     setLoading(true);
     try {
@@ -92,6 +104,7 @@ export function FuncionarioFormDialog({ open, onClose, onSuccess, initialData }:
         await apiFetch("/api/funcionarios", { method: "POST", body });
         toast({ title: "Funcionário cadastrado!", variant: "success" });
       }
+      clearDraft();
       onSuccess();
     } catch (err) {
       toast({ title: "Erro", description: (err as Error).message, variant: "error" });
@@ -110,7 +123,7 @@ export function FuncionarioFormDialog({ open, onClose, onSuccess, initialData }:
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-2 space-y-1.5">
               <Label>Nome *</Label>
-              <Input placeholder="Nome completo" {...register("nome")} />
+              <Input placeholder="Nome completo" {...register("nome")} onChange={(e) => { register("nome").onChange(e); saveDraft({ ...watch(), nome: e.target.value }); }} />
               {errors.nome && <p className="text-red-500 text-xs">Nome obrigatório</p>}
             </div>
             <div className="space-y-1.5">
@@ -171,8 +184,11 @@ export function FuncionarioFormDialog({ open, onClose, onSuccess, initialData }:
               </Select>
             </div>
             <div className="space-y-1.5">
-              <Label>Periodicidade *</Label>
-              <Select value={watch("periodicidade")} onValueChange={(v) => setValue("periodicidade", v as FormData["periodicidade"])}>
+              <div className="flex items-center gap-1.5">
+                <Label>Periodicidade *</Label>
+                <TooltipIcon text="Define a frequência de pagamento: Diário (por dia trabalhado), Semanal (por semana com presença), Quinzenal (a cada 15 dias), Mensal (valor fixo mensal)." />
+              </div>
+              <Select value={watch("periodicidade")} onValueChange={(v) => { setValue("periodicidade", v as FormData["periodicidade"]); saveDraft({ ...watch() }); }}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="DIARIO">Diário</SelectItem>
@@ -207,8 +223,10 @@ export function FuncionarioFormDialog({ open, onClose, onSuccess, initialData }:
             </div>
             <div className="col-span-2 space-y-1.5">
               <Label>Obra *</Label>
-              <Select value={watch("obraId")} onValueChange={(v) => setValue("obraId", v)}>
-                <SelectTrigger><SelectValue placeholder="Selecionar obra" /></SelectTrigger>
+              <Select value={watch("obraId")} onValueChange={(v) => { setValue("obraId", v); saveDraft({ ...watch() }); }} disabled={loadingData}>
+                <SelectTrigger>
+                  {loadingData ? <span className="text-[var(--muted-foreground)] text-sm">Carregando obras...</span> : <SelectValue placeholder="Selecionar obra" />}
+                </SelectTrigger>
                 <SelectContent>
                   {obras.map((o) => <SelectItem key={o.id} value={o.id}>{o.nome}</SelectItem>)}
                 </SelectContent>
@@ -221,7 +239,7 @@ export function FuncionarioFormDialog({ open, onClose, onSuccess, initialData }:
             </div>
           </div>
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={onClose} disabled={loading}>Cancelar</Button>
+            <Button type="button" variant="outline" onClick={() => { clearDraft(); onClose(); }} disabled={loading}>Cancelar</Button>
             <Button type="submit" disabled={loading}>
               {loading && <Loader2 className="w-4 h-4 animate-spin" />}
               {isEditing ? "Salvar" : "Cadastrar"}

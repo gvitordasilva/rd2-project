@@ -4,6 +4,7 @@ import { requireAuth } from "@/lib/rbac";
 import { maquinarioSchema } from "@/lib/validations";
 import { successResponse, errorResponse, notFoundResponse } from "@/lib/api-response";
 import { saveUploadedFile } from "@/lib/upload";
+import { logAudit } from "@/lib/audit";
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const auth = await requireAuth(req, "maquinario:read");
@@ -13,7 +14,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
   const orgWhere = auth.user.organizationId ? { organizationId: auth.user.organizationId } : {};
 
   const maquinario = await prisma.maquinario.findFirst({
-    where: { id, ...orgWhere },
+    where: { id, deletedAt: null, ...orgWhere },
     include: { obra: { select: { id: true, nome: true } } },
   });
 
@@ -27,7 +28,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 
   const { id } = await params;
   const orgWhere = auth.user.organizationId ? { organizationId: auth.user.organizationId } : {};
-  const existing = await prisma.maquinario.findFirst({ where: { id, ...orgWhere } });
+  const existing = await prisma.maquinario.findFirst({ where: { id, deletedAt: null, ...orgWhere } });
   if (!existing) return notFoundResponse("Maquinário não encontrado");
 
   try {
@@ -72,6 +73,8 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
       },
     });
 
+    await logAudit({ user: auth.user, req, acao: "UPDATE", entidade: "Maquinario", entidadeId: id, dadosAntes: existing, dadosDepois: maquinario });
+
     return successResponse(maquinario);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Erro interno";
@@ -85,9 +88,12 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
 
   const { id } = await params;
   const orgWhere = auth.user.organizationId ? { organizationId: auth.user.organizationId } : {};
-  const existing = await prisma.maquinario.findFirst({ where: { id, ...orgWhere } });
+  const existing = await prisma.maquinario.findFirst({ where: { id, deletedAt: null, ...orgWhere } });
   if (!existing) return notFoundResponse("Maquinário não encontrado");
 
-  await prisma.maquinario.delete({ where: { id } });
+  await prisma.maquinario.update({ where: { id }, data: { deletedAt: new Date() } });
+
+  await logAudit({ user: auth.user, req, acao: "DELETE", entidade: "Maquinario", entidadeId: id, dadosAntes: existing });
+
   return successResponse({ deleted: true });
 }

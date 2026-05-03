@@ -11,9 +11,12 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useApi } from "@/hooks/use-api";
 import { useToast } from "@/components/ui/toast";
+import { TooltipIcon } from "@/components/ui/tooltip";
 
-const CATEGORIAS_ENTRADA = ["Medição", "Adiantamento", "Bonificação", "Outros"];
-const CATEGORIAS_SAIDA = ["Material de Construção", "Mão de Obra", "Aluguel de Equipamento", "Serviço Terceirizado", "Transporte", "Alimentação", "EPI/Segurança", "Outros"];
+const CATEGORIAS_FALLBACK: Record<string, string[]> = {
+  ENTRADA: ["Aporte de Capital", "Recebimento de Cliente", "Financiamento Bancário", "Venda de Material", "Outros Recebimentos"],
+  SAIDA: ["Material de Construção", "Mão de Obra", "Aluguel de Equipamento", "Serviços Terceirizados", "Impostos e Taxas", "Alimentação", "Transporte e Combustível", "Ferramentas e EPI", "Administrativo", "Outros"],
+};
 
 const schema = z.object({
   tipo: z.enum(["ENTRADA", "SAIDA"]),
@@ -41,6 +44,7 @@ export function TransacaoFormDialog({ open, onClose, onSuccess, tipoDefault, ini
   const { apiFetch } = useApi();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [loadingObras, setLoadingObras] = useState(false);
   const [obras, setObras] = useState<{ id: string; nome: string }[]>([]);
   const isEditing = !!initialData?.id;
 
@@ -50,14 +54,23 @@ export function TransacaoFormDialog({ open, onClose, onSuccess, tipoDefault, ini
   });
 
   const tipoValue = watch("tipo");
-  const categorias = tipoValue === "ENTRADA" ? CATEGORIAS_ENTRADA : CATEGORIAS_SAIDA;
+  const [categorias, setCategorias] = useState<string[]>(CATEGORIAS_FALLBACK[tipoValue ?? "SAIDA"] ?? []);
+
+  useEffect(() => {
+    if (!tipoValue) return;
+    apiFetch<{ data: string[] }>(`/api/categorias?tipo=${tipoValue}`)
+      .then((res) => setCategorias(res.data))
+      .catch(() => setCategorias(CATEGORIAS_FALLBACK[tipoValue] ?? []));
+  }, [tipoValue]);
 
   useEffect(() => {
     if (open) {
       reset({ tipo: tipoDefault || "SAIDA", status: "PENDENTE", ...initialData });
+      setLoadingObras(true);
       apiFetch<{ data: { data: { id: string; nome: string }[] } }>("/api/obras", { params: { pageSize: 100 } })
         .then((res) => setObras(res.data.data))
-        .catch(() => {});
+        .catch(() => {})
+        .finally(() => setLoadingObras(false));
     }
   }, [open, tipoDefault]);
 
@@ -66,10 +79,10 @@ export function TransacaoFormDialog({ open, onClose, onSuccess, tipoDefault, ini
     try {
       const body = { ...data, valor: Number(data.valor) };
       if (isEditing) {
-        await apiFetch(`/api/financeiro/${initialData!.id}`, { method: "PUT", body: JSON.stringify(body) });
+        await apiFetch(`/api/financeiro/${initialData!.id}`, { method: "PUT", body });
         toast({ title: "Transação atualizada!", variant: "success" });
       } else {
-        await apiFetch("/api/financeiro", { method: "POST", body: JSON.stringify(body) });
+        await apiFetch("/api/financeiro", { method: "POST", body });
         toast({ title: "Transação registrada!", variant: "success" });
       }
       onSuccess();
@@ -139,13 +152,18 @@ export function TransacaoFormDialog({ open, onClose, onSuccess, tipoDefault, ini
               </div>
             )}
             <div className="col-span-2 space-y-1.5">
-              <Label>Forma de Pagamento</Label>
+              <div className="flex items-center gap-1.5">
+                <Label>Forma de Pagamento</Label>
+                <TooltipIcon text="Ex.: PIX, boleto, transferência, dinheiro, cheque. Usado para controle interno e relatórios." />
+              </div>
               <Input placeholder="PIX, boleto, dinheiro..." {...register("formaPagamento")} />
             </div>
             <div className="col-span-2 space-y-1.5">
               <Label>Obra *</Label>
-              <Select value={watch("obraId")} onValueChange={(v) => setValue("obraId", v)}>
-                <SelectTrigger><SelectValue placeholder="Selecionar obra" /></SelectTrigger>
+              <Select value={watch("obraId")} onValueChange={(v) => setValue("obraId", v)} disabled={loadingObras}>
+                <SelectTrigger>
+                  {loadingObras ? <span className="text-[var(--muted-foreground)] text-sm">Carregando obras...</span> : <SelectValue placeholder="Selecionar obra" />}
+                </SelectTrigger>
                 <SelectContent>
                   {obras.map((o) => <SelectItem key={o.id} value={o.id}>{o.nome}</SelectItem>)}
                 </SelectContent>

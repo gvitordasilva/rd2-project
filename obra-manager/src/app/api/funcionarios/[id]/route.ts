@@ -4,6 +4,7 @@ import { requireAuth } from "@/lib/rbac";
 import { funcionarioSchema } from "@/lib/validations";
 import { successResponse, errorResponse, notFoundResponse } from "@/lib/api-response";
 import { saveUploadedFile } from "@/lib/upload";
+import { logAudit } from "@/lib/audit";
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const auth = await requireAuth(req, "funcionarios:read");
@@ -13,7 +14,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
   const orgWhere = auth.user.organizationId ? { organizationId: auth.user.organizationId } : {};
 
   const funcionario = await prisma.funcionario.findFirst({
-    where: { id, ...orgWhere },
+    where: { id, deletedAt: null, ...orgWhere },
     include: {
       obra: { select: { id: true, nome: true } },
       pagamentos: { orderBy: { dataPagamento: "desc" }, take: 20 },
@@ -30,7 +31,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 
   const { id } = await params;
   const orgWhere = auth.user.organizationId ? { organizationId: auth.user.organizationId } : {};
-  const existing = await prisma.funcionario.findFirst({ where: { id, ...orgWhere } });
+  const existing = await prisma.funcionario.findFirst({ where: { id, deletedAt: null, ...orgWhere } });
   if (!existing) return notFoundResponse("Funcionário não encontrado");
 
   try {
@@ -63,8 +64,13 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
       data: { ...result.data, dataAdmissao: new Date(result.data.dataAdmissao), fotoPath },
     });
 
+    await logAudit({ user: auth.user, req, acao: "UPDATE", entidade: "Funcionario", entidadeId: id, dadosAntes: existing, dadosDepois: funcionario });
+
     return successResponse(funcionario);
   } catch (err) {
+    if ((err as { code?: string }).code === "P2002") {
+      return errorResponse("CPF já cadastrado nesta organização", 409);
+    }
     const message = err instanceof Error ? err.message : "Erro interno";
     return errorResponse(message, 500);
   }
@@ -76,9 +82,12 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
 
   const { id } = await params;
   const orgWhere = auth.user.organizationId ? { organizationId: auth.user.organizationId } : {};
-  const existing = await prisma.funcionario.findFirst({ where: { id, ...orgWhere } });
+  const existing = await prisma.funcionario.findFirst({ where: { id, deletedAt: null, ...orgWhere } });
   if (!existing) return notFoundResponse("Funcionário não encontrado");
 
-  await prisma.funcionario.delete({ where: { id } });
+  await prisma.funcionario.update({ where: { id }, data: { deletedAt: new Date() } });
+
+  await logAudit({ user: auth.user, req, acao: "DELETE", entidade: "Funcionario", entidadeId: id, dadosAntes: existing });
+
   return successResponse({ deleted: true });
 }

@@ -103,60 +103,98 @@ export default function FuncionariosPage() {
           <Button className="mt-4" onClick={() => setShowForm(true)}><Plus className="w-4 h-4" /> Cadastrar funcionário</Button>
         </div>
       ) : (
-        <Card>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="border-b border-[var(--border)]">
-                <tr className="text-xs text-[var(--muted-foreground)]">
-                  <th className="px-4 py-3 text-left font-medium">Funcionário</th>
-                  <th className="px-4 py-3 text-left font-medium">Tipo</th>
-                  <th className="px-4 py-3 text-left font-medium">Remuneração</th>
-                  <th className="px-4 py-3 text-left font-medium">Obra</th>
-                  <th className="px-4 py-3 text-left font-medium">Status</th>
-                  <th className="px-4 py-3 text-left font-medium">Admissão</th>
-                  <th className="px-4 py-3"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {funcionarios.map((f) => (
-                  <tr key={f.id} className="border-b border-[var(--border)] hover:bg-[var(--secondary)] transition-colors">
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-[var(--primary)] flex items-center justify-center text-white text-xs font-bold shrink-0">{f.nome.charAt(0)}</div>
-                        <div>
-                          <p className="text-sm font-medium">{f.nome}</p>
-                          <p className="text-xs text-[var(--muted-foreground)]">{f.cargo}</p>
-                        </div>
+        <>
+          {/* Mobile cards */}
+          <div className="sm:hidden space-y-3">
+            {funcionarios.map((f) => (
+              <Card key={f.id}>
+                <CardContent className="p-4">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-9 h-9 rounded-full bg-[var(--primary)] flex items-center justify-center text-white text-sm font-bold shrink-0">{f.nome.charAt(0)}</div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold truncate">{f.nome}</p>
+                        <p className="text-xs text-[var(--muted-foreground)]">{f.cargo} · {TIPO_FUNC_LABELS[f.tipo]}</p>
                       </div>
-                    </td>
-                    <td className="px-4 py-3 text-sm">{TIPO_FUNC_LABELS[f.tipo]}</td>
-                    <td className="px-4 py-3">
-                      <p className="text-sm font-semibold">{formatCurrency(f.valorPagamento)}</p>
-                      <p className="text-xs text-[var(--muted-foreground)]">{PERIODICIDADE_LABELS[f.periodicidade]}</p>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-[var(--muted-foreground)]">{f.obra.nome}</td>
-                    <td className="px-4 py-3">
-                      <Badge variant={f.status === "ATIVO" ? "success" : f.status === "AFASTADO" ? "warning" : "secondary"}>
-                        {f.status}
-                      </Badge>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-[var(--muted-foreground)]">{formatDate(f.dataAdmissao)}</td>
-                    <td className="px-4 py-3">
-                      <div className="flex gap-1">
-                        <Button size="icon" variant="ghost" onClick={() => { setEditTarget(f); setShowForm(true); }}>
-                          <Edit className="w-4 h-4" />
-                        </Button>
-                        <Button size="icon" variant="ghost" className="text-red-500 hover:text-red-700" onClick={() => setDeleteTarget(f)}>
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    </div>
+                    <Badge variant={f.status === "ATIVO" ? "success" : f.status === "AFASTADO" ? "warning" : "secondary"} className="shrink-0">
+                      {f.status}
+                    </Badge>
+                  </div>
+                  <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-[var(--muted-foreground)]">
+                    <div><DollarSign className="w-3 h-3 inline mr-1" />{formatCurrency(f.valorPagamento)} / {PERIODICIDADE_LABELS[f.periodicidade]}</div>
+                    <div><Phone className="w-3 h-3 inline mr-1" />{f.contato || "—"}</div>
+                    <div className="col-span-2 truncate">{f.obra.nome}</div>
+                  </div>
+                  <div className="mt-3 flex gap-2">
+                    <Button size="sm" variant="outline" className="flex-1" onClick={() => { setEditTarget(f); setShowForm(true); }}>
+                      <Edit className="w-3 h-3 mr-1" /> Editar
+                    </Button>
+                    <Button size="sm" variant="outline" className="flex-1 text-red-500 hover:text-red-700" onClick={() => setDeleteTarget(f)}>
+                      <Trash2 className="w-3 h-3 mr-1" /> Excluir
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
-        </Card>
+
+          {/* Desktop table */}
+          <Card className="hidden sm:block">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="border-b border-[var(--border)]">
+                  <tr className="text-xs text-[var(--muted-foreground)]">
+                    <th className="px-4 py-3 text-left font-medium">Funcionário</th>
+                    <th className="px-4 py-3 text-left font-medium">Tipo</th>
+                    <th className="px-4 py-3 text-left font-medium">Remuneração</th>
+                    <th className="px-4 py-3 text-left font-medium">Obra</th>
+                    <th className="px-4 py-3 text-left font-medium">Status</th>
+                    <th className="px-4 py-3 text-left font-medium">Admissão</th>
+                    <th className="px-4 py-3"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {funcionarios.map((f) => (
+                    <tr key={f.id} className="border-b border-[var(--border)] hover:bg-[var(--secondary)] transition-colors">
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-full bg-[var(--primary)] flex items-center justify-center text-white text-xs font-bold shrink-0">{f.nome.charAt(0)}</div>
+                          <div>
+                            <p className="text-sm font-medium">{f.nome}</p>
+                            <p className="text-xs text-[var(--muted-foreground)]">{f.cargo}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-sm">{TIPO_FUNC_LABELS[f.tipo]}</td>
+                      <td className="px-4 py-3">
+                        <p className="text-sm font-semibold">{formatCurrency(f.valorPagamento)}</p>
+                        <p className="text-xs text-[var(--muted-foreground)]">{PERIODICIDADE_LABELS[f.periodicidade]}</p>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-[var(--muted-foreground)]">{f.obra.nome}</td>
+                      <td className="px-4 py-3">
+                        <Badge variant={f.status === "ATIVO" ? "success" : f.status === "AFASTADO" ? "warning" : "secondary"}>
+                          {f.status}
+                        </Badge>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-[var(--muted-foreground)]">{formatDate(f.dataAdmissao)}</td>
+                      <td className="px-4 py-3">
+                        <div className="flex gap-1">
+                          <Button size="icon" variant="ghost" onClick={() => { setEditTarget(f); setShowForm(true); }}>
+                            <Edit className="w-4 h-4" />
+                          </Button>
+                          <Button size="icon" variant="ghost" className="text-red-500 hover:text-red-700" onClick={() => setDeleteTarget(f)}>
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Card>
+        </>
       )}
 
       {showForm && (

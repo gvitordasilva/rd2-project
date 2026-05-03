@@ -63,7 +63,7 @@ export default function FinanceiroPage() {
     try {
       const [transRes, resumoRes] = await Promise.all([
         apiFetch<{ data: { data: Transacao[]; total: number } }>("/api/financeiro", {
-          params: { tipo: tipoFilter || undefined, status: statusFilter || undefined, pageSize: 50 },
+          params: { tipo: tipoFilter || undefined, status: statusFilter || undefined, search: search || undefined, pageSize: 50 },
         }),
         apiFetch<{ data: Resumo }>("/api/financeiro/resumo"),
       ]);
@@ -72,7 +72,7 @@ export default function FinanceiroPage() {
       setResumo(resumoRes.data);
     } catch (err) { console.error(err); }
     finally { setLoading(false); }
-  }, [tipoFilter, statusFilter]);
+  }, [tipoFilter, statusFilter, search]);
 
   useEffect(() => { load(); }, [load]);
 
@@ -213,61 +213,104 @@ export default function FinanceiroPage() {
       {loading ? (
         <div className="space-y-2">{[...Array(5)].map((_, i) => <div key={i} className="h-16 rounded-lg bg-[var(--secondary)] animate-pulse" />)}</div>
       ) : (
-        <Card>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="border-b border-[var(--border)]">
-                <tr className="text-xs text-[var(--muted-foreground)]">
-                  <th className="px-4 py-3 text-left font-medium">Tipo</th>
-                  <th className="px-4 py-3 text-left font-medium">Descrição</th>
-                  <th className="px-4 py-3 text-left font-medium">Categoria</th>
-                  <th className="px-4 py-3 text-left font-medium">Data</th>
-                  <th className="px-4 py-3 text-left font-medium">Obra</th>
-                  <th className="px-4 py-3 text-left font-medium">Status</th>
-                  <th className="px-4 py-3 text-right font-medium">Valor</th>
-                  <th className="px-4 py-3"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {transacoes.map((t) => (
-                  <tr key={t.id} className="border-b border-[var(--border)] hover:bg-[var(--secondary)] transition-colors">
-                    <td className="px-4 py-3">
-                      <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${t.tipo === "ENTRADA" ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"}`}>
-                        {t.tipo === "ENTRADA" ? "↑ Entrada" : "↓ Saída"}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3">
-                      <p className="text-sm font-medium">{t.descricao}</p>
-                      {t.fornecedor && <p className="text-xs text-[var(--muted-foreground)]">{t.fornecedor}</p>}
-                    </td>
-                    <td className="px-4 py-3 text-sm text-[var(--muted-foreground)]">{t.categoria}</td>
-                    <td className="px-4 py-3 text-sm text-[var(--muted-foreground)]">{formatDate(t.data)}</td>
-                    <td className="px-4 py-3 text-sm text-[var(--muted-foreground)]">{t.obra?.nome}</td>
-                    <td className="px-4 py-3">
-                      <Badge variant={STATUS_COLORS[t.status] as "success" | "warning" | "secondary"}>{t.status}</Badge>
-                    </td>
-                    <td className={`px-4 py-3 text-right text-sm font-bold ${t.tipo === "ENTRADA" ? "text-emerald-600" : "text-red-500"}`}>
-                      {t.tipo === "ENTRADA" ? "+" : "-"}{formatCurrency(t.valor)}
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex gap-1">
-                        <Button size="icon" variant="ghost" onClick={() => { setEditTarget(t); setShowForm(true); }}>
-                          <Edit className="w-4 h-4" />
-                        </Button>
-                        <Button size="icon" variant="ghost" className="text-red-500" onClick={() => setDeleteTarget(t)}>
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            {transacoes.length === 0 && (
+        <>
+          {/* Mobile cards */}
+          <div className="sm:hidden space-y-3">
+            {transacoes.length === 0 ? (
               <div className="text-center py-12 text-[var(--muted-foreground)]">Nenhuma transação encontrada</div>
-            )}
+            ) : transacoes.map((t) => (
+              <Card key={t.id}>
+                <CardContent className="p-4">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium shrink-0 ${t.tipo === "ENTRADA" ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"}`}>
+                          {t.tipo === "ENTRADA" ? "↑" : "↓"} {t.tipo === "ENTRADA" ? "Entrada" : "Saída"}
+                        </span>
+                        <Badge variant={STATUS_COLORS[t.status] as "success" | "warning" | "secondary"}>{t.status}</Badge>
+                      </div>
+                      <p className="text-sm font-medium truncate">{t.descricao}</p>
+                      {t.fornecedor && <p className="text-xs text-[var(--muted-foreground)]">{t.fornecedor}</p>}
+                    </div>
+                    <p className={`text-sm font-bold shrink-0 ${t.tipo === "ENTRADA" ? "text-emerald-600" : "text-red-500"}`}>
+                      {t.tipo === "ENTRADA" ? "+" : "-"}{formatCurrency(t.valor)}
+                    </p>
+                  </div>
+                  <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-[var(--muted-foreground)]">
+                    <span>{t.categoria}</span>
+                    <span>{formatDate(t.data)}</span>
+                    <span>{t.obra?.nome}</span>
+                  </div>
+                  <div className="mt-3 flex gap-2">
+                    <Button size="sm" variant="outline" className="flex-1" onClick={() => { setEditTarget(t); setShowForm(true); }}>
+                      <Edit className="w-3 h-3 mr-1" /> Editar
+                    </Button>
+                    <Button size="sm" variant="outline" className="flex-1 text-red-500" onClick={() => setDeleteTarget(t)}>
+                      <Trash2 className="w-3 h-3 mr-1" /> Excluir
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
-        </Card>
+
+          {/* Desktop table */}
+          <Card className="hidden sm:block">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="border-b border-[var(--border)]">
+                  <tr className="text-xs text-[var(--muted-foreground)]">
+                    <th className="px-4 py-3 text-left font-medium">Tipo</th>
+                    <th className="px-4 py-3 text-left font-medium">Descrição</th>
+                    <th className="px-4 py-3 text-left font-medium">Categoria</th>
+                    <th className="px-4 py-3 text-left font-medium">Data</th>
+                    <th className="px-4 py-3 text-left font-medium">Obra</th>
+                    <th className="px-4 py-3 text-left font-medium">Status</th>
+                    <th className="px-4 py-3 text-right font-medium">Valor</th>
+                    <th className="px-4 py-3"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {transacoes.map((t) => (
+                    <tr key={t.id} className="border-b border-[var(--border)] hover:bg-[var(--secondary)] transition-colors">
+                      <td className="px-4 py-3">
+                        <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${t.tipo === "ENTRADA" ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"}`}>
+                          {t.tipo === "ENTRADA" ? "↑ Entrada" : "↓ Saída"}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <p className="text-sm font-medium">{t.descricao}</p>
+                        {t.fornecedor && <p className="text-xs text-[var(--muted-foreground)]">{t.fornecedor}</p>}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-[var(--muted-foreground)]">{t.categoria}</td>
+                      <td className="px-4 py-3 text-sm text-[var(--muted-foreground)]">{formatDate(t.data)}</td>
+                      <td className="px-4 py-3 text-sm text-[var(--muted-foreground)]">{t.obra?.nome}</td>
+                      <td className="px-4 py-3">
+                        <Badge variant={STATUS_COLORS[t.status] as "success" | "warning" | "secondary"}>{t.status}</Badge>
+                      </td>
+                      <td className={`px-4 py-3 text-right text-sm font-bold ${t.tipo === "ENTRADA" ? "text-emerald-600" : "text-red-500"}`}>
+                        {t.tipo === "ENTRADA" ? "+" : "-"}{formatCurrency(t.valor)}
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex gap-1">
+                          <Button size="icon" variant="ghost" onClick={() => { setEditTarget(t); setShowForm(true); }}>
+                            <Edit className="w-4 h-4" />
+                          </Button>
+                          <Button size="icon" variant="ghost" className="text-red-500" onClick={() => setDeleteTarget(t)}>
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {transacoes.length === 0 && (
+                <div className="text-center py-12 text-[var(--muted-foreground)]">Nenhuma transação encontrada</div>
+              )}
+            </div>
+          </Card>
+        </>
       )}
 
       {showForm && (

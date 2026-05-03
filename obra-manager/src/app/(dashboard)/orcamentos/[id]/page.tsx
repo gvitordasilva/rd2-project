@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/select";
 import { useApi } from "@/hooks/use-api";
 import { useToast } from "@/components/ui/toast";
+import { TooltipIcon } from "@/components/ui/tooltip";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type OrcRowCat = {
@@ -473,7 +474,10 @@ export default function OrcamentoEditorPage({
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <Label className="text-xs">Margem / BDI (%)</Label>
+                  <div className="flex items-center gap-1.5">
+                    <Label className="text-xs">Margem / BDI (%)</Label>
+                    <TooltipIcon text="BDI (Benefícios e Despesas Indiretas): percentual adicionado ao custo direto para cobrir impostos, administração e lucro. Valores típicos: 15–30%." />
+                  </div>
                   <Input
                     type="number"
                     value={orc.margem}

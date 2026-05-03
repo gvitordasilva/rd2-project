@@ -84,6 +84,7 @@ model Organization {
   pagamentos    Pagamento[]
   cargos        Cargo[]
   orcamentos    Orcamento[]
+  frequencias   RegistroFrequencia[]
 
   @@index([slug])
 }
@@ -152,11 +153,16 @@ model Obra {
   alertas      Alerta[]
   documentos   Documento[]
   pagamentos   Pagamento[]
+  frequencias  RegistroFrequencia[]
 
+  deletedAt DateTime?
+
+  @@index([organizationId, status])
   @@index([status])
   @@index([userId])
   @@index([organizationId])
   @@index([dataInicio])
+  @@index([deletedAt])
 }
 
 model Funcionario {
@@ -178,13 +184,17 @@ model Funcionario {
   obra           Obra              @relation(fields: [obraId], references: [id], onDelete: Cascade)
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt
+  deletedAt      DateTime?
 
-  pagamentos Pagamento[]
+  pagamentos  Pagamento[]
+  frequencias RegistroFrequencia[]
 
-  @@index([obraId])
+  @@unique([cpf, organizationId])
+  @@index([obraId, status])
   @@index([organizationId])
   @@index([status])
   @@index([cpf])
+  @@index([deletedAt])
 }
 
 model Pagamento {
@@ -230,11 +240,13 @@ model Maquinario {
   obra                  Obra             @relation(fields: [obraId], references: [id], onDelete: Cascade)
   createdAt             DateTime         @default(now())
   updatedAt             DateTime         @updatedAt
+  deletedAt             DateTime?
 
   @@index([obraId])
   @@index([organizationId])
   @@index([status])
   @@index([dataVencimentoLocacao])
+  @@index([deletedAt])
 }
 
 model TransacaoFinanceira {
@@ -258,6 +270,8 @@ model TransacaoFinanceira {
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
 
+  @@index([obraId, tipo, status])
+  @@index([organizationId, tipo])
   @@index([obraId])
   @@index([organizationId])
   @@index([tipo])
@@ -344,4 +358,56 @@ model Documento {
   @@index([obraId])
   @@index([organizationId])
   @@index([entidadeId])
+}
+
+model RegistroFrequencia {
+  id             String       @id @default(cuid())
+  funcionarioId  String
+  funcionario    Funcionario  @relation(fields: [funcionarioId], references: [id], onDelete: Cascade)
+  obraId         String
+  obra           Obra         @relation(fields: [obraId], references: [id], onDelete: Cascade)
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  data           DateTime     @db.Date
+  presente       Boolean      @default(true)
+  periodo        Float        @default(1)
+  horasExtras    Float        @default(0)
+  observacao     String?
+  createdAt      DateTime     @default(now())
+
+  @@unique([funcionarioId, data])
+  @@index([obraId])
+  @@index([funcionarioId])
+  @@index([organizationId])
+  @@index([data])
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model AuditLog {
+  id             String   @id @default(cuid())
+  userId         String
+  userEmail      String
+  organizationId String?
+  acao           String
+  entidade       String
+  entidadeId     String
+  dadosAntes     Json?
+  dadosDepois    Json?
+  ip             String?
+  createdAt      DateTime @default(now())
+
+  @@index([organizationId])
+  @@index([userId])
+  @@index([entidade, entidadeId])
+  @@index([createdAt])
 }

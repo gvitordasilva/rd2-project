@@ -14,12 +14,20 @@ export function formatCurrency(value: number): string {
   }).format(value);
 }
 
+function parseDate(date: string | Date): Date {
+  if (typeof date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    const [y, m, d] = date.split("-").map(Number);
+    return new Date(y, m - 1, d);
+  }
+  return new Date(date);
+}
+
 export function formatDate(date: string | Date): string {
-  return format(new Date(date), "dd/MM/yyyy", { locale: ptBR });
+  return format(parseDate(date), "dd/MM/yyyy", { locale: ptBR });
 }
 
 export function formatDatetime(date: string | Date): string {
-  return format(new Date(date), "dd/MM/yyyy 'às' HH:mm", { locale: ptBR });
+  return format(parseDate(date), "dd/MM/yyyy 'às' HH:mm", { locale: ptBR });
 }
 
 export function formatRelativeDate(date: string | Date): string {

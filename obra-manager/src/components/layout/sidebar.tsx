@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import {
   LayoutDashboard, Building2, Users, Wrench, DollarSign,
   Bell, FileText, ChevronLeft, ChevronRight, LogOut, HardHat, Menu, ShieldCheck,
-  Briefcase, UserCog, Calculator
+  Briefcase, UserCog, Calculator, BarChart3
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/use-auth";
@@ -21,6 +21,7 @@ const navItems = [
   { href: "/financeiro", label: "Financeiro", icon: DollarSign },
   { href: "/alertas", label: "Alertas", icon: Bell },
   { href: "/documentos", label: "Documentos", icon: FileText },
+  { href: "/relatorios", label: "Relatórios", icon: BarChart3 },
   { href: "/usuarios", label: "Usuários", icon: UserCog },
 ];
 

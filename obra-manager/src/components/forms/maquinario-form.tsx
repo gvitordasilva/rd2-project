@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useApi } from "@/hooks/use-api";
 import { useToast } from "@/components/ui/toast";
+import { TooltipIcon } from "@/components/ui/tooltip";
 
 const schema = z.object({
   nome: z.string().min(2),
@@ -40,6 +41,7 @@ export function MaquinarioFormDialog({ open, onClose, onSuccess, initialData }: 
   const { apiFetch } = useApi();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [loadingObras, setLoadingObras] = useState(false);
   const [obras, setObras] = useState<{ id: string; nome: string }[]>([]);
   const [contratoFile, setContratoFile] = useState<File | null>(null);
   const isEditing = !!initialData?.id;
@@ -54,9 +56,11 @@ export function MaquinarioFormDialog({ open, onClose, onSuccess, initialData }: 
   useEffect(() => {
     if (open) {
       reset({ status: "PROPRIO", ...initialData });
+      setLoadingObras(true);
       apiFetch<{ data: { data: { id: string; nome: string }[] } }>("/api/obras", { params: { pageSize: 100 } })
         .then((res) => setObras(res.data.data))
-        .catch(() => {});
+        .catch(() => {})
+        .finally(() => setLoadingObras(false));
     }
   }, [open]);
 
@@ -73,7 +77,7 @@ export function MaquinarioFormDialog({ open, onClose, onSuccess, initialData }: 
         await apiFetch(endpoint, { method, body: formData });
       } else {
         const body = { ...data, valorLocacao: data.valorLocacao ? Number(data.valorLocacao) : undefined };
-        await apiFetch(endpoint, { method, body: JSON.stringify(body) });
+        await apiFetch(endpoint, { method, body });
       }
       toast({ title: isEditing ? "Equipamento atualizado!" : "Equipamento cadastrado!", variant: "success" });
       onSuccess();
@@ -138,7 +142,10 @@ export function MaquinarioFormDialog({ open, onClose, onSuccess, initialData }: 
                   <Input type="number" step="0.01" placeholder="0,00" {...register("valorLocacao")} />
                 </div>
                 <div className="space-y-1.5">
-                  <Label>Periodicidade</Label>
+                  <div className="flex items-center gap-1.5">
+                    <Label>Periodicidade</Label>
+                    <TooltipIcon text="Com que frequência o valor de locação é cobrado: Diária (por dia de uso), Semanal (por semana) ou Mensal (por mês corrido)." />
+                  </div>
                   <Select value={watch("periodicidadeLocacao")} onValueChange={(v) => setValue("periodicidadeLocacao", v as FormData["periodicidadeLocacao"])}>
                     <SelectTrigger><SelectValue placeholder="Selecionar" /></SelectTrigger>
                     <SelectContent>
@@ -163,8 +170,10 @@ export function MaquinarioFormDialog({ open, onClose, onSuccess, initialData }: 
 
             <div className="col-span-2 space-y-1.5">
               <Label>Obra *</Label>
-              <Select value={watch("obraId")} onValueChange={(v) => setValue("obraId", v)}>
-                <SelectTrigger><SelectValue placeholder="Selecionar obra" /></SelectTrigger>
+              <Select value={watch("obraId")} onValueChange={(v) => setValue("obraId", v)} disabled={loadingObras}>
+                <SelectTrigger>
+                  {loadingObras ? <span className="text-[var(--muted-foreground)] text-sm">Carregando obras...</span> : <SelectValue placeholder="Selecionar obra" />}
+                </SelectTrigger>
                 <SelectContent>
                   {obras.map((o) => <SelectItem key={o.id} value={o.id}>{o.nome}</SelectItem>)}
                 </SelectContent>

@@ -18,6 +18,7 @@ export async function GET(req: NextRequest) {
   const categoria = searchParams.get("categoria");
   const dataInicio = searchParams.get("dataInicio");
   const dataFim = searchParams.get("dataFim");
+  const search = searchParams.get("search");
 
   const where: Record<string, unknown> = {};
   if (auth.user.organizationId) where.organizationId = auth.user.organizationId;
@@ -25,6 +26,13 @@ export async function GET(req: NextRequest) {
   if (tipo) where.tipo = tipo;
   if (status) where.status = status;
   if (categoria) where.categoria = categoria;
+  if (search) {
+    where.OR = [
+      { descricao: { contains: search, mode: "insensitive" } },
+      { categoria: { contains: search, mode: "insensitive" } },
+      { fornecedor: { contains: search, mode: "insensitive" } },
+    ];
+  }
   if (dataInicio || dataFim) {
     where.data = {};
     if (dataInicio) (where.data as Record<string, unknown>).gte = new Date(dataInicio);
