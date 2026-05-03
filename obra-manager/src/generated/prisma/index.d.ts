@@ -39,6 +39,11 @@ export type Obra = $Result.DefaultSelection<Prisma.$ObraPayload>
  */
 export type Funcionario = $Result.DefaultSelection<Prisma.$FuncionarioPayload>
 /**
+ * Model FuncionarioObra
+ * 
+ */
+export type FuncionarioObra = $Result.DefaultSelection<Prisma.$FuncionarioObraPayload>
+/**
  * Model Pagamento
  * 
  */
@@ -73,6 +78,36 @@ export type Orcamento = $Result.DefaultSelection<Prisma.$OrcamentoPayload>
  * 
  */
 export type Documento = $Result.DefaultSelection<Prisma.$DocumentoPayload>
+/**
+ * Model RegistroFrequencia
+ * 
+ */
+export type RegistroFrequencia = $Result.DefaultSelection<Prisma.$RegistroFrequenciaPayload>
+/**
+ * Model EtapaObra
+ * 
+ */
+export type EtapaObra = $Result.DefaultSelection<Prisma.$EtapaObraPayload>
+/**
+ * Model ItemEstoque
+ * 
+ */
+export type ItemEstoque = $Result.DefaultSelection<Prisma.$ItemEstoquePayload>
+/**
+ * Model MovimentacaoEstoque
+ * 
+ */
+export type MovimentacaoEstoque = $Result.DefaultSelection<Prisma.$MovimentacaoEstoquePayload>
+/**
+ * Model RefreshToken
+ * 
+ */
+export type RefreshToken = $Result.DefaultSelection<Prisma.$RefreshTokenPayload>
+/**
+ * Model AuditLog
+ * 
+ */
+export type AuditLog = $Result.DefaultSelection<Prisma.$AuditLogPayload>
 
 /**
  * Enums
@@ -162,6 +197,25 @@ export const AlertaTipo: {
 
 export type AlertaTipo = (typeof AlertaTipo)[keyof typeof AlertaTipo]
 
+
+export const EtapaStatus: {
+  PENDENTE: 'PENDENTE',
+  EM_ANDAMENTO: 'EM_ANDAMENTO',
+  CONCLUIDA: 'CONCLUIDA',
+  PARALISADA: 'PARALISADA'
+};
+
+export type EtapaStatus = (typeof EtapaStatus)[keyof typeof EtapaStatus]
+
+
+export const MovimentacaoTipo: {
+  ENTRADA: 'ENTRADA',
+  SAIDA: 'SAIDA',
+  AJUSTE: 'AJUSTE'
+};
+
+export type MovimentacaoTipo = (typeof MovimentacaoTipo)[keyof typeof MovimentacaoTipo]
+
 }
 
 export type UserRole = $Enums.UserRole
@@ -199,6 +253,14 @@ export const TransacaoStatus: typeof $Enums.TransacaoStatus
 export type AlertaTipo = $Enums.AlertaTipo
 
 export const AlertaTipo: typeof $Enums.AlertaTipo
+
+export type EtapaStatus = $Enums.EtapaStatus
+
+export const EtapaStatus: typeof $Enums.EtapaStatus
+
+export type MovimentacaoTipo = $Enums.MovimentacaoTipo
+
+export const MovimentacaoTipo: typeof $Enums.MovimentacaoTipo
 
 /**
  * ##  Prisma Client ʲˢ
@@ -372,6 +434,16 @@ export class PrismaClient<
   get funcionario(): Prisma.FuncionarioDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.funcionarioObra`: Exposes CRUD operations for the **FuncionarioObra** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FuncionarioObras
+    * const funcionarioObras = await prisma.funcionarioObra.findMany()
+    * ```
+    */
+  get funcionarioObra(): Prisma.FuncionarioObraDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.pagamento`: Exposes CRUD operations for the **Pagamento** model.
     * Example usage:
     * ```ts
@@ -440,6 +512,66 @@ export class PrismaClient<
     * ```
     */
   get documento(): Prisma.DocumentoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.registroFrequencia`: Exposes CRUD operations for the **RegistroFrequencia** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RegistroFrequencias
+    * const registroFrequencias = await prisma.registroFrequencia.findMany()
+    * ```
+    */
+  get registroFrequencia(): Prisma.RegistroFrequenciaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.etapaObra`: Exposes CRUD operations for the **EtapaObra** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EtapaObras
+    * const etapaObras = await prisma.etapaObra.findMany()
+    * ```
+    */
+  get etapaObra(): Prisma.EtapaObraDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.itemEstoque`: Exposes CRUD operations for the **ItemEstoque** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ItemEstoques
+    * const itemEstoques = await prisma.itemEstoque.findMany()
+    * ```
+    */
+  get itemEstoque(): Prisma.ItemEstoqueDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.movimentacaoEstoque`: Exposes CRUD operations for the **MovimentacaoEstoque** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MovimentacaoEstoques
+    * const movimentacaoEstoques = await prisma.movimentacaoEstoque.findMany()
+    * ```
+    */
+  get movimentacaoEstoque(): Prisma.MovimentacaoEstoqueDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.refreshToken`: Exposes CRUD operations for the **RefreshToken** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RefreshTokens
+    * const refreshTokens = await prisma.refreshToken.findMany()
+    * ```
+    */
+  get refreshToken(): Prisma.RefreshTokenDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.auditLog`: Exposes CRUD operations for the **AuditLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AuditLogs
+    * const auditLogs = await prisma.auditLog.findMany()
+    * ```
+    */
+  get auditLog(): Prisma.AuditLogDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -879,13 +1011,20 @@ export namespace Prisma {
     User: 'User',
     Obra: 'Obra',
     Funcionario: 'Funcionario',
+    FuncionarioObra: 'FuncionarioObra',
     Pagamento: 'Pagamento',
     Maquinario: 'Maquinario',
     TransacaoFinanceira: 'TransacaoFinanceira',
     CategoriaFinanceira: 'CategoriaFinanceira',
     Alerta: 'Alerta',
     Orcamento: 'Orcamento',
-    Documento: 'Documento'
+    Documento: 'Documento',
+    RegistroFrequencia: 'RegistroFrequencia',
+    EtapaObra: 'EtapaObra',
+    ItemEstoque: 'ItemEstoque',
+    MovimentacaoEstoque: 'MovimentacaoEstoque',
+    RefreshToken: 'RefreshToken',
+    AuditLog: 'AuditLog'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -901,7 +1040,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "organization" | "cargo" | "user" | "obra" | "funcionario" | "pagamento" | "maquinario" | "transacaoFinanceira" | "categoriaFinanceira" | "alerta" | "orcamento" | "documento"
+      modelProps: "organization" | "cargo" | "user" | "obra" | "funcionario" | "funcionarioObra" | "pagamento" | "maquinario" | "transacaoFinanceira" | "categoriaFinanceira" | "alerta" | "orcamento" | "documento" | "registroFrequencia" | "etapaObra" | "itemEstoque" | "movimentacaoEstoque" | "refreshToken" | "auditLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1272,6 +1411,80 @@ export namespace Prisma {
           count: {
             args: Prisma.FuncionarioCountArgs<ExtArgs>
             result: $Utils.Optional<FuncionarioCountAggregateOutputType> | number
+          }
+        }
+      }
+      FuncionarioObra: {
+        payload: Prisma.$FuncionarioObraPayload<ExtArgs>
+        fields: Prisma.FuncionarioObraFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FuncionarioObraFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FuncionarioObraPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FuncionarioObraFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FuncionarioObraPayload>
+          }
+          findFirst: {
+            args: Prisma.FuncionarioObraFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FuncionarioObraPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FuncionarioObraFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FuncionarioObraPayload>
+          }
+          findMany: {
+            args: Prisma.FuncionarioObraFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FuncionarioObraPayload>[]
+          }
+          create: {
+            args: Prisma.FuncionarioObraCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FuncionarioObraPayload>
+          }
+          createMany: {
+            args: Prisma.FuncionarioObraCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FuncionarioObraCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FuncionarioObraPayload>[]
+          }
+          delete: {
+            args: Prisma.FuncionarioObraDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FuncionarioObraPayload>
+          }
+          update: {
+            args: Prisma.FuncionarioObraUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FuncionarioObraPayload>
+          }
+          deleteMany: {
+            args: Prisma.FuncionarioObraDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FuncionarioObraUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.FuncionarioObraUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FuncionarioObraPayload>[]
+          }
+          upsert: {
+            args: Prisma.FuncionarioObraUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FuncionarioObraPayload>
+          }
+          aggregate: {
+            args: Prisma.FuncionarioObraAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFuncionarioObra>
+          }
+          groupBy: {
+            args: Prisma.FuncionarioObraGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FuncionarioObraGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FuncionarioObraCountArgs<ExtArgs>
+            result: $Utils.Optional<FuncionarioObraCountAggregateOutputType> | number
           }
         }
       }
@@ -1793,6 +2006,450 @@ export namespace Prisma {
           }
         }
       }
+      RegistroFrequencia: {
+        payload: Prisma.$RegistroFrequenciaPayload<ExtArgs>
+        fields: Prisma.RegistroFrequenciaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RegistroFrequenciaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistroFrequenciaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RegistroFrequenciaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistroFrequenciaPayload>
+          }
+          findFirst: {
+            args: Prisma.RegistroFrequenciaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistroFrequenciaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RegistroFrequenciaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistroFrequenciaPayload>
+          }
+          findMany: {
+            args: Prisma.RegistroFrequenciaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistroFrequenciaPayload>[]
+          }
+          create: {
+            args: Prisma.RegistroFrequenciaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistroFrequenciaPayload>
+          }
+          createMany: {
+            args: Prisma.RegistroFrequenciaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RegistroFrequenciaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistroFrequenciaPayload>[]
+          }
+          delete: {
+            args: Prisma.RegistroFrequenciaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistroFrequenciaPayload>
+          }
+          update: {
+            args: Prisma.RegistroFrequenciaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistroFrequenciaPayload>
+          }
+          deleteMany: {
+            args: Prisma.RegistroFrequenciaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RegistroFrequenciaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RegistroFrequenciaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistroFrequenciaPayload>[]
+          }
+          upsert: {
+            args: Prisma.RegistroFrequenciaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistroFrequenciaPayload>
+          }
+          aggregate: {
+            args: Prisma.RegistroFrequenciaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRegistroFrequencia>
+          }
+          groupBy: {
+            args: Prisma.RegistroFrequenciaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RegistroFrequenciaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RegistroFrequenciaCountArgs<ExtArgs>
+            result: $Utils.Optional<RegistroFrequenciaCountAggregateOutputType> | number
+          }
+        }
+      }
+      EtapaObra: {
+        payload: Prisma.$EtapaObraPayload<ExtArgs>
+        fields: Prisma.EtapaObraFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EtapaObraFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EtapaObraPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EtapaObraFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EtapaObraPayload>
+          }
+          findFirst: {
+            args: Prisma.EtapaObraFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EtapaObraPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EtapaObraFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EtapaObraPayload>
+          }
+          findMany: {
+            args: Prisma.EtapaObraFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EtapaObraPayload>[]
+          }
+          create: {
+            args: Prisma.EtapaObraCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EtapaObraPayload>
+          }
+          createMany: {
+            args: Prisma.EtapaObraCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EtapaObraCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EtapaObraPayload>[]
+          }
+          delete: {
+            args: Prisma.EtapaObraDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EtapaObraPayload>
+          }
+          update: {
+            args: Prisma.EtapaObraUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EtapaObraPayload>
+          }
+          deleteMany: {
+            args: Prisma.EtapaObraDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EtapaObraUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EtapaObraUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EtapaObraPayload>[]
+          }
+          upsert: {
+            args: Prisma.EtapaObraUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EtapaObraPayload>
+          }
+          aggregate: {
+            args: Prisma.EtapaObraAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEtapaObra>
+          }
+          groupBy: {
+            args: Prisma.EtapaObraGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EtapaObraGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EtapaObraCountArgs<ExtArgs>
+            result: $Utils.Optional<EtapaObraCountAggregateOutputType> | number
+          }
+        }
+      }
+      ItemEstoque: {
+        payload: Prisma.$ItemEstoquePayload<ExtArgs>
+        fields: Prisma.ItemEstoqueFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ItemEstoqueFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ItemEstoqueFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload>
+          }
+          findFirst: {
+            args: Prisma.ItemEstoqueFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ItemEstoqueFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload>
+          }
+          findMany: {
+            args: Prisma.ItemEstoqueFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload>[]
+          }
+          create: {
+            args: Prisma.ItemEstoqueCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload>
+          }
+          createMany: {
+            args: Prisma.ItemEstoqueCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ItemEstoqueCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload>[]
+          }
+          delete: {
+            args: Prisma.ItemEstoqueDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload>
+          }
+          update: {
+            args: Prisma.ItemEstoqueUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload>
+          }
+          deleteMany: {
+            args: Prisma.ItemEstoqueDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ItemEstoqueUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ItemEstoqueUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload>[]
+          }
+          upsert: {
+            args: Prisma.ItemEstoqueUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemEstoquePayload>
+          }
+          aggregate: {
+            args: Prisma.ItemEstoqueAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateItemEstoque>
+          }
+          groupBy: {
+            args: Prisma.ItemEstoqueGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ItemEstoqueGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ItemEstoqueCountArgs<ExtArgs>
+            result: $Utils.Optional<ItemEstoqueCountAggregateOutputType> | number
+          }
+        }
+      }
+      MovimentacaoEstoque: {
+        payload: Prisma.$MovimentacaoEstoquePayload<ExtArgs>
+        fields: Prisma.MovimentacaoEstoqueFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MovimentacaoEstoqueFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoEstoquePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MovimentacaoEstoqueFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoEstoquePayload>
+          }
+          findFirst: {
+            args: Prisma.MovimentacaoEstoqueFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoEstoquePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MovimentacaoEstoqueFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoEstoquePayload>
+          }
+          findMany: {
+            args: Prisma.MovimentacaoEstoqueFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoEstoquePayload>[]
+          }
+          create: {
+            args: Prisma.MovimentacaoEstoqueCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoEstoquePayload>
+          }
+          createMany: {
+            args: Prisma.MovimentacaoEstoqueCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MovimentacaoEstoqueCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoEstoquePayload>[]
+          }
+          delete: {
+            args: Prisma.MovimentacaoEstoqueDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoEstoquePayload>
+          }
+          update: {
+            args: Prisma.MovimentacaoEstoqueUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoEstoquePayload>
+          }
+          deleteMany: {
+            args: Prisma.MovimentacaoEstoqueDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MovimentacaoEstoqueUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MovimentacaoEstoqueUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoEstoquePayload>[]
+          }
+          upsert: {
+            args: Prisma.MovimentacaoEstoqueUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoEstoquePayload>
+          }
+          aggregate: {
+            args: Prisma.MovimentacaoEstoqueAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMovimentacaoEstoque>
+          }
+          groupBy: {
+            args: Prisma.MovimentacaoEstoqueGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MovimentacaoEstoqueGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MovimentacaoEstoqueCountArgs<ExtArgs>
+            result: $Utils.Optional<MovimentacaoEstoqueCountAggregateOutputType> | number
+          }
+        }
+      }
+      RefreshToken: {
+        payload: Prisma.$RefreshTokenPayload<ExtArgs>
+        fields: Prisma.RefreshTokenFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RefreshTokenFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RefreshTokenFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload>
+          }
+          findFirst: {
+            args: Prisma.RefreshTokenFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RefreshTokenFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload>
+          }
+          findMany: {
+            args: Prisma.RefreshTokenFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload>[]
+          }
+          create: {
+            args: Prisma.RefreshTokenCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload>
+          }
+          createMany: {
+            args: Prisma.RefreshTokenCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RefreshTokenCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload>[]
+          }
+          delete: {
+            args: Prisma.RefreshTokenDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload>
+          }
+          update: {
+            args: Prisma.RefreshTokenUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload>
+          }
+          deleteMany: {
+            args: Prisma.RefreshTokenDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RefreshTokenUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RefreshTokenUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload>[]
+          }
+          upsert: {
+            args: Prisma.RefreshTokenUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload>
+          }
+          aggregate: {
+            args: Prisma.RefreshTokenAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRefreshToken>
+          }
+          groupBy: {
+            args: Prisma.RefreshTokenGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RefreshTokenGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RefreshTokenCountArgs<ExtArgs>
+            result: $Utils.Optional<RefreshTokenCountAggregateOutputType> | number
+          }
+        }
+      }
+      AuditLog: {
+        payload: Prisma.$AuditLogPayload<ExtArgs>
+        fields: Prisma.AuditLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AuditLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AuditLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          findFirst: {
+            args: Prisma.AuditLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AuditLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          findMany: {
+            args: Prisma.AuditLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>[]
+          }
+          create: {
+            args: Prisma.AuditLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          createMany: {
+            args: Prisma.AuditLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AuditLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>[]
+          }
+          delete: {
+            args: Prisma.AuditLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          update: {
+            args: Prisma.AuditLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.AuditLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AuditLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AuditLogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>[]
+          }
+          upsert: {
+            args: Prisma.AuditLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          aggregate: {
+            args: Prisma.AuditLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAuditLog>
+          }
+          groupBy: {
+            args: Prisma.AuditLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AuditLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AuditLogCountArgs<ExtArgs>
+            result: $Utils.Optional<AuditLogCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1906,6 +2563,7 @@ export namespace Prisma {
     user?: UserOmit
     obra?: ObraOmit
     funcionario?: FuncionarioOmit
+    funcionarioObra?: FuncionarioObraOmit
     pagamento?: PagamentoOmit
     maquinario?: MaquinarioOmit
     transacaoFinanceira?: TransacaoFinanceiraOmit
@@ -1913,6 +2571,12 @@ export namespace Prisma {
     alerta?: AlertaOmit
     orcamento?: OrcamentoOmit
     documento?: DocumentoOmit
+    registroFrequencia?: RegistroFrequenciaOmit
+    etapaObra?: EtapaObraOmit
+    itemEstoque?: ItemEstoqueOmit
+    movimentacaoEstoque?: MovimentacaoEstoqueOmit
+    refreshToken?: RefreshTokenOmit
+    auditLog?: AuditLogOmit
   }
 
   /* Types for Logging */
@@ -2004,6 +2668,11 @@ export namespace Prisma {
     pagamentos: number
     cargos: number
     orcamentos: number
+    frequencias: number
+    etapas: number
+    itensEstoque: number
+    movimentacoesEstoque: number
+    funcionariosVinculados: number
   }
 
   export type OrganizationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2018,6 +2687,11 @@ export namespace Prisma {
     pagamentos?: boolean | OrganizationCountOutputTypeCountPagamentosArgs
     cargos?: boolean | OrganizationCountOutputTypeCountCargosArgs
     orcamentos?: boolean | OrganizationCountOutputTypeCountOrcamentosArgs
+    frequencias?: boolean | OrganizationCountOutputTypeCountFrequenciasArgs
+    etapas?: boolean | OrganizationCountOutputTypeCountEtapasArgs
+    itensEstoque?: boolean | OrganizationCountOutputTypeCountItensEstoqueArgs
+    movimentacoesEstoque?: boolean | OrganizationCountOutputTypeCountMovimentacoesEstoqueArgs
+    funcionariosVinculados?: boolean | OrganizationCountOutputTypeCountFuncionariosVinculadosArgs
   }
 
   // Custom InputTypes
@@ -2108,6 +2782,41 @@ export namespace Prisma {
     where?: OrcamentoWhereInput
   }
 
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountFrequenciasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RegistroFrequenciaWhereInput
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountEtapasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EtapaObraWhereInput
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountItensEstoqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItemEstoqueWhereInput
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountMovimentacoesEstoqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MovimentacaoEstoqueWhereInput
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountFuncionariosVinculadosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FuncionarioObraWhereInput
+  }
+
 
   /**
    * Count Type UserCountOutputType
@@ -2117,12 +2826,14 @@ export namespace Prisma {
     obras: number
     documentos: number
     transacoes: number
+    movimentacoesEstoque: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     obras?: boolean | UserCountOutputTypeCountObrasArgs
     documentos?: boolean | UserCountOutputTypeCountDocumentosArgs
     transacoes?: boolean | UserCountOutputTypeCountTransacoesArgs
+    movimentacoesEstoque?: boolean | UserCountOutputTypeCountMovimentacoesEstoqueArgs
   }
 
   // Custom InputTypes
@@ -2157,6 +2868,13 @@ export namespace Prisma {
     where?: TransacaoFinanceiraWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMovimentacoesEstoqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MovimentacaoEstoqueWhereInput
+  }
+
 
   /**
    * Count Type ObraCountOutputType
@@ -2170,6 +2888,12 @@ export namespace Prisma {
     alertas: number
     documentos: number
     pagamentos: number
+    frequencias: number
+    orcamentos: number
+    etapas: number
+    itensEstoque: number
+    movimentacoesEstoque: number
+    funcionariosVinculados: number
   }
 
   export type ObraCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2180,6 +2904,12 @@ export namespace Prisma {
     alertas?: boolean | ObraCountOutputTypeCountAlertasArgs
     documentos?: boolean | ObraCountOutputTypeCountDocumentosArgs
     pagamentos?: boolean | ObraCountOutputTypeCountPagamentosArgs
+    frequencias?: boolean | ObraCountOutputTypeCountFrequenciasArgs
+    orcamentos?: boolean | ObraCountOutputTypeCountOrcamentosArgs
+    etapas?: boolean | ObraCountOutputTypeCountEtapasArgs
+    itensEstoque?: boolean | ObraCountOutputTypeCountItensEstoqueArgs
+    movimentacoesEstoque?: boolean | ObraCountOutputTypeCountMovimentacoesEstoqueArgs
+    funcionariosVinculados?: boolean | ObraCountOutputTypeCountFuncionariosVinculadosArgs
   }
 
   // Custom InputTypes
@@ -2242,6 +2972,48 @@ export namespace Prisma {
     where?: PagamentoWhereInput
   }
 
+  /**
+   * ObraCountOutputType without action
+   */
+  export type ObraCountOutputTypeCountFrequenciasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RegistroFrequenciaWhereInput
+  }
+
+  /**
+   * ObraCountOutputType without action
+   */
+  export type ObraCountOutputTypeCountOrcamentosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrcamentoWhereInput
+  }
+
+  /**
+   * ObraCountOutputType without action
+   */
+  export type ObraCountOutputTypeCountEtapasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EtapaObraWhereInput
+  }
+
+  /**
+   * ObraCountOutputType without action
+   */
+  export type ObraCountOutputTypeCountItensEstoqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItemEstoqueWhereInput
+  }
+
+  /**
+   * ObraCountOutputType without action
+   */
+  export type ObraCountOutputTypeCountMovimentacoesEstoqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MovimentacaoEstoqueWhereInput
+  }
+
+  /**
+   * ObraCountOutputType without action
+   */
+  export type ObraCountOutputTypeCountFuncionariosVinculadosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FuncionarioObraWhereInput
+  }
+
 
   /**
    * Count Type FuncionarioCountOutputType
@@ -2249,10 +3021,14 @@ export namespace Prisma {
 
   export type FuncionarioCountOutputType = {
     pagamentos: number
+    frequencias: number
+    obrasVinculadas: number
   }
 
   export type FuncionarioCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pagamentos?: boolean | FuncionarioCountOutputTypeCountPagamentosArgs
+    frequencias?: boolean | FuncionarioCountOutputTypeCountFrequenciasArgs
+    obrasVinculadas?: boolean | FuncionarioCountOutputTypeCountObrasVinculadasArgs
   }
 
   // Custom InputTypes
@@ -2271,6 +3047,51 @@ export namespace Prisma {
    */
   export type FuncionarioCountOutputTypeCountPagamentosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PagamentoWhereInput
+  }
+
+  /**
+   * FuncionarioCountOutputType without action
+   */
+  export type FuncionarioCountOutputTypeCountFrequenciasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RegistroFrequenciaWhereInput
+  }
+
+  /**
+   * FuncionarioCountOutputType without action
+   */
+  export type FuncionarioCountOutputTypeCountObrasVinculadasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FuncionarioObraWhereInput
+  }
+
+
+  /**
+   * Count Type ItemEstoqueCountOutputType
+   */
+
+  export type ItemEstoqueCountOutputType = {
+    movimentacoes: number
+  }
+
+  export type ItemEstoqueCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    movimentacoes?: boolean | ItemEstoqueCountOutputTypeCountMovimentacoesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ItemEstoqueCountOutputType without action
+   */
+  export type ItemEstoqueCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoqueCountOutputType
+     */
+    select?: ItemEstoqueCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ItemEstoqueCountOutputType without action
+   */
+  export type ItemEstoqueCountOutputTypeCountMovimentacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MovimentacaoEstoqueWhereInput
   }
 
 
@@ -2461,6 +3282,11 @@ export namespace Prisma {
     pagamentos?: boolean | Organization$pagamentosArgs<ExtArgs>
     cargos?: boolean | Organization$cargosArgs<ExtArgs>
     orcamentos?: boolean | Organization$orcamentosArgs<ExtArgs>
+    frequencias?: boolean | Organization$frequenciasArgs<ExtArgs>
+    etapas?: boolean | Organization$etapasArgs<ExtArgs>
+    itensEstoque?: boolean | Organization$itensEstoqueArgs<ExtArgs>
+    movimentacoesEstoque?: boolean | Organization$movimentacoesEstoqueArgs<ExtArgs>
+    funcionariosVinculados?: boolean | Organization$funcionariosVinculadosArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["organization"]>
 
@@ -2504,6 +3330,11 @@ export namespace Prisma {
     pagamentos?: boolean | Organization$pagamentosArgs<ExtArgs>
     cargos?: boolean | Organization$cargosArgs<ExtArgs>
     orcamentos?: boolean | Organization$orcamentosArgs<ExtArgs>
+    frequencias?: boolean | Organization$frequenciasArgs<ExtArgs>
+    etapas?: boolean | Organization$etapasArgs<ExtArgs>
+    itensEstoque?: boolean | Organization$itensEstoqueArgs<ExtArgs>
+    movimentacoesEstoque?: boolean | Organization$movimentacoesEstoqueArgs<ExtArgs>
+    funcionariosVinculados?: boolean | Organization$funcionariosVinculadosArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2523,6 +3354,11 @@ export namespace Prisma {
       pagamentos: Prisma.$PagamentoPayload<ExtArgs>[]
       cargos: Prisma.$CargoPayload<ExtArgs>[]
       orcamentos: Prisma.$OrcamentoPayload<ExtArgs>[]
+      frequencias: Prisma.$RegistroFrequenciaPayload<ExtArgs>[]
+      etapas: Prisma.$EtapaObraPayload<ExtArgs>[]
+      itensEstoque: Prisma.$ItemEstoquePayload<ExtArgs>[]
+      movimentacoesEstoque: Prisma.$MovimentacaoEstoquePayload<ExtArgs>[]
+      funcionariosVinculados: Prisma.$FuncionarioObraPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2936,6 +3772,11 @@ export namespace Prisma {
     pagamentos<T extends Organization$pagamentosArgs<ExtArgs> = {}>(args?: Subset<T, Organization$pagamentosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PagamentoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     cargos<T extends Organization$cargosArgs<ExtArgs> = {}>(args?: Subset<T, Organization$cargosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CargoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     orcamentos<T extends Organization$orcamentosArgs<ExtArgs> = {}>(args?: Subset<T, Organization$orcamentosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrcamentoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    frequencias<T extends Organization$frequenciasArgs<ExtArgs> = {}>(args?: Subset<T, Organization$frequenciasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistroFrequenciaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    etapas<T extends Organization$etapasArgs<ExtArgs> = {}>(args?: Subset<T, Organization$etapasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EtapaObraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    itensEstoque<T extends Organization$itensEstoqueArgs<ExtArgs> = {}>(args?: Subset<T, Organization$itensEstoqueArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    movimentacoesEstoque<T extends Organization$movimentacoesEstoqueArgs<ExtArgs> = {}>(args?: Subset<T, Organization$movimentacoesEstoqueArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovimentacaoEstoquePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    funcionariosVinculados<T extends Organization$funcionariosVinculadosArgs<ExtArgs> = {}>(args?: Subset<T, Organization$funcionariosVinculadosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FuncionarioObraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3625,6 +4466,126 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: OrcamentoScalarFieldEnum | OrcamentoScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.frequencias
+   */
+  export type Organization$frequenciasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistroFrequencia
+     */
+    select?: RegistroFrequenciaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RegistroFrequencia
+     */
+    omit?: RegistroFrequenciaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RegistroFrequenciaInclude<ExtArgs> | null
+    where?: RegistroFrequenciaWhereInput
+    orderBy?: RegistroFrequenciaOrderByWithRelationInput | RegistroFrequenciaOrderByWithRelationInput[]
+    cursor?: RegistroFrequenciaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RegistroFrequenciaScalarFieldEnum | RegistroFrequenciaScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.etapas
+   */
+  export type Organization$etapasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EtapaObra
+     */
+    select?: EtapaObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EtapaObra
+     */
+    omit?: EtapaObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EtapaObraInclude<ExtArgs> | null
+    where?: EtapaObraWhereInput
+    orderBy?: EtapaObraOrderByWithRelationInput | EtapaObraOrderByWithRelationInput[]
+    cursor?: EtapaObraWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EtapaObraScalarFieldEnum | EtapaObraScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.itensEstoque
+   */
+  export type Organization$itensEstoqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    where?: ItemEstoqueWhereInput
+    orderBy?: ItemEstoqueOrderByWithRelationInput | ItemEstoqueOrderByWithRelationInput[]
+    cursor?: ItemEstoqueWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ItemEstoqueScalarFieldEnum | ItemEstoqueScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.movimentacoesEstoque
+   */
+  export type Organization$movimentacoesEstoqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MovimentacaoEstoque
+     */
+    select?: MovimentacaoEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MovimentacaoEstoque
+     */
+    omit?: MovimentacaoEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoEstoqueInclude<ExtArgs> | null
+    where?: MovimentacaoEstoqueWhereInput
+    orderBy?: MovimentacaoEstoqueOrderByWithRelationInput | MovimentacaoEstoqueOrderByWithRelationInput[]
+    cursor?: MovimentacaoEstoqueWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MovimentacaoEstoqueScalarFieldEnum | MovimentacaoEstoqueScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.funcionariosVinculados
+   */
+  export type Organization$funcionariosVinculadosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FuncionarioObra
+     */
+    select?: FuncionarioObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FuncionarioObra
+     */
+    omit?: FuncionarioObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FuncionarioObraInclude<ExtArgs> | null
+    where?: FuncionarioObraWhereInput
+    orderBy?: FuncionarioObraOrderByWithRelationInput | FuncionarioObraOrderByWithRelationInput[]
+    cursor?: FuncionarioObraWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FuncionarioObraScalarFieldEnum | FuncionarioObraScalarFieldEnum[]
   }
 
   /**
@@ -4922,6 +5883,7 @@ export namespace Prisma {
     obras?: boolean | User$obrasArgs<ExtArgs>
     documentos?: boolean | User$documentosArgs<ExtArgs>
     transacoes?: boolean | User$transacoesArgs<ExtArgs>
+    movimentacoesEstoque?: boolean | User$movimentacoesEstoqueArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4969,6 +5931,7 @@ export namespace Prisma {
     obras?: boolean | User$obrasArgs<ExtArgs>
     documentos?: boolean | User$documentosArgs<ExtArgs>
     transacoes?: boolean | User$transacoesArgs<ExtArgs>
+    movimentacoesEstoque?: boolean | User$movimentacoesEstoqueArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4985,6 +5948,7 @@ export namespace Prisma {
       obras: Prisma.$ObraPayload<ExtArgs>[]
       documentos: Prisma.$DocumentoPayload<ExtArgs>[]
       transacoes: Prisma.$TransacaoFinanceiraPayload<ExtArgs>[]
+      movimentacoesEstoque: Prisma.$MovimentacaoEstoquePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5394,6 +6358,7 @@ export namespace Prisma {
     obras<T extends User$obrasArgs<ExtArgs> = {}>(args?: Subset<T, User$obrasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ObraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     documentos<T extends User$documentosArgs<ExtArgs> = {}>(args?: Subset<T, User$documentosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     transacoes<T extends User$transacoesArgs<ExtArgs> = {}>(args?: Subset<T, User$transacoesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransacaoFinanceiraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    movimentacoesEstoque<T extends User$movimentacoesEstoqueArgs<ExtArgs> = {}>(args?: Subset<T, User$movimentacoesEstoqueArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovimentacaoEstoquePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5924,6 +6889,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.movimentacoesEstoque
+   */
+  export type User$movimentacoesEstoqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MovimentacaoEstoque
+     */
+    select?: MovimentacaoEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MovimentacaoEstoque
+     */
+    omit?: MovimentacaoEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoEstoqueInclude<ExtArgs> | null
+    where?: MovimentacaoEstoqueWhereInput
+    orderBy?: MovimentacaoEstoqueOrderByWithRelationInput | MovimentacaoEstoqueOrderByWithRelationInput[]
+    cursor?: MovimentacaoEstoqueWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MovimentacaoEstoqueScalarFieldEnum | MovimentacaoEstoqueScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5983,6 +6972,7 @@ export namespace Prisma {
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type ObraMaxAggregateOutputType = {
@@ -6006,6 +6996,7 @@ export namespace Prisma {
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type ObraCountAggregateOutputType = {
@@ -6029,6 +7020,7 @@ export namespace Prisma {
     userId: number
     createdAt: number
     updatedAt: number
+    deletedAt: number
     _all: number
   }
 
@@ -6062,6 +7054,7 @@ export namespace Prisma {
     userId?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
   }
 
   export type ObraMaxAggregateInputType = {
@@ -6085,6 +7078,7 @@ export namespace Prisma {
     userId?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
   }
 
   export type ObraCountAggregateInputType = {
@@ -6108,6 +7102,7 @@ export namespace Prisma {
     userId?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
     _all?: true
   }
 
@@ -6218,6 +7213,7 @@ export namespace Prisma {
     userId: string
     createdAt: Date
     updatedAt: Date
+    deletedAt: Date | null
     _count: ObraCountAggregateOutputType | null
     _avg: ObraAvgAggregateOutputType | null
     _sum: ObraSumAggregateOutputType | null
@@ -6260,6 +7256,7 @@ export namespace Prisma {
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
     funcionarios?: boolean | Obra$funcionariosArgs<ExtArgs>
@@ -6269,6 +7266,12 @@ export namespace Prisma {
     alertas?: boolean | Obra$alertasArgs<ExtArgs>
     documentos?: boolean | Obra$documentosArgs<ExtArgs>
     pagamentos?: boolean | Obra$pagamentosArgs<ExtArgs>
+    frequencias?: boolean | Obra$frequenciasArgs<ExtArgs>
+    orcamentos?: boolean | Obra$orcamentosArgs<ExtArgs>
+    etapas?: boolean | Obra$etapasArgs<ExtArgs>
+    itensEstoque?: boolean | Obra$itensEstoqueArgs<ExtArgs>
+    movimentacoesEstoque?: boolean | Obra$movimentacoesEstoqueArgs<ExtArgs>
+    funcionariosVinculados?: boolean | Obra$funcionariosVinculadosArgs<ExtArgs>
     _count?: boolean | ObraCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["obra"]>
 
@@ -6293,6 +7296,7 @@ export namespace Prisma {
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["obra"]>
@@ -6318,6 +7322,7 @@ export namespace Prisma {
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["obra"]>
@@ -6343,9 +7348,10 @@ export namespace Prisma {
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
   }
 
-  export type ObraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "endereco" | "bairro" | "cidade" | "estado" | "cep" | "responsavel" | "cliente" | "dataInicio" | "dataPrevisaoFim" | "status" | "descricao" | "observacoes" | "fotoPath" | "orcamentoPrevisto" | "organizationId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["obra"]>
+  export type ObraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "endereco" | "bairro" | "cidade" | "estado" | "cep" | "responsavel" | "cliente" | "dataInicio" | "dataPrevisaoFim" | "status" | "descricao" | "observacoes" | "fotoPath" | "orcamentoPrevisto" | "organizationId" | "userId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["obra"]>
   export type ObraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -6356,6 +7362,12 @@ export namespace Prisma {
     alertas?: boolean | Obra$alertasArgs<ExtArgs>
     documentos?: boolean | Obra$documentosArgs<ExtArgs>
     pagamentos?: boolean | Obra$pagamentosArgs<ExtArgs>
+    frequencias?: boolean | Obra$frequenciasArgs<ExtArgs>
+    orcamentos?: boolean | Obra$orcamentosArgs<ExtArgs>
+    etapas?: boolean | Obra$etapasArgs<ExtArgs>
+    itensEstoque?: boolean | Obra$itensEstoqueArgs<ExtArgs>
+    movimentacoesEstoque?: boolean | Obra$movimentacoesEstoqueArgs<ExtArgs>
+    funcionariosVinculados?: boolean | Obra$funcionariosVinculadosArgs<ExtArgs>
     _count?: boolean | ObraCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ObraIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6379,6 +7391,12 @@ export namespace Prisma {
       alertas: Prisma.$AlertaPayload<ExtArgs>[]
       documentos: Prisma.$DocumentoPayload<ExtArgs>[]
       pagamentos: Prisma.$PagamentoPayload<ExtArgs>[]
+      frequencias: Prisma.$RegistroFrequenciaPayload<ExtArgs>[]
+      orcamentos: Prisma.$OrcamentoPayload<ExtArgs>[]
+      etapas: Prisma.$EtapaObraPayload<ExtArgs>[]
+      itensEstoque: Prisma.$ItemEstoquePayload<ExtArgs>[]
+      movimentacoesEstoque: Prisma.$MovimentacaoEstoquePayload<ExtArgs>[]
+      funcionariosVinculados: Prisma.$FuncionarioObraPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6401,6 +7419,7 @@ export namespace Prisma {
       userId: string
       createdAt: Date
       updatedAt: Date
+      deletedAt: Date | null
     }, ExtArgs["result"]["obra"]>
     composites: {}
   }
@@ -6804,6 +7823,12 @@ export namespace Prisma {
     alertas<T extends Obra$alertasArgs<ExtArgs> = {}>(args?: Subset<T, Obra$alertasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlertaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     documentos<T extends Obra$documentosArgs<ExtArgs> = {}>(args?: Subset<T, Obra$documentosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     pagamentos<T extends Obra$pagamentosArgs<ExtArgs> = {}>(args?: Subset<T, Obra$pagamentosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PagamentoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    frequencias<T extends Obra$frequenciasArgs<ExtArgs> = {}>(args?: Subset<T, Obra$frequenciasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistroFrequenciaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    orcamentos<T extends Obra$orcamentosArgs<ExtArgs> = {}>(args?: Subset<T, Obra$orcamentosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrcamentoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    etapas<T extends Obra$etapasArgs<ExtArgs> = {}>(args?: Subset<T, Obra$etapasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EtapaObraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    itensEstoque<T extends Obra$itensEstoqueArgs<ExtArgs> = {}>(args?: Subset<T, Obra$itensEstoqueArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    movimentacoesEstoque<T extends Obra$movimentacoesEstoqueArgs<ExtArgs> = {}>(args?: Subset<T, Obra$movimentacoesEstoqueArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovimentacaoEstoquePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    funcionariosVinculados<T extends Obra$funcionariosVinculadosArgs<ExtArgs> = {}>(args?: Subset<T, Obra$funcionariosVinculadosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FuncionarioObraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6853,6 +7878,7 @@ export namespace Prisma {
     readonly userId: FieldRef<"Obra", 'String'>
     readonly createdAt: FieldRef<"Obra", 'DateTime'>
     readonly updatedAt: FieldRef<"Obra", 'DateTime'>
+    readonly deletedAt: FieldRef<"Obra", 'DateTime'>
   }
     
 
@@ -7422,6 +8448,150 @@ export namespace Prisma {
   }
 
   /**
+   * Obra.frequencias
+   */
+  export type Obra$frequenciasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistroFrequencia
+     */
+    select?: RegistroFrequenciaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RegistroFrequencia
+     */
+    omit?: RegistroFrequenciaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RegistroFrequenciaInclude<ExtArgs> | null
+    where?: RegistroFrequenciaWhereInput
+    orderBy?: RegistroFrequenciaOrderByWithRelationInput | RegistroFrequenciaOrderByWithRelationInput[]
+    cursor?: RegistroFrequenciaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RegistroFrequenciaScalarFieldEnum | RegistroFrequenciaScalarFieldEnum[]
+  }
+
+  /**
+   * Obra.orcamentos
+   */
+  export type Obra$orcamentosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Orcamento
+     */
+    select?: OrcamentoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Orcamento
+     */
+    omit?: OrcamentoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrcamentoInclude<ExtArgs> | null
+    where?: OrcamentoWhereInput
+    orderBy?: OrcamentoOrderByWithRelationInput | OrcamentoOrderByWithRelationInput[]
+    cursor?: OrcamentoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OrcamentoScalarFieldEnum | OrcamentoScalarFieldEnum[]
+  }
+
+  /**
+   * Obra.etapas
+   */
+  export type Obra$etapasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EtapaObra
+     */
+    select?: EtapaObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EtapaObra
+     */
+    omit?: EtapaObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EtapaObraInclude<ExtArgs> | null
+    where?: EtapaObraWhereInput
+    orderBy?: EtapaObraOrderByWithRelationInput | EtapaObraOrderByWithRelationInput[]
+    cursor?: EtapaObraWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EtapaObraScalarFieldEnum | EtapaObraScalarFieldEnum[]
+  }
+
+  /**
+   * Obra.itensEstoque
+   */
+  export type Obra$itensEstoqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    where?: ItemEstoqueWhereInput
+    orderBy?: ItemEstoqueOrderByWithRelationInput | ItemEstoqueOrderByWithRelationInput[]
+    cursor?: ItemEstoqueWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ItemEstoqueScalarFieldEnum | ItemEstoqueScalarFieldEnum[]
+  }
+
+  /**
+   * Obra.movimentacoesEstoque
+   */
+  export type Obra$movimentacoesEstoqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MovimentacaoEstoque
+     */
+    select?: MovimentacaoEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MovimentacaoEstoque
+     */
+    omit?: MovimentacaoEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoEstoqueInclude<ExtArgs> | null
+    where?: MovimentacaoEstoqueWhereInput
+    orderBy?: MovimentacaoEstoqueOrderByWithRelationInput | MovimentacaoEstoqueOrderByWithRelationInput[]
+    cursor?: MovimentacaoEstoqueWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MovimentacaoEstoqueScalarFieldEnum | MovimentacaoEstoqueScalarFieldEnum[]
+  }
+
+  /**
+   * Obra.funcionariosVinculados
+   */
+  export type Obra$funcionariosVinculadosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FuncionarioObra
+     */
+    select?: FuncionarioObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FuncionarioObra
+     */
+    omit?: FuncionarioObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FuncionarioObraInclude<ExtArgs> | null
+    where?: FuncionarioObraWhereInput
+    orderBy?: FuncionarioObraOrderByWithRelationInput | FuncionarioObraOrderByWithRelationInput[]
+    cursor?: FuncionarioObraWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FuncionarioObraScalarFieldEnum | FuncionarioObraScalarFieldEnum[]
+  }
+
+  /**
    * Obra without action
    */
   export type ObraDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7477,6 +8647,7 @@ export namespace Prisma {
     obraId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type FuncionarioMaxAggregateOutputType = {
@@ -7496,6 +8667,7 @@ export namespace Prisma {
     obraId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type FuncionarioCountAggregateOutputType = {
@@ -7515,6 +8687,7 @@ export namespace Prisma {
     obraId: number
     createdAt: number
     updatedAt: number
+    deletedAt: number
     _all: number
   }
 
@@ -7544,6 +8717,7 @@ export namespace Prisma {
     obraId?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
   }
 
   export type FuncionarioMaxAggregateInputType = {
@@ -7563,6 +8737,7 @@ export namespace Prisma {
     obraId?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
   }
 
   export type FuncionarioCountAggregateInputType = {
@@ -7582,6 +8757,7 @@ export namespace Prisma {
     obraId?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
     _all?: true
   }
 
@@ -7688,6 +8864,7 @@ export namespace Prisma {
     obraId: string
     createdAt: Date
     updatedAt: Date
+    deletedAt: Date | null
     _count: FuncionarioCountAggregateOutputType | null
     _avg: FuncionarioAvgAggregateOutputType | null
     _sum: FuncionarioSumAggregateOutputType | null
@@ -7726,9 +8903,12 @@ export namespace Prisma {
     obraId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     obra?: boolean | ObraDefaultArgs<ExtArgs>
     pagamentos?: boolean | Funcionario$pagamentosArgs<ExtArgs>
+    frequencias?: boolean | Funcionario$frequenciasArgs<ExtArgs>
+    obrasVinculadas?: boolean | Funcionario$obrasVinculadasArgs<ExtArgs>
     _count?: boolean | FuncionarioCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["funcionario"]>
 
@@ -7749,6 +8929,7 @@ export namespace Prisma {
     obraId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     obra?: boolean | ObraDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["funcionario"]>
@@ -7770,6 +8951,7 @@ export namespace Prisma {
     obraId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     obra?: boolean | ObraDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["funcionario"]>
@@ -7791,13 +8973,16 @@ export namespace Prisma {
     obraId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
   }
 
-  export type FuncionarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "cpf" | "cargo" | "tipo" | "valorPagamento" | "periodicidade" | "dadosBancarios" | "contato" | "dataAdmissao" | "status" | "fotoPath" | "organizationId" | "obraId" | "createdAt" | "updatedAt", ExtArgs["result"]["funcionario"]>
+  export type FuncionarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "cpf" | "cargo" | "tipo" | "valorPagamento" | "periodicidade" | "dadosBancarios" | "contato" | "dataAdmissao" | "status" | "fotoPath" | "organizationId" | "obraId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["funcionario"]>
   export type FuncionarioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     obra?: boolean | ObraDefaultArgs<ExtArgs>
     pagamentos?: boolean | Funcionario$pagamentosArgs<ExtArgs>
+    frequencias?: boolean | Funcionario$frequenciasArgs<ExtArgs>
+    obrasVinculadas?: boolean | Funcionario$obrasVinculadasArgs<ExtArgs>
     _count?: boolean | FuncionarioCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type FuncionarioIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7815,6 +9000,8 @@ export namespace Prisma {
       organization: Prisma.$OrganizationPayload<ExtArgs>
       obra: Prisma.$ObraPayload<ExtArgs>
       pagamentos: Prisma.$PagamentoPayload<ExtArgs>[]
+      frequencias: Prisma.$RegistroFrequenciaPayload<ExtArgs>[]
+      obrasVinculadas: Prisma.$FuncionarioObraPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7833,6 +9020,7 @@ export namespace Prisma {
       obraId: string
       createdAt: Date
       updatedAt: Date
+      deletedAt: Date | null
     }, ExtArgs["result"]["funcionario"]>
     composites: {}
   }
@@ -8230,6 +9418,8 @@ export namespace Prisma {
     organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     obra<T extends ObraDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ObraDefaultArgs<ExtArgs>>): Prisma__ObraClient<$Result.GetResult<Prisma.$ObraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     pagamentos<T extends Funcionario$pagamentosArgs<ExtArgs> = {}>(args?: Subset<T, Funcionario$pagamentosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PagamentoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    frequencias<T extends Funcionario$frequenciasArgs<ExtArgs> = {}>(args?: Subset<T, Funcionario$frequenciasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistroFrequenciaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    obrasVinculadas<T extends Funcionario$obrasVinculadasArgs<ExtArgs> = {}>(args?: Subset<T, Funcionario$obrasVinculadasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FuncionarioObraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8275,6 +9465,7 @@ export namespace Prisma {
     readonly obraId: FieldRef<"Funcionario", 'String'>
     readonly createdAt: FieldRef<"Funcionario", 'DateTime'>
     readonly updatedAt: FieldRef<"Funcionario", 'DateTime'>
+    readonly deletedAt: FieldRef<"Funcionario", 'DateTime'>
   }
     
 
@@ -8700,6 +9891,54 @@ export namespace Prisma {
   }
 
   /**
+   * Funcionario.frequencias
+   */
+  export type Funcionario$frequenciasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistroFrequencia
+     */
+    select?: RegistroFrequenciaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RegistroFrequencia
+     */
+    omit?: RegistroFrequenciaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RegistroFrequenciaInclude<ExtArgs> | null
+    where?: RegistroFrequenciaWhereInput
+    orderBy?: RegistroFrequenciaOrderByWithRelationInput | RegistroFrequenciaOrderByWithRelationInput[]
+    cursor?: RegistroFrequenciaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RegistroFrequenciaScalarFieldEnum | RegistroFrequenciaScalarFieldEnum[]
+  }
+
+  /**
+   * Funcionario.obrasVinculadas
+   */
+  export type Funcionario$obrasVinculadasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FuncionarioObra
+     */
+    select?: FuncionarioObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FuncionarioObra
+     */
+    omit?: FuncionarioObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FuncionarioObraInclude<ExtArgs> | null
+    where?: FuncionarioObraWhereInput
+    orderBy?: FuncionarioObraOrderByWithRelationInput | FuncionarioObraOrderByWithRelationInput[]
+    cursor?: FuncionarioObraWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FuncionarioObraScalarFieldEnum | FuncionarioObraScalarFieldEnum[]
+  }
+
+  /**
    * Funcionario without action
    */
   export type FuncionarioDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8715,6 +9954,1150 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: FuncionarioInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model FuncionarioObra
+   */
+
+  export type AggregateFuncionarioObra = {
+    _count: FuncionarioObraCountAggregateOutputType | null
+    _min: FuncionarioObraMinAggregateOutputType | null
+    _max: FuncionarioObraMaxAggregateOutputType | null
+  }
+
+  export type FuncionarioObraMinAggregateOutputType = {
+    id: string | null
+    funcionarioId: string | null
+    obraId: string | null
+    organizationId: string | null
+    dataInicio: Date | null
+    dataFim: Date | null
+    funcao: string | null
+    ativo: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FuncionarioObraMaxAggregateOutputType = {
+    id: string | null
+    funcionarioId: string | null
+    obraId: string | null
+    organizationId: string | null
+    dataInicio: Date | null
+    dataFim: Date | null
+    funcao: string | null
+    ativo: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FuncionarioObraCountAggregateOutputType = {
+    id: number
+    funcionarioId: number
+    obraId: number
+    organizationId: number
+    dataInicio: number
+    dataFim: number
+    funcao: number
+    ativo: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type FuncionarioObraMinAggregateInputType = {
+    id?: true
+    funcionarioId?: true
+    obraId?: true
+    organizationId?: true
+    dataInicio?: true
+    dataFim?: true
+    funcao?: true
+    ativo?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FuncionarioObraMaxAggregateInputType = {
+    id?: true
+    funcionarioId?: true
+    obraId?: true
+    organizationId?: true
+    dataInicio?: true
+    dataFim?: true
+    funcao?: true
+    ativo?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FuncionarioObraCountAggregateInputType = {
+    id?: true
+    funcionarioId?: true
+    obraId?: true
+    organizationId?: true
+    dataInicio?: true
+    dataFim?: true
+    funcao?: true
+    ativo?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type FuncionarioObraAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FuncionarioObra to aggregate.
+     */
+    where?: FuncionarioObraWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FuncionarioObras to fetch.
+     */
+    orderBy?: FuncionarioObraOrderByWithRelationInput | FuncionarioObraOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FuncionarioObraWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FuncionarioObras from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FuncionarioObras.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FuncionarioObras
+    **/
+    _count?: true | FuncionarioObraCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FuncionarioObraMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FuncionarioObraMaxAggregateInputType
+  }
+
+  export type GetFuncionarioObraAggregateType<T extends FuncionarioObraAggregateArgs> = {
+        [P in keyof T & keyof AggregateFuncionarioObra]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFuncionarioObra[P]>
+      : GetScalarType<T[P], AggregateFuncionarioObra[P]>
+  }
+
+
+
+
+  export type FuncionarioObraGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FuncionarioObraWhereInput
+    orderBy?: FuncionarioObraOrderByWithAggregationInput | FuncionarioObraOrderByWithAggregationInput[]
+    by: FuncionarioObraScalarFieldEnum[] | FuncionarioObraScalarFieldEnum
+    having?: FuncionarioObraScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FuncionarioObraCountAggregateInputType | true
+    _min?: FuncionarioObraMinAggregateInputType
+    _max?: FuncionarioObraMaxAggregateInputType
+  }
+
+  export type FuncionarioObraGroupByOutputType = {
+    id: string
+    funcionarioId: string
+    obraId: string
+    organizationId: string
+    dataInicio: Date
+    dataFim: Date | null
+    funcao: string | null
+    ativo: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: FuncionarioObraCountAggregateOutputType | null
+    _min: FuncionarioObraMinAggregateOutputType | null
+    _max: FuncionarioObraMaxAggregateOutputType | null
+  }
+
+  type GetFuncionarioObraGroupByPayload<T extends FuncionarioObraGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FuncionarioObraGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FuncionarioObraGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FuncionarioObraGroupByOutputType[P]>
+            : GetScalarType<T[P], FuncionarioObraGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FuncionarioObraSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    funcionarioId?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    dataInicio?: boolean
+    dataFim?: boolean
+    funcao?: boolean
+    ativo?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    funcionario?: boolean | FuncionarioDefaultArgs<ExtArgs>
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["funcionarioObra"]>
+
+  export type FuncionarioObraSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    funcionarioId?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    dataInicio?: boolean
+    dataFim?: boolean
+    funcao?: boolean
+    ativo?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    funcionario?: boolean | FuncionarioDefaultArgs<ExtArgs>
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["funcionarioObra"]>
+
+  export type FuncionarioObraSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    funcionarioId?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    dataInicio?: boolean
+    dataFim?: boolean
+    funcao?: boolean
+    ativo?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    funcionario?: boolean | FuncionarioDefaultArgs<ExtArgs>
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["funcionarioObra"]>
+
+  export type FuncionarioObraSelectScalar = {
+    id?: boolean
+    funcionarioId?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    dataInicio?: boolean
+    dataFim?: boolean
+    funcao?: boolean
+    ativo?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type FuncionarioObraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "funcionarioId" | "obraId" | "organizationId" | "dataInicio" | "dataFim" | "funcao" | "ativo" | "createdAt" | "updatedAt", ExtArgs["result"]["funcionarioObra"]>
+  export type FuncionarioObraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    funcionario?: boolean | FuncionarioDefaultArgs<ExtArgs>
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type FuncionarioObraIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    funcionario?: boolean | FuncionarioDefaultArgs<ExtArgs>
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type FuncionarioObraIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    funcionario?: boolean | FuncionarioDefaultArgs<ExtArgs>
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+
+  export type $FuncionarioObraPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FuncionarioObra"
+    objects: {
+      funcionario: Prisma.$FuncionarioPayload<ExtArgs>
+      obra: Prisma.$ObraPayload<ExtArgs>
+      organization: Prisma.$OrganizationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      funcionarioId: string
+      obraId: string
+      organizationId: string
+      dataInicio: Date
+      dataFim: Date | null
+      funcao: string | null
+      ativo: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["funcionarioObra"]>
+    composites: {}
+  }
+
+  type FuncionarioObraGetPayload<S extends boolean | null | undefined | FuncionarioObraDefaultArgs> = $Result.GetResult<Prisma.$FuncionarioObraPayload, S>
+
+  type FuncionarioObraCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FuncionarioObraFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FuncionarioObraCountAggregateInputType | true
+    }
+
+  export interface FuncionarioObraDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FuncionarioObra'], meta: { name: 'FuncionarioObra' } }
+    /**
+     * Find zero or one FuncionarioObra that matches the filter.
+     * @param {FuncionarioObraFindUniqueArgs} args - Arguments to find a FuncionarioObra
+     * @example
+     * // Get one FuncionarioObra
+     * const funcionarioObra = await prisma.funcionarioObra.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FuncionarioObraFindUniqueArgs>(args: SelectSubset<T, FuncionarioObraFindUniqueArgs<ExtArgs>>): Prisma__FuncionarioObraClient<$Result.GetResult<Prisma.$FuncionarioObraPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one FuncionarioObra that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FuncionarioObraFindUniqueOrThrowArgs} args - Arguments to find a FuncionarioObra
+     * @example
+     * // Get one FuncionarioObra
+     * const funcionarioObra = await prisma.funcionarioObra.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FuncionarioObraFindUniqueOrThrowArgs>(args: SelectSubset<T, FuncionarioObraFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FuncionarioObraClient<$Result.GetResult<Prisma.$FuncionarioObraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FuncionarioObra that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FuncionarioObraFindFirstArgs} args - Arguments to find a FuncionarioObra
+     * @example
+     * // Get one FuncionarioObra
+     * const funcionarioObra = await prisma.funcionarioObra.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FuncionarioObraFindFirstArgs>(args?: SelectSubset<T, FuncionarioObraFindFirstArgs<ExtArgs>>): Prisma__FuncionarioObraClient<$Result.GetResult<Prisma.$FuncionarioObraPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FuncionarioObra that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FuncionarioObraFindFirstOrThrowArgs} args - Arguments to find a FuncionarioObra
+     * @example
+     * // Get one FuncionarioObra
+     * const funcionarioObra = await prisma.funcionarioObra.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FuncionarioObraFindFirstOrThrowArgs>(args?: SelectSubset<T, FuncionarioObraFindFirstOrThrowArgs<ExtArgs>>): Prisma__FuncionarioObraClient<$Result.GetResult<Prisma.$FuncionarioObraPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more FuncionarioObras that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FuncionarioObraFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FuncionarioObras
+     * const funcionarioObras = await prisma.funcionarioObra.findMany()
+     * 
+     * // Get first 10 FuncionarioObras
+     * const funcionarioObras = await prisma.funcionarioObra.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const funcionarioObraWithIdOnly = await prisma.funcionarioObra.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FuncionarioObraFindManyArgs>(args?: SelectSubset<T, FuncionarioObraFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FuncionarioObraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a FuncionarioObra.
+     * @param {FuncionarioObraCreateArgs} args - Arguments to create a FuncionarioObra.
+     * @example
+     * // Create one FuncionarioObra
+     * const FuncionarioObra = await prisma.funcionarioObra.create({
+     *   data: {
+     *     // ... data to create a FuncionarioObra
+     *   }
+     * })
+     * 
+     */
+    create<T extends FuncionarioObraCreateArgs>(args: SelectSubset<T, FuncionarioObraCreateArgs<ExtArgs>>): Prisma__FuncionarioObraClient<$Result.GetResult<Prisma.$FuncionarioObraPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many FuncionarioObras.
+     * @param {FuncionarioObraCreateManyArgs} args - Arguments to create many FuncionarioObras.
+     * @example
+     * // Create many FuncionarioObras
+     * const funcionarioObra = await prisma.funcionarioObra.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FuncionarioObraCreateManyArgs>(args?: SelectSubset<T, FuncionarioObraCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many FuncionarioObras and returns the data saved in the database.
+     * @param {FuncionarioObraCreateManyAndReturnArgs} args - Arguments to create many FuncionarioObras.
+     * @example
+     * // Create many FuncionarioObras
+     * const funcionarioObra = await prisma.funcionarioObra.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many FuncionarioObras and only return the `id`
+     * const funcionarioObraWithIdOnly = await prisma.funcionarioObra.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FuncionarioObraCreateManyAndReturnArgs>(args?: SelectSubset<T, FuncionarioObraCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FuncionarioObraPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a FuncionarioObra.
+     * @param {FuncionarioObraDeleteArgs} args - Arguments to delete one FuncionarioObra.
+     * @example
+     * // Delete one FuncionarioObra
+     * const FuncionarioObra = await prisma.funcionarioObra.delete({
+     *   where: {
+     *     // ... filter to delete one FuncionarioObra
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FuncionarioObraDeleteArgs>(args: SelectSubset<T, FuncionarioObraDeleteArgs<ExtArgs>>): Prisma__FuncionarioObraClient<$Result.GetResult<Prisma.$FuncionarioObraPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one FuncionarioObra.
+     * @param {FuncionarioObraUpdateArgs} args - Arguments to update one FuncionarioObra.
+     * @example
+     * // Update one FuncionarioObra
+     * const funcionarioObra = await prisma.funcionarioObra.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FuncionarioObraUpdateArgs>(args: SelectSubset<T, FuncionarioObraUpdateArgs<ExtArgs>>): Prisma__FuncionarioObraClient<$Result.GetResult<Prisma.$FuncionarioObraPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more FuncionarioObras.
+     * @param {FuncionarioObraDeleteManyArgs} args - Arguments to filter FuncionarioObras to delete.
+     * @example
+     * // Delete a few FuncionarioObras
+     * const { count } = await prisma.funcionarioObra.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FuncionarioObraDeleteManyArgs>(args?: SelectSubset<T, FuncionarioObraDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FuncionarioObras.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FuncionarioObraUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FuncionarioObras
+     * const funcionarioObra = await prisma.funcionarioObra.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FuncionarioObraUpdateManyArgs>(args: SelectSubset<T, FuncionarioObraUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FuncionarioObras and returns the data updated in the database.
+     * @param {FuncionarioObraUpdateManyAndReturnArgs} args - Arguments to update many FuncionarioObras.
+     * @example
+     * // Update many FuncionarioObras
+     * const funcionarioObra = await prisma.funcionarioObra.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more FuncionarioObras and only return the `id`
+     * const funcionarioObraWithIdOnly = await prisma.funcionarioObra.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends FuncionarioObraUpdateManyAndReturnArgs>(args: SelectSubset<T, FuncionarioObraUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FuncionarioObraPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one FuncionarioObra.
+     * @param {FuncionarioObraUpsertArgs} args - Arguments to update or create a FuncionarioObra.
+     * @example
+     * // Update or create a FuncionarioObra
+     * const funcionarioObra = await prisma.funcionarioObra.upsert({
+     *   create: {
+     *     // ... data to create a FuncionarioObra
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FuncionarioObra we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FuncionarioObraUpsertArgs>(args: SelectSubset<T, FuncionarioObraUpsertArgs<ExtArgs>>): Prisma__FuncionarioObraClient<$Result.GetResult<Prisma.$FuncionarioObraPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of FuncionarioObras.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FuncionarioObraCountArgs} args - Arguments to filter FuncionarioObras to count.
+     * @example
+     * // Count the number of FuncionarioObras
+     * const count = await prisma.funcionarioObra.count({
+     *   where: {
+     *     // ... the filter for the FuncionarioObras we want to count
+     *   }
+     * })
+    **/
+    count<T extends FuncionarioObraCountArgs>(
+      args?: Subset<T, FuncionarioObraCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FuncionarioObraCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FuncionarioObra.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FuncionarioObraAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FuncionarioObraAggregateArgs>(args: Subset<T, FuncionarioObraAggregateArgs>): Prisma.PrismaPromise<GetFuncionarioObraAggregateType<T>>
+
+    /**
+     * Group by FuncionarioObra.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FuncionarioObraGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FuncionarioObraGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FuncionarioObraGroupByArgs['orderBy'] }
+        : { orderBy?: FuncionarioObraGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FuncionarioObraGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFuncionarioObraGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FuncionarioObra model
+   */
+  readonly fields: FuncionarioObraFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FuncionarioObra.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FuncionarioObraClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    funcionario<T extends FuncionarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FuncionarioDefaultArgs<ExtArgs>>): Prisma__FuncionarioClient<$Result.GetResult<Prisma.$FuncionarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    obra<T extends ObraDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ObraDefaultArgs<ExtArgs>>): Prisma__ObraClient<$Result.GetResult<Prisma.$ObraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FuncionarioObra model
+   */
+  interface FuncionarioObraFieldRefs {
+    readonly id: FieldRef<"FuncionarioObra", 'String'>
+    readonly funcionarioId: FieldRef<"FuncionarioObra", 'String'>
+    readonly obraId: FieldRef<"FuncionarioObra", 'String'>
+    readonly organizationId: FieldRef<"FuncionarioObra", 'String'>
+    readonly dataInicio: FieldRef<"FuncionarioObra", 'DateTime'>
+    readonly dataFim: FieldRef<"FuncionarioObra", 'DateTime'>
+    readonly funcao: FieldRef<"FuncionarioObra", 'String'>
+    readonly ativo: FieldRef<"FuncionarioObra", 'Boolean'>
+    readonly createdAt: FieldRef<"FuncionarioObra", 'DateTime'>
+    readonly updatedAt: FieldRef<"FuncionarioObra", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FuncionarioObra findUnique
+   */
+  export type FuncionarioObraFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FuncionarioObra
+     */
+    select?: FuncionarioObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FuncionarioObra
+     */
+    omit?: FuncionarioObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FuncionarioObraInclude<ExtArgs> | null
+    /**
+     * Filter, which FuncionarioObra to fetch.
+     */
+    where: FuncionarioObraWhereUniqueInput
+  }
+
+  /**
+   * FuncionarioObra findUniqueOrThrow
+   */
+  export type FuncionarioObraFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FuncionarioObra
+     */
+    select?: FuncionarioObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FuncionarioObra
+     */
+    omit?: FuncionarioObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FuncionarioObraInclude<ExtArgs> | null
+    /**
+     * Filter, which FuncionarioObra to fetch.
+     */
+    where: FuncionarioObraWhereUniqueInput
+  }
+
+  /**
+   * FuncionarioObra findFirst
+   */
+  export type FuncionarioObraFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FuncionarioObra
+     */
+    select?: FuncionarioObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FuncionarioObra
+     */
+    omit?: FuncionarioObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FuncionarioObraInclude<ExtArgs> | null
+    /**
+     * Filter, which FuncionarioObra to fetch.
+     */
+    where?: FuncionarioObraWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FuncionarioObras to fetch.
+     */
+    orderBy?: FuncionarioObraOrderByWithRelationInput | FuncionarioObraOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FuncionarioObras.
+     */
+    cursor?: FuncionarioObraWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FuncionarioObras from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FuncionarioObras.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FuncionarioObras.
+     */
+    distinct?: FuncionarioObraScalarFieldEnum | FuncionarioObraScalarFieldEnum[]
+  }
+
+  /**
+   * FuncionarioObra findFirstOrThrow
+   */
+  export type FuncionarioObraFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FuncionarioObra
+     */
+    select?: FuncionarioObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FuncionarioObra
+     */
+    omit?: FuncionarioObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FuncionarioObraInclude<ExtArgs> | null
+    /**
+     * Filter, which FuncionarioObra to fetch.
+     */
+    where?: FuncionarioObraWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FuncionarioObras to fetch.
+     */
+    orderBy?: FuncionarioObraOrderByWithRelationInput | FuncionarioObraOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FuncionarioObras.
+     */
+    cursor?: FuncionarioObraWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FuncionarioObras from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FuncionarioObras.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FuncionarioObras.
+     */
+    distinct?: FuncionarioObraScalarFieldEnum | FuncionarioObraScalarFieldEnum[]
+  }
+
+  /**
+   * FuncionarioObra findMany
+   */
+  export type FuncionarioObraFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FuncionarioObra
+     */
+    select?: FuncionarioObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FuncionarioObra
+     */
+    omit?: FuncionarioObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FuncionarioObraInclude<ExtArgs> | null
+    /**
+     * Filter, which FuncionarioObras to fetch.
+     */
+    where?: FuncionarioObraWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FuncionarioObras to fetch.
+     */
+    orderBy?: FuncionarioObraOrderByWithRelationInput | FuncionarioObraOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FuncionarioObras.
+     */
+    cursor?: FuncionarioObraWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FuncionarioObras from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FuncionarioObras.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FuncionarioObras.
+     */
+    distinct?: FuncionarioObraScalarFieldEnum | FuncionarioObraScalarFieldEnum[]
+  }
+
+  /**
+   * FuncionarioObra create
+   */
+  export type FuncionarioObraCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FuncionarioObra
+     */
+    select?: FuncionarioObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FuncionarioObra
+     */
+    omit?: FuncionarioObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FuncionarioObraInclude<ExtArgs> | null
+    /**
+     * The data needed to create a FuncionarioObra.
+     */
+    data: XOR<FuncionarioObraCreateInput, FuncionarioObraUncheckedCreateInput>
+  }
+
+  /**
+   * FuncionarioObra createMany
+   */
+  export type FuncionarioObraCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FuncionarioObras.
+     */
+    data: FuncionarioObraCreateManyInput | FuncionarioObraCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FuncionarioObra createManyAndReturn
+   */
+  export type FuncionarioObraCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FuncionarioObra
+     */
+    select?: FuncionarioObraSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FuncionarioObra
+     */
+    omit?: FuncionarioObraOmit<ExtArgs> | null
+    /**
+     * The data used to create many FuncionarioObras.
+     */
+    data: FuncionarioObraCreateManyInput | FuncionarioObraCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FuncionarioObraIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FuncionarioObra update
+   */
+  export type FuncionarioObraUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FuncionarioObra
+     */
+    select?: FuncionarioObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FuncionarioObra
+     */
+    omit?: FuncionarioObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FuncionarioObraInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FuncionarioObra.
+     */
+    data: XOR<FuncionarioObraUpdateInput, FuncionarioObraUncheckedUpdateInput>
+    /**
+     * Choose, which FuncionarioObra to update.
+     */
+    where: FuncionarioObraWhereUniqueInput
+  }
+
+  /**
+   * FuncionarioObra updateMany
+   */
+  export type FuncionarioObraUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FuncionarioObras.
+     */
+    data: XOR<FuncionarioObraUpdateManyMutationInput, FuncionarioObraUncheckedUpdateManyInput>
+    /**
+     * Filter which FuncionarioObras to update
+     */
+    where?: FuncionarioObraWhereInput
+    /**
+     * Limit how many FuncionarioObras to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * FuncionarioObra updateManyAndReturn
+   */
+  export type FuncionarioObraUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FuncionarioObra
+     */
+    select?: FuncionarioObraSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FuncionarioObra
+     */
+    omit?: FuncionarioObraOmit<ExtArgs> | null
+    /**
+     * The data used to update FuncionarioObras.
+     */
+    data: XOR<FuncionarioObraUpdateManyMutationInput, FuncionarioObraUncheckedUpdateManyInput>
+    /**
+     * Filter which FuncionarioObras to update
+     */
+    where?: FuncionarioObraWhereInput
+    /**
+     * Limit how many FuncionarioObras to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FuncionarioObraIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FuncionarioObra upsert
+   */
+  export type FuncionarioObraUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FuncionarioObra
+     */
+    select?: FuncionarioObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FuncionarioObra
+     */
+    omit?: FuncionarioObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FuncionarioObraInclude<ExtArgs> | null
+    /**
+     * The filter to search for the FuncionarioObra to update in case it exists.
+     */
+    where: FuncionarioObraWhereUniqueInput
+    /**
+     * In case the FuncionarioObra found by the `where` argument doesn't exist, create a new FuncionarioObra with this data.
+     */
+    create: XOR<FuncionarioObraCreateInput, FuncionarioObraUncheckedCreateInput>
+    /**
+     * In case the FuncionarioObra was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FuncionarioObraUpdateInput, FuncionarioObraUncheckedUpdateInput>
+  }
+
+  /**
+   * FuncionarioObra delete
+   */
+  export type FuncionarioObraDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FuncionarioObra
+     */
+    select?: FuncionarioObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FuncionarioObra
+     */
+    omit?: FuncionarioObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FuncionarioObraInclude<ExtArgs> | null
+    /**
+     * Filter which FuncionarioObra to delete.
+     */
+    where: FuncionarioObraWhereUniqueInput
+  }
+
+  /**
+   * FuncionarioObra deleteMany
+   */
+  export type FuncionarioObraDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FuncionarioObras to delete
+     */
+    where?: FuncionarioObraWhereInput
+    /**
+     * Limit how many FuncionarioObras to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * FuncionarioObra without action
+   */
+  export type FuncionarioObraDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FuncionarioObra
+     */
+    select?: FuncionarioObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FuncionarioObra
+     */
+    omit?: FuncionarioObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FuncionarioObraInclude<ExtArgs> | null
   }
 
 
@@ -9924,6 +12307,7 @@ export namespace Prisma {
     obraId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type MaquinarioMaxAggregateOutputType = {
@@ -9947,6 +12331,7 @@ export namespace Prisma {
     obraId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type MaquinarioCountAggregateOutputType = {
@@ -9970,6 +12355,7 @@ export namespace Prisma {
     obraId: number
     createdAt: number
     updatedAt: number
+    deletedAt: number
     _all: number
   }
 
@@ -10003,6 +12389,7 @@ export namespace Prisma {
     obraId?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
   }
 
   export type MaquinarioMaxAggregateInputType = {
@@ -10026,6 +12413,7 @@ export namespace Prisma {
     obraId?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
   }
 
   export type MaquinarioCountAggregateInputType = {
@@ -10049,6 +12437,7 @@ export namespace Prisma {
     obraId?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
     _all?: true
   }
 
@@ -10159,6 +12548,7 @@ export namespace Prisma {
     obraId: string
     createdAt: Date
     updatedAt: Date
+    deletedAt: Date | null
     _count: MaquinarioCountAggregateOutputType | null
     _avg: MaquinarioAvgAggregateOutputType | null
     _sum: MaquinarioSumAggregateOutputType | null
@@ -10201,6 +12591,7 @@ export namespace Prisma {
     obraId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     obra?: boolean | ObraDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["maquinario"]>
@@ -10226,6 +12617,7 @@ export namespace Prisma {
     obraId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     obra?: boolean | ObraDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["maquinario"]>
@@ -10251,6 +12643,7 @@ export namespace Prisma {
     obraId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     obra?: boolean | ObraDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["maquinario"]>
@@ -10276,9 +12669,10 @@ export namespace Prisma {
     obraId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
   }
 
-  export type MaquinarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "tipo" | "marca" | "modelo" | "numeroSerie" | "status" | "locadoraNome" | "locadoraContato" | "dataInicioLocacao" | "dataVencimentoLocacao" | "valorLocacao" | "periodicidadeLocacao" | "contratoPath" | "observacoes" | "fotoPath" | "organizationId" | "obraId" | "createdAt" | "updatedAt", ExtArgs["result"]["maquinario"]>
+  export type MaquinarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "tipo" | "marca" | "modelo" | "numeroSerie" | "status" | "locadoraNome" | "locadoraContato" | "dataInicioLocacao" | "dataVencimentoLocacao" | "valorLocacao" | "periodicidadeLocacao" | "contratoPath" | "observacoes" | "fotoPath" | "organizationId" | "obraId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["maquinario"]>
   export type MaquinarioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     obra?: boolean | ObraDefaultArgs<ExtArgs>
@@ -10319,6 +12713,7 @@ export namespace Prisma {
       obraId: string
       createdAt: Date
       updatedAt: Date
+      deletedAt: Date | null
     }, ExtArgs["result"]["maquinario"]>
     composites: {}
   }
@@ -10764,6 +13159,7 @@ export namespace Prisma {
     readonly obraId: FieldRef<"Maquinario", 'String'>
     readonly createdAt: FieldRef<"Maquinario", 'DateTime'>
     readonly updatedAt: FieldRef<"Maquinario", 'DateTime'>
+    readonly deletedAt: FieldRef<"Maquinario", 'DateTime'>
   }
     
 
@@ -14714,6 +17110,7 @@ export namespace Prisma {
     id: string | null
     titulo: string | null
     organizationId: string | null
+    obraId: string | null
     empresa: string | null
     cnpj: string | null
     responsavel: string | null
@@ -14737,6 +17134,7 @@ export namespace Prisma {
     id: string | null
     titulo: string | null
     organizationId: string | null
+    obraId: string | null
     empresa: string | null
     cnpj: string | null
     responsavel: string | null
@@ -14760,6 +17158,7 @@ export namespace Prisma {
     id: number
     titulo: number
     organizationId: number
+    obraId: number
     empresa: number
     cnpj: number
     responsavel: number
@@ -14800,6 +17199,7 @@ export namespace Prisma {
     id?: true
     titulo?: true
     organizationId?: true
+    obraId?: true
     empresa?: true
     cnpj?: true
     responsavel?: true
@@ -14823,6 +17223,7 @@ export namespace Prisma {
     id?: true
     titulo?: true
     organizationId?: true
+    obraId?: true
     empresa?: true
     cnpj?: true
     responsavel?: true
@@ -14846,6 +17247,7 @@ export namespace Prisma {
     id?: true
     titulo?: true
     organizationId?: true
+    obraId?: true
     empresa?: true
     cnpj?: true
     responsavel?: true
@@ -14957,6 +17359,7 @@ export namespace Prisma {
     id: string
     titulo: string
     organizationId: string
+    obraId: string | null
     empresa: string | null
     cnpj: string | null
     responsavel: string | null
@@ -15000,6 +17403,7 @@ export namespace Prisma {
     id?: boolean
     titulo?: boolean
     organizationId?: boolean
+    obraId?: boolean
     empresa?: boolean
     cnpj?: boolean
     responsavel?: boolean
@@ -15019,12 +17423,14 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    obra?: boolean | Orcamento$obraArgs<ExtArgs>
   }, ExtArgs["result"]["orcamento"]>
 
   export type OrcamentoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     titulo?: boolean
     organizationId?: boolean
+    obraId?: boolean
     empresa?: boolean
     cnpj?: boolean
     responsavel?: boolean
@@ -15044,12 +17450,14 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    obra?: boolean | Orcamento$obraArgs<ExtArgs>
   }, ExtArgs["result"]["orcamento"]>
 
   export type OrcamentoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     titulo?: boolean
     organizationId?: boolean
+    obraId?: boolean
     empresa?: boolean
     cnpj?: boolean
     responsavel?: boolean
@@ -15069,12 +17477,14 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    obra?: boolean | Orcamento$obraArgs<ExtArgs>
   }, ExtArgs["result"]["orcamento"]>
 
   export type OrcamentoSelectScalar = {
     id?: boolean
     titulo?: boolean
     organizationId?: boolean
+    obraId?: boolean
     empresa?: boolean
     cnpj?: boolean
     responsavel?: boolean
@@ -15095,26 +17505,31 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type OrcamentoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "titulo" | "organizationId" | "empresa" | "cnpj" | "responsavel" | "contato" | "cliente" | "cnpjCliente" | "nomeObra" | "area" | "endereco" | "dataOrcamento" | "validade" | "margem" | "desconto" | "obs" | "rows" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["orcamento"]>
+  export type OrcamentoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "titulo" | "organizationId" | "obraId" | "empresa" | "cnpj" | "responsavel" | "contato" | "cliente" | "cnpjCliente" | "nomeObra" | "area" | "endereco" | "dataOrcamento" | "validade" | "margem" | "desconto" | "obs" | "rows" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["orcamento"]>
   export type OrcamentoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    obra?: boolean | Orcamento$obraArgs<ExtArgs>
   }
   export type OrcamentoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    obra?: boolean | Orcamento$obraArgs<ExtArgs>
   }
   export type OrcamentoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    obra?: boolean | Orcamento$obraArgs<ExtArgs>
   }
 
   export type $OrcamentoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Orcamento"
     objects: {
       organization: Prisma.$OrganizationPayload<ExtArgs>
+      obra: Prisma.$ObraPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       titulo: string
       organizationId: string
+      obraId: string | null
       empresa: string | null
       cnpj: string | null
       responsavel: string | null
@@ -15528,6 +17943,7 @@ export namespace Prisma {
   export interface Prisma__OrcamentoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    obra<T extends Orcamento$obraArgs<ExtArgs> = {}>(args?: Subset<T, Orcamento$obraArgs<ExtArgs>>): Prisma__ObraClient<$Result.GetResult<Prisma.$ObraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15560,6 +17976,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Orcamento", 'String'>
     readonly titulo: FieldRef<"Orcamento", 'String'>
     readonly organizationId: FieldRef<"Orcamento", 'String'>
+    readonly obraId: FieldRef<"Orcamento", 'String'>
     readonly empresa: FieldRef<"Orcamento", 'String'>
     readonly cnpj: FieldRef<"Orcamento", 'String'>
     readonly responsavel: FieldRef<"Orcamento", 'String'>
@@ -15976,6 +18393,25 @@ export namespace Prisma {
      * Limit how many Orcamentos to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Orcamento.obra
+   */
+  export type Orcamento$obraArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Obra
+     */
+    select?: ObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Obra
+     */
+    omit?: ObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ObraInclude<ExtArgs> | null
+    where?: ObraWhereInput
   }
 
   /**
@@ -17189,6 +19625,6964 @@ export namespace Prisma {
 
 
   /**
+   * Model RegistroFrequencia
+   */
+
+  export type AggregateRegistroFrequencia = {
+    _count: RegistroFrequenciaCountAggregateOutputType | null
+    _avg: RegistroFrequenciaAvgAggregateOutputType | null
+    _sum: RegistroFrequenciaSumAggregateOutputType | null
+    _min: RegistroFrequenciaMinAggregateOutputType | null
+    _max: RegistroFrequenciaMaxAggregateOutputType | null
+  }
+
+  export type RegistroFrequenciaAvgAggregateOutputType = {
+    periodo: number | null
+    horasExtras: number | null
+  }
+
+  export type RegistroFrequenciaSumAggregateOutputType = {
+    periodo: number | null
+    horasExtras: number | null
+  }
+
+  export type RegistroFrequenciaMinAggregateOutputType = {
+    id: string | null
+    funcionarioId: string | null
+    obraId: string | null
+    organizationId: string | null
+    data: Date | null
+    presente: boolean | null
+    periodo: number | null
+    horasExtras: number | null
+    observacao: string | null
+    createdAt: Date | null
+  }
+
+  export type RegistroFrequenciaMaxAggregateOutputType = {
+    id: string | null
+    funcionarioId: string | null
+    obraId: string | null
+    organizationId: string | null
+    data: Date | null
+    presente: boolean | null
+    periodo: number | null
+    horasExtras: number | null
+    observacao: string | null
+    createdAt: Date | null
+  }
+
+  export type RegistroFrequenciaCountAggregateOutputType = {
+    id: number
+    funcionarioId: number
+    obraId: number
+    organizationId: number
+    data: number
+    presente: number
+    periodo: number
+    horasExtras: number
+    observacao: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type RegistroFrequenciaAvgAggregateInputType = {
+    periodo?: true
+    horasExtras?: true
+  }
+
+  export type RegistroFrequenciaSumAggregateInputType = {
+    periodo?: true
+    horasExtras?: true
+  }
+
+  export type RegistroFrequenciaMinAggregateInputType = {
+    id?: true
+    funcionarioId?: true
+    obraId?: true
+    organizationId?: true
+    data?: true
+    presente?: true
+    periodo?: true
+    horasExtras?: true
+    observacao?: true
+    createdAt?: true
+  }
+
+  export type RegistroFrequenciaMaxAggregateInputType = {
+    id?: true
+    funcionarioId?: true
+    obraId?: true
+    organizationId?: true
+    data?: true
+    presente?: true
+    periodo?: true
+    horasExtras?: true
+    observacao?: true
+    createdAt?: true
+  }
+
+  export type RegistroFrequenciaCountAggregateInputType = {
+    id?: true
+    funcionarioId?: true
+    obraId?: true
+    organizationId?: true
+    data?: true
+    presente?: true
+    periodo?: true
+    horasExtras?: true
+    observacao?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type RegistroFrequenciaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RegistroFrequencia to aggregate.
+     */
+    where?: RegistroFrequenciaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RegistroFrequencias to fetch.
+     */
+    orderBy?: RegistroFrequenciaOrderByWithRelationInput | RegistroFrequenciaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RegistroFrequenciaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RegistroFrequencias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RegistroFrequencias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RegistroFrequencias
+    **/
+    _count?: true | RegistroFrequenciaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RegistroFrequenciaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RegistroFrequenciaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RegistroFrequenciaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RegistroFrequenciaMaxAggregateInputType
+  }
+
+  export type GetRegistroFrequenciaAggregateType<T extends RegistroFrequenciaAggregateArgs> = {
+        [P in keyof T & keyof AggregateRegistroFrequencia]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRegistroFrequencia[P]>
+      : GetScalarType<T[P], AggregateRegistroFrequencia[P]>
+  }
+
+
+
+
+  export type RegistroFrequenciaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RegistroFrequenciaWhereInput
+    orderBy?: RegistroFrequenciaOrderByWithAggregationInput | RegistroFrequenciaOrderByWithAggregationInput[]
+    by: RegistroFrequenciaScalarFieldEnum[] | RegistroFrequenciaScalarFieldEnum
+    having?: RegistroFrequenciaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RegistroFrequenciaCountAggregateInputType | true
+    _avg?: RegistroFrequenciaAvgAggregateInputType
+    _sum?: RegistroFrequenciaSumAggregateInputType
+    _min?: RegistroFrequenciaMinAggregateInputType
+    _max?: RegistroFrequenciaMaxAggregateInputType
+  }
+
+  export type RegistroFrequenciaGroupByOutputType = {
+    id: string
+    funcionarioId: string
+    obraId: string
+    organizationId: string
+    data: Date
+    presente: boolean
+    periodo: number
+    horasExtras: number
+    observacao: string | null
+    createdAt: Date
+    _count: RegistroFrequenciaCountAggregateOutputType | null
+    _avg: RegistroFrequenciaAvgAggregateOutputType | null
+    _sum: RegistroFrequenciaSumAggregateOutputType | null
+    _min: RegistroFrequenciaMinAggregateOutputType | null
+    _max: RegistroFrequenciaMaxAggregateOutputType | null
+  }
+
+  type GetRegistroFrequenciaGroupByPayload<T extends RegistroFrequenciaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RegistroFrequenciaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RegistroFrequenciaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RegistroFrequenciaGroupByOutputType[P]>
+            : GetScalarType<T[P], RegistroFrequenciaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RegistroFrequenciaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    funcionarioId?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    data?: boolean
+    presente?: boolean
+    periodo?: boolean
+    horasExtras?: boolean
+    observacao?: boolean
+    createdAt?: boolean
+    funcionario?: boolean | FuncionarioDefaultArgs<ExtArgs>
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["registroFrequencia"]>
+
+  export type RegistroFrequenciaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    funcionarioId?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    data?: boolean
+    presente?: boolean
+    periodo?: boolean
+    horasExtras?: boolean
+    observacao?: boolean
+    createdAt?: boolean
+    funcionario?: boolean | FuncionarioDefaultArgs<ExtArgs>
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["registroFrequencia"]>
+
+  export type RegistroFrequenciaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    funcionarioId?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    data?: boolean
+    presente?: boolean
+    periodo?: boolean
+    horasExtras?: boolean
+    observacao?: boolean
+    createdAt?: boolean
+    funcionario?: boolean | FuncionarioDefaultArgs<ExtArgs>
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["registroFrequencia"]>
+
+  export type RegistroFrequenciaSelectScalar = {
+    id?: boolean
+    funcionarioId?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    data?: boolean
+    presente?: boolean
+    periodo?: boolean
+    horasExtras?: boolean
+    observacao?: boolean
+    createdAt?: boolean
+  }
+
+  export type RegistroFrequenciaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "funcionarioId" | "obraId" | "organizationId" | "data" | "presente" | "periodo" | "horasExtras" | "observacao" | "createdAt", ExtArgs["result"]["registroFrequencia"]>
+  export type RegistroFrequenciaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    funcionario?: boolean | FuncionarioDefaultArgs<ExtArgs>
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type RegistroFrequenciaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    funcionario?: boolean | FuncionarioDefaultArgs<ExtArgs>
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type RegistroFrequenciaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    funcionario?: boolean | FuncionarioDefaultArgs<ExtArgs>
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+
+  export type $RegistroFrequenciaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RegistroFrequencia"
+    objects: {
+      funcionario: Prisma.$FuncionarioPayload<ExtArgs>
+      obra: Prisma.$ObraPayload<ExtArgs>
+      organization: Prisma.$OrganizationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      funcionarioId: string
+      obraId: string
+      organizationId: string
+      data: Date
+      presente: boolean
+      periodo: number
+      horasExtras: number
+      observacao: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["registroFrequencia"]>
+    composites: {}
+  }
+
+  type RegistroFrequenciaGetPayload<S extends boolean | null | undefined | RegistroFrequenciaDefaultArgs> = $Result.GetResult<Prisma.$RegistroFrequenciaPayload, S>
+
+  type RegistroFrequenciaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RegistroFrequenciaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RegistroFrequenciaCountAggregateInputType | true
+    }
+
+  export interface RegistroFrequenciaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RegistroFrequencia'], meta: { name: 'RegistroFrequencia' } }
+    /**
+     * Find zero or one RegistroFrequencia that matches the filter.
+     * @param {RegistroFrequenciaFindUniqueArgs} args - Arguments to find a RegistroFrequencia
+     * @example
+     * // Get one RegistroFrequencia
+     * const registroFrequencia = await prisma.registroFrequencia.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RegistroFrequenciaFindUniqueArgs>(args: SelectSubset<T, RegistroFrequenciaFindUniqueArgs<ExtArgs>>): Prisma__RegistroFrequenciaClient<$Result.GetResult<Prisma.$RegistroFrequenciaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RegistroFrequencia that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RegistroFrequenciaFindUniqueOrThrowArgs} args - Arguments to find a RegistroFrequencia
+     * @example
+     * // Get one RegistroFrequencia
+     * const registroFrequencia = await prisma.registroFrequencia.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RegistroFrequenciaFindUniqueOrThrowArgs>(args: SelectSubset<T, RegistroFrequenciaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RegistroFrequenciaClient<$Result.GetResult<Prisma.$RegistroFrequenciaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RegistroFrequencia that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RegistroFrequenciaFindFirstArgs} args - Arguments to find a RegistroFrequencia
+     * @example
+     * // Get one RegistroFrequencia
+     * const registroFrequencia = await prisma.registroFrequencia.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RegistroFrequenciaFindFirstArgs>(args?: SelectSubset<T, RegistroFrequenciaFindFirstArgs<ExtArgs>>): Prisma__RegistroFrequenciaClient<$Result.GetResult<Prisma.$RegistroFrequenciaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RegistroFrequencia that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RegistroFrequenciaFindFirstOrThrowArgs} args - Arguments to find a RegistroFrequencia
+     * @example
+     * // Get one RegistroFrequencia
+     * const registroFrequencia = await prisma.registroFrequencia.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RegistroFrequenciaFindFirstOrThrowArgs>(args?: SelectSubset<T, RegistroFrequenciaFindFirstOrThrowArgs<ExtArgs>>): Prisma__RegistroFrequenciaClient<$Result.GetResult<Prisma.$RegistroFrequenciaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RegistroFrequencias that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RegistroFrequenciaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RegistroFrequencias
+     * const registroFrequencias = await prisma.registroFrequencia.findMany()
+     * 
+     * // Get first 10 RegistroFrequencias
+     * const registroFrequencias = await prisma.registroFrequencia.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const registroFrequenciaWithIdOnly = await prisma.registroFrequencia.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RegistroFrequenciaFindManyArgs>(args?: SelectSubset<T, RegistroFrequenciaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistroFrequenciaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RegistroFrequencia.
+     * @param {RegistroFrequenciaCreateArgs} args - Arguments to create a RegistroFrequencia.
+     * @example
+     * // Create one RegistroFrequencia
+     * const RegistroFrequencia = await prisma.registroFrequencia.create({
+     *   data: {
+     *     // ... data to create a RegistroFrequencia
+     *   }
+     * })
+     * 
+     */
+    create<T extends RegistroFrequenciaCreateArgs>(args: SelectSubset<T, RegistroFrequenciaCreateArgs<ExtArgs>>): Prisma__RegistroFrequenciaClient<$Result.GetResult<Prisma.$RegistroFrequenciaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RegistroFrequencias.
+     * @param {RegistroFrequenciaCreateManyArgs} args - Arguments to create many RegistroFrequencias.
+     * @example
+     * // Create many RegistroFrequencias
+     * const registroFrequencia = await prisma.registroFrequencia.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RegistroFrequenciaCreateManyArgs>(args?: SelectSubset<T, RegistroFrequenciaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RegistroFrequencias and returns the data saved in the database.
+     * @param {RegistroFrequenciaCreateManyAndReturnArgs} args - Arguments to create many RegistroFrequencias.
+     * @example
+     * // Create many RegistroFrequencias
+     * const registroFrequencia = await prisma.registroFrequencia.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RegistroFrequencias and only return the `id`
+     * const registroFrequenciaWithIdOnly = await prisma.registroFrequencia.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RegistroFrequenciaCreateManyAndReturnArgs>(args?: SelectSubset<T, RegistroFrequenciaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistroFrequenciaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RegistroFrequencia.
+     * @param {RegistroFrequenciaDeleteArgs} args - Arguments to delete one RegistroFrequencia.
+     * @example
+     * // Delete one RegistroFrequencia
+     * const RegistroFrequencia = await prisma.registroFrequencia.delete({
+     *   where: {
+     *     // ... filter to delete one RegistroFrequencia
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RegistroFrequenciaDeleteArgs>(args: SelectSubset<T, RegistroFrequenciaDeleteArgs<ExtArgs>>): Prisma__RegistroFrequenciaClient<$Result.GetResult<Prisma.$RegistroFrequenciaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RegistroFrequencia.
+     * @param {RegistroFrequenciaUpdateArgs} args - Arguments to update one RegistroFrequencia.
+     * @example
+     * // Update one RegistroFrequencia
+     * const registroFrequencia = await prisma.registroFrequencia.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RegistroFrequenciaUpdateArgs>(args: SelectSubset<T, RegistroFrequenciaUpdateArgs<ExtArgs>>): Prisma__RegistroFrequenciaClient<$Result.GetResult<Prisma.$RegistroFrequenciaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RegistroFrequencias.
+     * @param {RegistroFrequenciaDeleteManyArgs} args - Arguments to filter RegistroFrequencias to delete.
+     * @example
+     * // Delete a few RegistroFrequencias
+     * const { count } = await prisma.registroFrequencia.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RegistroFrequenciaDeleteManyArgs>(args?: SelectSubset<T, RegistroFrequenciaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RegistroFrequencias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RegistroFrequenciaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RegistroFrequencias
+     * const registroFrequencia = await prisma.registroFrequencia.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RegistroFrequenciaUpdateManyArgs>(args: SelectSubset<T, RegistroFrequenciaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RegistroFrequencias and returns the data updated in the database.
+     * @param {RegistroFrequenciaUpdateManyAndReturnArgs} args - Arguments to update many RegistroFrequencias.
+     * @example
+     * // Update many RegistroFrequencias
+     * const registroFrequencia = await prisma.registroFrequencia.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RegistroFrequencias and only return the `id`
+     * const registroFrequenciaWithIdOnly = await prisma.registroFrequencia.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RegistroFrequenciaUpdateManyAndReturnArgs>(args: SelectSubset<T, RegistroFrequenciaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistroFrequenciaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RegistroFrequencia.
+     * @param {RegistroFrequenciaUpsertArgs} args - Arguments to update or create a RegistroFrequencia.
+     * @example
+     * // Update or create a RegistroFrequencia
+     * const registroFrequencia = await prisma.registroFrequencia.upsert({
+     *   create: {
+     *     // ... data to create a RegistroFrequencia
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RegistroFrequencia we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RegistroFrequenciaUpsertArgs>(args: SelectSubset<T, RegistroFrequenciaUpsertArgs<ExtArgs>>): Prisma__RegistroFrequenciaClient<$Result.GetResult<Prisma.$RegistroFrequenciaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RegistroFrequencias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RegistroFrequenciaCountArgs} args - Arguments to filter RegistroFrequencias to count.
+     * @example
+     * // Count the number of RegistroFrequencias
+     * const count = await prisma.registroFrequencia.count({
+     *   where: {
+     *     // ... the filter for the RegistroFrequencias we want to count
+     *   }
+     * })
+    **/
+    count<T extends RegistroFrequenciaCountArgs>(
+      args?: Subset<T, RegistroFrequenciaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RegistroFrequenciaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RegistroFrequencia.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RegistroFrequenciaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RegistroFrequenciaAggregateArgs>(args: Subset<T, RegistroFrequenciaAggregateArgs>): Prisma.PrismaPromise<GetRegistroFrequenciaAggregateType<T>>
+
+    /**
+     * Group by RegistroFrequencia.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RegistroFrequenciaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RegistroFrequenciaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RegistroFrequenciaGroupByArgs['orderBy'] }
+        : { orderBy?: RegistroFrequenciaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RegistroFrequenciaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRegistroFrequenciaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RegistroFrequencia model
+   */
+  readonly fields: RegistroFrequenciaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RegistroFrequencia.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RegistroFrequenciaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    funcionario<T extends FuncionarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FuncionarioDefaultArgs<ExtArgs>>): Prisma__FuncionarioClient<$Result.GetResult<Prisma.$FuncionarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    obra<T extends ObraDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ObraDefaultArgs<ExtArgs>>): Prisma__ObraClient<$Result.GetResult<Prisma.$ObraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RegistroFrequencia model
+   */
+  interface RegistroFrequenciaFieldRefs {
+    readonly id: FieldRef<"RegistroFrequencia", 'String'>
+    readonly funcionarioId: FieldRef<"RegistroFrequencia", 'String'>
+    readonly obraId: FieldRef<"RegistroFrequencia", 'String'>
+    readonly organizationId: FieldRef<"RegistroFrequencia", 'String'>
+    readonly data: FieldRef<"RegistroFrequencia", 'DateTime'>
+    readonly presente: FieldRef<"RegistroFrequencia", 'Boolean'>
+    readonly periodo: FieldRef<"RegistroFrequencia", 'Float'>
+    readonly horasExtras: FieldRef<"RegistroFrequencia", 'Float'>
+    readonly observacao: FieldRef<"RegistroFrequencia", 'String'>
+    readonly createdAt: FieldRef<"RegistroFrequencia", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RegistroFrequencia findUnique
+   */
+  export type RegistroFrequenciaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistroFrequencia
+     */
+    select?: RegistroFrequenciaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RegistroFrequencia
+     */
+    omit?: RegistroFrequenciaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RegistroFrequenciaInclude<ExtArgs> | null
+    /**
+     * Filter, which RegistroFrequencia to fetch.
+     */
+    where: RegistroFrequenciaWhereUniqueInput
+  }
+
+  /**
+   * RegistroFrequencia findUniqueOrThrow
+   */
+  export type RegistroFrequenciaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistroFrequencia
+     */
+    select?: RegistroFrequenciaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RegistroFrequencia
+     */
+    omit?: RegistroFrequenciaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RegistroFrequenciaInclude<ExtArgs> | null
+    /**
+     * Filter, which RegistroFrequencia to fetch.
+     */
+    where: RegistroFrequenciaWhereUniqueInput
+  }
+
+  /**
+   * RegistroFrequencia findFirst
+   */
+  export type RegistroFrequenciaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistroFrequencia
+     */
+    select?: RegistroFrequenciaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RegistroFrequencia
+     */
+    omit?: RegistroFrequenciaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RegistroFrequenciaInclude<ExtArgs> | null
+    /**
+     * Filter, which RegistroFrequencia to fetch.
+     */
+    where?: RegistroFrequenciaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RegistroFrequencias to fetch.
+     */
+    orderBy?: RegistroFrequenciaOrderByWithRelationInput | RegistroFrequenciaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RegistroFrequencias.
+     */
+    cursor?: RegistroFrequenciaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RegistroFrequencias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RegistroFrequencias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RegistroFrequencias.
+     */
+    distinct?: RegistroFrequenciaScalarFieldEnum | RegistroFrequenciaScalarFieldEnum[]
+  }
+
+  /**
+   * RegistroFrequencia findFirstOrThrow
+   */
+  export type RegistroFrequenciaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistroFrequencia
+     */
+    select?: RegistroFrequenciaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RegistroFrequencia
+     */
+    omit?: RegistroFrequenciaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RegistroFrequenciaInclude<ExtArgs> | null
+    /**
+     * Filter, which RegistroFrequencia to fetch.
+     */
+    where?: RegistroFrequenciaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RegistroFrequencias to fetch.
+     */
+    orderBy?: RegistroFrequenciaOrderByWithRelationInput | RegistroFrequenciaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RegistroFrequencias.
+     */
+    cursor?: RegistroFrequenciaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RegistroFrequencias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RegistroFrequencias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RegistroFrequencias.
+     */
+    distinct?: RegistroFrequenciaScalarFieldEnum | RegistroFrequenciaScalarFieldEnum[]
+  }
+
+  /**
+   * RegistroFrequencia findMany
+   */
+  export type RegistroFrequenciaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistroFrequencia
+     */
+    select?: RegistroFrequenciaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RegistroFrequencia
+     */
+    omit?: RegistroFrequenciaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RegistroFrequenciaInclude<ExtArgs> | null
+    /**
+     * Filter, which RegistroFrequencias to fetch.
+     */
+    where?: RegistroFrequenciaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RegistroFrequencias to fetch.
+     */
+    orderBy?: RegistroFrequenciaOrderByWithRelationInput | RegistroFrequenciaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RegistroFrequencias.
+     */
+    cursor?: RegistroFrequenciaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RegistroFrequencias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RegistroFrequencias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RegistroFrequencias.
+     */
+    distinct?: RegistroFrequenciaScalarFieldEnum | RegistroFrequenciaScalarFieldEnum[]
+  }
+
+  /**
+   * RegistroFrequencia create
+   */
+  export type RegistroFrequenciaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistroFrequencia
+     */
+    select?: RegistroFrequenciaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RegistroFrequencia
+     */
+    omit?: RegistroFrequenciaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RegistroFrequenciaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RegistroFrequencia.
+     */
+    data: XOR<RegistroFrequenciaCreateInput, RegistroFrequenciaUncheckedCreateInput>
+  }
+
+  /**
+   * RegistroFrequencia createMany
+   */
+  export type RegistroFrequenciaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RegistroFrequencias.
+     */
+    data: RegistroFrequenciaCreateManyInput | RegistroFrequenciaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RegistroFrequencia createManyAndReturn
+   */
+  export type RegistroFrequenciaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistroFrequencia
+     */
+    select?: RegistroFrequenciaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RegistroFrequencia
+     */
+    omit?: RegistroFrequenciaOmit<ExtArgs> | null
+    /**
+     * The data used to create many RegistroFrequencias.
+     */
+    data: RegistroFrequenciaCreateManyInput | RegistroFrequenciaCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RegistroFrequenciaIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RegistroFrequencia update
+   */
+  export type RegistroFrequenciaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistroFrequencia
+     */
+    select?: RegistroFrequenciaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RegistroFrequencia
+     */
+    omit?: RegistroFrequenciaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RegistroFrequenciaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RegistroFrequencia.
+     */
+    data: XOR<RegistroFrequenciaUpdateInput, RegistroFrequenciaUncheckedUpdateInput>
+    /**
+     * Choose, which RegistroFrequencia to update.
+     */
+    where: RegistroFrequenciaWhereUniqueInput
+  }
+
+  /**
+   * RegistroFrequencia updateMany
+   */
+  export type RegistroFrequenciaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RegistroFrequencias.
+     */
+    data: XOR<RegistroFrequenciaUpdateManyMutationInput, RegistroFrequenciaUncheckedUpdateManyInput>
+    /**
+     * Filter which RegistroFrequencias to update
+     */
+    where?: RegistroFrequenciaWhereInput
+    /**
+     * Limit how many RegistroFrequencias to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RegistroFrequencia updateManyAndReturn
+   */
+  export type RegistroFrequenciaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistroFrequencia
+     */
+    select?: RegistroFrequenciaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RegistroFrequencia
+     */
+    omit?: RegistroFrequenciaOmit<ExtArgs> | null
+    /**
+     * The data used to update RegistroFrequencias.
+     */
+    data: XOR<RegistroFrequenciaUpdateManyMutationInput, RegistroFrequenciaUncheckedUpdateManyInput>
+    /**
+     * Filter which RegistroFrequencias to update
+     */
+    where?: RegistroFrequenciaWhereInput
+    /**
+     * Limit how many RegistroFrequencias to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RegistroFrequenciaIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RegistroFrequencia upsert
+   */
+  export type RegistroFrequenciaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistroFrequencia
+     */
+    select?: RegistroFrequenciaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RegistroFrequencia
+     */
+    omit?: RegistroFrequenciaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RegistroFrequenciaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RegistroFrequencia to update in case it exists.
+     */
+    where: RegistroFrequenciaWhereUniqueInput
+    /**
+     * In case the RegistroFrequencia found by the `where` argument doesn't exist, create a new RegistroFrequencia with this data.
+     */
+    create: XOR<RegistroFrequenciaCreateInput, RegistroFrequenciaUncheckedCreateInput>
+    /**
+     * In case the RegistroFrequencia was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RegistroFrequenciaUpdateInput, RegistroFrequenciaUncheckedUpdateInput>
+  }
+
+  /**
+   * RegistroFrequencia delete
+   */
+  export type RegistroFrequenciaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistroFrequencia
+     */
+    select?: RegistroFrequenciaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RegistroFrequencia
+     */
+    omit?: RegistroFrequenciaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RegistroFrequenciaInclude<ExtArgs> | null
+    /**
+     * Filter which RegistroFrequencia to delete.
+     */
+    where: RegistroFrequenciaWhereUniqueInput
+  }
+
+  /**
+   * RegistroFrequencia deleteMany
+   */
+  export type RegistroFrequenciaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RegistroFrequencias to delete
+     */
+    where?: RegistroFrequenciaWhereInput
+    /**
+     * Limit how many RegistroFrequencias to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RegistroFrequencia without action
+   */
+  export type RegistroFrequenciaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistroFrequencia
+     */
+    select?: RegistroFrequenciaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RegistroFrequencia
+     */
+    omit?: RegistroFrequenciaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RegistroFrequenciaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EtapaObra
+   */
+
+  export type AggregateEtapaObra = {
+    _count: EtapaObraCountAggregateOutputType | null
+    _avg: EtapaObraAvgAggregateOutputType | null
+    _sum: EtapaObraSumAggregateOutputType | null
+    _min: EtapaObraMinAggregateOutputType | null
+    _max: EtapaObraMaxAggregateOutputType | null
+  }
+
+  export type EtapaObraAvgAggregateOutputType = {
+    ordem: number | null
+    percentual: number | null
+    valorPrevisto: Decimal | null
+  }
+
+  export type EtapaObraSumAggregateOutputType = {
+    ordem: number | null
+    percentual: number | null
+    valorPrevisto: Decimal | null
+  }
+
+  export type EtapaObraMinAggregateOutputType = {
+    id: string | null
+    nome: string | null
+    descricao: string | null
+    ordem: number | null
+    obraId: string | null
+    organizationId: string | null
+    dataInicioPrev: Date | null
+    dataFimPrev: Date | null
+    dataInicioReal: Date | null
+    dataFimReal: Date | null
+    percentual: number | null
+    status: $Enums.EtapaStatus | null
+    valorPrevisto: Decimal | null
+    observacoes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EtapaObraMaxAggregateOutputType = {
+    id: string | null
+    nome: string | null
+    descricao: string | null
+    ordem: number | null
+    obraId: string | null
+    organizationId: string | null
+    dataInicioPrev: Date | null
+    dataFimPrev: Date | null
+    dataInicioReal: Date | null
+    dataFimReal: Date | null
+    percentual: number | null
+    status: $Enums.EtapaStatus | null
+    valorPrevisto: Decimal | null
+    observacoes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EtapaObraCountAggregateOutputType = {
+    id: number
+    nome: number
+    descricao: number
+    ordem: number
+    obraId: number
+    organizationId: number
+    dataInicioPrev: number
+    dataFimPrev: number
+    dataInicioReal: number
+    dataFimReal: number
+    percentual: number
+    status: number
+    valorPrevisto: number
+    observacoes: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type EtapaObraAvgAggregateInputType = {
+    ordem?: true
+    percentual?: true
+    valorPrevisto?: true
+  }
+
+  export type EtapaObraSumAggregateInputType = {
+    ordem?: true
+    percentual?: true
+    valorPrevisto?: true
+  }
+
+  export type EtapaObraMinAggregateInputType = {
+    id?: true
+    nome?: true
+    descricao?: true
+    ordem?: true
+    obraId?: true
+    organizationId?: true
+    dataInicioPrev?: true
+    dataFimPrev?: true
+    dataInicioReal?: true
+    dataFimReal?: true
+    percentual?: true
+    status?: true
+    valorPrevisto?: true
+    observacoes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EtapaObraMaxAggregateInputType = {
+    id?: true
+    nome?: true
+    descricao?: true
+    ordem?: true
+    obraId?: true
+    organizationId?: true
+    dataInicioPrev?: true
+    dataFimPrev?: true
+    dataInicioReal?: true
+    dataFimReal?: true
+    percentual?: true
+    status?: true
+    valorPrevisto?: true
+    observacoes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EtapaObraCountAggregateInputType = {
+    id?: true
+    nome?: true
+    descricao?: true
+    ordem?: true
+    obraId?: true
+    organizationId?: true
+    dataInicioPrev?: true
+    dataFimPrev?: true
+    dataInicioReal?: true
+    dataFimReal?: true
+    percentual?: true
+    status?: true
+    valorPrevisto?: true
+    observacoes?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type EtapaObraAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EtapaObra to aggregate.
+     */
+    where?: EtapaObraWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EtapaObras to fetch.
+     */
+    orderBy?: EtapaObraOrderByWithRelationInput | EtapaObraOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EtapaObraWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EtapaObras from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EtapaObras.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EtapaObras
+    **/
+    _count?: true | EtapaObraCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EtapaObraAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EtapaObraSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EtapaObraMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EtapaObraMaxAggregateInputType
+  }
+
+  export type GetEtapaObraAggregateType<T extends EtapaObraAggregateArgs> = {
+        [P in keyof T & keyof AggregateEtapaObra]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEtapaObra[P]>
+      : GetScalarType<T[P], AggregateEtapaObra[P]>
+  }
+
+
+
+
+  export type EtapaObraGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EtapaObraWhereInput
+    orderBy?: EtapaObraOrderByWithAggregationInput | EtapaObraOrderByWithAggregationInput[]
+    by: EtapaObraScalarFieldEnum[] | EtapaObraScalarFieldEnum
+    having?: EtapaObraScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EtapaObraCountAggregateInputType | true
+    _avg?: EtapaObraAvgAggregateInputType
+    _sum?: EtapaObraSumAggregateInputType
+    _min?: EtapaObraMinAggregateInputType
+    _max?: EtapaObraMaxAggregateInputType
+  }
+
+  export type EtapaObraGroupByOutputType = {
+    id: string
+    nome: string
+    descricao: string | null
+    ordem: number
+    obraId: string
+    organizationId: string
+    dataInicioPrev: Date | null
+    dataFimPrev: Date | null
+    dataInicioReal: Date | null
+    dataFimReal: Date | null
+    percentual: number
+    status: $Enums.EtapaStatus
+    valorPrevisto: Decimal | null
+    observacoes: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: EtapaObraCountAggregateOutputType | null
+    _avg: EtapaObraAvgAggregateOutputType | null
+    _sum: EtapaObraSumAggregateOutputType | null
+    _min: EtapaObraMinAggregateOutputType | null
+    _max: EtapaObraMaxAggregateOutputType | null
+  }
+
+  type GetEtapaObraGroupByPayload<T extends EtapaObraGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EtapaObraGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EtapaObraGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EtapaObraGroupByOutputType[P]>
+            : GetScalarType<T[P], EtapaObraGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EtapaObraSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    descricao?: boolean
+    ordem?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    dataInicioPrev?: boolean
+    dataFimPrev?: boolean
+    dataInicioReal?: boolean
+    dataFimReal?: boolean
+    percentual?: boolean
+    status?: boolean
+    valorPrevisto?: boolean
+    observacoes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["etapaObra"]>
+
+  export type EtapaObraSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    descricao?: boolean
+    ordem?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    dataInicioPrev?: boolean
+    dataFimPrev?: boolean
+    dataInicioReal?: boolean
+    dataFimReal?: boolean
+    percentual?: boolean
+    status?: boolean
+    valorPrevisto?: boolean
+    observacoes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["etapaObra"]>
+
+  export type EtapaObraSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    descricao?: boolean
+    ordem?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    dataInicioPrev?: boolean
+    dataFimPrev?: boolean
+    dataInicioReal?: boolean
+    dataFimReal?: boolean
+    percentual?: boolean
+    status?: boolean
+    valorPrevisto?: boolean
+    observacoes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["etapaObra"]>
+
+  export type EtapaObraSelectScalar = {
+    id?: boolean
+    nome?: boolean
+    descricao?: boolean
+    ordem?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    dataInicioPrev?: boolean
+    dataFimPrev?: boolean
+    dataInicioReal?: boolean
+    dataFimReal?: boolean
+    percentual?: boolean
+    status?: boolean
+    valorPrevisto?: boolean
+    observacoes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type EtapaObraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "descricao" | "ordem" | "obraId" | "organizationId" | "dataInicioPrev" | "dataFimPrev" | "dataInicioReal" | "dataFimReal" | "percentual" | "status" | "valorPrevisto" | "observacoes" | "createdAt" | "updatedAt", ExtArgs["result"]["etapaObra"]>
+  export type EtapaObraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type EtapaObraIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type EtapaObraIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+
+  export type $EtapaObraPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EtapaObra"
+    objects: {
+      obra: Prisma.$ObraPayload<ExtArgs>
+      organization: Prisma.$OrganizationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      nome: string
+      descricao: string | null
+      ordem: number
+      obraId: string
+      organizationId: string
+      dataInicioPrev: Date | null
+      dataFimPrev: Date | null
+      dataInicioReal: Date | null
+      dataFimReal: Date | null
+      percentual: number
+      status: $Enums.EtapaStatus
+      valorPrevisto: Prisma.Decimal | null
+      observacoes: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["etapaObra"]>
+    composites: {}
+  }
+
+  type EtapaObraGetPayload<S extends boolean | null | undefined | EtapaObraDefaultArgs> = $Result.GetResult<Prisma.$EtapaObraPayload, S>
+
+  type EtapaObraCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EtapaObraFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EtapaObraCountAggregateInputType | true
+    }
+
+  export interface EtapaObraDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EtapaObra'], meta: { name: 'EtapaObra' } }
+    /**
+     * Find zero or one EtapaObra that matches the filter.
+     * @param {EtapaObraFindUniqueArgs} args - Arguments to find a EtapaObra
+     * @example
+     * // Get one EtapaObra
+     * const etapaObra = await prisma.etapaObra.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EtapaObraFindUniqueArgs>(args: SelectSubset<T, EtapaObraFindUniqueArgs<ExtArgs>>): Prisma__EtapaObraClient<$Result.GetResult<Prisma.$EtapaObraPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EtapaObra that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EtapaObraFindUniqueOrThrowArgs} args - Arguments to find a EtapaObra
+     * @example
+     * // Get one EtapaObra
+     * const etapaObra = await prisma.etapaObra.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EtapaObraFindUniqueOrThrowArgs>(args: SelectSubset<T, EtapaObraFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EtapaObraClient<$Result.GetResult<Prisma.$EtapaObraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EtapaObra that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EtapaObraFindFirstArgs} args - Arguments to find a EtapaObra
+     * @example
+     * // Get one EtapaObra
+     * const etapaObra = await prisma.etapaObra.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EtapaObraFindFirstArgs>(args?: SelectSubset<T, EtapaObraFindFirstArgs<ExtArgs>>): Prisma__EtapaObraClient<$Result.GetResult<Prisma.$EtapaObraPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EtapaObra that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EtapaObraFindFirstOrThrowArgs} args - Arguments to find a EtapaObra
+     * @example
+     * // Get one EtapaObra
+     * const etapaObra = await prisma.etapaObra.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EtapaObraFindFirstOrThrowArgs>(args?: SelectSubset<T, EtapaObraFindFirstOrThrowArgs<ExtArgs>>): Prisma__EtapaObraClient<$Result.GetResult<Prisma.$EtapaObraPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EtapaObras that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EtapaObraFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EtapaObras
+     * const etapaObras = await prisma.etapaObra.findMany()
+     * 
+     * // Get first 10 EtapaObras
+     * const etapaObras = await prisma.etapaObra.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const etapaObraWithIdOnly = await prisma.etapaObra.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EtapaObraFindManyArgs>(args?: SelectSubset<T, EtapaObraFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EtapaObraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EtapaObra.
+     * @param {EtapaObraCreateArgs} args - Arguments to create a EtapaObra.
+     * @example
+     * // Create one EtapaObra
+     * const EtapaObra = await prisma.etapaObra.create({
+     *   data: {
+     *     // ... data to create a EtapaObra
+     *   }
+     * })
+     * 
+     */
+    create<T extends EtapaObraCreateArgs>(args: SelectSubset<T, EtapaObraCreateArgs<ExtArgs>>): Prisma__EtapaObraClient<$Result.GetResult<Prisma.$EtapaObraPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EtapaObras.
+     * @param {EtapaObraCreateManyArgs} args - Arguments to create many EtapaObras.
+     * @example
+     * // Create many EtapaObras
+     * const etapaObra = await prisma.etapaObra.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EtapaObraCreateManyArgs>(args?: SelectSubset<T, EtapaObraCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EtapaObras and returns the data saved in the database.
+     * @param {EtapaObraCreateManyAndReturnArgs} args - Arguments to create many EtapaObras.
+     * @example
+     * // Create many EtapaObras
+     * const etapaObra = await prisma.etapaObra.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EtapaObras and only return the `id`
+     * const etapaObraWithIdOnly = await prisma.etapaObra.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EtapaObraCreateManyAndReturnArgs>(args?: SelectSubset<T, EtapaObraCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EtapaObraPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EtapaObra.
+     * @param {EtapaObraDeleteArgs} args - Arguments to delete one EtapaObra.
+     * @example
+     * // Delete one EtapaObra
+     * const EtapaObra = await prisma.etapaObra.delete({
+     *   where: {
+     *     // ... filter to delete one EtapaObra
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EtapaObraDeleteArgs>(args: SelectSubset<T, EtapaObraDeleteArgs<ExtArgs>>): Prisma__EtapaObraClient<$Result.GetResult<Prisma.$EtapaObraPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EtapaObra.
+     * @param {EtapaObraUpdateArgs} args - Arguments to update one EtapaObra.
+     * @example
+     * // Update one EtapaObra
+     * const etapaObra = await prisma.etapaObra.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EtapaObraUpdateArgs>(args: SelectSubset<T, EtapaObraUpdateArgs<ExtArgs>>): Prisma__EtapaObraClient<$Result.GetResult<Prisma.$EtapaObraPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EtapaObras.
+     * @param {EtapaObraDeleteManyArgs} args - Arguments to filter EtapaObras to delete.
+     * @example
+     * // Delete a few EtapaObras
+     * const { count } = await prisma.etapaObra.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EtapaObraDeleteManyArgs>(args?: SelectSubset<T, EtapaObraDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EtapaObras.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EtapaObraUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EtapaObras
+     * const etapaObra = await prisma.etapaObra.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EtapaObraUpdateManyArgs>(args: SelectSubset<T, EtapaObraUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EtapaObras and returns the data updated in the database.
+     * @param {EtapaObraUpdateManyAndReturnArgs} args - Arguments to update many EtapaObras.
+     * @example
+     * // Update many EtapaObras
+     * const etapaObra = await prisma.etapaObra.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EtapaObras and only return the `id`
+     * const etapaObraWithIdOnly = await prisma.etapaObra.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EtapaObraUpdateManyAndReturnArgs>(args: SelectSubset<T, EtapaObraUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EtapaObraPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EtapaObra.
+     * @param {EtapaObraUpsertArgs} args - Arguments to update or create a EtapaObra.
+     * @example
+     * // Update or create a EtapaObra
+     * const etapaObra = await prisma.etapaObra.upsert({
+     *   create: {
+     *     // ... data to create a EtapaObra
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EtapaObra we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EtapaObraUpsertArgs>(args: SelectSubset<T, EtapaObraUpsertArgs<ExtArgs>>): Prisma__EtapaObraClient<$Result.GetResult<Prisma.$EtapaObraPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EtapaObras.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EtapaObraCountArgs} args - Arguments to filter EtapaObras to count.
+     * @example
+     * // Count the number of EtapaObras
+     * const count = await prisma.etapaObra.count({
+     *   where: {
+     *     // ... the filter for the EtapaObras we want to count
+     *   }
+     * })
+    **/
+    count<T extends EtapaObraCountArgs>(
+      args?: Subset<T, EtapaObraCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EtapaObraCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EtapaObra.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EtapaObraAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EtapaObraAggregateArgs>(args: Subset<T, EtapaObraAggregateArgs>): Prisma.PrismaPromise<GetEtapaObraAggregateType<T>>
+
+    /**
+     * Group by EtapaObra.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EtapaObraGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EtapaObraGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EtapaObraGroupByArgs['orderBy'] }
+        : { orderBy?: EtapaObraGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EtapaObraGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEtapaObraGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EtapaObra model
+   */
+  readonly fields: EtapaObraFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EtapaObra.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EtapaObraClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    obra<T extends ObraDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ObraDefaultArgs<ExtArgs>>): Prisma__ObraClient<$Result.GetResult<Prisma.$ObraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EtapaObra model
+   */
+  interface EtapaObraFieldRefs {
+    readonly id: FieldRef<"EtapaObra", 'String'>
+    readonly nome: FieldRef<"EtapaObra", 'String'>
+    readonly descricao: FieldRef<"EtapaObra", 'String'>
+    readonly ordem: FieldRef<"EtapaObra", 'Int'>
+    readonly obraId: FieldRef<"EtapaObra", 'String'>
+    readonly organizationId: FieldRef<"EtapaObra", 'String'>
+    readonly dataInicioPrev: FieldRef<"EtapaObra", 'DateTime'>
+    readonly dataFimPrev: FieldRef<"EtapaObra", 'DateTime'>
+    readonly dataInicioReal: FieldRef<"EtapaObra", 'DateTime'>
+    readonly dataFimReal: FieldRef<"EtapaObra", 'DateTime'>
+    readonly percentual: FieldRef<"EtapaObra", 'Float'>
+    readonly status: FieldRef<"EtapaObra", 'EtapaStatus'>
+    readonly valorPrevisto: FieldRef<"EtapaObra", 'Decimal'>
+    readonly observacoes: FieldRef<"EtapaObra", 'String'>
+    readonly createdAt: FieldRef<"EtapaObra", 'DateTime'>
+    readonly updatedAt: FieldRef<"EtapaObra", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EtapaObra findUnique
+   */
+  export type EtapaObraFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EtapaObra
+     */
+    select?: EtapaObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EtapaObra
+     */
+    omit?: EtapaObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EtapaObraInclude<ExtArgs> | null
+    /**
+     * Filter, which EtapaObra to fetch.
+     */
+    where: EtapaObraWhereUniqueInput
+  }
+
+  /**
+   * EtapaObra findUniqueOrThrow
+   */
+  export type EtapaObraFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EtapaObra
+     */
+    select?: EtapaObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EtapaObra
+     */
+    omit?: EtapaObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EtapaObraInclude<ExtArgs> | null
+    /**
+     * Filter, which EtapaObra to fetch.
+     */
+    where: EtapaObraWhereUniqueInput
+  }
+
+  /**
+   * EtapaObra findFirst
+   */
+  export type EtapaObraFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EtapaObra
+     */
+    select?: EtapaObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EtapaObra
+     */
+    omit?: EtapaObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EtapaObraInclude<ExtArgs> | null
+    /**
+     * Filter, which EtapaObra to fetch.
+     */
+    where?: EtapaObraWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EtapaObras to fetch.
+     */
+    orderBy?: EtapaObraOrderByWithRelationInput | EtapaObraOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EtapaObras.
+     */
+    cursor?: EtapaObraWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EtapaObras from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EtapaObras.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EtapaObras.
+     */
+    distinct?: EtapaObraScalarFieldEnum | EtapaObraScalarFieldEnum[]
+  }
+
+  /**
+   * EtapaObra findFirstOrThrow
+   */
+  export type EtapaObraFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EtapaObra
+     */
+    select?: EtapaObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EtapaObra
+     */
+    omit?: EtapaObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EtapaObraInclude<ExtArgs> | null
+    /**
+     * Filter, which EtapaObra to fetch.
+     */
+    where?: EtapaObraWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EtapaObras to fetch.
+     */
+    orderBy?: EtapaObraOrderByWithRelationInput | EtapaObraOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EtapaObras.
+     */
+    cursor?: EtapaObraWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EtapaObras from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EtapaObras.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EtapaObras.
+     */
+    distinct?: EtapaObraScalarFieldEnum | EtapaObraScalarFieldEnum[]
+  }
+
+  /**
+   * EtapaObra findMany
+   */
+  export type EtapaObraFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EtapaObra
+     */
+    select?: EtapaObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EtapaObra
+     */
+    omit?: EtapaObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EtapaObraInclude<ExtArgs> | null
+    /**
+     * Filter, which EtapaObras to fetch.
+     */
+    where?: EtapaObraWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EtapaObras to fetch.
+     */
+    orderBy?: EtapaObraOrderByWithRelationInput | EtapaObraOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EtapaObras.
+     */
+    cursor?: EtapaObraWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EtapaObras from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EtapaObras.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EtapaObras.
+     */
+    distinct?: EtapaObraScalarFieldEnum | EtapaObraScalarFieldEnum[]
+  }
+
+  /**
+   * EtapaObra create
+   */
+  export type EtapaObraCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EtapaObra
+     */
+    select?: EtapaObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EtapaObra
+     */
+    omit?: EtapaObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EtapaObraInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EtapaObra.
+     */
+    data: XOR<EtapaObraCreateInput, EtapaObraUncheckedCreateInput>
+  }
+
+  /**
+   * EtapaObra createMany
+   */
+  export type EtapaObraCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EtapaObras.
+     */
+    data: EtapaObraCreateManyInput | EtapaObraCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EtapaObra createManyAndReturn
+   */
+  export type EtapaObraCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EtapaObra
+     */
+    select?: EtapaObraSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EtapaObra
+     */
+    omit?: EtapaObraOmit<ExtArgs> | null
+    /**
+     * The data used to create many EtapaObras.
+     */
+    data: EtapaObraCreateManyInput | EtapaObraCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EtapaObraIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EtapaObra update
+   */
+  export type EtapaObraUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EtapaObra
+     */
+    select?: EtapaObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EtapaObra
+     */
+    omit?: EtapaObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EtapaObraInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EtapaObra.
+     */
+    data: XOR<EtapaObraUpdateInput, EtapaObraUncheckedUpdateInput>
+    /**
+     * Choose, which EtapaObra to update.
+     */
+    where: EtapaObraWhereUniqueInput
+  }
+
+  /**
+   * EtapaObra updateMany
+   */
+  export type EtapaObraUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EtapaObras.
+     */
+    data: XOR<EtapaObraUpdateManyMutationInput, EtapaObraUncheckedUpdateManyInput>
+    /**
+     * Filter which EtapaObras to update
+     */
+    where?: EtapaObraWhereInput
+    /**
+     * Limit how many EtapaObras to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EtapaObra updateManyAndReturn
+   */
+  export type EtapaObraUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EtapaObra
+     */
+    select?: EtapaObraSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EtapaObra
+     */
+    omit?: EtapaObraOmit<ExtArgs> | null
+    /**
+     * The data used to update EtapaObras.
+     */
+    data: XOR<EtapaObraUpdateManyMutationInput, EtapaObraUncheckedUpdateManyInput>
+    /**
+     * Filter which EtapaObras to update
+     */
+    where?: EtapaObraWhereInput
+    /**
+     * Limit how many EtapaObras to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EtapaObraIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EtapaObra upsert
+   */
+  export type EtapaObraUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EtapaObra
+     */
+    select?: EtapaObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EtapaObra
+     */
+    omit?: EtapaObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EtapaObraInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EtapaObra to update in case it exists.
+     */
+    where: EtapaObraWhereUniqueInput
+    /**
+     * In case the EtapaObra found by the `where` argument doesn't exist, create a new EtapaObra with this data.
+     */
+    create: XOR<EtapaObraCreateInput, EtapaObraUncheckedCreateInput>
+    /**
+     * In case the EtapaObra was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EtapaObraUpdateInput, EtapaObraUncheckedUpdateInput>
+  }
+
+  /**
+   * EtapaObra delete
+   */
+  export type EtapaObraDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EtapaObra
+     */
+    select?: EtapaObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EtapaObra
+     */
+    omit?: EtapaObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EtapaObraInclude<ExtArgs> | null
+    /**
+     * Filter which EtapaObra to delete.
+     */
+    where: EtapaObraWhereUniqueInput
+  }
+
+  /**
+   * EtapaObra deleteMany
+   */
+  export type EtapaObraDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EtapaObras to delete
+     */
+    where?: EtapaObraWhereInput
+    /**
+     * Limit how many EtapaObras to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EtapaObra without action
+   */
+  export type EtapaObraDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EtapaObra
+     */
+    select?: EtapaObraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EtapaObra
+     */
+    omit?: EtapaObraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EtapaObraInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ItemEstoque
+   */
+
+  export type AggregateItemEstoque = {
+    _count: ItemEstoqueCountAggregateOutputType | null
+    _avg: ItemEstoqueAvgAggregateOutputType | null
+    _sum: ItemEstoqueSumAggregateOutputType | null
+    _min: ItemEstoqueMinAggregateOutputType | null
+    _max: ItemEstoqueMaxAggregateOutputType | null
+  }
+
+  export type ItemEstoqueAvgAggregateOutputType = {
+    quantidadeAtual: Decimal | null
+    quantidadeMinima: Decimal | null
+    valorUnitario: Decimal | null
+  }
+
+  export type ItemEstoqueSumAggregateOutputType = {
+    quantidadeAtual: Decimal | null
+    quantidadeMinima: Decimal | null
+    valorUnitario: Decimal | null
+  }
+
+  export type ItemEstoqueMinAggregateOutputType = {
+    id: string | null
+    nome: string | null
+    unidade: string | null
+    categoria: string | null
+    quantidadeAtual: Decimal | null
+    quantidadeMinima: Decimal | null
+    valorUnitario: Decimal | null
+    obraId: string | null
+    organizationId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ItemEstoqueMaxAggregateOutputType = {
+    id: string | null
+    nome: string | null
+    unidade: string | null
+    categoria: string | null
+    quantidadeAtual: Decimal | null
+    quantidadeMinima: Decimal | null
+    valorUnitario: Decimal | null
+    obraId: string | null
+    organizationId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ItemEstoqueCountAggregateOutputType = {
+    id: number
+    nome: number
+    unidade: number
+    categoria: number
+    quantidadeAtual: number
+    quantidadeMinima: number
+    valorUnitario: number
+    obraId: number
+    organizationId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ItemEstoqueAvgAggregateInputType = {
+    quantidadeAtual?: true
+    quantidadeMinima?: true
+    valorUnitario?: true
+  }
+
+  export type ItemEstoqueSumAggregateInputType = {
+    quantidadeAtual?: true
+    quantidadeMinima?: true
+    valorUnitario?: true
+  }
+
+  export type ItemEstoqueMinAggregateInputType = {
+    id?: true
+    nome?: true
+    unidade?: true
+    categoria?: true
+    quantidadeAtual?: true
+    quantidadeMinima?: true
+    valorUnitario?: true
+    obraId?: true
+    organizationId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ItemEstoqueMaxAggregateInputType = {
+    id?: true
+    nome?: true
+    unidade?: true
+    categoria?: true
+    quantidadeAtual?: true
+    quantidadeMinima?: true
+    valorUnitario?: true
+    obraId?: true
+    organizationId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ItemEstoqueCountAggregateInputType = {
+    id?: true
+    nome?: true
+    unidade?: true
+    categoria?: true
+    quantidadeAtual?: true
+    quantidadeMinima?: true
+    valorUnitario?: true
+    obraId?: true
+    organizationId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ItemEstoqueAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ItemEstoque to aggregate.
+     */
+    where?: ItemEstoqueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemEstoques to fetch.
+     */
+    orderBy?: ItemEstoqueOrderByWithRelationInput | ItemEstoqueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ItemEstoqueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemEstoques from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemEstoques.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ItemEstoques
+    **/
+    _count?: true | ItemEstoqueCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ItemEstoqueAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ItemEstoqueSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ItemEstoqueMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ItemEstoqueMaxAggregateInputType
+  }
+
+  export type GetItemEstoqueAggregateType<T extends ItemEstoqueAggregateArgs> = {
+        [P in keyof T & keyof AggregateItemEstoque]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateItemEstoque[P]>
+      : GetScalarType<T[P], AggregateItemEstoque[P]>
+  }
+
+
+
+
+  export type ItemEstoqueGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItemEstoqueWhereInput
+    orderBy?: ItemEstoqueOrderByWithAggregationInput | ItemEstoqueOrderByWithAggregationInput[]
+    by: ItemEstoqueScalarFieldEnum[] | ItemEstoqueScalarFieldEnum
+    having?: ItemEstoqueScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ItemEstoqueCountAggregateInputType | true
+    _avg?: ItemEstoqueAvgAggregateInputType
+    _sum?: ItemEstoqueSumAggregateInputType
+    _min?: ItemEstoqueMinAggregateInputType
+    _max?: ItemEstoqueMaxAggregateInputType
+  }
+
+  export type ItemEstoqueGroupByOutputType = {
+    id: string
+    nome: string
+    unidade: string
+    categoria: string | null
+    quantidadeAtual: Decimal
+    quantidadeMinima: Decimal | null
+    valorUnitario: Decimal | null
+    obraId: string
+    organizationId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ItemEstoqueCountAggregateOutputType | null
+    _avg: ItemEstoqueAvgAggregateOutputType | null
+    _sum: ItemEstoqueSumAggregateOutputType | null
+    _min: ItemEstoqueMinAggregateOutputType | null
+    _max: ItemEstoqueMaxAggregateOutputType | null
+  }
+
+  type GetItemEstoqueGroupByPayload<T extends ItemEstoqueGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ItemEstoqueGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ItemEstoqueGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ItemEstoqueGroupByOutputType[P]>
+            : GetScalarType<T[P], ItemEstoqueGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ItemEstoqueSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    unidade?: boolean
+    categoria?: boolean
+    quantidadeAtual?: boolean
+    quantidadeMinima?: boolean
+    valorUnitario?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    movimentacoes?: boolean | ItemEstoque$movimentacoesArgs<ExtArgs>
+    _count?: boolean | ItemEstoqueCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["itemEstoque"]>
+
+  export type ItemEstoqueSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    unidade?: boolean
+    categoria?: boolean
+    quantidadeAtual?: boolean
+    quantidadeMinima?: boolean
+    valorUnitario?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["itemEstoque"]>
+
+  export type ItemEstoqueSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    unidade?: boolean
+    categoria?: boolean
+    quantidadeAtual?: boolean
+    quantidadeMinima?: boolean
+    valorUnitario?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["itemEstoque"]>
+
+  export type ItemEstoqueSelectScalar = {
+    id?: boolean
+    nome?: boolean
+    unidade?: boolean
+    categoria?: boolean
+    quantidadeAtual?: boolean
+    quantidadeMinima?: boolean
+    valorUnitario?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ItemEstoqueOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "unidade" | "categoria" | "quantidadeAtual" | "quantidadeMinima" | "valorUnitario" | "obraId" | "organizationId" | "createdAt" | "updatedAt", ExtArgs["result"]["itemEstoque"]>
+  export type ItemEstoqueInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    movimentacoes?: boolean | ItemEstoque$movimentacoesArgs<ExtArgs>
+    _count?: boolean | ItemEstoqueCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ItemEstoqueIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type ItemEstoqueIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+
+  export type $ItemEstoquePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ItemEstoque"
+    objects: {
+      obra: Prisma.$ObraPayload<ExtArgs>
+      organization: Prisma.$OrganizationPayload<ExtArgs>
+      movimentacoes: Prisma.$MovimentacaoEstoquePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      nome: string
+      unidade: string
+      categoria: string | null
+      quantidadeAtual: Prisma.Decimal
+      quantidadeMinima: Prisma.Decimal | null
+      valorUnitario: Prisma.Decimal | null
+      obraId: string
+      organizationId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["itemEstoque"]>
+    composites: {}
+  }
+
+  type ItemEstoqueGetPayload<S extends boolean | null | undefined | ItemEstoqueDefaultArgs> = $Result.GetResult<Prisma.$ItemEstoquePayload, S>
+
+  type ItemEstoqueCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ItemEstoqueFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ItemEstoqueCountAggregateInputType | true
+    }
+
+  export interface ItemEstoqueDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ItemEstoque'], meta: { name: 'ItemEstoque' } }
+    /**
+     * Find zero or one ItemEstoque that matches the filter.
+     * @param {ItemEstoqueFindUniqueArgs} args - Arguments to find a ItemEstoque
+     * @example
+     * // Get one ItemEstoque
+     * const itemEstoque = await prisma.itemEstoque.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ItemEstoqueFindUniqueArgs>(args: SelectSubset<T, ItemEstoqueFindUniqueArgs<ExtArgs>>): Prisma__ItemEstoqueClient<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ItemEstoque that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ItemEstoqueFindUniqueOrThrowArgs} args - Arguments to find a ItemEstoque
+     * @example
+     * // Get one ItemEstoque
+     * const itemEstoque = await prisma.itemEstoque.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ItemEstoqueFindUniqueOrThrowArgs>(args: SelectSubset<T, ItemEstoqueFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ItemEstoqueClient<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ItemEstoque that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemEstoqueFindFirstArgs} args - Arguments to find a ItemEstoque
+     * @example
+     * // Get one ItemEstoque
+     * const itemEstoque = await prisma.itemEstoque.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ItemEstoqueFindFirstArgs>(args?: SelectSubset<T, ItemEstoqueFindFirstArgs<ExtArgs>>): Prisma__ItemEstoqueClient<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ItemEstoque that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemEstoqueFindFirstOrThrowArgs} args - Arguments to find a ItemEstoque
+     * @example
+     * // Get one ItemEstoque
+     * const itemEstoque = await prisma.itemEstoque.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ItemEstoqueFindFirstOrThrowArgs>(args?: SelectSubset<T, ItemEstoqueFindFirstOrThrowArgs<ExtArgs>>): Prisma__ItemEstoqueClient<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ItemEstoques that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemEstoqueFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ItemEstoques
+     * const itemEstoques = await prisma.itemEstoque.findMany()
+     * 
+     * // Get first 10 ItemEstoques
+     * const itemEstoques = await prisma.itemEstoque.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const itemEstoqueWithIdOnly = await prisma.itemEstoque.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ItemEstoqueFindManyArgs>(args?: SelectSubset<T, ItemEstoqueFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ItemEstoque.
+     * @param {ItemEstoqueCreateArgs} args - Arguments to create a ItemEstoque.
+     * @example
+     * // Create one ItemEstoque
+     * const ItemEstoque = await prisma.itemEstoque.create({
+     *   data: {
+     *     // ... data to create a ItemEstoque
+     *   }
+     * })
+     * 
+     */
+    create<T extends ItemEstoqueCreateArgs>(args: SelectSubset<T, ItemEstoqueCreateArgs<ExtArgs>>): Prisma__ItemEstoqueClient<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ItemEstoques.
+     * @param {ItemEstoqueCreateManyArgs} args - Arguments to create many ItemEstoques.
+     * @example
+     * // Create many ItemEstoques
+     * const itemEstoque = await prisma.itemEstoque.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ItemEstoqueCreateManyArgs>(args?: SelectSubset<T, ItemEstoqueCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ItemEstoques and returns the data saved in the database.
+     * @param {ItemEstoqueCreateManyAndReturnArgs} args - Arguments to create many ItemEstoques.
+     * @example
+     * // Create many ItemEstoques
+     * const itemEstoque = await prisma.itemEstoque.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ItemEstoques and only return the `id`
+     * const itemEstoqueWithIdOnly = await prisma.itemEstoque.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ItemEstoqueCreateManyAndReturnArgs>(args?: SelectSubset<T, ItemEstoqueCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ItemEstoque.
+     * @param {ItemEstoqueDeleteArgs} args - Arguments to delete one ItemEstoque.
+     * @example
+     * // Delete one ItemEstoque
+     * const ItemEstoque = await prisma.itemEstoque.delete({
+     *   where: {
+     *     // ... filter to delete one ItemEstoque
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ItemEstoqueDeleteArgs>(args: SelectSubset<T, ItemEstoqueDeleteArgs<ExtArgs>>): Prisma__ItemEstoqueClient<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ItemEstoque.
+     * @param {ItemEstoqueUpdateArgs} args - Arguments to update one ItemEstoque.
+     * @example
+     * // Update one ItemEstoque
+     * const itemEstoque = await prisma.itemEstoque.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ItemEstoqueUpdateArgs>(args: SelectSubset<T, ItemEstoqueUpdateArgs<ExtArgs>>): Prisma__ItemEstoqueClient<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ItemEstoques.
+     * @param {ItemEstoqueDeleteManyArgs} args - Arguments to filter ItemEstoques to delete.
+     * @example
+     * // Delete a few ItemEstoques
+     * const { count } = await prisma.itemEstoque.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ItemEstoqueDeleteManyArgs>(args?: SelectSubset<T, ItemEstoqueDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ItemEstoques.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemEstoqueUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ItemEstoques
+     * const itemEstoque = await prisma.itemEstoque.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ItemEstoqueUpdateManyArgs>(args: SelectSubset<T, ItemEstoqueUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ItemEstoques and returns the data updated in the database.
+     * @param {ItemEstoqueUpdateManyAndReturnArgs} args - Arguments to update many ItemEstoques.
+     * @example
+     * // Update many ItemEstoques
+     * const itemEstoque = await prisma.itemEstoque.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ItemEstoques and only return the `id`
+     * const itemEstoqueWithIdOnly = await prisma.itemEstoque.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ItemEstoqueUpdateManyAndReturnArgs>(args: SelectSubset<T, ItemEstoqueUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ItemEstoque.
+     * @param {ItemEstoqueUpsertArgs} args - Arguments to update or create a ItemEstoque.
+     * @example
+     * // Update or create a ItemEstoque
+     * const itemEstoque = await prisma.itemEstoque.upsert({
+     *   create: {
+     *     // ... data to create a ItemEstoque
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ItemEstoque we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ItemEstoqueUpsertArgs>(args: SelectSubset<T, ItemEstoqueUpsertArgs<ExtArgs>>): Prisma__ItemEstoqueClient<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ItemEstoques.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemEstoqueCountArgs} args - Arguments to filter ItemEstoques to count.
+     * @example
+     * // Count the number of ItemEstoques
+     * const count = await prisma.itemEstoque.count({
+     *   where: {
+     *     // ... the filter for the ItemEstoques we want to count
+     *   }
+     * })
+    **/
+    count<T extends ItemEstoqueCountArgs>(
+      args?: Subset<T, ItemEstoqueCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ItemEstoqueCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ItemEstoque.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemEstoqueAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ItemEstoqueAggregateArgs>(args: Subset<T, ItemEstoqueAggregateArgs>): Prisma.PrismaPromise<GetItemEstoqueAggregateType<T>>
+
+    /**
+     * Group by ItemEstoque.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemEstoqueGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ItemEstoqueGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ItemEstoqueGroupByArgs['orderBy'] }
+        : { orderBy?: ItemEstoqueGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ItemEstoqueGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetItemEstoqueGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ItemEstoque model
+   */
+  readonly fields: ItemEstoqueFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ItemEstoque.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ItemEstoqueClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    obra<T extends ObraDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ObraDefaultArgs<ExtArgs>>): Prisma__ObraClient<$Result.GetResult<Prisma.$ObraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    movimentacoes<T extends ItemEstoque$movimentacoesArgs<ExtArgs> = {}>(args?: Subset<T, ItemEstoque$movimentacoesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovimentacaoEstoquePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ItemEstoque model
+   */
+  interface ItemEstoqueFieldRefs {
+    readonly id: FieldRef<"ItemEstoque", 'String'>
+    readonly nome: FieldRef<"ItemEstoque", 'String'>
+    readonly unidade: FieldRef<"ItemEstoque", 'String'>
+    readonly categoria: FieldRef<"ItemEstoque", 'String'>
+    readonly quantidadeAtual: FieldRef<"ItemEstoque", 'Decimal'>
+    readonly quantidadeMinima: FieldRef<"ItemEstoque", 'Decimal'>
+    readonly valorUnitario: FieldRef<"ItemEstoque", 'Decimal'>
+    readonly obraId: FieldRef<"ItemEstoque", 'String'>
+    readonly organizationId: FieldRef<"ItemEstoque", 'String'>
+    readonly createdAt: FieldRef<"ItemEstoque", 'DateTime'>
+    readonly updatedAt: FieldRef<"ItemEstoque", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ItemEstoque findUnique
+   */
+  export type ItemEstoqueFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemEstoque to fetch.
+     */
+    where: ItemEstoqueWhereUniqueInput
+  }
+
+  /**
+   * ItemEstoque findUniqueOrThrow
+   */
+  export type ItemEstoqueFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemEstoque to fetch.
+     */
+    where: ItemEstoqueWhereUniqueInput
+  }
+
+  /**
+   * ItemEstoque findFirst
+   */
+  export type ItemEstoqueFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemEstoque to fetch.
+     */
+    where?: ItemEstoqueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemEstoques to fetch.
+     */
+    orderBy?: ItemEstoqueOrderByWithRelationInput | ItemEstoqueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ItemEstoques.
+     */
+    cursor?: ItemEstoqueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemEstoques from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemEstoques.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ItemEstoques.
+     */
+    distinct?: ItemEstoqueScalarFieldEnum | ItemEstoqueScalarFieldEnum[]
+  }
+
+  /**
+   * ItemEstoque findFirstOrThrow
+   */
+  export type ItemEstoqueFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemEstoque to fetch.
+     */
+    where?: ItemEstoqueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemEstoques to fetch.
+     */
+    orderBy?: ItemEstoqueOrderByWithRelationInput | ItemEstoqueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ItemEstoques.
+     */
+    cursor?: ItemEstoqueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemEstoques from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemEstoques.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ItemEstoques.
+     */
+    distinct?: ItemEstoqueScalarFieldEnum | ItemEstoqueScalarFieldEnum[]
+  }
+
+  /**
+   * ItemEstoque findMany
+   */
+  export type ItemEstoqueFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemEstoques to fetch.
+     */
+    where?: ItemEstoqueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemEstoques to fetch.
+     */
+    orderBy?: ItemEstoqueOrderByWithRelationInput | ItemEstoqueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ItemEstoques.
+     */
+    cursor?: ItemEstoqueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemEstoques from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemEstoques.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ItemEstoques.
+     */
+    distinct?: ItemEstoqueScalarFieldEnum | ItemEstoqueScalarFieldEnum[]
+  }
+
+  /**
+   * ItemEstoque create
+   */
+  export type ItemEstoqueCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ItemEstoque.
+     */
+    data: XOR<ItemEstoqueCreateInput, ItemEstoqueUncheckedCreateInput>
+  }
+
+  /**
+   * ItemEstoque createMany
+   */
+  export type ItemEstoqueCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ItemEstoques.
+     */
+    data: ItemEstoqueCreateManyInput | ItemEstoqueCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ItemEstoque createManyAndReturn
+   */
+  export type ItemEstoqueCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * The data used to create many ItemEstoques.
+     */
+    data: ItemEstoqueCreateManyInput | ItemEstoqueCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ItemEstoque update
+   */
+  export type ItemEstoqueUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ItemEstoque.
+     */
+    data: XOR<ItemEstoqueUpdateInput, ItemEstoqueUncheckedUpdateInput>
+    /**
+     * Choose, which ItemEstoque to update.
+     */
+    where: ItemEstoqueWhereUniqueInput
+  }
+
+  /**
+   * ItemEstoque updateMany
+   */
+  export type ItemEstoqueUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ItemEstoques.
+     */
+    data: XOR<ItemEstoqueUpdateManyMutationInput, ItemEstoqueUncheckedUpdateManyInput>
+    /**
+     * Filter which ItemEstoques to update
+     */
+    where?: ItemEstoqueWhereInput
+    /**
+     * Limit how many ItemEstoques to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ItemEstoque updateManyAndReturn
+   */
+  export type ItemEstoqueUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * The data used to update ItemEstoques.
+     */
+    data: XOR<ItemEstoqueUpdateManyMutationInput, ItemEstoqueUncheckedUpdateManyInput>
+    /**
+     * Filter which ItemEstoques to update
+     */
+    where?: ItemEstoqueWhereInput
+    /**
+     * Limit how many ItemEstoques to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ItemEstoque upsert
+   */
+  export type ItemEstoqueUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ItemEstoque to update in case it exists.
+     */
+    where: ItemEstoqueWhereUniqueInput
+    /**
+     * In case the ItemEstoque found by the `where` argument doesn't exist, create a new ItemEstoque with this data.
+     */
+    create: XOR<ItemEstoqueCreateInput, ItemEstoqueUncheckedCreateInput>
+    /**
+     * In case the ItemEstoque was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ItemEstoqueUpdateInput, ItemEstoqueUncheckedUpdateInput>
+  }
+
+  /**
+   * ItemEstoque delete
+   */
+  export type ItemEstoqueDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter which ItemEstoque to delete.
+     */
+    where: ItemEstoqueWhereUniqueInput
+  }
+
+  /**
+   * ItemEstoque deleteMany
+   */
+  export type ItemEstoqueDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ItemEstoques to delete
+     */
+    where?: ItemEstoqueWhereInput
+    /**
+     * Limit how many ItemEstoques to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ItemEstoque.movimentacoes
+   */
+  export type ItemEstoque$movimentacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MovimentacaoEstoque
+     */
+    select?: MovimentacaoEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MovimentacaoEstoque
+     */
+    omit?: MovimentacaoEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoEstoqueInclude<ExtArgs> | null
+    where?: MovimentacaoEstoqueWhereInput
+    orderBy?: MovimentacaoEstoqueOrderByWithRelationInput | MovimentacaoEstoqueOrderByWithRelationInput[]
+    cursor?: MovimentacaoEstoqueWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MovimentacaoEstoqueScalarFieldEnum | MovimentacaoEstoqueScalarFieldEnum[]
+  }
+
+  /**
+   * ItemEstoque without action
+   */
+  export type ItemEstoqueDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemEstoque
+     */
+    select?: ItemEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItemEstoque
+     */
+    omit?: ItemEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemEstoqueInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MovimentacaoEstoque
+   */
+
+  export type AggregateMovimentacaoEstoque = {
+    _count: MovimentacaoEstoqueCountAggregateOutputType | null
+    _avg: MovimentacaoEstoqueAvgAggregateOutputType | null
+    _sum: MovimentacaoEstoqueSumAggregateOutputType | null
+    _min: MovimentacaoEstoqueMinAggregateOutputType | null
+    _max: MovimentacaoEstoqueMaxAggregateOutputType | null
+  }
+
+  export type MovimentacaoEstoqueAvgAggregateOutputType = {
+    quantidade: Decimal | null
+    valorUnitario: Decimal | null
+  }
+
+  export type MovimentacaoEstoqueSumAggregateOutputType = {
+    quantidade: Decimal | null
+    valorUnitario: Decimal | null
+  }
+
+  export type MovimentacaoEstoqueMinAggregateOutputType = {
+    id: string | null
+    itemEstoqueId: string | null
+    tipo: $Enums.MovimentacaoTipo | null
+    quantidade: Decimal | null
+    valorUnitario: Decimal | null
+    motivo: string | null
+    fornecedor: string | null
+    notaFiscal: string | null
+    responsavel: string | null
+    obraId: string | null
+    organizationId: string | null
+    userId: string | null
+    createdAt: Date | null
+  }
+
+  export type MovimentacaoEstoqueMaxAggregateOutputType = {
+    id: string | null
+    itemEstoqueId: string | null
+    tipo: $Enums.MovimentacaoTipo | null
+    quantidade: Decimal | null
+    valorUnitario: Decimal | null
+    motivo: string | null
+    fornecedor: string | null
+    notaFiscal: string | null
+    responsavel: string | null
+    obraId: string | null
+    organizationId: string | null
+    userId: string | null
+    createdAt: Date | null
+  }
+
+  export type MovimentacaoEstoqueCountAggregateOutputType = {
+    id: number
+    itemEstoqueId: number
+    tipo: number
+    quantidade: number
+    valorUnitario: number
+    motivo: number
+    fornecedor: number
+    notaFiscal: number
+    responsavel: number
+    obraId: number
+    organizationId: number
+    userId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type MovimentacaoEstoqueAvgAggregateInputType = {
+    quantidade?: true
+    valorUnitario?: true
+  }
+
+  export type MovimentacaoEstoqueSumAggregateInputType = {
+    quantidade?: true
+    valorUnitario?: true
+  }
+
+  export type MovimentacaoEstoqueMinAggregateInputType = {
+    id?: true
+    itemEstoqueId?: true
+    tipo?: true
+    quantidade?: true
+    valorUnitario?: true
+    motivo?: true
+    fornecedor?: true
+    notaFiscal?: true
+    responsavel?: true
+    obraId?: true
+    organizationId?: true
+    userId?: true
+    createdAt?: true
+  }
+
+  export type MovimentacaoEstoqueMaxAggregateInputType = {
+    id?: true
+    itemEstoqueId?: true
+    tipo?: true
+    quantidade?: true
+    valorUnitario?: true
+    motivo?: true
+    fornecedor?: true
+    notaFiscal?: true
+    responsavel?: true
+    obraId?: true
+    organizationId?: true
+    userId?: true
+    createdAt?: true
+  }
+
+  export type MovimentacaoEstoqueCountAggregateInputType = {
+    id?: true
+    itemEstoqueId?: true
+    tipo?: true
+    quantidade?: true
+    valorUnitario?: true
+    motivo?: true
+    fornecedor?: true
+    notaFiscal?: true
+    responsavel?: true
+    obraId?: true
+    organizationId?: true
+    userId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type MovimentacaoEstoqueAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MovimentacaoEstoque to aggregate.
+     */
+    where?: MovimentacaoEstoqueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MovimentacaoEstoques to fetch.
+     */
+    orderBy?: MovimentacaoEstoqueOrderByWithRelationInput | MovimentacaoEstoqueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MovimentacaoEstoqueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MovimentacaoEstoques from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MovimentacaoEstoques.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MovimentacaoEstoques
+    **/
+    _count?: true | MovimentacaoEstoqueCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MovimentacaoEstoqueAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MovimentacaoEstoqueSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MovimentacaoEstoqueMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MovimentacaoEstoqueMaxAggregateInputType
+  }
+
+  export type GetMovimentacaoEstoqueAggregateType<T extends MovimentacaoEstoqueAggregateArgs> = {
+        [P in keyof T & keyof AggregateMovimentacaoEstoque]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMovimentacaoEstoque[P]>
+      : GetScalarType<T[P], AggregateMovimentacaoEstoque[P]>
+  }
+
+
+
+
+  export type MovimentacaoEstoqueGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MovimentacaoEstoqueWhereInput
+    orderBy?: MovimentacaoEstoqueOrderByWithAggregationInput | MovimentacaoEstoqueOrderByWithAggregationInput[]
+    by: MovimentacaoEstoqueScalarFieldEnum[] | MovimentacaoEstoqueScalarFieldEnum
+    having?: MovimentacaoEstoqueScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MovimentacaoEstoqueCountAggregateInputType | true
+    _avg?: MovimentacaoEstoqueAvgAggregateInputType
+    _sum?: MovimentacaoEstoqueSumAggregateInputType
+    _min?: MovimentacaoEstoqueMinAggregateInputType
+    _max?: MovimentacaoEstoqueMaxAggregateInputType
+  }
+
+  export type MovimentacaoEstoqueGroupByOutputType = {
+    id: string
+    itemEstoqueId: string
+    tipo: $Enums.MovimentacaoTipo
+    quantidade: Decimal
+    valorUnitario: Decimal | null
+    motivo: string | null
+    fornecedor: string | null
+    notaFiscal: string | null
+    responsavel: string | null
+    obraId: string
+    organizationId: string
+    userId: string
+    createdAt: Date
+    _count: MovimentacaoEstoqueCountAggregateOutputType | null
+    _avg: MovimentacaoEstoqueAvgAggregateOutputType | null
+    _sum: MovimentacaoEstoqueSumAggregateOutputType | null
+    _min: MovimentacaoEstoqueMinAggregateOutputType | null
+    _max: MovimentacaoEstoqueMaxAggregateOutputType | null
+  }
+
+  type GetMovimentacaoEstoqueGroupByPayload<T extends MovimentacaoEstoqueGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MovimentacaoEstoqueGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MovimentacaoEstoqueGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MovimentacaoEstoqueGroupByOutputType[P]>
+            : GetScalarType<T[P], MovimentacaoEstoqueGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MovimentacaoEstoqueSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    itemEstoqueId?: boolean
+    tipo?: boolean
+    quantidade?: boolean
+    valorUnitario?: boolean
+    motivo?: boolean
+    fornecedor?: boolean
+    notaFiscal?: boolean
+    responsavel?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    itemEstoque?: boolean | ItemEstoqueDefaultArgs<ExtArgs>
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["movimentacaoEstoque"]>
+
+  export type MovimentacaoEstoqueSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    itemEstoqueId?: boolean
+    tipo?: boolean
+    quantidade?: boolean
+    valorUnitario?: boolean
+    motivo?: boolean
+    fornecedor?: boolean
+    notaFiscal?: boolean
+    responsavel?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    itemEstoque?: boolean | ItemEstoqueDefaultArgs<ExtArgs>
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["movimentacaoEstoque"]>
+
+  export type MovimentacaoEstoqueSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    itemEstoqueId?: boolean
+    tipo?: boolean
+    quantidade?: boolean
+    valorUnitario?: boolean
+    motivo?: boolean
+    fornecedor?: boolean
+    notaFiscal?: boolean
+    responsavel?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    itemEstoque?: boolean | ItemEstoqueDefaultArgs<ExtArgs>
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["movimentacaoEstoque"]>
+
+  export type MovimentacaoEstoqueSelectScalar = {
+    id?: boolean
+    itemEstoqueId?: boolean
+    tipo?: boolean
+    quantidade?: boolean
+    valorUnitario?: boolean
+    motivo?: boolean
+    fornecedor?: boolean
+    notaFiscal?: boolean
+    responsavel?: boolean
+    obraId?: boolean
+    organizationId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+  }
+
+  export type MovimentacaoEstoqueOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "itemEstoqueId" | "tipo" | "quantidade" | "valorUnitario" | "motivo" | "fornecedor" | "notaFiscal" | "responsavel" | "obraId" | "organizationId" | "userId" | "createdAt", ExtArgs["result"]["movimentacaoEstoque"]>
+  export type MovimentacaoEstoqueInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    itemEstoque?: boolean | ItemEstoqueDefaultArgs<ExtArgs>
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MovimentacaoEstoqueIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    itemEstoque?: boolean | ItemEstoqueDefaultArgs<ExtArgs>
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MovimentacaoEstoqueIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    itemEstoque?: boolean | ItemEstoqueDefaultArgs<ExtArgs>
+    obra?: boolean | ObraDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $MovimentacaoEstoquePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MovimentacaoEstoque"
+    objects: {
+      itemEstoque: Prisma.$ItemEstoquePayload<ExtArgs>
+      obra: Prisma.$ObraPayload<ExtArgs>
+      organization: Prisma.$OrganizationPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      itemEstoqueId: string
+      tipo: $Enums.MovimentacaoTipo
+      quantidade: Prisma.Decimal
+      valorUnitario: Prisma.Decimal | null
+      motivo: string | null
+      fornecedor: string | null
+      notaFiscal: string | null
+      responsavel: string | null
+      obraId: string
+      organizationId: string
+      userId: string
+      createdAt: Date
+    }, ExtArgs["result"]["movimentacaoEstoque"]>
+    composites: {}
+  }
+
+  type MovimentacaoEstoqueGetPayload<S extends boolean | null | undefined | MovimentacaoEstoqueDefaultArgs> = $Result.GetResult<Prisma.$MovimentacaoEstoquePayload, S>
+
+  type MovimentacaoEstoqueCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MovimentacaoEstoqueFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MovimentacaoEstoqueCountAggregateInputType | true
+    }
+
+  export interface MovimentacaoEstoqueDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MovimentacaoEstoque'], meta: { name: 'MovimentacaoEstoque' } }
+    /**
+     * Find zero or one MovimentacaoEstoque that matches the filter.
+     * @param {MovimentacaoEstoqueFindUniqueArgs} args - Arguments to find a MovimentacaoEstoque
+     * @example
+     * // Get one MovimentacaoEstoque
+     * const movimentacaoEstoque = await prisma.movimentacaoEstoque.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MovimentacaoEstoqueFindUniqueArgs>(args: SelectSubset<T, MovimentacaoEstoqueFindUniqueArgs<ExtArgs>>): Prisma__MovimentacaoEstoqueClient<$Result.GetResult<Prisma.$MovimentacaoEstoquePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MovimentacaoEstoque that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MovimentacaoEstoqueFindUniqueOrThrowArgs} args - Arguments to find a MovimentacaoEstoque
+     * @example
+     * // Get one MovimentacaoEstoque
+     * const movimentacaoEstoque = await prisma.movimentacaoEstoque.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MovimentacaoEstoqueFindUniqueOrThrowArgs>(args: SelectSubset<T, MovimentacaoEstoqueFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MovimentacaoEstoqueClient<$Result.GetResult<Prisma.$MovimentacaoEstoquePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MovimentacaoEstoque that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovimentacaoEstoqueFindFirstArgs} args - Arguments to find a MovimentacaoEstoque
+     * @example
+     * // Get one MovimentacaoEstoque
+     * const movimentacaoEstoque = await prisma.movimentacaoEstoque.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MovimentacaoEstoqueFindFirstArgs>(args?: SelectSubset<T, MovimentacaoEstoqueFindFirstArgs<ExtArgs>>): Prisma__MovimentacaoEstoqueClient<$Result.GetResult<Prisma.$MovimentacaoEstoquePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MovimentacaoEstoque that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovimentacaoEstoqueFindFirstOrThrowArgs} args - Arguments to find a MovimentacaoEstoque
+     * @example
+     * // Get one MovimentacaoEstoque
+     * const movimentacaoEstoque = await prisma.movimentacaoEstoque.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MovimentacaoEstoqueFindFirstOrThrowArgs>(args?: SelectSubset<T, MovimentacaoEstoqueFindFirstOrThrowArgs<ExtArgs>>): Prisma__MovimentacaoEstoqueClient<$Result.GetResult<Prisma.$MovimentacaoEstoquePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MovimentacaoEstoques that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovimentacaoEstoqueFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MovimentacaoEstoques
+     * const movimentacaoEstoques = await prisma.movimentacaoEstoque.findMany()
+     * 
+     * // Get first 10 MovimentacaoEstoques
+     * const movimentacaoEstoques = await prisma.movimentacaoEstoque.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const movimentacaoEstoqueWithIdOnly = await prisma.movimentacaoEstoque.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MovimentacaoEstoqueFindManyArgs>(args?: SelectSubset<T, MovimentacaoEstoqueFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovimentacaoEstoquePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MovimentacaoEstoque.
+     * @param {MovimentacaoEstoqueCreateArgs} args - Arguments to create a MovimentacaoEstoque.
+     * @example
+     * // Create one MovimentacaoEstoque
+     * const MovimentacaoEstoque = await prisma.movimentacaoEstoque.create({
+     *   data: {
+     *     // ... data to create a MovimentacaoEstoque
+     *   }
+     * })
+     * 
+     */
+    create<T extends MovimentacaoEstoqueCreateArgs>(args: SelectSubset<T, MovimentacaoEstoqueCreateArgs<ExtArgs>>): Prisma__MovimentacaoEstoqueClient<$Result.GetResult<Prisma.$MovimentacaoEstoquePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MovimentacaoEstoques.
+     * @param {MovimentacaoEstoqueCreateManyArgs} args - Arguments to create many MovimentacaoEstoques.
+     * @example
+     * // Create many MovimentacaoEstoques
+     * const movimentacaoEstoque = await prisma.movimentacaoEstoque.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MovimentacaoEstoqueCreateManyArgs>(args?: SelectSubset<T, MovimentacaoEstoqueCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MovimentacaoEstoques and returns the data saved in the database.
+     * @param {MovimentacaoEstoqueCreateManyAndReturnArgs} args - Arguments to create many MovimentacaoEstoques.
+     * @example
+     * // Create many MovimentacaoEstoques
+     * const movimentacaoEstoque = await prisma.movimentacaoEstoque.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MovimentacaoEstoques and only return the `id`
+     * const movimentacaoEstoqueWithIdOnly = await prisma.movimentacaoEstoque.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MovimentacaoEstoqueCreateManyAndReturnArgs>(args?: SelectSubset<T, MovimentacaoEstoqueCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovimentacaoEstoquePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MovimentacaoEstoque.
+     * @param {MovimentacaoEstoqueDeleteArgs} args - Arguments to delete one MovimentacaoEstoque.
+     * @example
+     * // Delete one MovimentacaoEstoque
+     * const MovimentacaoEstoque = await prisma.movimentacaoEstoque.delete({
+     *   where: {
+     *     // ... filter to delete one MovimentacaoEstoque
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MovimentacaoEstoqueDeleteArgs>(args: SelectSubset<T, MovimentacaoEstoqueDeleteArgs<ExtArgs>>): Prisma__MovimentacaoEstoqueClient<$Result.GetResult<Prisma.$MovimentacaoEstoquePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MovimentacaoEstoque.
+     * @param {MovimentacaoEstoqueUpdateArgs} args - Arguments to update one MovimentacaoEstoque.
+     * @example
+     * // Update one MovimentacaoEstoque
+     * const movimentacaoEstoque = await prisma.movimentacaoEstoque.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MovimentacaoEstoqueUpdateArgs>(args: SelectSubset<T, MovimentacaoEstoqueUpdateArgs<ExtArgs>>): Prisma__MovimentacaoEstoqueClient<$Result.GetResult<Prisma.$MovimentacaoEstoquePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MovimentacaoEstoques.
+     * @param {MovimentacaoEstoqueDeleteManyArgs} args - Arguments to filter MovimentacaoEstoques to delete.
+     * @example
+     * // Delete a few MovimentacaoEstoques
+     * const { count } = await prisma.movimentacaoEstoque.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MovimentacaoEstoqueDeleteManyArgs>(args?: SelectSubset<T, MovimentacaoEstoqueDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MovimentacaoEstoques.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovimentacaoEstoqueUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MovimentacaoEstoques
+     * const movimentacaoEstoque = await prisma.movimentacaoEstoque.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MovimentacaoEstoqueUpdateManyArgs>(args: SelectSubset<T, MovimentacaoEstoqueUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MovimentacaoEstoques and returns the data updated in the database.
+     * @param {MovimentacaoEstoqueUpdateManyAndReturnArgs} args - Arguments to update many MovimentacaoEstoques.
+     * @example
+     * // Update many MovimentacaoEstoques
+     * const movimentacaoEstoque = await prisma.movimentacaoEstoque.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MovimentacaoEstoques and only return the `id`
+     * const movimentacaoEstoqueWithIdOnly = await prisma.movimentacaoEstoque.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MovimentacaoEstoqueUpdateManyAndReturnArgs>(args: SelectSubset<T, MovimentacaoEstoqueUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovimentacaoEstoquePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MovimentacaoEstoque.
+     * @param {MovimentacaoEstoqueUpsertArgs} args - Arguments to update or create a MovimentacaoEstoque.
+     * @example
+     * // Update or create a MovimentacaoEstoque
+     * const movimentacaoEstoque = await prisma.movimentacaoEstoque.upsert({
+     *   create: {
+     *     // ... data to create a MovimentacaoEstoque
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MovimentacaoEstoque we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MovimentacaoEstoqueUpsertArgs>(args: SelectSubset<T, MovimentacaoEstoqueUpsertArgs<ExtArgs>>): Prisma__MovimentacaoEstoqueClient<$Result.GetResult<Prisma.$MovimentacaoEstoquePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MovimentacaoEstoques.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovimentacaoEstoqueCountArgs} args - Arguments to filter MovimentacaoEstoques to count.
+     * @example
+     * // Count the number of MovimentacaoEstoques
+     * const count = await prisma.movimentacaoEstoque.count({
+     *   where: {
+     *     // ... the filter for the MovimentacaoEstoques we want to count
+     *   }
+     * })
+    **/
+    count<T extends MovimentacaoEstoqueCountArgs>(
+      args?: Subset<T, MovimentacaoEstoqueCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MovimentacaoEstoqueCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MovimentacaoEstoque.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovimentacaoEstoqueAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MovimentacaoEstoqueAggregateArgs>(args: Subset<T, MovimentacaoEstoqueAggregateArgs>): Prisma.PrismaPromise<GetMovimentacaoEstoqueAggregateType<T>>
+
+    /**
+     * Group by MovimentacaoEstoque.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovimentacaoEstoqueGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MovimentacaoEstoqueGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MovimentacaoEstoqueGroupByArgs['orderBy'] }
+        : { orderBy?: MovimentacaoEstoqueGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MovimentacaoEstoqueGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMovimentacaoEstoqueGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MovimentacaoEstoque model
+   */
+  readonly fields: MovimentacaoEstoqueFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MovimentacaoEstoque.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MovimentacaoEstoqueClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    itemEstoque<T extends ItemEstoqueDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemEstoqueDefaultArgs<ExtArgs>>): Prisma__ItemEstoqueClient<$Result.GetResult<Prisma.$ItemEstoquePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    obra<T extends ObraDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ObraDefaultArgs<ExtArgs>>): Prisma__ObraClient<$Result.GetResult<Prisma.$ObraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MovimentacaoEstoque model
+   */
+  interface MovimentacaoEstoqueFieldRefs {
+    readonly id: FieldRef<"MovimentacaoEstoque", 'String'>
+    readonly itemEstoqueId: FieldRef<"MovimentacaoEstoque", 'String'>
+    readonly tipo: FieldRef<"MovimentacaoEstoque", 'MovimentacaoTipo'>
+    readonly quantidade: FieldRef<"MovimentacaoEstoque", 'Decimal'>
+    readonly valorUnitario: FieldRef<"MovimentacaoEstoque", 'Decimal'>
+    readonly motivo: FieldRef<"MovimentacaoEstoque", 'String'>
+    readonly fornecedor: FieldRef<"MovimentacaoEstoque", 'String'>
+    readonly notaFiscal: FieldRef<"MovimentacaoEstoque", 'String'>
+    readonly responsavel: FieldRef<"MovimentacaoEstoque", 'String'>
+    readonly obraId: FieldRef<"MovimentacaoEstoque", 'String'>
+    readonly organizationId: FieldRef<"MovimentacaoEstoque", 'String'>
+    readonly userId: FieldRef<"MovimentacaoEstoque", 'String'>
+    readonly createdAt: FieldRef<"MovimentacaoEstoque", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MovimentacaoEstoque findUnique
+   */
+  export type MovimentacaoEstoqueFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MovimentacaoEstoque
+     */
+    select?: MovimentacaoEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MovimentacaoEstoque
+     */
+    omit?: MovimentacaoEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which MovimentacaoEstoque to fetch.
+     */
+    where: MovimentacaoEstoqueWhereUniqueInput
+  }
+
+  /**
+   * MovimentacaoEstoque findUniqueOrThrow
+   */
+  export type MovimentacaoEstoqueFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MovimentacaoEstoque
+     */
+    select?: MovimentacaoEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MovimentacaoEstoque
+     */
+    omit?: MovimentacaoEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which MovimentacaoEstoque to fetch.
+     */
+    where: MovimentacaoEstoqueWhereUniqueInput
+  }
+
+  /**
+   * MovimentacaoEstoque findFirst
+   */
+  export type MovimentacaoEstoqueFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MovimentacaoEstoque
+     */
+    select?: MovimentacaoEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MovimentacaoEstoque
+     */
+    omit?: MovimentacaoEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which MovimentacaoEstoque to fetch.
+     */
+    where?: MovimentacaoEstoqueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MovimentacaoEstoques to fetch.
+     */
+    orderBy?: MovimentacaoEstoqueOrderByWithRelationInput | MovimentacaoEstoqueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MovimentacaoEstoques.
+     */
+    cursor?: MovimentacaoEstoqueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MovimentacaoEstoques from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MovimentacaoEstoques.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MovimentacaoEstoques.
+     */
+    distinct?: MovimentacaoEstoqueScalarFieldEnum | MovimentacaoEstoqueScalarFieldEnum[]
+  }
+
+  /**
+   * MovimentacaoEstoque findFirstOrThrow
+   */
+  export type MovimentacaoEstoqueFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MovimentacaoEstoque
+     */
+    select?: MovimentacaoEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MovimentacaoEstoque
+     */
+    omit?: MovimentacaoEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which MovimentacaoEstoque to fetch.
+     */
+    where?: MovimentacaoEstoqueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MovimentacaoEstoques to fetch.
+     */
+    orderBy?: MovimentacaoEstoqueOrderByWithRelationInput | MovimentacaoEstoqueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MovimentacaoEstoques.
+     */
+    cursor?: MovimentacaoEstoqueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MovimentacaoEstoques from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MovimentacaoEstoques.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MovimentacaoEstoques.
+     */
+    distinct?: MovimentacaoEstoqueScalarFieldEnum | MovimentacaoEstoqueScalarFieldEnum[]
+  }
+
+  /**
+   * MovimentacaoEstoque findMany
+   */
+  export type MovimentacaoEstoqueFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MovimentacaoEstoque
+     */
+    select?: MovimentacaoEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MovimentacaoEstoque
+     */
+    omit?: MovimentacaoEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter, which MovimentacaoEstoques to fetch.
+     */
+    where?: MovimentacaoEstoqueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MovimentacaoEstoques to fetch.
+     */
+    orderBy?: MovimentacaoEstoqueOrderByWithRelationInput | MovimentacaoEstoqueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MovimentacaoEstoques.
+     */
+    cursor?: MovimentacaoEstoqueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MovimentacaoEstoques from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MovimentacaoEstoques.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MovimentacaoEstoques.
+     */
+    distinct?: MovimentacaoEstoqueScalarFieldEnum | MovimentacaoEstoqueScalarFieldEnum[]
+  }
+
+  /**
+   * MovimentacaoEstoque create
+   */
+  export type MovimentacaoEstoqueCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MovimentacaoEstoque
+     */
+    select?: MovimentacaoEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MovimentacaoEstoque
+     */
+    omit?: MovimentacaoEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoEstoqueInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MovimentacaoEstoque.
+     */
+    data: XOR<MovimentacaoEstoqueCreateInput, MovimentacaoEstoqueUncheckedCreateInput>
+  }
+
+  /**
+   * MovimentacaoEstoque createMany
+   */
+  export type MovimentacaoEstoqueCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MovimentacaoEstoques.
+     */
+    data: MovimentacaoEstoqueCreateManyInput | MovimentacaoEstoqueCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MovimentacaoEstoque createManyAndReturn
+   */
+  export type MovimentacaoEstoqueCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MovimentacaoEstoque
+     */
+    select?: MovimentacaoEstoqueSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MovimentacaoEstoque
+     */
+    omit?: MovimentacaoEstoqueOmit<ExtArgs> | null
+    /**
+     * The data used to create many MovimentacaoEstoques.
+     */
+    data: MovimentacaoEstoqueCreateManyInput | MovimentacaoEstoqueCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoEstoqueIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MovimentacaoEstoque update
+   */
+  export type MovimentacaoEstoqueUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MovimentacaoEstoque
+     */
+    select?: MovimentacaoEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MovimentacaoEstoque
+     */
+    omit?: MovimentacaoEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoEstoqueInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MovimentacaoEstoque.
+     */
+    data: XOR<MovimentacaoEstoqueUpdateInput, MovimentacaoEstoqueUncheckedUpdateInput>
+    /**
+     * Choose, which MovimentacaoEstoque to update.
+     */
+    where: MovimentacaoEstoqueWhereUniqueInput
+  }
+
+  /**
+   * MovimentacaoEstoque updateMany
+   */
+  export type MovimentacaoEstoqueUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MovimentacaoEstoques.
+     */
+    data: XOR<MovimentacaoEstoqueUpdateManyMutationInput, MovimentacaoEstoqueUncheckedUpdateManyInput>
+    /**
+     * Filter which MovimentacaoEstoques to update
+     */
+    where?: MovimentacaoEstoqueWhereInput
+    /**
+     * Limit how many MovimentacaoEstoques to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MovimentacaoEstoque updateManyAndReturn
+   */
+  export type MovimentacaoEstoqueUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MovimentacaoEstoque
+     */
+    select?: MovimentacaoEstoqueSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MovimentacaoEstoque
+     */
+    omit?: MovimentacaoEstoqueOmit<ExtArgs> | null
+    /**
+     * The data used to update MovimentacaoEstoques.
+     */
+    data: XOR<MovimentacaoEstoqueUpdateManyMutationInput, MovimentacaoEstoqueUncheckedUpdateManyInput>
+    /**
+     * Filter which MovimentacaoEstoques to update
+     */
+    where?: MovimentacaoEstoqueWhereInput
+    /**
+     * Limit how many MovimentacaoEstoques to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoEstoqueIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MovimentacaoEstoque upsert
+   */
+  export type MovimentacaoEstoqueUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MovimentacaoEstoque
+     */
+    select?: MovimentacaoEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MovimentacaoEstoque
+     */
+    omit?: MovimentacaoEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoEstoqueInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MovimentacaoEstoque to update in case it exists.
+     */
+    where: MovimentacaoEstoqueWhereUniqueInput
+    /**
+     * In case the MovimentacaoEstoque found by the `where` argument doesn't exist, create a new MovimentacaoEstoque with this data.
+     */
+    create: XOR<MovimentacaoEstoqueCreateInput, MovimentacaoEstoqueUncheckedCreateInput>
+    /**
+     * In case the MovimentacaoEstoque was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MovimentacaoEstoqueUpdateInput, MovimentacaoEstoqueUncheckedUpdateInput>
+  }
+
+  /**
+   * MovimentacaoEstoque delete
+   */
+  export type MovimentacaoEstoqueDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MovimentacaoEstoque
+     */
+    select?: MovimentacaoEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MovimentacaoEstoque
+     */
+    omit?: MovimentacaoEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoEstoqueInclude<ExtArgs> | null
+    /**
+     * Filter which MovimentacaoEstoque to delete.
+     */
+    where: MovimentacaoEstoqueWhereUniqueInput
+  }
+
+  /**
+   * MovimentacaoEstoque deleteMany
+   */
+  export type MovimentacaoEstoqueDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MovimentacaoEstoques to delete
+     */
+    where?: MovimentacaoEstoqueWhereInput
+    /**
+     * Limit how many MovimentacaoEstoques to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MovimentacaoEstoque without action
+   */
+  export type MovimentacaoEstoqueDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MovimentacaoEstoque
+     */
+    select?: MovimentacaoEstoqueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MovimentacaoEstoque
+     */
+    omit?: MovimentacaoEstoqueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoEstoqueInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RefreshToken
+   */
+
+  export type AggregateRefreshToken = {
+    _count: RefreshTokenCountAggregateOutputType | null
+    _min: RefreshTokenMinAggregateOutputType | null
+    _max: RefreshTokenMaxAggregateOutputType | null
+  }
+
+  export type RefreshTokenMinAggregateOutputType = {
+    id: string | null
+    token: string | null
+    userId: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type RefreshTokenMaxAggregateOutputType = {
+    id: string | null
+    token: string | null
+    userId: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type RefreshTokenCountAggregateOutputType = {
+    id: number
+    token: number
+    userId: number
+    expiresAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type RefreshTokenMinAggregateInputType = {
+    id?: true
+    token?: true
+    userId?: true
+    expiresAt?: true
+    createdAt?: true
+  }
+
+  export type RefreshTokenMaxAggregateInputType = {
+    id?: true
+    token?: true
+    userId?: true
+    expiresAt?: true
+    createdAt?: true
+  }
+
+  export type RefreshTokenCountAggregateInputType = {
+    id?: true
+    token?: true
+    userId?: true
+    expiresAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type RefreshTokenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RefreshToken to aggregate.
+     */
+    where?: RefreshTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RefreshTokens to fetch.
+     */
+    orderBy?: RefreshTokenOrderByWithRelationInput | RefreshTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RefreshTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RefreshTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RefreshTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RefreshTokens
+    **/
+    _count?: true | RefreshTokenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RefreshTokenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RefreshTokenMaxAggregateInputType
+  }
+
+  export type GetRefreshTokenAggregateType<T extends RefreshTokenAggregateArgs> = {
+        [P in keyof T & keyof AggregateRefreshToken]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRefreshToken[P]>
+      : GetScalarType<T[P], AggregateRefreshToken[P]>
+  }
+
+
+
+
+  export type RefreshTokenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RefreshTokenWhereInput
+    orderBy?: RefreshTokenOrderByWithAggregationInput | RefreshTokenOrderByWithAggregationInput[]
+    by: RefreshTokenScalarFieldEnum[] | RefreshTokenScalarFieldEnum
+    having?: RefreshTokenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RefreshTokenCountAggregateInputType | true
+    _min?: RefreshTokenMinAggregateInputType
+    _max?: RefreshTokenMaxAggregateInputType
+  }
+
+  export type RefreshTokenGroupByOutputType = {
+    id: string
+    token: string
+    userId: string
+    expiresAt: Date
+    createdAt: Date
+    _count: RefreshTokenCountAggregateOutputType | null
+    _min: RefreshTokenMinAggregateOutputType | null
+    _max: RefreshTokenMaxAggregateOutputType | null
+  }
+
+  type GetRefreshTokenGroupByPayload<T extends RefreshTokenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RefreshTokenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RefreshTokenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RefreshTokenGroupByOutputType[P]>
+            : GetScalarType<T[P], RefreshTokenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RefreshTokenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    userId?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["refreshToken"]>
+
+  export type RefreshTokenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    userId?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["refreshToken"]>
+
+  export type RefreshTokenSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    userId?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["refreshToken"]>
+
+  export type RefreshTokenSelectScalar = {
+    id?: boolean
+    token?: boolean
+    userId?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type RefreshTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "token" | "userId" | "expiresAt" | "createdAt", ExtArgs["result"]["refreshToken"]>
+
+  export type $RefreshTokenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RefreshToken"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      token: string
+      userId: string
+      expiresAt: Date
+      createdAt: Date
+    }, ExtArgs["result"]["refreshToken"]>
+    composites: {}
+  }
+
+  type RefreshTokenGetPayload<S extends boolean | null | undefined | RefreshTokenDefaultArgs> = $Result.GetResult<Prisma.$RefreshTokenPayload, S>
+
+  type RefreshTokenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RefreshTokenFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RefreshTokenCountAggregateInputType | true
+    }
+
+  export interface RefreshTokenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RefreshToken'], meta: { name: 'RefreshToken' } }
+    /**
+     * Find zero or one RefreshToken that matches the filter.
+     * @param {RefreshTokenFindUniqueArgs} args - Arguments to find a RefreshToken
+     * @example
+     * // Get one RefreshToken
+     * const refreshToken = await prisma.refreshToken.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RefreshTokenFindUniqueArgs>(args: SelectSubset<T, RefreshTokenFindUniqueArgs<ExtArgs>>): Prisma__RefreshTokenClient<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RefreshToken that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RefreshTokenFindUniqueOrThrowArgs} args - Arguments to find a RefreshToken
+     * @example
+     * // Get one RefreshToken
+     * const refreshToken = await prisma.refreshToken.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RefreshTokenFindUniqueOrThrowArgs>(args: SelectSubset<T, RefreshTokenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RefreshTokenClient<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RefreshToken that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenFindFirstArgs} args - Arguments to find a RefreshToken
+     * @example
+     * // Get one RefreshToken
+     * const refreshToken = await prisma.refreshToken.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RefreshTokenFindFirstArgs>(args?: SelectSubset<T, RefreshTokenFindFirstArgs<ExtArgs>>): Prisma__RefreshTokenClient<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RefreshToken that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenFindFirstOrThrowArgs} args - Arguments to find a RefreshToken
+     * @example
+     * // Get one RefreshToken
+     * const refreshToken = await prisma.refreshToken.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RefreshTokenFindFirstOrThrowArgs>(args?: SelectSubset<T, RefreshTokenFindFirstOrThrowArgs<ExtArgs>>): Prisma__RefreshTokenClient<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RefreshTokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RefreshTokens
+     * const refreshTokens = await prisma.refreshToken.findMany()
+     * 
+     * // Get first 10 RefreshTokens
+     * const refreshTokens = await prisma.refreshToken.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const refreshTokenWithIdOnly = await prisma.refreshToken.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RefreshTokenFindManyArgs>(args?: SelectSubset<T, RefreshTokenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RefreshToken.
+     * @param {RefreshTokenCreateArgs} args - Arguments to create a RefreshToken.
+     * @example
+     * // Create one RefreshToken
+     * const RefreshToken = await prisma.refreshToken.create({
+     *   data: {
+     *     // ... data to create a RefreshToken
+     *   }
+     * })
+     * 
+     */
+    create<T extends RefreshTokenCreateArgs>(args: SelectSubset<T, RefreshTokenCreateArgs<ExtArgs>>): Prisma__RefreshTokenClient<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RefreshTokens.
+     * @param {RefreshTokenCreateManyArgs} args - Arguments to create many RefreshTokens.
+     * @example
+     * // Create many RefreshTokens
+     * const refreshToken = await prisma.refreshToken.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RefreshTokenCreateManyArgs>(args?: SelectSubset<T, RefreshTokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RefreshTokens and returns the data saved in the database.
+     * @param {RefreshTokenCreateManyAndReturnArgs} args - Arguments to create many RefreshTokens.
+     * @example
+     * // Create many RefreshTokens
+     * const refreshToken = await prisma.refreshToken.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RefreshTokens and only return the `id`
+     * const refreshTokenWithIdOnly = await prisma.refreshToken.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RefreshTokenCreateManyAndReturnArgs>(args?: SelectSubset<T, RefreshTokenCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RefreshToken.
+     * @param {RefreshTokenDeleteArgs} args - Arguments to delete one RefreshToken.
+     * @example
+     * // Delete one RefreshToken
+     * const RefreshToken = await prisma.refreshToken.delete({
+     *   where: {
+     *     // ... filter to delete one RefreshToken
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RefreshTokenDeleteArgs>(args: SelectSubset<T, RefreshTokenDeleteArgs<ExtArgs>>): Prisma__RefreshTokenClient<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RefreshToken.
+     * @param {RefreshTokenUpdateArgs} args - Arguments to update one RefreshToken.
+     * @example
+     * // Update one RefreshToken
+     * const refreshToken = await prisma.refreshToken.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RefreshTokenUpdateArgs>(args: SelectSubset<T, RefreshTokenUpdateArgs<ExtArgs>>): Prisma__RefreshTokenClient<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RefreshTokens.
+     * @param {RefreshTokenDeleteManyArgs} args - Arguments to filter RefreshTokens to delete.
+     * @example
+     * // Delete a few RefreshTokens
+     * const { count } = await prisma.refreshToken.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RefreshTokenDeleteManyArgs>(args?: SelectSubset<T, RefreshTokenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RefreshTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RefreshTokens
+     * const refreshToken = await prisma.refreshToken.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RefreshTokenUpdateManyArgs>(args: SelectSubset<T, RefreshTokenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RefreshTokens and returns the data updated in the database.
+     * @param {RefreshTokenUpdateManyAndReturnArgs} args - Arguments to update many RefreshTokens.
+     * @example
+     * // Update many RefreshTokens
+     * const refreshToken = await prisma.refreshToken.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RefreshTokens and only return the `id`
+     * const refreshTokenWithIdOnly = await prisma.refreshToken.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RefreshTokenUpdateManyAndReturnArgs>(args: SelectSubset<T, RefreshTokenUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RefreshToken.
+     * @param {RefreshTokenUpsertArgs} args - Arguments to update or create a RefreshToken.
+     * @example
+     * // Update or create a RefreshToken
+     * const refreshToken = await prisma.refreshToken.upsert({
+     *   create: {
+     *     // ... data to create a RefreshToken
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RefreshToken we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RefreshTokenUpsertArgs>(args: SelectSubset<T, RefreshTokenUpsertArgs<ExtArgs>>): Prisma__RefreshTokenClient<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RefreshTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenCountArgs} args - Arguments to filter RefreshTokens to count.
+     * @example
+     * // Count the number of RefreshTokens
+     * const count = await prisma.refreshToken.count({
+     *   where: {
+     *     // ... the filter for the RefreshTokens we want to count
+     *   }
+     * })
+    **/
+    count<T extends RefreshTokenCountArgs>(
+      args?: Subset<T, RefreshTokenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RefreshTokenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RefreshToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RefreshTokenAggregateArgs>(args: Subset<T, RefreshTokenAggregateArgs>): Prisma.PrismaPromise<GetRefreshTokenAggregateType<T>>
+
+    /**
+     * Group by RefreshToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RefreshTokenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RefreshTokenGroupByArgs['orderBy'] }
+        : { orderBy?: RefreshTokenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RefreshTokenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRefreshTokenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RefreshToken model
+   */
+  readonly fields: RefreshTokenFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RefreshToken.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RefreshTokenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RefreshToken model
+   */
+  interface RefreshTokenFieldRefs {
+    readonly id: FieldRef<"RefreshToken", 'String'>
+    readonly token: FieldRef<"RefreshToken", 'String'>
+    readonly userId: FieldRef<"RefreshToken", 'String'>
+    readonly expiresAt: FieldRef<"RefreshToken", 'DateTime'>
+    readonly createdAt: FieldRef<"RefreshToken", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RefreshToken findUnique
+   */
+  export type RefreshTokenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * Filter, which RefreshToken to fetch.
+     */
+    where: RefreshTokenWhereUniqueInput
+  }
+
+  /**
+   * RefreshToken findUniqueOrThrow
+   */
+  export type RefreshTokenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * Filter, which RefreshToken to fetch.
+     */
+    where: RefreshTokenWhereUniqueInput
+  }
+
+  /**
+   * RefreshToken findFirst
+   */
+  export type RefreshTokenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * Filter, which RefreshToken to fetch.
+     */
+    where?: RefreshTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RefreshTokens to fetch.
+     */
+    orderBy?: RefreshTokenOrderByWithRelationInput | RefreshTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RefreshTokens.
+     */
+    cursor?: RefreshTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RefreshTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RefreshTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RefreshTokens.
+     */
+    distinct?: RefreshTokenScalarFieldEnum | RefreshTokenScalarFieldEnum[]
+  }
+
+  /**
+   * RefreshToken findFirstOrThrow
+   */
+  export type RefreshTokenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * Filter, which RefreshToken to fetch.
+     */
+    where?: RefreshTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RefreshTokens to fetch.
+     */
+    orderBy?: RefreshTokenOrderByWithRelationInput | RefreshTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RefreshTokens.
+     */
+    cursor?: RefreshTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RefreshTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RefreshTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RefreshTokens.
+     */
+    distinct?: RefreshTokenScalarFieldEnum | RefreshTokenScalarFieldEnum[]
+  }
+
+  /**
+   * RefreshToken findMany
+   */
+  export type RefreshTokenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * Filter, which RefreshTokens to fetch.
+     */
+    where?: RefreshTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RefreshTokens to fetch.
+     */
+    orderBy?: RefreshTokenOrderByWithRelationInput | RefreshTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RefreshTokens.
+     */
+    cursor?: RefreshTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RefreshTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RefreshTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RefreshTokens.
+     */
+    distinct?: RefreshTokenScalarFieldEnum | RefreshTokenScalarFieldEnum[]
+  }
+
+  /**
+   * RefreshToken create
+   */
+  export type RefreshTokenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * The data needed to create a RefreshToken.
+     */
+    data: XOR<RefreshTokenCreateInput, RefreshTokenUncheckedCreateInput>
+  }
+
+  /**
+   * RefreshToken createMany
+   */
+  export type RefreshTokenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RefreshTokens.
+     */
+    data: RefreshTokenCreateManyInput | RefreshTokenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RefreshToken createManyAndReturn
+   */
+  export type RefreshTokenCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * The data used to create many RefreshTokens.
+     */
+    data: RefreshTokenCreateManyInput | RefreshTokenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RefreshToken update
+   */
+  export type RefreshTokenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * The data needed to update a RefreshToken.
+     */
+    data: XOR<RefreshTokenUpdateInput, RefreshTokenUncheckedUpdateInput>
+    /**
+     * Choose, which RefreshToken to update.
+     */
+    where: RefreshTokenWhereUniqueInput
+  }
+
+  /**
+   * RefreshToken updateMany
+   */
+  export type RefreshTokenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RefreshTokens.
+     */
+    data: XOR<RefreshTokenUpdateManyMutationInput, RefreshTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which RefreshTokens to update
+     */
+    where?: RefreshTokenWhereInput
+    /**
+     * Limit how many RefreshTokens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RefreshToken updateManyAndReturn
+   */
+  export type RefreshTokenUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * The data used to update RefreshTokens.
+     */
+    data: XOR<RefreshTokenUpdateManyMutationInput, RefreshTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which RefreshTokens to update
+     */
+    where?: RefreshTokenWhereInput
+    /**
+     * Limit how many RefreshTokens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RefreshToken upsert
+   */
+  export type RefreshTokenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * The filter to search for the RefreshToken to update in case it exists.
+     */
+    where: RefreshTokenWhereUniqueInput
+    /**
+     * In case the RefreshToken found by the `where` argument doesn't exist, create a new RefreshToken with this data.
+     */
+    create: XOR<RefreshTokenCreateInput, RefreshTokenUncheckedCreateInput>
+    /**
+     * In case the RefreshToken was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RefreshTokenUpdateInput, RefreshTokenUncheckedUpdateInput>
+  }
+
+  /**
+   * RefreshToken delete
+   */
+  export type RefreshTokenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * Filter which RefreshToken to delete.
+     */
+    where: RefreshTokenWhereUniqueInput
+  }
+
+  /**
+   * RefreshToken deleteMany
+   */
+  export type RefreshTokenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RefreshTokens to delete
+     */
+    where?: RefreshTokenWhereInput
+    /**
+     * Limit how many RefreshTokens to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RefreshToken without action
+   */
+  export type RefreshTokenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AuditLog
+   */
+
+  export type AggregateAuditLog = {
+    _count: AuditLogCountAggregateOutputType | null
+    _min: AuditLogMinAggregateOutputType | null
+    _max: AuditLogMaxAggregateOutputType | null
+  }
+
+  export type AuditLogMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    userEmail: string | null
+    organizationId: string | null
+    acao: string | null
+    entidade: string | null
+    entidadeId: string | null
+    ip: string | null
+    createdAt: Date | null
+  }
+
+  export type AuditLogMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    userEmail: string | null
+    organizationId: string | null
+    acao: string | null
+    entidade: string | null
+    entidadeId: string | null
+    ip: string | null
+    createdAt: Date | null
+  }
+
+  export type AuditLogCountAggregateOutputType = {
+    id: number
+    userId: number
+    userEmail: number
+    organizationId: number
+    acao: number
+    entidade: number
+    entidadeId: number
+    dadosAntes: number
+    dadosDepois: number
+    ip: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type AuditLogMinAggregateInputType = {
+    id?: true
+    userId?: true
+    userEmail?: true
+    organizationId?: true
+    acao?: true
+    entidade?: true
+    entidadeId?: true
+    ip?: true
+    createdAt?: true
+  }
+
+  export type AuditLogMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    userEmail?: true
+    organizationId?: true
+    acao?: true
+    entidade?: true
+    entidadeId?: true
+    ip?: true
+    createdAt?: true
+  }
+
+  export type AuditLogCountAggregateInputType = {
+    id?: true
+    userId?: true
+    userEmail?: true
+    organizationId?: true
+    acao?: true
+    entidade?: true
+    entidadeId?: true
+    dadosAntes?: true
+    dadosDepois?: true
+    ip?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type AuditLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuditLog to aggregate.
+     */
+    where?: AuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogs to fetch.
+     */
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AuditLogs
+    **/
+    _count?: true | AuditLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AuditLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AuditLogMaxAggregateInputType
+  }
+
+  export type GetAuditLogAggregateType<T extends AuditLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateAuditLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAuditLog[P]>
+      : GetScalarType<T[P], AggregateAuditLog[P]>
+  }
+
+
+
+
+  export type AuditLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuditLogWhereInput
+    orderBy?: AuditLogOrderByWithAggregationInput | AuditLogOrderByWithAggregationInput[]
+    by: AuditLogScalarFieldEnum[] | AuditLogScalarFieldEnum
+    having?: AuditLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AuditLogCountAggregateInputType | true
+    _min?: AuditLogMinAggregateInputType
+    _max?: AuditLogMaxAggregateInputType
+  }
+
+  export type AuditLogGroupByOutputType = {
+    id: string
+    userId: string
+    userEmail: string
+    organizationId: string | null
+    acao: string
+    entidade: string
+    entidadeId: string
+    dadosAntes: JsonValue | null
+    dadosDepois: JsonValue | null
+    ip: string | null
+    createdAt: Date
+    _count: AuditLogCountAggregateOutputType | null
+    _min: AuditLogMinAggregateOutputType | null
+    _max: AuditLogMaxAggregateOutputType | null
+  }
+
+  type GetAuditLogGroupByPayload<T extends AuditLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AuditLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AuditLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AuditLogGroupByOutputType[P]>
+            : GetScalarType<T[P], AuditLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AuditLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    userEmail?: boolean
+    organizationId?: boolean
+    acao?: boolean
+    entidade?: boolean
+    entidadeId?: boolean
+    dadosAntes?: boolean
+    dadosDepois?: boolean
+    ip?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["auditLog"]>
+
+  export type AuditLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    userEmail?: boolean
+    organizationId?: boolean
+    acao?: boolean
+    entidade?: boolean
+    entidadeId?: boolean
+    dadosAntes?: boolean
+    dadosDepois?: boolean
+    ip?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["auditLog"]>
+
+  export type AuditLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    userEmail?: boolean
+    organizationId?: boolean
+    acao?: boolean
+    entidade?: boolean
+    entidadeId?: boolean
+    dadosAntes?: boolean
+    dadosDepois?: boolean
+    ip?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["auditLog"]>
+
+  export type AuditLogSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    userEmail?: boolean
+    organizationId?: boolean
+    acao?: boolean
+    entidade?: boolean
+    entidadeId?: boolean
+    dadosAntes?: boolean
+    dadosDepois?: boolean
+    ip?: boolean
+    createdAt?: boolean
+  }
+
+  export type AuditLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "userEmail" | "organizationId" | "acao" | "entidade" | "entidadeId" | "dadosAntes" | "dadosDepois" | "ip" | "createdAt", ExtArgs["result"]["auditLog"]>
+
+  export type $AuditLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AuditLog"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      userEmail: string
+      organizationId: string | null
+      acao: string
+      entidade: string
+      entidadeId: string
+      dadosAntes: Prisma.JsonValue | null
+      dadosDepois: Prisma.JsonValue | null
+      ip: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["auditLog"]>
+    composites: {}
+  }
+
+  type AuditLogGetPayload<S extends boolean | null | undefined | AuditLogDefaultArgs> = $Result.GetResult<Prisma.$AuditLogPayload, S>
+
+  type AuditLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AuditLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AuditLogCountAggregateInputType | true
+    }
+
+  export interface AuditLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AuditLog'], meta: { name: 'AuditLog' } }
+    /**
+     * Find zero or one AuditLog that matches the filter.
+     * @param {AuditLogFindUniqueArgs} args - Arguments to find a AuditLog
+     * @example
+     * // Get one AuditLog
+     * const auditLog = await prisma.auditLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AuditLogFindUniqueArgs>(args: SelectSubset<T, AuditLogFindUniqueArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AuditLog that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AuditLogFindUniqueOrThrowArgs} args - Arguments to find a AuditLog
+     * @example
+     * // Get one AuditLog
+     * const auditLog = await prisma.auditLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AuditLogFindUniqueOrThrowArgs>(args: SelectSubset<T, AuditLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AuditLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogFindFirstArgs} args - Arguments to find a AuditLog
+     * @example
+     * // Get one AuditLog
+     * const auditLog = await prisma.auditLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AuditLogFindFirstArgs>(args?: SelectSubset<T, AuditLogFindFirstArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AuditLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogFindFirstOrThrowArgs} args - Arguments to find a AuditLog
+     * @example
+     * // Get one AuditLog
+     * const auditLog = await prisma.auditLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AuditLogFindFirstOrThrowArgs>(args?: SelectSubset<T, AuditLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AuditLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AuditLogs
+     * const auditLogs = await prisma.auditLog.findMany()
+     * 
+     * // Get first 10 AuditLogs
+     * const auditLogs = await prisma.auditLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const auditLogWithIdOnly = await prisma.auditLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AuditLogFindManyArgs>(args?: SelectSubset<T, AuditLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AuditLog.
+     * @param {AuditLogCreateArgs} args - Arguments to create a AuditLog.
+     * @example
+     * // Create one AuditLog
+     * const AuditLog = await prisma.auditLog.create({
+     *   data: {
+     *     // ... data to create a AuditLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends AuditLogCreateArgs>(args: SelectSubset<T, AuditLogCreateArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AuditLogs.
+     * @param {AuditLogCreateManyArgs} args - Arguments to create many AuditLogs.
+     * @example
+     * // Create many AuditLogs
+     * const auditLog = await prisma.auditLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AuditLogCreateManyArgs>(args?: SelectSubset<T, AuditLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AuditLogs and returns the data saved in the database.
+     * @param {AuditLogCreateManyAndReturnArgs} args - Arguments to create many AuditLogs.
+     * @example
+     * // Create many AuditLogs
+     * const auditLog = await prisma.auditLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AuditLogs and only return the `id`
+     * const auditLogWithIdOnly = await prisma.auditLog.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AuditLogCreateManyAndReturnArgs>(args?: SelectSubset<T, AuditLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AuditLog.
+     * @param {AuditLogDeleteArgs} args - Arguments to delete one AuditLog.
+     * @example
+     * // Delete one AuditLog
+     * const AuditLog = await prisma.auditLog.delete({
+     *   where: {
+     *     // ... filter to delete one AuditLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AuditLogDeleteArgs>(args: SelectSubset<T, AuditLogDeleteArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AuditLog.
+     * @param {AuditLogUpdateArgs} args - Arguments to update one AuditLog.
+     * @example
+     * // Update one AuditLog
+     * const auditLog = await prisma.auditLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AuditLogUpdateArgs>(args: SelectSubset<T, AuditLogUpdateArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AuditLogs.
+     * @param {AuditLogDeleteManyArgs} args - Arguments to filter AuditLogs to delete.
+     * @example
+     * // Delete a few AuditLogs
+     * const { count } = await prisma.auditLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AuditLogDeleteManyArgs>(args?: SelectSubset<T, AuditLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AuditLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AuditLogs
+     * const auditLog = await prisma.auditLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AuditLogUpdateManyArgs>(args: SelectSubset<T, AuditLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AuditLogs and returns the data updated in the database.
+     * @param {AuditLogUpdateManyAndReturnArgs} args - Arguments to update many AuditLogs.
+     * @example
+     * // Update many AuditLogs
+     * const auditLog = await prisma.auditLog.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AuditLogs and only return the `id`
+     * const auditLogWithIdOnly = await prisma.auditLog.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AuditLogUpdateManyAndReturnArgs>(args: SelectSubset<T, AuditLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AuditLog.
+     * @param {AuditLogUpsertArgs} args - Arguments to update or create a AuditLog.
+     * @example
+     * // Update or create a AuditLog
+     * const auditLog = await prisma.auditLog.upsert({
+     *   create: {
+     *     // ... data to create a AuditLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AuditLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AuditLogUpsertArgs>(args: SelectSubset<T, AuditLogUpsertArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AuditLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogCountArgs} args - Arguments to filter AuditLogs to count.
+     * @example
+     * // Count the number of AuditLogs
+     * const count = await prisma.auditLog.count({
+     *   where: {
+     *     // ... the filter for the AuditLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends AuditLogCountArgs>(
+      args?: Subset<T, AuditLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AuditLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AuditLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AuditLogAggregateArgs>(args: Subset<T, AuditLogAggregateArgs>): Prisma.PrismaPromise<GetAuditLogAggregateType<T>>
+
+    /**
+     * Group by AuditLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AuditLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AuditLogGroupByArgs['orderBy'] }
+        : { orderBy?: AuditLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AuditLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAuditLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AuditLog model
+   */
+  readonly fields: AuditLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AuditLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AuditLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AuditLog model
+   */
+  interface AuditLogFieldRefs {
+    readonly id: FieldRef<"AuditLog", 'String'>
+    readonly userId: FieldRef<"AuditLog", 'String'>
+    readonly userEmail: FieldRef<"AuditLog", 'String'>
+    readonly organizationId: FieldRef<"AuditLog", 'String'>
+    readonly acao: FieldRef<"AuditLog", 'String'>
+    readonly entidade: FieldRef<"AuditLog", 'String'>
+    readonly entidadeId: FieldRef<"AuditLog", 'String'>
+    readonly dadosAntes: FieldRef<"AuditLog", 'Json'>
+    readonly dadosDepois: FieldRef<"AuditLog", 'Json'>
+    readonly ip: FieldRef<"AuditLog", 'String'>
+    readonly createdAt: FieldRef<"AuditLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AuditLog findUnique
+   */
+  export type AuditLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLog to fetch.
+     */
+    where: AuditLogWhereUniqueInput
+  }
+
+  /**
+   * AuditLog findUniqueOrThrow
+   */
+  export type AuditLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLog to fetch.
+     */
+    where: AuditLogWhereUniqueInput
+  }
+
+  /**
+   * AuditLog findFirst
+   */
+  export type AuditLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLog to fetch.
+     */
+    where?: AuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogs to fetch.
+     */
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuditLogs.
+     */
+    cursor?: AuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditLogs.
+     */
+    distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
+  }
+
+  /**
+   * AuditLog findFirstOrThrow
+   */
+  export type AuditLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLog to fetch.
+     */
+    where?: AuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogs to fetch.
+     */
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuditLogs.
+     */
+    cursor?: AuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditLogs.
+     */
+    distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
+  }
+
+  /**
+   * AuditLog findMany
+   */
+  export type AuditLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLogs to fetch.
+     */
+    where?: AuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogs to fetch.
+     */
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AuditLogs.
+     */
+    cursor?: AuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditLogs.
+     */
+    distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
+  }
+
+  /**
+   * AuditLog create
+   */
+  export type AuditLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * The data needed to create a AuditLog.
+     */
+    data: XOR<AuditLogCreateInput, AuditLogUncheckedCreateInput>
+  }
+
+  /**
+   * AuditLog createMany
+   */
+  export type AuditLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AuditLogs.
+     */
+    data: AuditLogCreateManyInput | AuditLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AuditLog createManyAndReturn
+   */
+  export type AuditLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * The data used to create many AuditLogs.
+     */
+    data: AuditLogCreateManyInput | AuditLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AuditLog update
+   */
+  export type AuditLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * The data needed to update a AuditLog.
+     */
+    data: XOR<AuditLogUpdateInput, AuditLogUncheckedUpdateInput>
+    /**
+     * Choose, which AuditLog to update.
+     */
+    where: AuditLogWhereUniqueInput
+  }
+
+  /**
+   * AuditLog updateMany
+   */
+  export type AuditLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AuditLogs.
+     */
+    data: XOR<AuditLogUpdateManyMutationInput, AuditLogUncheckedUpdateManyInput>
+    /**
+     * Filter which AuditLogs to update
+     */
+    where?: AuditLogWhereInput
+    /**
+     * Limit how many AuditLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AuditLog updateManyAndReturn
+   */
+  export type AuditLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * The data used to update AuditLogs.
+     */
+    data: XOR<AuditLogUpdateManyMutationInput, AuditLogUncheckedUpdateManyInput>
+    /**
+     * Filter which AuditLogs to update
+     */
+    where?: AuditLogWhereInput
+    /**
+     * Limit how many AuditLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AuditLog upsert
+   */
+  export type AuditLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * The filter to search for the AuditLog to update in case it exists.
+     */
+    where: AuditLogWhereUniqueInput
+    /**
+     * In case the AuditLog found by the `where` argument doesn't exist, create a new AuditLog with this data.
+     */
+    create: XOR<AuditLogCreateInput, AuditLogUncheckedCreateInput>
+    /**
+     * In case the AuditLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AuditLogUpdateInput, AuditLogUncheckedUpdateInput>
+  }
+
+  /**
+   * AuditLog delete
+   */
+  export type AuditLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Filter which AuditLog to delete.
+     */
+    where: AuditLogWhereUniqueInput
+  }
+
+  /**
+   * AuditLog deleteMany
+   */
+  export type AuditLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuditLogs to delete
+     */
+    where?: AuditLogWhereInput
+    /**
+     * Limit how many AuditLogs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AuditLog without action
+   */
+  export type AuditLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -17261,7 +26655,8 @@ export namespace Prisma {
     organizationId: 'organizationId',
     userId: 'userId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt'
   };
 
   export type ObraScalarFieldEnum = (typeof ObraScalarFieldEnum)[keyof typeof ObraScalarFieldEnum]
@@ -17283,10 +26678,27 @@ export namespace Prisma {
     organizationId: 'organizationId',
     obraId: 'obraId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt'
   };
 
   export type FuncionarioScalarFieldEnum = (typeof FuncionarioScalarFieldEnum)[keyof typeof FuncionarioScalarFieldEnum]
+
+
+  export const FuncionarioObraScalarFieldEnum: {
+    id: 'id',
+    funcionarioId: 'funcionarioId',
+    obraId: 'obraId',
+    organizationId: 'organizationId',
+    dataInicio: 'dataInicio',
+    dataFim: 'dataFim',
+    funcao: 'funcao',
+    ativo: 'ativo',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type FuncionarioObraScalarFieldEnum = (typeof FuncionarioObraScalarFieldEnum)[keyof typeof FuncionarioObraScalarFieldEnum]
 
 
   export const PagamentoScalarFieldEnum: {
@@ -17324,7 +26736,8 @@ export namespace Prisma {
     organizationId: 'organizationId',
     obraId: 'obraId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt'
   };
 
   export type MaquinarioScalarFieldEnum = (typeof MaquinarioScalarFieldEnum)[keyof typeof MaquinarioScalarFieldEnum]
@@ -17383,6 +26796,7 @@ export namespace Prisma {
     id: 'id',
     titulo: 'titulo',
     organizationId: 'organizationId',
+    obraId: 'obraId',
     empresa: 'empresa',
     cnpj: 'cnpj',
     responsavel: 'responsavel',
@@ -17423,6 +26837,108 @@ export namespace Prisma {
   export type DocumentoScalarFieldEnum = (typeof DocumentoScalarFieldEnum)[keyof typeof DocumentoScalarFieldEnum]
 
 
+  export const RegistroFrequenciaScalarFieldEnum: {
+    id: 'id',
+    funcionarioId: 'funcionarioId',
+    obraId: 'obraId',
+    organizationId: 'organizationId',
+    data: 'data',
+    presente: 'presente',
+    periodo: 'periodo',
+    horasExtras: 'horasExtras',
+    observacao: 'observacao',
+    createdAt: 'createdAt'
+  };
+
+  export type RegistroFrequenciaScalarFieldEnum = (typeof RegistroFrequenciaScalarFieldEnum)[keyof typeof RegistroFrequenciaScalarFieldEnum]
+
+
+  export const EtapaObraScalarFieldEnum: {
+    id: 'id',
+    nome: 'nome',
+    descricao: 'descricao',
+    ordem: 'ordem',
+    obraId: 'obraId',
+    organizationId: 'organizationId',
+    dataInicioPrev: 'dataInicioPrev',
+    dataFimPrev: 'dataFimPrev',
+    dataInicioReal: 'dataInicioReal',
+    dataFimReal: 'dataFimReal',
+    percentual: 'percentual',
+    status: 'status',
+    valorPrevisto: 'valorPrevisto',
+    observacoes: 'observacoes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type EtapaObraScalarFieldEnum = (typeof EtapaObraScalarFieldEnum)[keyof typeof EtapaObraScalarFieldEnum]
+
+
+  export const ItemEstoqueScalarFieldEnum: {
+    id: 'id',
+    nome: 'nome',
+    unidade: 'unidade',
+    categoria: 'categoria',
+    quantidadeAtual: 'quantidadeAtual',
+    quantidadeMinima: 'quantidadeMinima',
+    valorUnitario: 'valorUnitario',
+    obraId: 'obraId',
+    organizationId: 'organizationId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ItemEstoqueScalarFieldEnum = (typeof ItemEstoqueScalarFieldEnum)[keyof typeof ItemEstoqueScalarFieldEnum]
+
+
+  export const MovimentacaoEstoqueScalarFieldEnum: {
+    id: 'id',
+    itemEstoqueId: 'itemEstoqueId',
+    tipo: 'tipo',
+    quantidade: 'quantidade',
+    valorUnitario: 'valorUnitario',
+    motivo: 'motivo',
+    fornecedor: 'fornecedor',
+    notaFiscal: 'notaFiscal',
+    responsavel: 'responsavel',
+    obraId: 'obraId',
+    organizationId: 'organizationId',
+    userId: 'userId',
+    createdAt: 'createdAt'
+  };
+
+  export type MovimentacaoEstoqueScalarFieldEnum = (typeof MovimentacaoEstoqueScalarFieldEnum)[keyof typeof MovimentacaoEstoqueScalarFieldEnum]
+
+
+  export const RefreshTokenScalarFieldEnum: {
+    id: 'id',
+    token: 'token',
+    userId: 'userId',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt'
+  };
+
+  export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
+
+
+  export const AuditLogScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    userEmail: 'userEmail',
+    organizationId: 'organizationId',
+    acao: 'acao',
+    entidade: 'entidade',
+    entidadeId: 'entidadeId',
+    dadosAntes: 'dadosAntes',
+    dadosDepois: 'dadosDepois',
+    ip: 'ip',
+    createdAt: 'createdAt'
+  };
+
+  export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -17436,6 +26952,14 @@ export namespace Prisma {
   };
 
   export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -17683,6 +27207,34 @@ export namespace Prisma {
    */
   export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
+
+
+  /**
+   * Reference to a field of type 'EtapaStatus'
+   */
+  export type EnumEtapaStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EtapaStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'EtapaStatus[]'
+   */
+  export type ListEnumEtapaStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EtapaStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MovimentacaoTipo'
+   */
+  export type EnumMovimentacaoTipoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MovimentacaoTipo'>
+    
+
+
+  /**
+   * Reference to a field of type 'MovimentacaoTipo[]'
+   */
+  export type ListEnumMovimentacaoTipoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MovimentacaoTipo[]'>
+    
   /**
    * Deep Input Types
    */
@@ -17709,6 +27261,11 @@ export namespace Prisma {
     pagamentos?: PagamentoListRelationFilter
     cargos?: CargoListRelationFilter
     orcamentos?: OrcamentoListRelationFilter
+    frequencias?: RegistroFrequenciaListRelationFilter
+    etapas?: EtapaObraListRelationFilter
+    itensEstoque?: ItemEstoqueListRelationFilter
+    movimentacoesEstoque?: MovimentacaoEstoqueListRelationFilter
+    funcionariosVinculados?: FuncionarioObraListRelationFilter
   }
 
   export type OrganizationOrderByWithRelationInput = {
@@ -17729,6 +27286,11 @@ export namespace Prisma {
     pagamentos?: PagamentoOrderByRelationAggregateInput
     cargos?: CargoOrderByRelationAggregateInput
     orcamentos?: OrcamentoOrderByRelationAggregateInput
+    frequencias?: RegistroFrequenciaOrderByRelationAggregateInput
+    etapas?: EtapaObraOrderByRelationAggregateInput
+    itensEstoque?: ItemEstoqueOrderByRelationAggregateInput
+    movimentacoesEstoque?: MovimentacaoEstoqueOrderByRelationAggregateInput
+    funcionariosVinculados?: FuncionarioObraOrderByRelationAggregateInput
   }
 
   export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -17752,6 +27314,11 @@ export namespace Prisma {
     pagamentos?: PagamentoListRelationFilter
     cargos?: CargoListRelationFilter
     orcamentos?: OrcamentoListRelationFilter
+    frequencias?: RegistroFrequenciaListRelationFilter
+    etapas?: EtapaObraListRelationFilter
+    itensEstoque?: ItemEstoqueListRelationFilter
+    movimentacoesEstoque?: MovimentacaoEstoqueListRelationFilter
+    funcionariosVinculados?: FuncionarioObraListRelationFilter
   }, "id" | "slug">
 
   export type OrganizationOrderByWithAggregationInput = {
@@ -17856,6 +27423,7 @@ export namespace Prisma {
     obras?: ObraListRelationFilter
     documentos?: DocumentoListRelationFilter
     transacoes?: TransacaoFinanceiraListRelationFilter
+    movimentacoesEstoque?: MovimentacaoEstoqueListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -17872,6 +27440,7 @@ export namespace Prisma {
     obras?: ObraOrderByRelationAggregateInput
     documentos?: DocumentoOrderByRelationAggregateInput
     transacoes?: TransacaoFinanceiraOrderByRelationAggregateInput
+    movimentacoesEstoque?: MovimentacaoEstoqueOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -17891,6 +27460,7 @@ export namespace Prisma {
     obras?: ObraListRelationFilter
     documentos?: DocumentoListRelationFilter
     transacoes?: TransacaoFinanceiraListRelationFilter
+    movimentacoesEstoque?: MovimentacaoEstoqueListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -17947,6 +27517,7 @@ export namespace Prisma {
     userId?: StringFilter<"Obra"> | string
     createdAt?: DateTimeFilter<"Obra"> | Date | string
     updatedAt?: DateTimeFilter<"Obra"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Obra"> | Date | string | null
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     funcionarios?: FuncionarioListRelationFilter
@@ -17956,6 +27527,12 @@ export namespace Prisma {
     alertas?: AlertaListRelationFilter
     documentos?: DocumentoListRelationFilter
     pagamentos?: PagamentoListRelationFilter
+    frequencias?: RegistroFrequenciaListRelationFilter
+    orcamentos?: OrcamentoListRelationFilter
+    etapas?: EtapaObraListRelationFilter
+    itensEstoque?: ItemEstoqueListRelationFilter
+    movimentacoesEstoque?: MovimentacaoEstoqueListRelationFilter
+    funcionariosVinculados?: FuncionarioObraListRelationFilter
   }
 
   export type ObraOrderByWithRelationInput = {
@@ -17979,6 +27556,7 @@ export namespace Prisma {
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     organization?: OrganizationOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
     funcionarios?: FuncionarioOrderByRelationAggregateInput
@@ -17988,6 +27566,12 @@ export namespace Prisma {
     alertas?: AlertaOrderByRelationAggregateInput
     documentos?: DocumentoOrderByRelationAggregateInput
     pagamentos?: PagamentoOrderByRelationAggregateInput
+    frequencias?: RegistroFrequenciaOrderByRelationAggregateInput
+    orcamentos?: OrcamentoOrderByRelationAggregateInput
+    etapas?: EtapaObraOrderByRelationAggregateInput
+    itensEstoque?: ItemEstoqueOrderByRelationAggregateInput
+    movimentacoesEstoque?: MovimentacaoEstoqueOrderByRelationAggregateInput
+    funcionariosVinculados?: FuncionarioObraOrderByRelationAggregateInput
   }
 
   export type ObraWhereUniqueInput = Prisma.AtLeast<{
@@ -18014,6 +27598,7 @@ export namespace Prisma {
     userId?: StringFilter<"Obra"> | string
     createdAt?: DateTimeFilter<"Obra"> | Date | string
     updatedAt?: DateTimeFilter<"Obra"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Obra"> | Date | string | null
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     funcionarios?: FuncionarioListRelationFilter
@@ -18023,6 +27608,12 @@ export namespace Prisma {
     alertas?: AlertaListRelationFilter
     documentos?: DocumentoListRelationFilter
     pagamentos?: PagamentoListRelationFilter
+    frequencias?: RegistroFrequenciaListRelationFilter
+    orcamentos?: OrcamentoListRelationFilter
+    etapas?: EtapaObraListRelationFilter
+    itensEstoque?: ItemEstoqueListRelationFilter
+    movimentacoesEstoque?: MovimentacaoEstoqueListRelationFilter
+    funcionariosVinculados?: FuncionarioObraListRelationFilter
   }, "id">
 
   export type ObraOrderByWithAggregationInput = {
@@ -18046,6 +27637,7 @@ export namespace Prisma {
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     _count?: ObraCountOrderByAggregateInput
     _avg?: ObraAvgOrderByAggregateInput
     _max?: ObraMaxOrderByAggregateInput
@@ -18077,6 +27669,7 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"Obra"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Obra"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Obra"> | Date | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Obra"> | Date | string | null
   }
 
   export type FuncionarioWhereInput = {
@@ -18099,9 +27692,12 @@ export namespace Prisma {
     obraId?: StringFilter<"Funcionario"> | string
     createdAt?: DateTimeFilter<"Funcionario"> | Date | string
     updatedAt?: DateTimeFilter<"Funcionario"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Funcionario"> | Date | string | null
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     obra?: XOR<ObraScalarRelationFilter, ObraWhereInput>
     pagamentos?: PagamentoListRelationFilter
+    frequencias?: RegistroFrequenciaListRelationFilter
+    obrasVinculadas?: FuncionarioObraListRelationFilter
   }
 
   export type FuncionarioOrderByWithRelationInput = {
@@ -18121,13 +27717,17 @@ export namespace Prisma {
     obraId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     organization?: OrganizationOrderByWithRelationInput
     obra?: ObraOrderByWithRelationInput
     pagamentos?: PagamentoOrderByRelationAggregateInput
+    frequencias?: RegistroFrequenciaOrderByRelationAggregateInput
+    obrasVinculadas?: FuncionarioObraOrderByRelationAggregateInput
   }
 
   export type FuncionarioWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    cpf_organizationId?: FuncionarioCpfOrganizationIdCompoundUniqueInput
     AND?: FuncionarioWhereInput | FuncionarioWhereInput[]
     OR?: FuncionarioWhereInput[]
     NOT?: FuncionarioWhereInput | FuncionarioWhereInput[]
@@ -18146,10 +27746,13 @@ export namespace Prisma {
     obraId?: StringFilter<"Funcionario"> | string
     createdAt?: DateTimeFilter<"Funcionario"> | Date | string
     updatedAt?: DateTimeFilter<"Funcionario"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Funcionario"> | Date | string | null
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     obra?: XOR<ObraScalarRelationFilter, ObraWhereInput>
     pagamentos?: PagamentoListRelationFilter
-  }, "id">
+    frequencias?: RegistroFrequenciaListRelationFilter
+    obrasVinculadas?: FuncionarioObraListRelationFilter
+  }, "id" | "cpf_organizationId">
 
   export type FuncionarioOrderByWithAggregationInput = {
     id?: SortOrder
@@ -18168,6 +27771,7 @@ export namespace Prisma {
     obraId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     _count?: FuncionarioCountOrderByAggregateInput
     _avg?: FuncionarioAvgOrderByAggregateInput
     _max?: FuncionarioMaxOrderByAggregateInput
@@ -18195,6 +27799,94 @@ export namespace Prisma {
     obraId?: StringWithAggregatesFilter<"Funcionario"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Funcionario"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Funcionario"> | Date | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Funcionario"> | Date | string | null
+  }
+
+  export type FuncionarioObraWhereInput = {
+    AND?: FuncionarioObraWhereInput | FuncionarioObraWhereInput[]
+    OR?: FuncionarioObraWhereInput[]
+    NOT?: FuncionarioObraWhereInput | FuncionarioObraWhereInput[]
+    id?: StringFilter<"FuncionarioObra"> | string
+    funcionarioId?: StringFilter<"FuncionarioObra"> | string
+    obraId?: StringFilter<"FuncionarioObra"> | string
+    organizationId?: StringFilter<"FuncionarioObra"> | string
+    dataInicio?: DateTimeFilter<"FuncionarioObra"> | Date | string
+    dataFim?: DateTimeNullableFilter<"FuncionarioObra"> | Date | string | null
+    funcao?: StringNullableFilter<"FuncionarioObra"> | string | null
+    ativo?: BoolFilter<"FuncionarioObra"> | boolean
+    createdAt?: DateTimeFilter<"FuncionarioObra"> | Date | string
+    updatedAt?: DateTimeFilter<"FuncionarioObra"> | Date | string
+    funcionario?: XOR<FuncionarioScalarRelationFilter, FuncionarioWhereInput>
+    obra?: XOR<ObraScalarRelationFilter, ObraWhereInput>
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+  }
+
+  export type FuncionarioObraOrderByWithRelationInput = {
+    id?: SortOrder
+    funcionarioId?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    dataInicio?: SortOrder
+    dataFim?: SortOrderInput | SortOrder
+    funcao?: SortOrderInput | SortOrder
+    ativo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    funcionario?: FuncionarioOrderByWithRelationInput
+    obra?: ObraOrderByWithRelationInput
+    organization?: OrganizationOrderByWithRelationInput
+  }
+
+  export type FuncionarioObraWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    funcionarioId_obraId?: FuncionarioObraFuncionarioIdObraIdCompoundUniqueInput
+    AND?: FuncionarioObraWhereInput | FuncionarioObraWhereInput[]
+    OR?: FuncionarioObraWhereInput[]
+    NOT?: FuncionarioObraWhereInput | FuncionarioObraWhereInput[]
+    funcionarioId?: StringFilter<"FuncionarioObra"> | string
+    obraId?: StringFilter<"FuncionarioObra"> | string
+    organizationId?: StringFilter<"FuncionarioObra"> | string
+    dataInicio?: DateTimeFilter<"FuncionarioObra"> | Date | string
+    dataFim?: DateTimeNullableFilter<"FuncionarioObra"> | Date | string | null
+    funcao?: StringNullableFilter<"FuncionarioObra"> | string | null
+    ativo?: BoolFilter<"FuncionarioObra"> | boolean
+    createdAt?: DateTimeFilter<"FuncionarioObra"> | Date | string
+    updatedAt?: DateTimeFilter<"FuncionarioObra"> | Date | string
+    funcionario?: XOR<FuncionarioScalarRelationFilter, FuncionarioWhereInput>
+    obra?: XOR<ObraScalarRelationFilter, ObraWhereInput>
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+  }, "id" | "funcionarioId_obraId">
+
+  export type FuncionarioObraOrderByWithAggregationInput = {
+    id?: SortOrder
+    funcionarioId?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    dataInicio?: SortOrder
+    dataFim?: SortOrderInput | SortOrder
+    funcao?: SortOrderInput | SortOrder
+    ativo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: FuncionarioObraCountOrderByAggregateInput
+    _max?: FuncionarioObraMaxOrderByAggregateInput
+    _min?: FuncionarioObraMinOrderByAggregateInput
+  }
+
+  export type FuncionarioObraScalarWhereWithAggregatesInput = {
+    AND?: FuncionarioObraScalarWhereWithAggregatesInput | FuncionarioObraScalarWhereWithAggregatesInput[]
+    OR?: FuncionarioObraScalarWhereWithAggregatesInput[]
+    NOT?: FuncionarioObraScalarWhereWithAggregatesInput | FuncionarioObraScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"FuncionarioObra"> | string
+    funcionarioId?: StringWithAggregatesFilter<"FuncionarioObra"> | string
+    obraId?: StringWithAggregatesFilter<"FuncionarioObra"> | string
+    organizationId?: StringWithAggregatesFilter<"FuncionarioObra"> | string
+    dataInicio?: DateTimeWithAggregatesFilter<"FuncionarioObra"> | Date | string
+    dataFim?: DateTimeNullableWithAggregatesFilter<"FuncionarioObra"> | Date | string | null
+    funcao?: StringNullableWithAggregatesFilter<"FuncionarioObra"> | string | null
+    ativo?: BoolWithAggregatesFilter<"FuncionarioObra"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"FuncionarioObra"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"FuncionarioObra"> | Date | string
   }
 
   export type PagamentoWhereInput = {
@@ -18304,6 +27996,7 @@ export namespace Prisma {
     obraId?: StringFilter<"Maquinario"> | string
     createdAt?: DateTimeFilter<"Maquinario"> | Date | string
     updatedAt?: DateTimeFilter<"Maquinario"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Maquinario"> | Date | string | null
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     obra?: XOR<ObraScalarRelationFilter, ObraWhereInput>
   }
@@ -18329,6 +28022,7 @@ export namespace Prisma {
     obraId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     organization?: OrganizationOrderByWithRelationInput
     obra?: ObraOrderByWithRelationInput
   }
@@ -18357,6 +28051,7 @@ export namespace Prisma {
     obraId?: StringFilter<"Maquinario"> | string
     createdAt?: DateTimeFilter<"Maquinario"> | Date | string
     updatedAt?: DateTimeFilter<"Maquinario"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Maquinario"> | Date | string | null
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     obra?: XOR<ObraScalarRelationFilter, ObraWhereInput>
   }, "id">
@@ -18382,6 +28077,7 @@ export namespace Prisma {
     obraId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     _count?: MaquinarioCountOrderByAggregateInput
     _avg?: MaquinarioAvgOrderByAggregateInput
     _max?: MaquinarioMaxOrderByAggregateInput
@@ -18413,6 +28109,7 @@ export namespace Prisma {
     obraId?: StringWithAggregatesFilter<"Maquinario"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Maquinario"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Maquinario"> | Date | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Maquinario"> | Date | string | null
   }
 
   export type TransacaoFinanceiraWhereInput = {
@@ -18681,6 +28378,7 @@ export namespace Prisma {
     id?: StringFilter<"Orcamento"> | string
     titulo?: StringFilter<"Orcamento"> | string
     organizationId?: StringFilter<"Orcamento"> | string
+    obraId?: StringNullableFilter<"Orcamento"> | string | null
     empresa?: StringNullableFilter<"Orcamento"> | string | null
     cnpj?: StringNullableFilter<"Orcamento"> | string | null
     responsavel?: StringNullableFilter<"Orcamento"> | string | null
@@ -18700,12 +28398,14 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Orcamento"> | Date | string
     updatedAt?: DateTimeFilter<"Orcamento"> | Date | string
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+    obra?: XOR<ObraNullableScalarRelationFilter, ObraWhereInput> | null
   }
 
   export type OrcamentoOrderByWithRelationInput = {
     id?: SortOrder
     titulo?: SortOrder
     organizationId?: SortOrder
+    obraId?: SortOrderInput | SortOrder
     empresa?: SortOrderInput | SortOrder
     cnpj?: SortOrderInput | SortOrder
     responsavel?: SortOrderInput | SortOrder
@@ -18725,6 +28425,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     organization?: OrganizationOrderByWithRelationInput
+    obra?: ObraOrderByWithRelationInput
   }
 
   export type OrcamentoWhereUniqueInput = Prisma.AtLeast<{
@@ -18734,6 +28435,7 @@ export namespace Prisma {
     NOT?: OrcamentoWhereInput | OrcamentoWhereInput[]
     titulo?: StringFilter<"Orcamento"> | string
     organizationId?: StringFilter<"Orcamento"> | string
+    obraId?: StringNullableFilter<"Orcamento"> | string | null
     empresa?: StringNullableFilter<"Orcamento"> | string | null
     cnpj?: StringNullableFilter<"Orcamento"> | string | null
     responsavel?: StringNullableFilter<"Orcamento"> | string | null
@@ -18753,12 +28455,14 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Orcamento"> | Date | string
     updatedAt?: DateTimeFilter<"Orcamento"> | Date | string
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+    obra?: XOR<ObraNullableScalarRelationFilter, ObraWhereInput> | null
   }, "id">
 
   export type OrcamentoOrderByWithAggregationInput = {
     id?: SortOrder
     titulo?: SortOrder
     organizationId?: SortOrder
+    obraId?: SortOrderInput | SortOrder
     empresa?: SortOrderInput | SortOrder
     cnpj?: SortOrderInput | SortOrder
     responsavel?: SortOrderInput | SortOrder
@@ -18791,6 +28495,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Orcamento"> | string
     titulo?: StringWithAggregatesFilter<"Orcamento"> | string
     organizationId?: StringWithAggregatesFilter<"Orcamento"> | string
+    obraId?: StringNullableWithAggregatesFilter<"Orcamento"> | string | null
     empresa?: StringNullableWithAggregatesFilter<"Orcamento"> | string | null
     cnpj?: StringNullableWithAggregatesFilter<"Orcamento"> | string | null
     responsavel?: StringNullableWithAggregatesFilter<"Orcamento"> | string | null
@@ -18904,6 +28609,543 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Documento"> | Date | string
   }
 
+  export type RegistroFrequenciaWhereInput = {
+    AND?: RegistroFrequenciaWhereInput | RegistroFrequenciaWhereInput[]
+    OR?: RegistroFrequenciaWhereInput[]
+    NOT?: RegistroFrequenciaWhereInput | RegistroFrequenciaWhereInput[]
+    id?: StringFilter<"RegistroFrequencia"> | string
+    funcionarioId?: StringFilter<"RegistroFrequencia"> | string
+    obraId?: StringFilter<"RegistroFrequencia"> | string
+    organizationId?: StringFilter<"RegistroFrequencia"> | string
+    data?: DateTimeFilter<"RegistroFrequencia"> | Date | string
+    presente?: BoolFilter<"RegistroFrequencia"> | boolean
+    periodo?: FloatFilter<"RegistroFrequencia"> | number
+    horasExtras?: FloatFilter<"RegistroFrequencia"> | number
+    observacao?: StringNullableFilter<"RegistroFrequencia"> | string | null
+    createdAt?: DateTimeFilter<"RegistroFrequencia"> | Date | string
+    funcionario?: XOR<FuncionarioScalarRelationFilter, FuncionarioWhereInput>
+    obra?: XOR<ObraScalarRelationFilter, ObraWhereInput>
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+  }
+
+  export type RegistroFrequenciaOrderByWithRelationInput = {
+    id?: SortOrder
+    funcionarioId?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    data?: SortOrder
+    presente?: SortOrder
+    periodo?: SortOrder
+    horasExtras?: SortOrder
+    observacao?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    funcionario?: FuncionarioOrderByWithRelationInput
+    obra?: ObraOrderByWithRelationInput
+    organization?: OrganizationOrderByWithRelationInput
+  }
+
+  export type RegistroFrequenciaWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    funcionarioId_obraId_data?: RegistroFrequenciaFuncionarioIdObraIdDataCompoundUniqueInput
+    AND?: RegistroFrequenciaWhereInput | RegistroFrequenciaWhereInput[]
+    OR?: RegistroFrequenciaWhereInput[]
+    NOT?: RegistroFrequenciaWhereInput | RegistroFrequenciaWhereInput[]
+    funcionarioId?: StringFilter<"RegistroFrequencia"> | string
+    obraId?: StringFilter<"RegistroFrequencia"> | string
+    organizationId?: StringFilter<"RegistroFrequencia"> | string
+    data?: DateTimeFilter<"RegistroFrequencia"> | Date | string
+    presente?: BoolFilter<"RegistroFrequencia"> | boolean
+    periodo?: FloatFilter<"RegistroFrequencia"> | number
+    horasExtras?: FloatFilter<"RegistroFrequencia"> | number
+    observacao?: StringNullableFilter<"RegistroFrequencia"> | string | null
+    createdAt?: DateTimeFilter<"RegistroFrequencia"> | Date | string
+    funcionario?: XOR<FuncionarioScalarRelationFilter, FuncionarioWhereInput>
+    obra?: XOR<ObraScalarRelationFilter, ObraWhereInput>
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+  }, "id" | "funcionarioId_obraId_data">
+
+  export type RegistroFrequenciaOrderByWithAggregationInput = {
+    id?: SortOrder
+    funcionarioId?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    data?: SortOrder
+    presente?: SortOrder
+    periodo?: SortOrder
+    horasExtras?: SortOrder
+    observacao?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: RegistroFrequenciaCountOrderByAggregateInput
+    _avg?: RegistroFrequenciaAvgOrderByAggregateInput
+    _max?: RegistroFrequenciaMaxOrderByAggregateInput
+    _min?: RegistroFrequenciaMinOrderByAggregateInput
+    _sum?: RegistroFrequenciaSumOrderByAggregateInput
+  }
+
+  export type RegistroFrequenciaScalarWhereWithAggregatesInput = {
+    AND?: RegistroFrequenciaScalarWhereWithAggregatesInput | RegistroFrequenciaScalarWhereWithAggregatesInput[]
+    OR?: RegistroFrequenciaScalarWhereWithAggregatesInput[]
+    NOT?: RegistroFrequenciaScalarWhereWithAggregatesInput | RegistroFrequenciaScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RegistroFrequencia"> | string
+    funcionarioId?: StringWithAggregatesFilter<"RegistroFrequencia"> | string
+    obraId?: StringWithAggregatesFilter<"RegistroFrequencia"> | string
+    organizationId?: StringWithAggregatesFilter<"RegistroFrequencia"> | string
+    data?: DateTimeWithAggregatesFilter<"RegistroFrequencia"> | Date | string
+    presente?: BoolWithAggregatesFilter<"RegistroFrequencia"> | boolean
+    periodo?: FloatWithAggregatesFilter<"RegistroFrequencia"> | number
+    horasExtras?: FloatWithAggregatesFilter<"RegistroFrequencia"> | number
+    observacao?: StringNullableWithAggregatesFilter<"RegistroFrequencia"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"RegistroFrequencia"> | Date | string
+  }
+
+  export type EtapaObraWhereInput = {
+    AND?: EtapaObraWhereInput | EtapaObraWhereInput[]
+    OR?: EtapaObraWhereInput[]
+    NOT?: EtapaObraWhereInput | EtapaObraWhereInput[]
+    id?: StringFilter<"EtapaObra"> | string
+    nome?: StringFilter<"EtapaObra"> | string
+    descricao?: StringNullableFilter<"EtapaObra"> | string | null
+    ordem?: IntFilter<"EtapaObra"> | number
+    obraId?: StringFilter<"EtapaObra"> | string
+    organizationId?: StringFilter<"EtapaObra"> | string
+    dataInicioPrev?: DateTimeNullableFilter<"EtapaObra"> | Date | string | null
+    dataFimPrev?: DateTimeNullableFilter<"EtapaObra"> | Date | string | null
+    dataInicioReal?: DateTimeNullableFilter<"EtapaObra"> | Date | string | null
+    dataFimReal?: DateTimeNullableFilter<"EtapaObra"> | Date | string | null
+    percentual?: FloatFilter<"EtapaObra"> | number
+    status?: EnumEtapaStatusFilter<"EtapaObra"> | $Enums.EtapaStatus
+    valorPrevisto?: DecimalNullableFilter<"EtapaObra"> | Decimal | DecimalJsLike | number | string | null
+    observacoes?: StringNullableFilter<"EtapaObra"> | string | null
+    createdAt?: DateTimeFilter<"EtapaObra"> | Date | string
+    updatedAt?: DateTimeFilter<"EtapaObra"> | Date | string
+    obra?: XOR<ObraScalarRelationFilter, ObraWhereInput>
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+  }
+
+  export type EtapaObraOrderByWithRelationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    descricao?: SortOrderInput | SortOrder
+    ordem?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    dataInicioPrev?: SortOrderInput | SortOrder
+    dataFimPrev?: SortOrderInput | SortOrder
+    dataInicioReal?: SortOrderInput | SortOrder
+    dataFimReal?: SortOrderInput | SortOrder
+    percentual?: SortOrder
+    status?: SortOrder
+    valorPrevisto?: SortOrderInput | SortOrder
+    observacoes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    obra?: ObraOrderByWithRelationInput
+    organization?: OrganizationOrderByWithRelationInput
+  }
+
+  export type EtapaObraWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: EtapaObraWhereInput | EtapaObraWhereInput[]
+    OR?: EtapaObraWhereInput[]
+    NOT?: EtapaObraWhereInput | EtapaObraWhereInput[]
+    nome?: StringFilter<"EtapaObra"> | string
+    descricao?: StringNullableFilter<"EtapaObra"> | string | null
+    ordem?: IntFilter<"EtapaObra"> | number
+    obraId?: StringFilter<"EtapaObra"> | string
+    organizationId?: StringFilter<"EtapaObra"> | string
+    dataInicioPrev?: DateTimeNullableFilter<"EtapaObra"> | Date | string | null
+    dataFimPrev?: DateTimeNullableFilter<"EtapaObra"> | Date | string | null
+    dataInicioReal?: DateTimeNullableFilter<"EtapaObra"> | Date | string | null
+    dataFimReal?: DateTimeNullableFilter<"EtapaObra"> | Date | string | null
+    percentual?: FloatFilter<"EtapaObra"> | number
+    status?: EnumEtapaStatusFilter<"EtapaObra"> | $Enums.EtapaStatus
+    valorPrevisto?: DecimalNullableFilter<"EtapaObra"> | Decimal | DecimalJsLike | number | string | null
+    observacoes?: StringNullableFilter<"EtapaObra"> | string | null
+    createdAt?: DateTimeFilter<"EtapaObra"> | Date | string
+    updatedAt?: DateTimeFilter<"EtapaObra"> | Date | string
+    obra?: XOR<ObraScalarRelationFilter, ObraWhereInput>
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+  }, "id">
+
+  export type EtapaObraOrderByWithAggregationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    descricao?: SortOrderInput | SortOrder
+    ordem?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    dataInicioPrev?: SortOrderInput | SortOrder
+    dataFimPrev?: SortOrderInput | SortOrder
+    dataInicioReal?: SortOrderInput | SortOrder
+    dataFimReal?: SortOrderInput | SortOrder
+    percentual?: SortOrder
+    status?: SortOrder
+    valorPrevisto?: SortOrderInput | SortOrder
+    observacoes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: EtapaObraCountOrderByAggregateInput
+    _avg?: EtapaObraAvgOrderByAggregateInput
+    _max?: EtapaObraMaxOrderByAggregateInput
+    _min?: EtapaObraMinOrderByAggregateInput
+    _sum?: EtapaObraSumOrderByAggregateInput
+  }
+
+  export type EtapaObraScalarWhereWithAggregatesInput = {
+    AND?: EtapaObraScalarWhereWithAggregatesInput | EtapaObraScalarWhereWithAggregatesInput[]
+    OR?: EtapaObraScalarWhereWithAggregatesInput[]
+    NOT?: EtapaObraScalarWhereWithAggregatesInput | EtapaObraScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EtapaObra"> | string
+    nome?: StringWithAggregatesFilter<"EtapaObra"> | string
+    descricao?: StringNullableWithAggregatesFilter<"EtapaObra"> | string | null
+    ordem?: IntWithAggregatesFilter<"EtapaObra"> | number
+    obraId?: StringWithAggregatesFilter<"EtapaObra"> | string
+    organizationId?: StringWithAggregatesFilter<"EtapaObra"> | string
+    dataInicioPrev?: DateTimeNullableWithAggregatesFilter<"EtapaObra"> | Date | string | null
+    dataFimPrev?: DateTimeNullableWithAggregatesFilter<"EtapaObra"> | Date | string | null
+    dataInicioReal?: DateTimeNullableWithAggregatesFilter<"EtapaObra"> | Date | string | null
+    dataFimReal?: DateTimeNullableWithAggregatesFilter<"EtapaObra"> | Date | string | null
+    percentual?: FloatWithAggregatesFilter<"EtapaObra"> | number
+    status?: EnumEtapaStatusWithAggregatesFilter<"EtapaObra"> | $Enums.EtapaStatus
+    valorPrevisto?: DecimalNullableWithAggregatesFilter<"EtapaObra"> | Decimal | DecimalJsLike | number | string | null
+    observacoes?: StringNullableWithAggregatesFilter<"EtapaObra"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"EtapaObra"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"EtapaObra"> | Date | string
+  }
+
+  export type ItemEstoqueWhereInput = {
+    AND?: ItemEstoqueWhereInput | ItemEstoqueWhereInput[]
+    OR?: ItemEstoqueWhereInput[]
+    NOT?: ItemEstoqueWhereInput | ItemEstoqueWhereInput[]
+    id?: StringFilter<"ItemEstoque"> | string
+    nome?: StringFilter<"ItemEstoque"> | string
+    unidade?: StringFilter<"ItemEstoque"> | string
+    categoria?: StringNullableFilter<"ItemEstoque"> | string | null
+    quantidadeAtual?: DecimalFilter<"ItemEstoque"> | Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: DecimalNullableFilter<"ItemEstoque"> | Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: DecimalNullableFilter<"ItemEstoque"> | Decimal | DecimalJsLike | number | string | null
+    obraId?: StringFilter<"ItemEstoque"> | string
+    organizationId?: StringFilter<"ItemEstoque"> | string
+    createdAt?: DateTimeFilter<"ItemEstoque"> | Date | string
+    updatedAt?: DateTimeFilter<"ItemEstoque"> | Date | string
+    obra?: XOR<ObraScalarRelationFilter, ObraWhereInput>
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+    movimentacoes?: MovimentacaoEstoqueListRelationFilter
+  }
+
+  export type ItemEstoqueOrderByWithRelationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    unidade?: SortOrder
+    categoria?: SortOrderInput | SortOrder
+    quantidadeAtual?: SortOrder
+    quantidadeMinima?: SortOrderInput | SortOrder
+    valorUnitario?: SortOrderInput | SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    obra?: ObraOrderByWithRelationInput
+    organization?: OrganizationOrderByWithRelationInput
+    movimentacoes?: MovimentacaoEstoqueOrderByRelationAggregateInput
+  }
+
+  export type ItemEstoqueWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ItemEstoqueWhereInput | ItemEstoqueWhereInput[]
+    OR?: ItemEstoqueWhereInput[]
+    NOT?: ItemEstoqueWhereInput | ItemEstoqueWhereInput[]
+    nome?: StringFilter<"ItemEstoque"> | string
+    unidade?: StringFilter<"ItemEstoque"> | string
+    categoria?: StringNullableFilter<"ItemEstoque"> | string | null
+    quantidadeAtual?: DecimalFilter<"ItemEstoque"> | Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: DecimalNullableFilter<"ItemEstoque"> | Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: DecimalNullableFilter<"ItemEstoque"> | Decimal | DecimalJsLike | number | string | null
+    obraId?: StringFilter<"ItemEstoque"> | string
+    organizationId?: StringFilter<"ItemEstoque"> | string
+    createdAt?: DateTimeFilter<"ItemEstoque"> | Date | string
+    updatedAt?: DateTimeFilter<"ItemEstoque"> | Date | string
+    obra?: XOR<ObraScalarRelationFilter, ObraWhereInput>
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+    movimentacoes?: MovimentacaoEstoqueListRelationFilter
+  }, "id">
+
+  export type ItemEstoqueOrderByWithAggregationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    unidade?: SortOrder
+    categoria?: SortOrderInput | SortOrder
+    quantidadeAtual?: SortOrder
+    quantidadeMinima?: SortOrderInput | SortOrder
+    valorUnitario?: SortOrderInput | SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ItemEstoqueCountOrderByAggregateInput
+    _avg?: ItemEstoqueAvgOrderByAggregateInput
+    _max?: ItemEstoqueMaxOrderByAggregateInput
+    _min?: ItemEstoqueMinOrderByAggregateInput
+    _sum?: ItemEstoqueSumOrderByAggregateInput
+  }
+
+  export type ItemEstoqueScalarWhereWithAggregatesInput = {
+    AND?: ItemEstoqueScalarWhereWithAggregatesInput | ItemEstoqueScalarWhereWithAggregatesInput[]
+    OR?: ItemEstoqueScalarWhereWithAggregatesInput[]
+    NOT?: ItemEstoqueScalarWhereWithAggregatesInput | ItemEstoqueScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ItemEstoque"> | string
+    nome?: StringWithAggregatesFilter<"ItemEstoque"> | string
+    unidade?: StringWithAggregatesFilter<"ItemEstoque"> | string
+    categoria?: StringNullableWithAggregatesFilter<"ItemEstoque"> | string | null
+    quantidadeAtual?: DecimalWithAggregatesFilter<"ItemEstoque"> | Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: DecimalNullableWithAggregatesFilter<"ItemEstoque"> | Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: DecimalNullableWithAggregatesFilter<"ItemEstoque"> | Decimal | DecimalJsLike | number | string | null
+    obraId?: StringWithAggregatesFilter<"ItemEstoque"> | string
+    organizationId?: StringWithAggregatesFilter<"ItemEstoque"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ItemEstoque"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ItemEstoque"> | Date | string
+  }
+
+  export type MovimentacaoEstoqueWhereInput = {
+    AND?: MovimentacaoEstoqueWhereInput | MovimentacaoEstoqueWhereInput[]
+    OR?: MovimentacaoEstoqueWhereInput[]
+    NOT?: MovimentacaoEstoqueWhereInput | MovimentacaoEstoqueWhereInput[]
+    id?: StringFilter<"MovimentacaoEstoque"> | string
+    itemEstoqueId?: StringFilter<"MovimentacaoEstoque"> | string
+    tipo?: EnumMovimentacaoTipoFilter<"MovimentacaoEstoque"> | $Enums.MovimentacaoTipo
+    quantidade?: DecimalFilter<"MovimentacaoEstoque"> | Decimal | DecimalJsLike | number | string
+    valorUnitario?: DecimalNullableFilter<"MovimentacaoEstoque"> | Decimal | DecimalJsLike | number | string | null
+    motivo?: StringNullableFilter<"MovimentacaoEstoque"> | string | null
+    fornecedor?: StringNullableFilter<"MovimentacaoEstoque"> | string | null
+    notaFiscal?: StringNullableFilter<"MovimentacaoEstoque"> | string | null
+    responsavel?: StringNullableFilter<"MovimentacaoEstoque"> | string | null
+    obraId?: StringFilter<"MovimentacaoEstoque"> | string
+    organizationId?: StringFilter<"MovimentacaoEstoque"> | string
+    userId?: StringFilter<"MovimentacaoEstoque"> | string
+    createdAt?: DateTimeFilter<"MovimentacaoEstoque"> | Date | string
+    itemEstoque?: XOR<ItemEstoqueScalarRelationFilter, ItemEstoqueWhereInput>
+    obra?: XOR<ObraScalarRelationFilter, ObraWhereInput>
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type MovimentacaoEstoqueOrderByWithRelationInput = {
+    id?: SortOrder
+    itemEstoqueId?: SortOrder
+    tipo?: SortOrder
+    quantidade?: SortOrder
+    valorUnitario?: SortOrderInput | SortOrder
+    motivo?: SortOrderInput | SortOrder
+    fornecedor?: SortOrderInput | SortOrder
+    notaFiscal?: SortOrderInput | SortOrder
+    responsavel?: SortOrderInput | SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    itemEstoque?: ItemEstoqueOrderByWithRelationInput
+    obra?: ObraOrderByWithRelationInput
+    organization?: OrganizationOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type MovimentacaoEstoqueWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MovimentacaoEstoqueWhereInput | MovimentacaoEstoqueWhereInput[]
+    OR?: MovimentacaoEstoqueWhereInput[]
+    NOT?: MovimentacaoEstoqueWhereInput | MovimentacaoEstoqueWhereInput[]
+    itemEstoqueId?: StringFilter<"MovimentacaoEstoque"> | string
+    tipo?: EnumMovimentacaoTipoFilter<"MovimentacaoEstoque"> | $Enums.MovimentacaoTipo
+    quantidade?: DecimalFilter<"MovimentacaoEstoque"> | Decimal | DecimalJsLike | number | string
+    valorUnitario?: DecimalNullableFilter<"MovimentacaoEstoque"> | Decimal | DecimalJsLike | number | string | null
+    motivo?: StringNullableFilter<"MovimentacaoEstoque"> | string | null
+    fornecedor?: StringNullableFilter<"MovimentacaoEstoque"> | string | null
+    notaFiscal?: StringNullableFilter<"MovimentacaoEstoque"> | string | null
+    responsavel?: StringNullableFilter<"MovimentacaoEstoque"> | string | null
+    obraId?: StringFilter<"MovimentacaoEstoque"> | string
+    organizationId?: StringFilter<"MovimentacaoEstoque"> | string
+    userId?: StringFilter<"MovimentacaoEstoque"> | string
+    createdAt?: DateTimeFilter<"MovimentacaoEstoque"> | Date | string
+    itemEstoque?: XOR<ItemEstoqueScalarRelationFilter, ItemEstoqueWhereInput>
+    obra?: XOR<ObraScalarRelationFilter, ObraWhereInput>
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type MovimentacaoEstoqueOrderByWithAggregationInput = {
+    id?: SortOrder
+    itemEstoqueId?: SortOrder
+    tipo?: SortOrder
+    quantidade?: SortOrder
+    valorUnitario?: SortOrderInput | SortOrder
+    motivo?: SortOrderInput | SortOrder
+    fornecedor?: SortOrderInput | SortOrder
+    notaFiscal?: SortOrderInput | SortOrder
+    responsavel?: SortOrderInput | SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    _count?: MovimentacaoEstoqueCountOrderByAggregateInput
+    _avg?: MovimentacaoEstoqueAvgOrderByAggregateInput
+    _max?: MovimentacaoEstoqueMaxOrderByAggregateInput
+    _min?: MovimentacaoEstoqueMinOrderByAggregateInput
+    _sum?: MovimentacaoEstoqueSumOrderByAggregateInput
+  }
+
+  export type MovimentacaoEstoqueScalarWhereWithAggregatesInput = {
+    AND?: MovimentacaoEstoqueScalarWhereWithAggregatesInput | MovimentacaoEstoqueScalarWhereWithAggregatesInput[]
+    OR?: MovimentacaoEstoqueScalarWhereWithAggregatesInput[]
+    NOT?: MovimentacaoEstoqueScalarWhereWithAggregatesInput | MovimentacaoEstoqueScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MovimentacaoEstoque"> | string
+    itemEstoqueId?: StringWithAggregatesFilter<"MovimentacaoEstoque"> | string
+    tipo?: EnumMovimentacaoTipoWithAggregatesFilter<"MovimentacaoEstoque"> | $Enums.MovimentacaoTipo
+    quantidade?: DecimalWithAggregatesFilter<"MovimentacaoEstoque"> | Decimal | DecimalJsLike | number | string
+    valorUnitario?: DecimalNullableWithAggregatesFilter<"MovimentacaoEstoque"> | Decimal | DecimalJsLike | number | string | null
+    motivo?: StringNullableWithAggregatesFilter<"MovimentacaoEstoque"> | string | null
+    fornecedor?: StringNullableWithAggregatesFilter<"MovimentacaoEstoque"> | string | null
+    notaFiscal?: StringNullableWithAggregatesFilter<"MovimentacaoEstoque"> | string | null
+    responsavel?: StringNullableWithAggregatesFilter<"MovimentacaoEstoque"> | string | null
+    obraId?: StringWithAggregatesFilter<"MovimentacaoEstoque"> | string
+    organizationId?: StringWithAggregatesFilter<"MovimentacaoEstoque"> | string
+    userId?: StringWithAggregatesFilter<"MovimentacaoEstoque"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"MovimentacaoEstoque"> | Date | string
+  }
+
+  export type RefreshTokenWhereInput = {
+    AND?: RefreshTokenWhereInput | RefreshTokenWhereInput[]
+    OR?: RefreshTokenWhereInput[]
+    NOT?: RefreshTokenWhereInput | RefreshTokenWhereInput[]
+    id?: StringFilter<"RefreshToken"> | string
+    token?: StringFilter<"RefreshToken"> | string
+    userId?: StringFilter<"RefreshToken"> | string
+    expiresAt?: DateTimeFilter<"RefreshToken"> | Date | string
+    createdAt?: DateTimeFilter<"RefreshToken"> | Date | string
+  }
+
+  export type RefreshTokenOrderByWithRelationInput = {
+    id?: SortOrder
+    token?: SortOrder
+    userId?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RefreshTokenWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    token?: string
+    AND?: RefreshTokenWhereInput | RefreshTokenWhereInput[]
+    OR?: RefreshTokenWhereInput[]
+    NOT?: RefreshTokenWhereInput | RefreshTokenWhereInput[]
+    userId?: StringFilter<"RefreshToken"> | string
+    expiresAt?: DateTimeFilter<"RefreshToken"> | Date | string
+    createdAt?: DateTimeFilter<"RefreshToken"> | Date | string
+  }, "id" | "token">
+
+  export type RefreshTokenOrderByWithAggregationInput = {
+    id?: SortOrder
+    token?: SortOrder
+    userId?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    _count?: RefreshTokenCountOrderByAggregateInput
+    _max?: RefreshTokenMaxOrderByAggregateInput
+    _min?: RefreshTokenMinOrderByAggregateInput
+  }
+
+  export type RefreshTokenScalarWhereWithAggregatesInput = {
+    AND?: RefreshTokenScalarWhereWithAggregatesInput | RefreshTokenScalarWhereWithAggregatesInput[]
+    OR?: RefreshTokenScalarWhereWithAggregatesInput[]
+    NOT?: RefreshTokenScalarWhereWithAggregatesInput | RefreshTokenScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RefreshToken"> | string
+    token?: StringWithAggregatesFilter<"RefreshToken"> | string
+    userId?: StringWithAggregatesFilter<"RefreshToken"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"RefreshToken"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"RefreshToken"> | Date | string
+  }
+
+  export type AuditLogWhereInput = {
+    AND?: AuditLogWhereInput | AuditLogWhereInput[]
+    OR?: AuditLogWhereInput[]
+    NOT?: AuditLogWhereInput | AuditLogWhereInput[]
+    id?: StringFilter<"AuditLog"> | string
+    userId?: StringFilter<"AuditLog"> | string
+    userEmail?: StringFilter<"AuditLog"> | string
+    organizationId?: StringNullableFilter<"AuditLog"> | string | null
+    acao?: StringFilter<"AuditLog"> | string
+    entidade?: StringFilter<"AuditLog"> | string
+    entidadeId?: StringFilter<"AuditLog"> | string
+    dadosAntes?: JsonNullableFilter<"AuditLog">
+    dadosDepois?: JsonNullableFilter<"AuditLog">
+    ip?: StringNullableFilter<"AuditLog"> | string | null
+    createdAt?: DateTimeFilter<"AuditLog"> | Date | string
+  }
+
+  export type AuditLogOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    userEmail?: SortOrder
+    organizationId?: SortOrderInput | SortOrder
+    acao?: SortOrder
+    entidade?: SortOrder
+    entidadeId?: SortOrder
+    dadosAntes?: SortOrderInput | SortOrder
+    dadosDepois?: SortOrderInput | SortOrder
+    ip?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AuditLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AuditLogWhereInput | AuditLogWhereInput[]
+    OR?: AuditLogWhereInput[]
+    NOT?: AuditLogWhereInput | AuditLogWhereInput[]
+    userId?: StringFilter<"AuditLog"> | string
+    userEmail?: StringFilter<"AuditLog"> | string
+    organizationId?: StringNullableFilter<"AuditLog"> | string | null
+    acao?: StringFilter<"AuditLog"> | string
+    entidade?: StringFilter<"AuditLog"> | string
+    entidadeId?: StringFilter<"AuditLog"> | string
+    dadosAntes?: JsonNullableFilter<"AuditLog">
+    dadosDepois?: JsonNullableFilter<"AuditLog">
+    ip?: StringNullableFilter<"AuditLog"> | string | null
+    createdAt?: DateTimeFilter<"AuditLog"> | Date | string
+  }, "id">
+
+  export type AuditLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    userEmail?: SortOrder
+    organizationId?: SortOrderInput | SortOrder
+    acao?: SortOrder
+    entidade?: SortOrder
+    entidadeId?: SortOrder
+    dadosAntes?: SortOrderInput | SortOrder
+    dadosDepois?: SortOrderInput | SortOrder
+    ip?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: AuditLogCountOrderByAggregateInput
+    _max?: AuditLogMaxOrderByAggregateInput
+    _min?: AuditLogMinOrderByAggregateInput
+  }
+
+  export type AuditLogScalarWhereWithAggregatesInput = {
+    AND?: AuditLogScalarWhereWithAggregatesInput | AuditLogScalarWhereWithAggregatesInput[]
+    OR?: AuditLogScalarWhereWithAggregatesInput[]
+    NOT?: AuditLogScalarWhereWithAggregatesInput | AuditLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AuditLog"> | string
+    userId?: StringWithAggregatesFilter<"AuditLog"> | string
+    userEmail?: StringWithAggregatesFilter<"AuditLog"> | string
+    organizationId?: StringNullableWithAggregatesFilter<"AuditLog"> | string | null
+    acao?: StringWithAggregatesFilter<"AuditLog"> | string
+    entidade?: StringWithAggregatesFilter<"AuditLog"> | string
+    entidadeId?: StringWithAggregatesFilter<"AuditLog"> | string
+    dadosAntes?: JsonNullableWithAggregatesFilter<"AuditLog">
+    dadosDepois?: JsonNullableWithAggregatesFilter<"AuditLog">
+    ip?: StringNullableWithAggregatesFilter<"AuditLog"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"AuditLog"> | Date | string
+  }
+
   export type OrganizationCreateInput = {
     id?: string
     nome: string
@@ -18922,6 +29164,11 @@ export namespace Prisma {
     pagamentos?: PagamentoCreateNestedManyWithoutOrganizationInput
     cargos?: CargoCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateInput = {
@@ -18942,6 +29189,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutOrganizationInput
     cargos?: CargoUncheckedCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUpdateInput = {
@@ -18962,6 +29214,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateInput = {
@@ -18982,6 +29239,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUncheckedUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUncheckedUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationCreateManyInput = {
@@ -19086,6 +29348,7 @@ export namespace Prisma {
     obras?: ObraCreateNestedManyWithoutUserInput
     documentos?: DocumentoCreateNestedManyWithoutUserInput
     transacoes?: TransacaoFinanceiraCreateNestedManyWithoutUserInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -19101,6 +29364,7 @@ export namespace Prisma {
     obras?: ObraUncheckedCreateNestedManyWithoutUserInput
     documentos?: DocumentoUncheckedCreateNestedManyWithoutUserInput
     transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutUserInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -19116,6 +29380,7 @@ export namespace Prisma {
     obras?: ObraUpdateManyWithoutUserNestedInput
     documentos?: DocumentoUpdateManyWithoutUserNestedInput
     transacoes?: TransacaoFinanceiraUpdateManyWithoutUserNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -19131,6 +29396,7 @@ export namespace Prisma {
     obras?: ObraUncheckedUpdateManyWithoutUserNestedInput
     documentos?: DocumentoUncheckedUpdateManyWithoutUserNestedInput
     transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutUserNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -19187,6 +29453,7 @@ export namespace Prisma {
     orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     organization: OrganizationCreateNestedOneWithoutObrasInput
     user: UserCreateNestedOneWithoutObrasInput
     funcionarios?: FuncionarioCreateNestedManyWithoutObraInput
@@ -19196,6 +29463,12 @@ export namespace Prisma {
     alertas?: AlertaCreateNestedManyWithoutObraInput
     documentos?: DocumentoCreateNestedManyWithoutObraInput
     pagamentos?: PagamentoCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutObraInput
   }
 
   export type ObraUncheckedCreateInput = {
@@ -19219,6 +29492,7 @@ export namespace Prisma {
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutObraInput
     maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutObraInput
     transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutObraInput
@@ -19226,6 +29500,12 @@ export namespace Prisma {
     alertas?: AlertaUncheckedCreateNestedManyWithoutObraInput
     documentos?: DocumentoUncheckedCreateNestedManyWithoutObraInput
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutObraInput
   }
 
   export type ObraUpdateInput = {
@@ -19247,6 +29527,7 @@ export namespace Prisma {
     orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     organization?: OrganizationUpdateOneRequiredWithoutObrasNestedInput
     user?: UserUpdateOneRequiredWithoutObrasNestedInput
     funcionarios?: FuncionarioUpdateManyWithoutObraNestedInput
@@ -19256,6 +29537,12 @@ export namespace Prisma {
     alertas?: AlertaUpdateManyWithoutObraNestedInput
     documentos?: DocumentoUpdateManyWithoutObraNestedInput
     pagamentos?: PagamentoUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutObraNestedInput
   }
 
   export type ObraUncheckedUpdateInput = {
@@ -19279,6 +29566,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     funcionarios?: FuncionarioUncheckedUpdateManyWithoutObraNestedInput
     maquinarios?: MaquinarioUncheckedUpdateManyWithoutObraNestedInput
     transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutObraNestedInput
@@ -19286,6 +29574,12 @@ export namespace Prisma {
     alertas?: AlertaUncheckedUpdateManyWithoutObraNestedInput
     documentos?: DocumentoUncheckedUpdateManyWithoutObraNestedInput
     pagamentos?: PagamentoUncheckedUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutObraNestedInput
   }
 
   export type ObraCreateManyInput = {
@@ -19309,6 +29603,7 @@ export namespace Prisma {
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type ObraUpdateManyMutationInput = {
@@ -19330,6 +29625,7 @@ export namespace Prisma {
     orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ObraUncheckedUpdateManyInput = {
@@ -19353,6 +29649,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type FuncionarioCreateInput = {
@@ -19370,9 +29667,12 @@ export namespace Prisma {
     fotoPath?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     organization: OrganizationCreateNestedOneWithoutFuncionariosInput
     obra: ObraCreateNestedOneWithoutFuncionariosInput
     pagamentos?: PagamentoCreateNestedManyWithoutFuncionarioInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutFuncionarioInput
+    obrasVinculadas?: FuncionarioObraCreateNestedManyWithoutFuncionarioInput
   }
 
   export type FuncionarioUncheckedCreateInput = {
@@ -19392,7 +29692,10 @@ export namespace Prisma {
     obraId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutFuncionarioInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutFuncionarioInput
+    obrasVinculadas?: FuncionarioObraUncheckedCreateNestedManyWithoutFuncionarioInput
   }
 
   export type FuncionarioUpdateInput = {
@@ -19410,9 +29713,12 @@ export namespace Prisma {
     fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     organization?: OrganizationUpdateOneRequiredWithoutFuncionariosNestedInput
     obra?: ObraUpdateOneRequiredWithoutFuncionariosNestedInput
     pagamentos?: PagamentoUpdateManyWithoutFuncionarioNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutFuncionarioNestedInput
+    obrasVinculadas?: FuncionarioObraUpdateManyWithoutFuncionarioNestedInput
   }
 
   export type FuncionarioUncheckedUpdateInput = {
@@ -19432,7 +29738,10 @@ export namespace Prisma {
     obraId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     pagamentos?: PagamentoUncheckedUpdateManyWithoutFuncionarioNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutFuncionarioNestedInput
+    obrasVinculadas?: FuncionarioObraUncheckedUpdateManyWithoutFuncionarioNestedInput
   }
 
   export type FuncionarioCreateManyInput = {
@@ -19452,6 +29761,7 @@ export namespace Prisma {
     obraId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type FuncionarioUpdateManyMutationInput = {
@@ -19469,6 +29779,7 @@ export namespace Prisma {
     fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type FuncionarioUncheckedUpdateManyInput = {
@@ -19486,6 +29797,95 @@ export namespace Prisma {
     fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
     organizationId?: StringFieldUpdateOperationsInput | string
     obraId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type FuncionarioObraCreateInput = {
+    id?: string
+    dataInicio: Date | string
+    dataFim?: Date | string | null
+    funcao?: string | null
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    funcionario: FuncionarioCreateNestedOneWithoutObrasVinculadasInput
+    obra: ObraCreateNestedOneWithoutFuncionariosVinculadosInput
+    organization: OrganizationCreateNestedOneWithoutFuncionariosVinculadosInput
+  }
+
+  export type FuncionarioObraUncheckedCreateInput = {
+    id?: string
+    funcionarioId: string
+    obraId: string
+    organizationId: string
+    dataInicio: Date | string
+    dataFim?: Date | string | null
+    funcao?: string | null
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FuncionarioObraUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    funcao?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    funcionario?: FuncionarioUpdateOneRequiredWithoutObrasVinculadasNestedInput
+    obra?: ObraUpdateOneRequiredWithoutFuncionariosVinculadosNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutFuncionariosVinculadosNestedInput
+  }
+
+  export type FuncionarioObraUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    funcionarioId?: StringFieldUpdateOperationsInput | string
+    obraId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    funcao?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FuncionarioObraCreateManyInput = {
+    id?: string
+    funcionarioId: string
+    obraId: string
+    organizationId: string
+    dataInicio: Date | string
+    dataFim?: Date | string | null
+    funcao?: string | null
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FuncionarioObraUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    funcao?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FuncionarioObraUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    funcionarioId?: StringFieldUpdateOperationsInput | string
+    obraId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    funcao?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19590,6 +29990,7 @@ export namespace Prisma {
     fotoPath?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     organization: OrganizationCreateNestedOneWithoutMaquinariosInput
     obra: ObraCreateNestedOneWithoutMaquinariosInput
   }
@@ -19615,6 +30016,7 @@ export namespace Prisma {
     obraId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type MaquinarioUpdateInput = {
@@ -19636,6 +30038,7 @@ export namespace Prisma {
     fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     organization?: OrganizationUpdateOneRequiredWithoutMaquinariosNestedInput
     obra?: ObraUpdateOneRequiredWithoutMaquinariosNestedInput
   }
@@ -19661,6 +30064,7 @@ export namespace Prisma {
     obraId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MaquinarioCreateManyInput = {
@@ -19684,6 +30088,7 @@ export namespace Prisma {
     obraId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type MaquinarioUpdateManyMutationInput = {
@@ -19705,6 +30110,7 @@ export namespace Prisma {
     fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MaquinarioUncheckedUpdateManyInput = {
@@ -19728,6 +30134,7 @@ export namespace Prisma {
     obraId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TransacaoFinanceiraCreateInput = {
@@ -20025,12 +30432,14 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutOrcamentosInput
+    obra?: ObraCreateNestedOneWithoutOrcamentosInput
   }
 
   export type OrcamentoUncheckedCreateInput = {
     id?: string
     titulo: string
     organizationId: string
+    obraId?: string | null
     empresa?: string | null
     cnpj?: string | null
     responsavel?: string | null
@@ -20073,12 +30482,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutOrcamentosNestedInput
+    obra?: ObraUpdateOneWithoutOrcamentosNestedInput
   }
 
   export type OrcamentoUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     titulo?: StringFieldUpdateOperationsInput | string
     organizationId?: StringFieldUpdateOperationsInput | string
+    obraId?: NullableStringFieldUpdateOperationsInput | string | null
     empresa?: NullableStringFieldUpdateOperationsInput | string | null
     cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     responsavel?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20103,6 +30514,7 @@ export namespace Prisma {
     id?: string
     titulo: string
     organizationId: string
+    obraId?: string | null
     empresa?: string | null
     cnpj?: string | null
     responsavel?: string | null
@@ -20150,6 +30562,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     titulo?: StringFieldUpdateOperationsInput | string
     organizationId?: StringFieldUpdateOperationsInput | string
+    obraId?: NullableStringFieldUpdateOperationsInput | string | null
     empresa?: NullableStringFieldUpdateOperationsInput | string | null
     cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     responsavel?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20265,6 +30678,587 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RegistroFrequenciaCreateInput = {
+    id?: string
+    data: Date | string
+    presente?: boolean
+    periodo?: number
+    horasExtras?: number
+    observacao?: string | null
+    createdAt?: Date | string
+    funcionario: FuncionarioCreateNestedOneWithoutFrequenciasInput
+    obra: ObraCreateNestedOneWithoutFrequenciasInput
+    organization: OrganizationCreateNestedOneWithoutFrequenciasInput
+  }
+
+  export type RegistroFrequenciaUncheckedCreateInput = {
+    id?: string
+    funcionarioId: string
+    obraId: string
+    organizationId: string
+    data: Date | string
+    presente?: boolean
+    periodo?: number
+    horasExtras?: number
+    observacao?: string | null
+    createdAt?: Date | string
+  }
+
+  export type RegistroFrequenciaUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    presente?: BoolFieldUpdateOperationsInput | boolean
+    periodo?: FloatFieldUpdateOperationsInput | number
+    horasExtras?: FloatFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    funcionario?: FuncionarioUpdateOneRequiredWithoutFrequenciasNestedInput
+    obra?: ObraUpdateOneRequiredWithoutFrequenciasNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutFrequenciasNestedInput
+  }
+
+  export type RegistroFrequenciaUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    funcionarioId?: StringFieldUpdateOperationsInput | string
+    obraId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    presente?: BoolFieldUpdateOperationsInput | boolean
+    periodo?: FloatFieldUpdateOperationsInput | number
+    horasExtras?: FloatFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RegistroFrequenciaCreateManyInput = {
+    id?: string
+    funcionarioId: string
+    obraId: string
+    organizationId: string
+    data: Date | string
+    presente?: boolean
+    periodo?: number
+    horasExtras?: number
+    observacao?: string | null
+    createdAt?: Date | string
+  }
+
+  export type RegistroFrequenciaUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    presente?: BoolFieldUpdateOperationsInput | boolean
+    periodo?: FloatFieldUpdateOperationsInput | number
+    horasExtras?: FloatFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RegistroFrequenciaUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    funcionarioId?: StringFieldUpdateOperationsInput | string
+    obraId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    presente?: BoolFieldUpdateOperationsInput | boolean
+    periodo?: FloatFieldUpdateOperationsInput | number
+    horasExtras?: FloatFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EtapaObraCreateInput = {
+    id?: string
+    nome: string
+    descricao?: string | null
+    ordem: number
+    dataInicioPrev?: Date | string | null
+    dataFimPrev?: Date | string | null
+    dataInicioReal?: Date | string | null
+    dataFimReal?: Date | string | null
+    percentual?: number
+    status?: $Enums.EtapaStatus
+    valorPrevisto?: Decimal | DecimalJsLike | number | string | null
+    observacoes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    obra: ObraCreateNestedOneWithoutEtapasInput
+    organization: OrganizationCreateNestedOneWithoutEtapasInput
+  }
+
+  export type EtapaObraUncheckedCreateInput = {
+    id?: string
+    nome: string
+    descricao?: string | null
+    ordem: number
+    obraId: string
+    organizationId: string
+    dataInicioPrev?: Date | string | null
+    dataFimPrev?: Date | string | null
+    dataInicioReal?: Date | string | null
+    dataFimReal?: Date | string | null
+    percentual?: number
+    status?: $Enums.EtapaStatus
+    valorPrevisto?: Decimal | DecimalJsLike | number | string | null
+    observacoes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EtapaObraUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    ordem?: IntFieldUpdateOperationsInput | number
+    dataInicioPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataInicioReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    percentual?: FloatFieldUpdateOperationsInput | number
+    status?: EnumEtapaStatusFieldUpdateOperationsInput | $Enums.EtapaStatus
+    valorPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    obra?: ObraUpdateOneRequiredWithoutEtapasNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutEtapasNestedInput
+  }
+
+  export type EtapaObraUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    ordem?: IntFieldUpdateOperationsInput | number
+    obraId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    dataInicioPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataInicioReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    percentual?: FloatFieldUpdateOperationsInput | number
+    status?: EnumEtapaStatusFieldUpdateOperationsInput | $Enums.EtapaStatus
+    valorPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EtapaObraCreateManyInput = {
+    id?: string
+    nome: string
+    descricao?: string | null
+    ordem: number
+    obraId: string
+    organizationId: string
+    dataInicioPrev?: Date | string | null
+    dataFimPrev?: Date | string | null
+    dataInicioReal?: Date | string | null
+    dataFimReal?: Date | string | null
+    percentual?: number
+    status?: $Enums.EtapaStatus
+    valorPrevisto?: Decimal | DecimalJsLike | number | string | null
+    observacoes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EtapaObraUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    ordem?: IntFieldUpdateOperationsInput | number
+    dataInicioPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataInicioReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    percentual?: FloatFieldUpdateOperationsInput | number
+    status?: EnumEtapaStatusFieldUpdateOperationsInput | $Enums.EtapaStatus
+    valorPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EtapaObraUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    ordem?: IntFieldUpdateOperationsInput | number
+    obraId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    dataInicioPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataInicioReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    percentual?: FloatFieldUpdateOperationsInput | number
+    status?: EnumEtapaStatusFieldUpdateOperationsInput | $Enums.EtapaStatus
+    valorPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ItemEstoqueCreateInput = {
+    id?: string
+    nome: string
+    unidade: string
+    categoria?: string | null
+    quantidadeAtual?: Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    obra: ObraCreateNestedOneWithoutItensEstoqueInput
+    organization: OrganizationCreateNestedOneWithoutItensEstoqueInput
+    movimentacoes?: MovimentacaoEstoqueCreateNestedManyWithoutItemEstoqueInput
+  }
+
+  export type ItemEstoqueUncheckedCreateInput = {
+    id?: string
+    nome: string
+    unidade: string
+    categoria?: string | null
+    quantidadeAtual?: Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    obraId: string
+    organizationId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    movimentacoes?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutItemEstoqueInput
+  }
+
+  export type ItemEstoqueUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    unidade?: StringFieldUpdateOperationsInput | string
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    quantidadeAtual?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    obra?: ObraUpdateOneRequiredWithoutItensEstoqueNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutItensEstoqueNestedInput
+    movimentacoes?: MovimentacaoEstoqueUpdateManyWithoutItemEstoqueNestedInput
+  }
+
+  export type ItemEstoqueUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    unidade?: StringFieldUpdateOperationsInput | string
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    quantidadeAtual?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    obraId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    movimentacoes?: MovimentacaoEstoqueUncheckedUpdateManyWithoutItemEstoqueNestedInput
+  }
+
+  export type ItemEstoqueCreateManyInput = {
+    id?: string
+    nome: string
+    unidade: string
+    categoria?: string | null
+    quantidadeAtual?: Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    obraId: string
+    organizationId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ItemEstoqueUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    unidade?: StringFieldUpdateOperationsInput | string
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    quantidadeAtual?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ItemEstoqueUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    unidade?: StringFieldUpdateOperationsInput | string
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    quantidadeAtual?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    obraId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MovimentacaoEstoqueCreateInput = {
+    id?: string
+    tipo: $Enums.MovimentacaoTipo
+    quantidade: Decimal | DecimalJsLike | number | string
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    motivo?: string | null
+    fornecedor?: string | null
+    notaFiscal?: string | null
+    responsavel?: string | null
+    createdAt?: Date | string
+    itemEstoque: ItemEstoqueCreateNestedOneWithoutMovimentacoesInput
+    obra: ObraCreateNestedOneWithoutMovimentacoesEstoqueInput
+    organization: OrganizationCreateNestedOneWithoutMovimentacoesEstoqueInput
+    user: UserCreateNestedOneWithoutMovimentacoesEstoqueInput
+  }
+
+  export type MovimentacaoEstoqueUncheckedCreateInput = {
+    id?: string
+    itemEstoqueId: string
+    tipo: $Enums.MovimentacaoTipo
+    quantidade: Decimal | DecimalJsLike | number | string
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    motivo?: string | null
+    fornecedor?: string | null
+    notaFiscal?: string | null
+    responsavel?: string | null
+    obraId: string
+    organizationId: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type MovimentacaoEstoqueUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumMovimentacaoTipoFieldUpdateOperationsInput | $Enums.MovimentacaoTipo
+    quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    motivo?: NullableStringFieldUpdateOperationsInput | string | null
+    fornecedor?: NullableStringFieldUpdateOperationsInput | string | null
+    notaFiscal?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    itemEstoque?: ItemEstoqueUpdateOneRequiredWithoutMovimentacoesNestedInput
+    obra?: ObraUpdateOneRequiredWithoutMovimentacoesEstoqueNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutMovimentacoesEstoqueNestedInput
+    user?: UserUpdateOneRequiredWithoutMovimentacoesEstoqueNestedInput
+  }
+
+  export type MovimentacaoEstoqueUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemEstoqueId?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumMovimentacaoTipoFieldUpdateOperationsInput | $Enums.MovimentacaoTipo
+    quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    motivo?: NullableStringFieldUpdateOperationsInput | string | null
+    fornecedor?: NullableStringFieldUpdateOperationsInput | string | null
+    notaFiscal?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel?: NullableStringFieldUpdateOperationsInput | string | null
+    obraId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MovimentacaoEstoqueCreateManyInput = {
+    id?: string
+    itemEstoqueId: string
+    tipo: $Enums.MovimentacaoTipo
+    quantidade: Decimal | DecimalJsLike | number | string
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    motivo?: string | null
+    fornecedor?: string | null
+    notaFiscal?: string | null
+    responsavel?: string | null
+    obraId: string
+    organizationId: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type MovimentacaoEstoqueUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumMovimentacaoTipoFieldUpdateOperationsInput | $Enums.MovimentacaoTipo
+    quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    motivo?: NullableStringFieldUpdateOperationsInput | string | null
+    fornecedor?: NullableStringFieldUpdateOperationsInput | string | null
+    notaFiscal?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MovimentacaoEstoqueUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemEstoqueId?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumMovimentacaoTipoFieldUpdateOperationsInput | $Enums.MovimentacaoTipo
+    quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    motivo?: NullableStringFieldUpdateOperationsInput | string | null
+    fornecedor?: NullableStringFieldUpdateOperationsInput | string | null
+    notaFiscal?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel?: NullableStringFieldUpdateOperationsInput | string | null
+    obraId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RefreshTokenCreateInput = {
+    id?: string
+    token: string
+    userId: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type RefreshTokenUncheckedCreateInput = {
+    id?: string
+    token: string
+    userId: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type RefreshTokenUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RefreshTokenUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RefreshTokenCreateManyInput = {
+    id?: string
+    token: string
+    userId: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type RefreshTokenUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RefreshTokenUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogCreateInput = {
+    id?: string
+    userId: string
+    userEmail: string
+    organizationId?: string | null
+    acao: string
+    entidade: string
+    entidadeId: string
+    dadosAntes?: NullableJsonNullValueInput | InputJsonValue
+    dadosDepois?: NullableJsonNullValueInput | InputJsonValue
+    ip?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AuditLogUncheckedCreateInput = {
+    id?: string
+    userId: string
+    userEmail: string
+    organizationId?: string | null
+    acao: string
+    entidade: string
+    entidadeId: string
+    dadosAntes?: NullableJsonNullValueInput | InputJsonValue
+    dadosDepois?: NullableJsonNullValueInput | InputJsonValue
+    ip?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AuditLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userEmail?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    acao?: StringFieldUpdateOperationsInput | string
+    entidade?: StringFieldUpdateOperationsInput | string
+    entidadeId?: StringFieldUpdateOperationsInput | string
+    dadosAntes?: NullableJsonNullValueInput | InputJsonValue
+    dadosDepois?: NullableJsonNullValueInput | InputJsonValue
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userEmail?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    acao?: StringFieldUpdateOperationsInput | string
+    entidade?: StringFieldUpdateOperationsInput | string
+    entidadeId?: StringFieldUpdateOperationsInput | string
+    dadosAntes?: NullableJsonNullValueInput | InputJsonValue
+    dadosDepois?: NullableJsonNullValueInput | InputJsonValue
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogCreateManyInput = {
+    id?: string
+    userId: string
+    userEmail: string
+    organizationId?: string | null
+    acao: string
+    entidade: string
+    entidadeId: string
+    dadosAntes?: NullableJsonNullValueInput | InputJsonValue
+    dadosDepois?: NullableJsonNullValueInput | InputJsonValue
+    ip?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AuditLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userEmail?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    acao?: StringFieldUpdateOperationsInput | string
+    entidade?: StringFieldUpdateOperationsInput | string
+    entidadeId?: StringFieldUpdateOperationsInput | string
+    dadosAntes?: NullableJsonNullValueInput | InputJsonValue
+    dadosDepois?: NullableJsonNullValueInput | InputJsonValue
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userEmail?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    acao?: StringFieldUpdateOperationsInput | string
+    entidade?: StringFieldUpdateOperationsInput | string
+    entidadeId?: StringFieldUpdateOperationsInput | string
+    dadosAntes?: NullableJsonNullValueInput | InputJsonValue
+    dadosDepois?: NullableJsonNullValueInput | InputJsonValue
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -20362,6 +31356,36 @@ export namespace Prisma {
     none?: OrcamentoWhereInput
   }
 
+  export type RegistroFrequenciaListRelationFilter = {
+    every?: RegistroFrequenciaWhereInput
+    some?: RegistroFrequenciaWhereInput
+    none?: RegistroFrequenciaWhereInput
+  }
+
+  export type EtapaObraListRelationFilter = {
+    every?: EtapaObraWhereInput
+    some?: EtapaObraWhereInput
+    none?: EtapaObraWhereInput
+  }
+
+  export type ItemEstoqueListRelationFilter = {
+    every?: ItemEstoqueWhereInput
+    some?: ItemEstoqueWhereInput
+    none?: ItemEstoqueWhereInput
+  }
+
+  export type MovimentacaoEstoqueListRelationFilter = {
+    every?: MovimentacaoEstoqueWhereInput
+    some?: MovimentacaoEstoqueWhereInput
+    none?: MovimentacaoEstoqueWhereInput
+  }
+
+  export type FuncionarioObraListRelationFilter = {
+    every?: FuncionarioObraWhereInput
+    some?: FuncionarioObraWhereInput
+    none?: FuncionarioObraWhereInput
+  }
+
   export type UserOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -20403,6 +31427,26 @@ export namespace Prisma {
   }
 
   export type OrcamentoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RegistroFrequenciaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EtapaObraOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ItemEstoqueOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MovimentacaoEstoqueOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FuncionarioObraOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -20624,6 +31668,17 @@ export namespace Prisma {
     not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -20650,6 +31705,7 @@ export namespace Prisma {
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type ObraAvgOrderByAggregateInput = {
@@ -20677,6 +31733,7 @@ export namespace Prisma {
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type ObraMinOrderByAggregateInput = {
@@ -20700,6 +31757,7 @@ export namespace Prisma {
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type ObraSumOrderByAggregateInput = {
@@ -20730,6 +31788,20 @@ export namespace Prisma {
     _sum?: NestedDecimalNullableFilter<$PrismaModel>
     _min?: NestedDecimalNullableFilter<$PrismaModel>
     _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type EnumFuncionarioTipoFilter<$PrismaModel = never> = {
@@ -20769,6 +31841,11 @@ export namespace Prisma {
     isNot?: ObraWhereInput
   }
 
+  export type FuncionarioCpfOrganizationIdCompoundUniqueInput = {
+    cpf: string
+    organizationId: string
+  }
+
   export type FuncionarioCountOrderByAggregateInput = {
     id?: SortOrder
     nome?: SortOrder
@@ -20786,6 +31863,7 @@ export namespace Prisma {
     obraId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type FuncionarioAvgOrderByAggregateInput = {
@@ -20809,6 +31887,7 @@ export namespace Prisma {
     obraId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type FuncionarioMinOrderByAggregateInput = {
@@ -20828,6 +31907,7 @@ export namespace Prisma {
     obraId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type FuncionarioSumOrderByAggregateInput = {
@@ -20885,6 +31965,50 @@ export namespace Prisma {
     isNot?: FuncionarioWhereInput
   }
 
+  export type FuncionarioObraFuncionarioIdObraIdCompoundUniqueInput = {
+    funcionarioId: string
+    obraId: string
+  }
+
+  export type FuncionarioObraCountOrderByAggregateInput = {
+    id?: SortOrder
+    funcionarioId?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    dataInicio?: SortOrder
+    dataFim?: SortOrder
+    funcao?: SortOrder
+    ativo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FuncionarioObraMaxOrderByAggregateInput = {
+    id?: SortOrder
+    funcionarioId?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    dataInicio?: SortOrder
+    dataFim?: SortOrder
+    funcao?: SortOrder
+    ativo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FuncionarioObraMinOrderByAggregateInput = {
+    id?: SortOrder
+    funcionarioId?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    dataInicio?: SortOrder
+    dataFim?: SortOrder
+    funcao?: SortOrder
+    ativo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type PagamentoCountOrderByAggregateInput = {
     id?: SortOrder
     funcionarioId?: SortOrder
@@ -20936,17 +32060,6 @@ export namespace Prisma {
     not?: NestedEnumMaquinarioStatusFilter<$PrismaModel> | $Enums.MaquinarioStatus
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type EnumPeriodicidadeNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.Periodicidade | EnumPeriodicidadeFieldRefInput<$PrismaModel> | null
     in?: $Enums.Periodicidade[] | ListEnumPeriodicidadeFieldRefInput<$PrismaModel> | null
@@ -20975,6 +32088,7 @@ export namespace Prisma {
     obraId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type MaquinarioAvgOrderByAggregateInput = {
@@ -21002,6 +32116,7 @@ export namespace Prisma {
     obraId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type MaquinarioMinOrderByAggregateInput = {
@@ -21025,6 +32140,7 @@ export namespace Prisma {
     obraId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type MaquinarioSumOrderByAggregateInput = {
@@ -21039,20 +32155,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumMaquinarioStatusFilter<$PrismaModel>
     _max?: NestedEnumMaquinarioStatusFilter<$PrismaModel>
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type EnumPeriodicidadeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -21298,6 +32400,7 @@ export namespace Prisma {
     id?: SortOrder
     titulo?: SortOrder
     organizationId?: SortOrder
+    obraId?: SortOrder
     empresa?: SortOrder
     cnpj?: SortOrder
     responsavel?: SortOrder
@@ -21329,6 +32432,7 @@ export namespace Prisma {
     id?: SortOrder
     titulo?: SortOrder
     organizationId?: SortOrder
+    obraId?: SortOrder
     empresa?: SortOrder
     cnpj?: SortOrder
     responsavel?: SortOrder
@@ -21352,6 +32456,7 @@ export namespace Prisma {
     id?: SortOrder
     titulo?: SortOrder
     organizationId?: SortOrder
+    obraId?: SortOrder
     empresa?: SortOrder
     cnpj?: SortOrder
     responsavel?: SortOrder
@@ -21486,6 +32591,392 @@ export namespace Prisma {
     tamanho?: SortOrder
   }
 
+  export type RegistroFrequenciaFuncionarioIdObraIdDataCompoundUniqueInput = {
+    funcionarioId: string
+    obraId: string
+    data: Date | string
+  }
+
+  export type RegistroFrequenciaCountOrderByAggregateInput = {
+    id?: SortOrder
+    funcionarioId?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    data?: SortOrder
+    presente?: SortOrder
+    periodo?: SortOrder
+    horasExtras?: SortOrder
+    observacao?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RegistroFrequenciaAvgOrderByAggregateInput = {
+    periodo?: SortOrder
+    horasExtras?: SortOrder
+  }
+
+  export type RegistroFrequenciaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    funcionarioId?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    data?: SortOrder
+    presente?: SortOrder
+    periodo?: SortOrder
+    horasExtras?: SortOrder
+    observacao?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RegistroFrequenciaMinOrderByAggregateInput = {
+    id?: SortOrder
+    funcionarioId?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    data?: SortOrder
+    presente?: SortOrder
+    periodo?: SortOrder
+    horasExtras?: SortOrder
+    observacao?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RegistroFrequenciaSumOrderByAggregateInput = {
+    periodo?: SortOrder
+    horasExtras?: SortOrder
+  }
+
+  export type EnumEtapaStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.EtapaStatus | EnumEtapaStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EtapaStatus[] | ListEnumEtapaStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EtapaStatus[] | ListEnumEtapaStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEtapaStatusFilter<$PrismaModel> | $Enums.EtapaStatus
+  }
+
+  export type EtapaObraCountOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    descricao?: SortOrder
+    ordem?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    dataInicioPrev?: SortOrder
+    dataFimPrev?: SortOrder
+    dataInicioReal?: SortOrder
+    dataFimReal?: SortOrder
+    percentual?: SortOrder
+    status?: SortOrder
+    valorPrevisto?: SortOrder
+    observacoes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EtapaObraAvgOrderByAggregateInput = {
+    ordem?: SortOrder
+    percentual?: SortOrder
+    valorPrevisto?: SortOrder
+  }
+
+  export type EtapaObraMaxOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    descricao?: SortOrder
+    ordem?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    dataInicioPrev?: SortOrder
+    dataFimPrev?: SortOrder
+    dataInicioReal?: SortOrder
+    dataFimReal?: SortOrder
+    percentual?: SortOrder
+    status?: SortOrder
+    valorPrevisto?: SortOrder
+    observacoes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EtapaObraMinOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    descricao?: SortOrder
+    ordem?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    dataInicioPrev?: SortOrder
+    dataFimPrev?: SortOrder
+    dataInicioReal?: SortOrder
+    dataFimReal?: SortOrder
+    percentual?: SortOrder
+    status?: SortOrder
+    valorPrevisto?: SortOrder
+    observacoes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EtapaObraSumOrderByAggregateInput = {
+    ordem?: SortOrder
+    percentual?: SortOrder
+    valorPrevisto?: SortOrder
+  }
+
+  export type EnumEtapaStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EtapaStatus | EnumEtapaStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EtapaStatus[] | ListEnumEtapaStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EtapaStatus[] | ListEnumEtapaStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEtapaStatusWithAggregatesFilter<$PrismaModel> | $Enums.EtapaStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEtapaStatusFilter<$PrismaModel>
+    _max?: NestedEnumEtapaStatusFilter<$PrismaModel>
+  }
+
+  export type ItemEstoqueCountOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    unidade?: SortOrder
+    categoria?: SortOrder
+    quantidadeAtual?: SortOrder
+    quantidadeMinima?: SortOrder
+    valorUnitario?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ItemEstoqueAvgOrderByAggregateInput = {
+    quantidadeAtual?: SortOrder
+    quantidadeMinima?: SortOrder
+    valorUnitario?: SortOrder
+  }
+
+  export type ItemEstoqueMaxOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    unidade?: SortOrder
+    categoria?: SortOrder
+    quantidadeAtual?: SortOrder
+    quantidadeMinima?: SortOrder
+    valorUnitario?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ItemEstoqueMinOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    unidade?: SortOrder
+    categoria?: SortOrder
+    quantidadeAtual?: SortOrder
+    quantidadeMinima?: SortOrder
+    valorUnitario?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ItemEstoqueSumOrderByAggregateInput = {
+    quantidadeAtual?: SortOrder
+    quantidadeMinima?: SortOrder
+    valorUnitario?: SortOrder
+  }
+
+  export type EnumMovimentacaoTipoFilter<$PrismaModel = never> = {
+    equals?: $Enums.MovimentacaoTipo | EnumMovimentacaoTipoFieldRefInput<$PrismaModel>
+    in?: $Enums.MovimentacaoTipo[] | ListEnumMovimentacaoTipoFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MovimentacaoTipo[] | ListEnumMovimentacaoTipoFieldRefInput<$PrismaModel>
+    not?: NestedEnumMovimentacaoTipoFilter<$PrismaModel> | $Enums.MovimentacaoTipo
+  }
+
+  export type ItemEstoqueScalarRelationFilter = {
+    is?: ItemEstoqueWhereInput
+    isNot?: ItemEstoqueWhereInput
+  }
+
+  export type MovimentacaoEstoqueCountOrderByAggregateInput = {
+    id?: SortOrder
+    itemEstoqueId?: SortOrder
+    tipo?: SortOrder
+    quantidade?: SortOrder
+    valorUnitario?: SortOrder
+    motivo?: SortOrder
+    fornecedor?: SortOrder
+    notaFiscal?: SortOrder
+    responsavel?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MovimentacaoEstoqueAvgOrderByAggregateInput = {
+    quantidade?: SortOrder
+    valorUnitario?: SortOrder
+  }
+
+  export type MovimentacaoEstoqueMaxOrderByAggregateInput = {
+    id?: SortOrder
+    itemEstoqueId?: SortOrder
+    tipo?: SortOrder
+    quantidade?: SortOrder
+    valorUnitario?: SortOrder
+    motivo?: SortOrder
+    fornecedor?: SortOrder
+    notaFiscal?: SortOrder
+    responsavel?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MovimentacaoEstoqueMinOrderByAggregateInput = {
+    id?: SortOrder
+    itemEstoqueId?: SortOrder
+    tipo?: SortOrder
+    quantidade?: SortOrder
+    valorUnitario?: SortOrder
+    motivo?: SortOrder
+    fornecedor?: SortOrder
+    notaFiscal?: SortOrder
+    responsavel?: SortOrder
+    obraId?: SortOrder
+    organizationId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MovimentacaoEstoqueSumOrderByAggregateInput = {
+    quantidade?: SortOrder
+    valorUnitario?: SortOrder
+  }
+
+  export type EnumMovimentacaoTipoWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MovimentacaoTipo | EnumMovimentacaoTipoFieldRefInput<$PrismaModel>
+    in?: $Enums.MovimentacaoTipo[] | ListEnumMovimentacaoTipoFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MovimentacaoTipo[] | ListEnumMovimentacaoTipoFieldRefInput<$PrismaModel>
+    not?: NestedEnumMovimentacaoTipoWithAggregatesFilter<$PrismaModel> | $Enums.MovimentacaoTipo
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMovimentacaoTipoFilter<$PrismaModel>
+    _max?: NestedEnumMovimentacaoTipoFilter<$PrismaModel>
+  }
+
+  export type RefreshTokenCountOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    userId?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RefreshTokenMaxOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    userId?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RefreshTokenMinOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    userId?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type AuditLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    userEmail?: SortOrder
+    organizationId?: SortOrder
+    acao?: SortOrder
+    entidade?: SortOrder
+    entidadeId?: SortOrder
+    dadosAntes?: SortOrder
+    dadosDepois?: SortOrder
+    ip?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AuditLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    userEmail?: SortOrder
+    organizationId?: SortOrder
+    acao?: SortOrder
+    entidade?: SortOrder
+    entidadeId?: SortOrder
+    ip?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AuditLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    userEmail?: SortOrder
+    organizationId?: SortOrder
+    acao?: SortOrder
+    entidade?: SortOrder
+    entidadeId?: SortOrder
+    ip?: SortOrder
+    createdAt?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
   export type UserCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<UserCreateWithoutOrganizationInput, UserUncheckedCreateWithoutOrganizationInput> | UserCreateWithoutOrganizationInput[] | UserUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOrganizationInput | UserCreateOrConnectWithoutOrganizationInput[]
@@ -21563,6 +33054,41 @@ export namespace Prisma {
     connect?: OrcamentoWhereUniqueInput | OrcamentoWhereUniqueInput[]
   }
 
+  export type RegistroFrequenciaCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<RegistroFrequenciaCreateWithoutOrganizationInput, RegistroFrequenciaUncheckedCreateWithoutOrganizationInput> | RegistroFrequenciaCreateWithoutOrganizationInput[] | RegistroFrequenciaUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: RegistroFrequenciaCreateOrConnectWithoutOrganizationInput | RegistroFrequenciaCreateOrConnectWithoutOrganizationInput[]
+    createMany?: RegistroFrequenciaCreateManyOrganizationInputEnvelope
+    connect?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+  }
+
+  export type EtapaObraCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<EtapaObraCreateWithoutOrganizationInput, EtapaObraUncheckedCreateWithoutOrganizationInput> | EtapaObraCreateWithoutOrganizationInput[] | EtapaObraUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: EtapaObraCreateOrConnectWithoutOrganizationInput | EtapaObraCreateOrConnectWithoutOrganizationInput[]
+    createMany?: EtapaObraCreateManyOrganizationInputEnvelope
+    connect?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+  }
+
+  export type ItemEstoqueCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<ItemEstoqueCreateWithoutOrganizationInput, ItemEstoqueUncheckedCreateWithoutOrganizationInput> | ItemEstoqueCreateWithoutOrganizationInput[] | ItemEstoqueUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: ItemEstoqueCreateOrConnectWithoutOrganizationInput | ItemEstoqueCreateOrConnectWithoutOrganizationInput[]
+    createMany?: ItemEstoqueCreateManyOrganizationInputEnvelope
+    connect?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+  }
+
+  export type MovimentacaoEstoqueCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<MovimentacaoEstoqueCreateWithoutOrganizationInput, MovimentacaoEstoqueUncheckedCreateWithoutOrganizationInput> | MovimentacaoEstoqueCreateWithoutOrganizationInput[] | MovimentacaoEstoqueUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: MovimentacaoEstoqueCreateOrConnectWithoutOrganizationInput | MovimentacaoEstoqueCreateOrConnectWithoutOrganizationInput[]
+    createMany?: MovimentacaoEstoqueCreateManyOrganizationInputEnvelope
+    connect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+  }
+
+  export type FuncionarioObraCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<FuncionarioObraCreateWithoutOrganizationInput, FuncionarioObraUncheckedCreateWithoutOrganizationInput> | FuncionarioObraCreateWithoutOrganizationInput[] | FuncionarioObraUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: FuncionarioObraCreateOrConnectWithoutOrganizationInput | FuncionarioObraCreateOrConnectWithoutOrganizationInput[]
+    createMany?: FuncionarioObraCreateManyOrganizationInputEnvelope
+    connect?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<UserCreateWithoutOrganizationInput, UserUncheckedCreateWithoutOrganizationInput> | UserCreateWithoutOrganizationInput[] | UserUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOrganizationInput | UserCreateOrConnectWithoutOrganizationInput[]
@@ -21638,6 +33164,41 @@ export namespace Prisma {
     connectOrCreate?: OrcamentoCreateOrConnectWithoutOrganizationInput | OrcamentoCreateOrConnectWithoutOrganizationInput[]
     createMany?: OrcamentoCreateManyOrganizationInputEnvelope
     connect?: OrcamentoWhereUniqueInput | OrcamentoWhereUniqueInput[]
+  }
+
+  export type RegistroFrequenciaUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<RegistroFrequenciaCreateWithoutOrganizationInput, RegistroFrequenciaUncheckedCreateWithoutOrganizationInput> | RegistroFrequenciaCreateWithoutOrganizationInput[] | RegistroFrequenciaUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: RegistroFrequenciaCreateOrConnectWithoutOrganizationInput | RegistroFrequenciaCreateOrConnectWithoutOrganizationInput[]
+    createMany?: RegistroFrequenciaCreateManyOrganizationInputEnvelope
+    connect?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+  }
+
+  export type EtapaObraUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<EtapaObraCreateWithoutOrganizationInput, EtapaObraUncheckedCreateWithoutOrganizationInput> | EtapaObraCreateWithoutOrganizationInput[] | EtapaObraUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: EtapaObraCreateOrConnectWithoutOrganizationInput | EtapaObraCreateOrConnectWithoutOrganizationInput[]
+    createMany?: EtapaObraCreateManyOrganizationInputEnvelope
+    connect?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+  }
+
+  export type ItemEstoqueUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<ItemEstoqueCreateWithoutOrganizationInput, ItemEstoqueUncheckedCreateWithoutOrganizationInput> | ItemEstoqueCreateWithoutOrganizationInput[] | ItemEstoqueUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: ItemEstoqueCreateOrConnectWithoutOrganizationInput | ItemEstoqueCreateOrConnectWithoutOrganizationInput[]
+    createMany?: ItemEstoqueCreateManyOrganizationInputEnvelope
+    connect?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+  }
+
+  export type MovimentacaoEstoqueUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<MovimentacaoEstoqueCreateWithoutOrganizationInput, MovimentacaoEstoqueUncheckedCreateWithoutOrganizationInput> | MovimentacaoEstoqueCreateWithoutOrganizationInput[] | MovimentacaoEstoqueUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: MovimentacaoEstoqueCreateOrConnectWithoutOrganizationInput | MovimentacaoEstoqueCreateOrConnectWithoutOrganizationInput[]
+    createMany?: MovimentacaoEstoqueCreateManyOrganizationInputEnvelope
+    connect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+  }
+
+  export type FuncionarioObraUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<FuncionarioObraCreateWithoutOrganizationInput, FuncionarioObraUncheckedCreateWithoutOrganizationInput> | FuncionarioObraCreateWithoutOrganizationInput[] | FuncionarioObraUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: FuncionarioObraCreateOrConnectWithoutOrganizationInput | FuncionarioObraCreateOrConnectWithoutOrganizationInput[]
+    createMany?: FuncionarioObraCreateManyOrganizationInputEnvelope
+    connect?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -21806,6 +33367,76 @@ export namespace Prisma {
     deleteMany?: OrcamentoScalarWhereInput | OrcamentoScalarWhereInput[]
   }
 
+  export type RegistroFrequenciaUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<RegistroFrequenciaCreateWithoutOrganizationInput, RegistroFrequenciaUncheckedCreateWithoutOrganizationInput> | RegistroFrequenciaCreateWithoutOrganizationInput[] | RegistroFrequenciaUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: RegistroFrequenciaCreateOrConnectWithoutOrganizationInput | RegistroFrequenciaCreateOrConnectWithoutOrganizationInput[]
+    upsert?: RegistroFrequenciaUpsertWithWhereUniqueWithoutOrganizationInput | RegistroFrequenciaUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: RegistroFrequenciaCreateManyOrganizationInputEnvelope
+    set?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    disconnect?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    delete?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    connect?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    update?: RegistroFrequenciaUpdateWithWhereUniqueWithoutOrganizationInput | RegistroFrequenciaUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: RegistroFrequenciaUpdateManyWithWhereWithoutOrganizationInput | RegistroFrequenciaUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: RegistroFrequenciaScalarWhereInput | RegistroFrequenciaScalarWhereInput[]
+  }
+
+  export type EtapaObraUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<EtapaObraCreateWithoutOrganizationInput, EtapaObraUncheckedCreateWithoutOrganizationInput> | EtapaObraCreateWithoutOrganizationInput[] | EtapaObraUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: EtapaObraCreateOrConnectWithoutOrganizationInput | EtapaObraCreateOrConnectWithoutOrganizationInput[]
+    upsert?: EtapaObraUpsertWithWhereUniqueWithoutOrganizationInput | EtapaObraUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: EtapaObraCreateManyOrganizationInputEnvelope
+    set?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+    disconnect?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+    delete?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+    connect?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+    update?: EtapaObraUpdateWithWhereUniqueWithoutOrganizationInput | EtapaObraUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: EtapaObraUpdateManyWithWhereWithoutOrganizationInput | EtapaObraUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: EtapaObraScalarWhereInput | EtapaObraScalarWhereInput[]
+  }
+
+  export type ItemEstoqueUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<ItemEstoqueCreateWithoutOrganizationInput, ItemEstoqueUncheckedCreateWithoutOrganizationInput> | ItemEstoqueCreateWithoutOrganizationInput[] | ItemEstoqueUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: ItemEstoqueCreateOrConnectWithoutOrganizationInput | ItemEstoqueCreateOrConnectWithoutOrganizationInput[]
+    upsert?: ItemEstoqueUpsertWithWhereUniqueWithoutOrganizationInput | ItemEstoqueUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: ItemEstoqueCreateManyOrganizationInputEnvelope
+    set?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    disconnect?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    delete?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    connect?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    update?: ItemEstoqueUpdateWithWhereUniqueWithoutOrganizationInput | ItemEstoqueUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: ItemEstoqueUpdateManyWithWhereWithoutOrganizationInput | ItemEstoqueUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: ItemEstoqueScalarWhereInput | ItemEstoqueScalarWhereInput[]
+  }
+
+  export type MovimentacaoEstoqueUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<MovimentacaoEstoqueCreateWithoutOrganizationInput, MovimentacaoEstoqueUncheckedCreateWithoutOrganizationInput> | MovimentacaoEstoqueCreateWithoutOrganizationInput[] | MovimentacaoEstoqueUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: MovimentacaoEstoqueCreateOrConnectWithoutOrganizationInput | MovimentacaoEstoqueCreateOrConnectWithoutOrganizationInput[]
+    upsert?: MovimentacaoEstoqueUpsertWithWhereUniqueWithoutOrganizationInput | MovimentacaoEstoqueUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: MovimentacaoEstoqueCreateManyOrganizationInputEnvelope
+    set?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    disconnect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    delete?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    connect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    update?: MovimentacaoEstoqueUpdateWithWhereUniqueWithoutOrganizationInput | MovimentacaoEstoqueUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: MovimentacaoEstoqueUpdateManyWithWhereWithoutOrganizationInput | MovimentacaoEstoqueUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: MovimentacaoEstoqueScalarWhereInput | MovimentacaoEstoqueScalarWhereInput[]
+  }
+
+  export type FuncionarioObraUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<FuncionarioObraCreateWithoutOrganizationInput, FuncionarioObraUncheckedCreateWithoutOrganizationInput> | FuncionarioObraCreateWithoutOrganizationInput[] | FuncionarioObraUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: FuncionarioObraCreateOrConnectWithoutOrganizationInput | FuncionarioObraCreateOrConnectWithoutOrganizationInput[]
+    upsert?: FuncionarioObraUpsertWithWhereUniqueWithoutOrganizationInput | FuncionarioObraUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: FuncionarioObraCreateManyOrganizationInputEnvelope
+    set?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    disconnect?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    delete?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    connect?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    update?: FuncionarioObraUpdateWithWhereUniqueWithoutOrganizationInput | FuncionarioObraUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: FuncionarioObraUpdateManyWithWhereWithoutOrganizationInput | FuncionarioObraUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: FuncionarioObraScalarWhereInput | FuncionarioObraScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutOrganizationNestedInput = {
     create?: XOR<UserCreateWithoutOrganizationInput, UserUncheckedCreateWithoutOrganizationInput> | UserCreateWithoutOrganizationInput[] | UserUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOrganizationInput | UserCreateOrConnectWithoutOrganizationInput[]
@@ -21960,6 +33591,76 @@ export namespace Prisma {
     deleteMany?: OrcamentoScalarWhereInput | OrcamentoScalarWhereInput[]
   }
 
+  export type RegistroFrequenciaUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<RegistroFrequenciaCreateWithoutOrganizationInput, RegistroFrequenciaUncheckedCreateWithoutOrganizationInput> | RegistroFrequenciaCreateWithoutOrganizationInput[] | RegistroFrequenciaUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: RegistroFrequenciaCreateOrConnectWithoutOrganizationInput | RegistroFrequenciaCreateOrConnectWithoutOrganizationInput[]
+    upsert?: RegistroFrequenciaUpsertWithWhereUniqueWithoutOrganizationInput | RegistroFrequenciaUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: RegistroFrequenciaCreateManyOrganizationInputEnvelope
+    set?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    disconnect?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    delete?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    connect?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    update?: RegistroFrequenciaUpdateWithWhereUniqueWithoutOrganizationInput | RegistroFrequenciaUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: RegistroFrequenciaUpdateManyWithWhereWithoutOrganizationInput | RegistroFrequenciaUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: RegistroFrequenciaScalarWhereInput | RegistroFrequenciaScalarWhereInput[]
+  }
+
+  export type EtapaObraUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<EtapaObraCreateWithoutOrganizationInput, EtapaObraUncheckedCreateWithoutOrganizationInput> | EtapaObraCreateWithoutOrganizationInput[] | EtapaObraUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: EtapaObraCreateOrConnectWithoutOrganizationInput | EtapaObraCreateOrConnectWithoutOrganizationInput[]
+    upsert?: EtapaObraUpsertWithWhereUniqueWithoutOrganizationInput | EtapaObraUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: EtapaObraCreateManyOrganizationInputEnvelope
+    set?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+    disconnect?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+    delete?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+    connect?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+    update?: EtapaObraUpdateWithWhereUniqueWithoutOrganizationInput | EtapaObraUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: EtapaObraUpdateManyWithWhereWithoutOrganizationInput | EtapaObraUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: EtapaObraScalarWhereInput | EtapaObraScalarWhereInput[]
+  }
+
+  export type ItemEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<ItemEstoqueCreateWithoutOrganizationInput, ItemEstoqueUncheckedCreateWithoutOrganizationInput> | ItemEstoqueCreateWithoutOrganizationInput[] | ItemEstoqueUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: ItemEstoqueCreateOrConnectWithoutOrganizationInput | ItemEstoqueCreateOrConnectWithoutOrganizationInput[]
+    upsert?: ItemEstoqueUpsertWithWhereUniqueWithoutOrganizationInput | ItemEstoqueUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: ItemEstoqueCreateManyOrganizationInputEnvelope
+    set?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    disconnect?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    delete?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    connect?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    update?: ItemEstoqueUpdateWithWhereUniqueWithoutOrganizationInput | ItemEstoqueUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: ItemEstoqueUpdateManyWithWhereWithoutOrganizationInput | ItemEstoqueUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: ItemEstoqueScalarWhereInput | ItemEstoqueScalarWhereInput[]
+  }
+
+  export type MovimentacaoEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<MovimentacaoEstoqueCreateWithoutOrganizationInput, MovimentacaoEstoqueUncheckedCreateWithoutOrganizationInput> | MovimentacaoEstoqueCreateWithoutOrganizationInput[] | MovimentacaoEstoqueUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: MovimentacaoEstoqueCreateOrConnectWithoutOrganizationInput | MovimentacaoEstoqueCreateOrConnectWithoutOrganizationInput[]
+    upsert?: MovimentacaoEstoqueUpsertWithWhereUniqueWithoutOrganizationInput | MovimentacaoEstoqueUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: MovimentacaoEstoqueCreateManyOrganizationInputEnvelope
+    set?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    disconnect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    delete?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    connect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    update?: MovimentacaoEstoqueUpdateWithWhereUniqueWithoutOrganizationInput | MovimentacaoEstoqueUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: MovimentacaoEstoqueUpdateManyWithWhereWithoutOrganizationInput | MovimentacaoEstoqueUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: MovimentacaoEstoqueScalarWhereInput | MovimentacaoEstoqueScalarWhereInput[]
+  }
+
+  export type FuncionarioObraUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<FuncionarioObraCreateWithoutOrganizationInput, FuncionarioObraUncheckedCreateWithoutOrganizationInput> | FuncionarioObraCreateWithoutOrganizationInput[] | FuncionarioObraUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: FuncionarioObraCreateOrConnectWithoutOrganizationInput | FuncionarioObraCreateOrConnectWithoutOrganizationInput[]
+    upsert?: FuncionarioObraUpsertWithWhereUniqueWithoutOrganizationInput | FuncionarioObraUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: FuncionarioObraCreateManyOrganizationInputEnvelope
+    set?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    disconnect?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    delete?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    connect?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    update?: FuncionarioObraUpdateWithWhereUniqueWithoutOrganizationInput | FuncionarioObraUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: FuncionarioObraUpdateManyWithWhereWithoutOrganizationInput | FuncionarioObraUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: FuncionarioObraScalarWhereInput | FuncionarioObraScalarWhereInput[]
+  }
+
   export type OrganizationCreateNestedOneWithoutCargosInput = {
     create?: XOR<OrganizationCreateWithoutCargosInput, OrganizationUncheckedCreateWithoutCargosInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutCargosInput
@@ -22005,6 +33706,13 @@ export namespace Prisma {
     connect?: TransacaoFinanceiraWhereUniqueInput | TransacaoFinanceiraWhereUniqueInput[]
   }
 
+  export type MovimentacaoEstoqueCreateNestedManyWithoutUserInput = {
+    create?: XOR<MovimentacaoEstoqueCreateWithoutUserInput, MovimentacaoEstoqueUncheckedCreateWithoutUserInput> | MovimentacaoEstoqueCreateWithoutUserInput[] | MovimentacaoEstoqueUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MovimentacaoEstoqueCreateOrConnectWithoutUserInput | MovimentacaoEstoqueCreateOrConnectWithoutUserInput[]
+    createMany?: MovimentacaoEstoqueCreateManyUserInputEnvelope
+    connect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+  }
+
   export type ObraUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<ObraCreateWithoutUserInput, ObraUncheckedCreateWithoutUserInput> | ObraCreateWithoutUserInput[] | ObraUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ObraCreateOrConnectWithoutUserInput | ObraCreateOrConnectWithoutUserInput[]
@@ -22024,6 +33732,13 @@ export namespace Prisma {
     connectOrCreate?: TransacaoFinanceiraCreateOrConnectWithoutUserInput | TransacaoFinanceiraCreateOrConnectWithoutUserInput[]
     createMany?: TransacaoFinanceiraCreateManyUserInputEnvelope
     connect?: TransacaoFinanceiraWhereUniqueInput | TransacaoFinanceiraWhereUniqueInput[]
+  }
+
+  export type MovimentacaoEstoqueUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<MovimentacaoEstoqueCreateWithoutUserInput, MovimentacaoEstoqueUncheckedCreateWithoutUserInput> | MovimentacaoEstoqueCreateWithoutUserInput[] | MovimentacaoEstoqueUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MovimentacaoEstoqueCreateOrConnectWithoutUserInput | MovimentacaoEstoqueCreateOrConnectWithoutUserInput[]
+    createMany?: MovimentacaoEstoqueCreateManyUserInputEnvelope
+    connect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -22082,6 +33797,20 @@ export namespace Prisma {
     deleteMany?: TransacaoFinanceiraScalarWhereInput | TransacaoFinanceiraScalarWhereInput[]
   }
 
+  export type MovimentacaoEstoqueUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MovimentacaoEstoqueCreateWithoutUserInput, MovimentacaoEstoqueUncheckedCreateWithoutUserInput> | MovimentacaoEstoqueCreateWithoutUserInput[] | MovimentacaoEstoqueUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MovimentacaoEstoqueCreateOrConnectWithoutUserInput | MovimentacaoEstoqueCreateOrConnectWithoutUserInput[]
+    upsert?: MovimentacaoEstoqueUpsertWithWhereUniqueWithoutUserInput | MovimentacaoEstoqueUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MovimentacaoEstoqueCreateManyUserInputEnvelope
+    set?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    disconnect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    delete?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    connect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    update?: MovimentacaoEstoqueUpdateWithWhereUniqueWithoutUserInput | MovimentacaoEstoqueUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MovimentacaoEstoqueUpdateManyWithWhereWithoutUserInput | MovimentacaoEstoqueUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MovimentacaoEstoqueScalarWhereInput | MovimentacaoEstoqueScalarWhereInput[]
+  }
+
   export type ObraUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<ObraCreateWithoutUserInput, ObraUncheckedCreateWithoutUserInput> | ObraCreateWithoutUserInput[] | ObraUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ObraCreateOrConnectWithoutUserInput | ObraCreateOrConnectWithoutUserInput[]
@@ -22122,6 +33851,20 @@ export namespace Prisma {
     update?: TransacaoFinanceiraUpdateWithWhereUniqueWithoutUserInput | TransacaoFinanceiraUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: TransacaoFinanceiraUpdateManyWithWhereWithoutUserInput | TransacaoFinanceiraUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: TransacaoFinanceiraScalarWhereInput | TransacaoFinanceiraScalarWhereInput[]
+  }
+
+  export type MovimentacaoEstoqueUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MovimentacaoEstoqueCreateWithoutUserInput, MovimentacaoEstoqueUncheckedCreateWithoutUserInput> | MovimentacaoEstoqueCreateWithoutUserInput[] | MovimentacaoEstoqueUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MovimentacaoEstoqueCreateOrConnectWithoutUserInput | MovimentacaoEstoqueCreateOrConnectWithoutUserInput[]
+    upsert?: MovimentacaoEstoqueUpsertWithWhereUniqueWithoutUserInput | MovimentacaoEstoqueUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MovimentacaoEstoqueCreateManyUserInputEnvelope
+    set?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    disconnect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    delete?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    connect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    update?: MovimentacaoEstoqueUpdateWithWhereUniqueWithoutUserInput | MovimentacaoEstoqueUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MovimentacaoEstoqueUpdateManyWithWhereWithoutUserInput | MovimentacaoEstoqueUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MovimentacaoEstoqueScalarWhereInput | MovimentacaoEstoqueScalarWhereInput[]
   }
 
   export type OrganizationCreateNestedOneWithoutObrasInput = {
@@ -22185,6 +33928,48 @@ export namespace Prisma {
     connect?: PagamentoWhereUniqueInput | PagamentoWhereUniqueInput[]
   }
 
+  export type RegistroFrequenciaCreateNestedManyWithoutObraInput = {
+    create?: XOR<RegistroFrequenciaCreateWithoutObraInput, RegistroFrequenciaUncheckedCreateWithoutObraInput> | RegistroFrequenciaCreateWithoutObraInput[] | RegistroFrequenciaUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: RegistroFrequenciaCreateOrConnectWithoutObraInput | RegistroFrequenciaCreateOrConnectWithoutObraInput[]
+    createMany?: RegistroFrequenciaCreateManyObraInputEnvelope
+    connect?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+  }
+
+  export type OrcamentoCreateNestedManyWithoutObraInput = {
+    create?: XOR<OrcamentoCreateWithoutObraInput, OrcamentoUncheckedCreateWithoutObraInput> | OrcamentoCreateWithoutObraInput[] | OrcamentoUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: OrcamentoCreateOrConnectWithoutObraInput | OrcamentoCreateOrConnectWithoutObraInput[]
+    createMany?: OrcamentoCreateManyObraInputEnvelope
+    connect?: OrcamentoWhereUniqueInput | OrcamentoWhereUniqueInput[]
+  }
+
+  export type EtapaObraCreateNestedManyWithoutObraInput = {
+    create?: XOR<EtapaObraCreateWithoutObraInput, EtapaObraUncheckedCreateWithoutObraInput> | EtapaObraCreateWithoutObraInput[] | EtapaObraUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: EtapaObraCreateOrConnectWithoutObraInput | EtapaObraCreateOrConnectWithoutObraInput[]
+    createMany?: EtapaObraCreateManyObraInputEnvelope
+    connect?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+  }
+
+  export type ItemEstoqueCreateNestedManyWithoutObraInput = {
+    create?: XOR<ItemEstoqueCreateWithoutObraInput, ItemEstoqueUncheckedCreateWithoutObraInput> | ItemEstoqueCreateWithoutObraInput[] | ItemEstoqueUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: ItemEstoqueCreateOrConnectWithoutObraInput | ItemEstoqueCreateOrConnectWithoutObraInput[]
+    createMany?: ItemEstoqueCreateManyObraInputEnvelope
+    connect?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+  }
+
+  export type MovimentacaoEstoqueCreateNestedManyWithoutObraInput = {
+    create?: XOR<MovimentacaoEstoqueCreateWithoutObraInput, MovimentacaoEstoqueUncheckedCreateWithoutObraInput> | MovimentacaoEstoqueCreateWithoutObraInput[] | MovimentacaoEstoqueUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: MovimentacaoEstoqueCreateOrConnectWithoutObraInput | MovimentacaoEstoqueCreateOrConnectWithoutObraInput[]
+    createMany?: MovimentacaoEstoqueCreateManyObraInputEnvelope
+    connect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+  }
+
+  export type FuncionarioObraCreateNestedManyWithoutObraInput = {
+    create?: XOR<FuncionarioObraCreateWithoutObraInput, FuncionarioObraUncheckedCreateWithoutObraInput> | FuncionarioObraCreateWithoutObraInput[] | FuncionarioObraUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: FuncionarioObraCreateOrConnectWithoutObraInput | FuncionarioObraCreateOrConnectWithoutObraInput[]
+    createMany?: FuncionarioObraCreateManyObraInputEnvelope
+    connect?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+  }
+
   export type FuncionarioUncheckedCreateNestedManyWithoutObraInput = {
     create?: XOR<FuncionarioCreateWithoutObraInput, FuncionarioUncheckedCreateWithoutObraInput> | FuncionarioCreateWithoutObraInput[] | FuncionarioUncheckedCreateWithoutObraInput[]
     connectOrCreate?: FuncionarioCreateOrConnectWithoutObraInput | FuncionarioCreateOrConnectWithoutObraInput[]
@@ -22234,6 +34019,48 @@ export namespace Prisma {
     connect?: PagamentoWhereUniqueInput | PagamentoWhereUniqueInput[]
   }
 
+  export type RegistroFrequenciaUncheckedCreateNestedManyWithoutObraInput = {
+    create?: XOR<RegistroFrequenciaCreateWithoutObraInput, RegistroFrequenciaUncheckedCreateWithoutObraInput> | RegistroFrequenciaCreateWithoutObraInput[] | RegistroFrequenciaUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: RegistroFrequenciaCreateOrConnectWithoutObraInput | RegistroFrequenciaCreateOrConnectWithoutObraInput[]
+    createMany?: RegistroFrequenciaCreateManyObraInputEnvelope
+    connect?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+  }
+
+  export type OrcamentoUncheckedCreateNestedManyWithoutObraInput = {
+    create?: XOR<OrcamentoCreateWithoutObraInput, OrcamentoUncheckedCreateWithoutObraInput> | OrcamentoCreateWithoutObraInput[] | OrcamentoUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: OrcamentoCreateOrConnectWithoutObraInput | OrcamentoCreateOrConnectWithoutObraInput[]
+    createMany?: OrcamentoCreateManyObraInputEnvelope
+    connect?: OrcamentoWhereUniqueInput | OrcamentoWhereUniqueInput[]
+  }
+
+  export type EtapaObraUncheckedCreateNestedManyWithoutObraInput = {
+    create?: XOR<EtapaObraCreateWithoutObraInput, EtapaObraUncheckedCreateWithoutObraInput> | EtapaObraCreateWithoutObraInput[] | EtapaObraUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: EtapaObraCreateOrConnectWithoutObraInput | EtapaObraCreateOrConnectWithoutObraInput[]
+    createMany?: EtapaObraCreateManyObraInputEnvelope
+    connect?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+  }
+
+  export type ItemEstoqueUncheckedCreateNestedManyWithoutObraInput = {
+    create?: XOR<ItemEstoqueCreateWithoutObraInput, ItemEstoqueUncheckedCreateWithoutObraInput> | ItemEstoqueCreateWithoutObraInput[] | ItemEstoqueUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: ItemEstoqueCreateOrConnectWithoutObraInput | ItemEstoqueCreateOrConnectWithoutObraInput[]
+    createMany?: ItemEstoqueCreateManyObraInputEnvelope
+    connect?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+  }
+
+  export type MovimentacaoEstoqueUncheckedCreateNestedManyWithoutObraInput = {
+    create?: XOR<MovimentacaoEstoqueCreateWithoutObraInput, MovimentacaoEstoqueUncheckedCreateWithoutObraInput> | MovimentacaoEstoqueCreateWithoutObraInput[] | MovimentacaoEstoqueUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: MovimentacaoEstoqueCreateOrConnectWithoutObraInput | MovimentacaoEstoqueCreateOrConnectWithoutObraInput[]
+    createMany?: MovimentacaoEstoqueCreateManyObraInputEnvelope
+    connect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+  }
+
+  export type FuncionarioObraUncheckedCreateNestedManyWithoutObraInput = {
+    create?: XOR<FuncionarioObraCreateWithoutObraInput, FuncionarioObraUncheckedCreateWithoutObraInput> | FuncionarioObraCreateWithoutObraInput[] | FuncionarioObraUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: FuncionarioObraCreateOrConnectWithoutObraInput | FuncionarioObraCreateOrConnectWithoutObraInput[]
+    createMany?: FuncionarioObraCreateManyObraInputEnvelope
+    connect?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+  }
+
   export type EnumObraStatusFieldUpdateOperationsInput = {
     set?: $Enums.ObraStatus
   }
@@ -22244,6 +34071,10 @@ export namespace Prisma {
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
     divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type OrganizationUpdateOneRequiredWithoutObrasNestedInput = {
@@ -22360,6 +34191,90 @@ export namespace Prisma {
     deleteMany?: PagamentoScalarWhereInput | PagamentoScalarWhereInput[]
   }
 
+  export type RegistroFrequenciaUpdateManyWithoutObraNestedInput = {
+    create?: XOR<RegistroFrequenciaCreateWithoutObraInput, RegistroFrequenciaUncheckedCreateWithoutObraInput> | RegistroFrequenciaCreateWithoutObraInput[] | RegistroFrequenciaUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: RegistroFrequenciaCreateOrConnectWithoutObraInput | RegistroFrequenciaCreateOrConnectWithoutObraInput[]
+    upsert?: RegistroFrequenciaUpsertWithWhereUniqueWithoutObraInput | RegistroFrequenciaUpsertWithWhereUniqueWithoutObraInput[]
+    createMany?: RegistroFrequenciaCreateManyObraInputEnvelope
+    set?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    disconnect?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    delete?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    connect?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    update?: RegistroFrequenciaUpdateWithWhereUniqueWithoutObraInput | RegistroFrequenciaUpdateWithWhereUniqueWithoutObraInput[]
+    updateMany?: RegistroFrequenciaUpdateManyWithWhereWithoutObraInput | RegistroFrequenciaUpdateManyWithWhereWithoutObraInput[]
+    deleteMany?: RegistroFrequenciaScalarWhereInput | RegistroFrequenciaScalarWhereInput[]
+  }
+
+  export type OrcamentoUpdateManyWithoutObraNestedInput = {
+    create?: XOR<OrcamentoCreateWithoutObraInput, OrcamentoUncheckedCreateWithoutObraInput> | OrcamentoCreateWithoutObraInput[] | OrcamentoUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: OrcamentoCreateOrConnectWithoutObraInput | OrcamentoCreateOrConnectWithoutObraInput[]
+    upsert?: OrcamentoUpsertWithWhereUniqueWithoutObraInput | OrcamentoUpsertWithWhereUniqueWithoutObraInput[]
+    createMany?: OrcamentoCreateManyObraInputEnvelope
+    set?: OrcamentoWhereUniqueInput | OrcamentoWhereUniqueInput[]
+    disconnect?: OrcamentoWhereUniqueInput | OrcamentoWhereUniqueInput[]
+    delete?: OrcamentoWhereUniqueInput | OrcamentoWhereUniqueInput[]
+    connect?: OrcamentoWhereUniqueInput | OrcamentoWhereUniqueInput[]
+    update?: OrcamentoUpdateWithWhereUniqueWithoutObraInput | OrcamentoUpdateWithWhereUniqueWithoutObraInput[]
+    updateMany?: OrcamentoUpdateManyWithWhereWithoutObraInput | OrcamentoUpdateManyWithWhereWithoutObraInput[]
+    deleteMany?: OrcamentoScalarWhereInput | OrcamentoScalarWhereInput[]
+  }
+
+  export type EtapaObraUpdateManyWithoutObraNestedInput = {
+    create?: XOR<EtapaObraCreateWithoutObraInput, EtapaObraUncheckedCreateWithoutObraInput> | EtapaObraCreateWithoutObraInput[] | EtapaObraUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: EtapaObraCreateOrConnectWithoutObraInput | EtapaObraCreateOrConnectWithoutObraInput[]
+    upsert?: EtapaObraUpsertWithWhereUniqueWithoutObraInput | EtapaObraUpsertWithWhereUniqueWithoutObraInput[]
+    createMany?: EtapaObraCreateManyObraInputEnvelope
+    set?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+    disconnect?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+    delete?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+    connect?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+    update?: EtapaObraUpdateWithWhereUniqueWithoutObraInput | EtapaObraUpdateWithWhereUniqueWithoutObraInput[]
+    updateMany?: EtapaObraUpdateManyWithWhereWithoutObraInput | EtapaObraUpdateManyWithWhereWithoutObraInput[]
+    deleteMany?: EtapaObraScalarWhereInput | EtapaObraScalarWhereInput[]
+  }
+
+  export type ItemEstoqueUpdateManyWithoutObraNestedInput = {
+    create?: XOR<ItemEstoqueCreateWithoutObraInput, ItemEstoqueUncheckedCreateWithoutObraInput> | ItemEstoqueCreateWithoutObraInput[] | ItemEstoqueUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: ItemEstoqueCreateOrConnectWithoutObraInput | ItemEstoqueCreateOrConnectWithoutObraInput[]
+    upsert?: ItemEstoqueUpsertWithWhereUniqueWithoutObraInput | ItemEstoqueUpsertWithWhereUniqueWithoutObraInput[]
+    createMany?: ItemEstoqueCreateManyObraInputEnvelope
+    set?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    disconnect?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    delete?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    connect?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    update?: ItemEstoqueUpdateWithWhereUniqueWithoutObraInput | ItemEstoqueUpdateWithWhereUniqueWithoutObraInput[]
+    updateMany?: ItemEstoqueUpdateManyWithWhereWithoutObraInput | ItemEstoqueUpdateManyWithWhereWithoutObraInput[]
+    deleteMany?: ItemEstoqueScalarWhereInput | ItemEstoqueScalarWhereInput[]
+  }
+
+  export type MovimentacaoEstoqueUpdateManyWithoutObraNestedInput = {
+    create?: XOR<MovimentacaoEstoqueCreateWithoutObraInput, MovimentacaoEstoqueUncheckedCreateWithoutObraInput> | MovimentacaoEstoqueCreateWithoutObraInput[] | MovimentacaoEstoqueUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: MovimentacaoEstoqueCreateOrConnectWithoutObraInput | MovimentacaoEstoqueCreateOrConnectWithoutObraInput[]
+    upsert?: MovimentacaoEstoqueUpsertWithWhereUniqueWithoutObraInput | MovimentacaoEstoqueUpsertWithWhereUniqueWithoutObraInput[]
+    createMany?: MovimentacaoEstoqueCreateManyObraInputEnvelope
+    set?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    disconnect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    delete?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    connect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    update?: MovimentacaoEstoqueUpdateWithWhereUniqueWithoutObraInput | MovimentacaoEstoqueUpdateWithWhereUniqueWithoutObraInput[]
+    updateMany?: MovimentacaoEstoqueUpdateManyWithWhereWithoutObraInput | MovimentacaoEstoqueUpdateManyWithWhereWithoutObraInput[]
+    deleteMany?: MovimentacaoEstoqueScalarWhereInput | MovimentacaoEstoqueScalarWhereInput[]
+  }
+
+  export type FuncionarioObraUpdateManyWithoutObraNestedInput = {
+    create?: XOR<FuncionarioObraCreateWithoutObraInput, FuncionarioObraUncheckedCreateWithoutObraInput> | FuncionarioObraCreateWithoutObraInput[] | FuncionarioObraUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: FuncionarioObraCreateOrConnectWithoutObraInput | FuncionarioObraCreateOrConnectWithoutObraInput[]
+    upsert?: FuncionarioObraUpsertWithWhereUniqueWithoutObraInput | FuncionarioObraUpsertWithWhereUniqueWithoutObraInput[]
+    createMany?: FuncionarioObraCreateManyObraInputEnvelope
+    set?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    disconnect?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    delete?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    connect?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    update?: FuncionarioObraUpdateWithWhereUniqueWithoutObraInput | FuncionarioObraUpdateWithWhereUniqueWithoutObraInput[]
+    updateMany?: FuncionarioObraUpdateManyWithWhereWithoutObraInput | FuncionarioObraUpdateManyWithWhereWithoutObraInput[]
+    deleteMany?: FuncionarioObraScalarWhereInput | FuncionarioObraScalarWhereInput[]
+  }
+
   export type FuncionarioUncheckedUpdateManyWithoutObraNestedInput = {
     create?: XOR<FuncionarioCreateWithoutObraInput, FuncionarioUncheckedCreateWithoutObraInput> | FuncionarioCreateWithoutObraInput[] | FuncionarioUncheckedCreateWithoutObraInput[]
     connectOrCreate?: FuncionarioCreateOrConnectWithoutObraInput | FuncionarioCreateOrConnectWithoutObraInput[]
@@ -22458,6 +34373,90 @@ export namespace Prisma {
     deleteMany?: PagamentoScalarWhereInput | PagamentoScalarWhereInput[]
   }
 
+  export type RegistroFrequenciaUncheckedUpdateManyWithoutObraNestedInput = {
+    create?: XOR<RegistroFrequenciaCreateWithoutObraInput, RegistroFrequenciaUncheckedCreateWithoutObraInput> | RegistroFrequenciaCreateWithoutObraInput[] | RegistroFrequenciaUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: RegistroFrequenciaCreateOrConnectWithoutObraInput | RegistroFrequenciaCreateOrConnectWithoutObraInput[]
+    upsert?: RegistroFrequenciaUpsertWithWhereUniqueWithoutObraInput | RegistroFrequenciaUpsertWithWhereUniqueWithoutObraInput[]
+    createMany?: RegistroFrequenciaCreateManyObraInputEnvelope
+    set?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    disconnect?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    delete?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    connect?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    update?: RegistroFrequenciaUpdateWithWhereUniqueWithoutObraInput | RegistroFrequenciaUpdateWithWhereUniqueWithoutObraInput[]
+    updateMany?: RegistroFrequenciaUpdateManyWithWhereWithoutObraInput | RegistroFrequenciaUpdateManyWithWhereWithoutObraInput[]
+    deleteMany?: RegistroFrequenciaScalarWhereInput | RegistroFrequenciaScalarWhereInput[]
+  }
+
+  export type OrcamentoUncheckedUpdateManyWithoutObraNestedInput = {
+    create?: XOR<OrcamentoCreateWithoutObraInput, OrcamentoUncheckedCreateWithoutObraInput> | OrcamentoCreateWithoutObraInput[] | OrcamentoUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: OrcamentoCreateOrConnectWithoutObraInput | OrcamentoCreateOrConnectWithoutObraInput[]
+    upsert?: OrcamentoUpsertWithWhereUniqueWithoutObraInput | OrcamentoUpsertWithWhereUniqueWithoutObraInput[]
+    createMany?: OrcamentoCreateManyObraInputEnvelope
+    set?: OrcamentoWhereUniqueInput | OrcamentoWhereUniqueInput[]
+    disconnect?: OrcamentoWhereUniqueInput | OrcamentoWhereUniqueInput[]
+    delete?: OrcamentoWhereUniqueInput | OrcamentoWhereUniqueInput[]
+    connect?: OrcamentoWhereUniqueInput | OrcamentoWhereUniqueInput[]
+    update?: OrcamentoUpdateWithWhereUniqueWithoutObraInput | OrcamentoUpdateWithWhereUniqueWithoutObraInput[]
+    updateMany?: OrcamentoUpdateManyWithWhereWithoutObraInput | OrcamentoUpdateManyWithWhereWithoutObraInput[]
+    deleteMany?: OrcamentoScalarWhereInput | OrcamentoScalarWhereInput[]
+  }
+
+  export type EtapaObraUncheckedUpdateManyWithoutObraNestedInput = {
+    create?: XOR<EtapaObraCreateWithoutObraInput, EtapaObraUncheckedCreateWithoutObraInput> | EtapaObraCreateWithoutObraInput[] | EtapaObraUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: EtapaObraCreateOrConnectWithoutObraInput | EtapaObraCreateOrConnectWithoutObraInput[]
+    upsert?: EtapaObraUpsertWithWhereUniqueWithoutObraInput | EtapaObraUpsertWithWhereUniqueWithoutObraInput[]
+    createMany?: EtapaObraCreateManyObraInputEnvelope
+    set?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+    disconnect?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+    delete?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+    connect?: EtapaObraWhereUniqueInput | EtapaObraWhereUniqueInput[]
+    update?: EtapaObraUpdateWithWhereUniqueWithoutObraInput | EtapaObraUpdateWithWhereUniqueWithoutObraInput[]
+    updateMany?: EtapaObraUpdateManyWithWhereWithoutObraInput | EtapaObraUpdateManyWithWhereWithoutObraInput[]
+    deleteMany?: EtapaObraScalarWhereInput | EtapaObraScalarWhereInput[]
+  }
+
+  export type ItemEstoqueUncheckedUpdateManyWithoutObraNestedInput = {
+    create?: XOR<ItemEstoqueCreateWithoutObraInput, ItemEstoqueUncheckedCreateWithoutObraInput> | ItemEstoqueCreateWithoutObraInput[] | ItemEstoqueUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: ItemEstoqueCreateOrConnectWithoutObraInput | ItemEstoqueCreateOrConnectWithoutObraInput[]
+    upsert?: ItemEstoqueUpsertWithWhereUniqueWithoutObraInput | ItemEstoqueUpsertWithWhereUniqueWithoutObraInput[]
+    createMany?: ItemEstoqueCreateManyObraInputEnvelope
+    set?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    disconnect?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    delete?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    connect?: ItemEstoqueWhereUniqueInput | ItemEstoqueWhereUniqueInput[]
+    update?: ItemEstoqueUpdateWithWhereUniqueWithoutObraInput | ItemEstoqueUpdateWithWhereUniqueWithoutObraInput[]
+    updateMany?: ItemEstoqueUpdateManyWithWhereWithoutObraInput | ItemEstoqueUpdateManyWithWhereWithoutObraInput[]
+    deleteMany?: ItemEstoqueScalarWhereInput | ItemEstoqueScalarWhereInput[]
+  }
+
+  export type MovimentacaoEstoqueUncheckedUpdateManyWithoutObraNestedInput = {
+    create?: XOR<MovimentacaoEstoqueCreateWithoutObraInput, MovimentacaoEstoqueUncheckedCreateWithoutObraInput> | MovimentacaoEstoqueCreateWithoutObraInput[] | MovimentacaoEstoqueUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: MovimentacaoEstoqueCreateOrConnectWithoutObraInput | MovimentacaoEstoqueCreateOrConnectWithoutObraInput[]
+    upsert?: MovimentacaoEstoqueUpsertWithWhereUniqueWithoutObraInput | MovimentacaoEstoqueUpsertWithWhereUniqueWithoutObraInput[]
+    createMany?: MovimentacaoEstoqueCreateManyObraInputEnvelope
+    set?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    disconnect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    delete?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    connect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    update?: MovimentacaoEstoqueUpdateWithWhereUniqueWithoutObraInput | MovimentacaoEstoqueUpdateWithWhereUniqueWithoutObraInput[]
+    updateMany?: MovimentacaoEstoqueUpdateManyWithWhereWithoutObraInput | MovimentacaoEstoqueUpdateManyWithWhereWithoutObraInput[]
+    deleteMany?: MovimentacaoEstoqueScalarWhereInput | MovimentacaoEstoqueScalarWhereInput[]
+  }
+
+  export type FuncionarioObraUncheckedUpdateManyWithoutObraNestedInput = {
+    create?: XOR<FuncionarioObraCreateWithoutObraInput, FuncionarioObraUncheckedCreateWithoutObraInput> | FuncionarioObraCreateWithoutObraInput[] | FuncionarioObraUncheckedCreateWithoutObraInput[]
+    connectOrCreate?: FuncionarioObraCreateOrConnectWithoutObraInput | FuncionarioObraCreateOrConnectWithoutObraInput[]
+    upsert?: FuncionarioObraUpsertWithWhereUniqueWithoutObraInput | FuncionarioObraUpsertWithWhereUniqueWithoutObraInput[]
+    createMany?: FuncionarioObraCreateManyObraInputEnvelope
+    set?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    disconnect?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    delete?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    connect?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    update?: FuncionarioObraUpdateWithWhereUniqueWithoutObraInput | FuncionarioObraUpdateWithWhereUniqueWithoutObraInput[]
+    updateMany?: FuncionarioObraUpdateManyWithWhereWithoutObraInput | FuncionarioObraUpdateManyWithWhereWithoutObraInput[]
+    deleteMany?: FuncionarioObraScalarWhereInput | FuncionarioObraScalarWhereInput[]
+  }
+
   export type OrganizationCreateNestedOneWithoutFuncionariosInput = {
     create?: XOR<OrganizationCreateWithoutFuncionariosInput, OrganizationUncheckedCreateWithoutFuncionariosInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutFuncionariosInput
@@ -22477,11 +34476,39 @@ export namespace Prisma {
     connect?: PagamentoWhereUniqueInput | PagamentoWhereUniqueInput[]
   }
 
+  export type RegistroFrequenciaCreateNestedManyWithoutFuncionarioInput = {
+    create?: XOR<RegistroFrequenciaCreateWithoutFuncionarioInput, RegistroFrequenciaUncheckedCreateWithoutFuncionarioInput> | RegistroFrequenciaCreateWithoutFuncionarioInput[] | RegistroFrequenciaUncheckedCreateWithoutFuncionarioInput[]
+    connectOrCreate?: RegistroFrequenciaCreateOrConnectWithoutFuncionarioInput | RegistroFrequenciaCreateOrConnectWithoutFuncionarioInput[]
+    createMany?: RegistroFrequenciaCreateManyFuncionarioInputEnvelope
+    connect?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+  }
+
+  export type FuncionarioObraCreateNestedManyWithoutFuncionarioInput = {
+    create?: XOR<FuncionarioObraCreateWithoutFuncionarioInput, FuncionarioObraUncheckedCreateWithoutFuncionarioInput> | FuncionarioObraCreateWithoutFuncionarioInput[] | FuncionarioObraUncheckedCreateWithoutFuncionarioInput[]
+    connectOrCreate?: FuncionarioObraCreateOrConnectWithoutFuncionarioInput | FuncionarioObraCreateOrConnectWithoutFuncionarioInput[]
+    createMany?: FuncionarioObraCreateManyFuncionarioInputEnvelope
+    connect?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+  }
+
   export type PagamentoUncheckedCreateNestedManyWithoutFuncionarioInput = {
     create?: XOR<PagamentoCreateWithoutFuncionarioInput, PagamentoUncheckedCreateWithoutFuncionarioInput> | PagamentoCreateWithoutFuncionarioInput[] | PagamentoUncheckedCreateWithoutFuncionarioInput[]
     connectOrCreate?: PagamentoCreateOrConnectWithoutFuncionarioInput | PagamentoCreateOrConnectWithoutFuncionarioInput[]
     createMany?: PagamentoCreateManyFuncionarioInputEnvelope
     connect?: PagamentoWhereUniqueInput | PagamentoWhereUniqueInput[]
+  }
+
+  export type RegistroFrequenciaUncheckedCreateNestedManyWithoutFuncionarioInput = {
+    create?: XOR<RegistroFrequenciaCreateWithoutFuncionarioInput, RegistroFrequenciaUncheckedCreateWithoutFuncionarioInput> | RegistroFrequenciaCreateWithoutFuncionarioInput[] | RegistroFrequenciaUncheckedCreateWithoutFuncionarioInput[]
+    connectOrCreate?: RegistroFrequenciaCreateOrConnectWithoutFuncionarioInput | RegistroFrequenciaCreateOrConnectWithoutFuncionarioInput[]
+    createMany?: RegistroFrequenciaCreateManyFuncionarioInputEnvelope
+    connect?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+  }
+
+  export type FuncionarioObraUncheckedCreateNestedManyWithoutFuncionarioInput = {
+    create?: XOR<FuncionarioObraCreateWithoutFuncionarioInput, FuncionarioObraUncheckedCreateWithoutFuncionarioInput> | FuncionarioObraCreateWithoutFuncionarioInput[] | FuncionarioObraUncheckedCreateWithoutFuncionarioInput[]
+    connectOrCreate?: FuncionarioObraCreateOrConnectWithoutFuncionarioInput | FuncionarioObraCreateOrConnectWithoutFuncionarioInput[]
+    createMany?: FuncionarioObraCreateManyFuncionarioInputEnvelope
+    connect?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
   }
 
   export type EnumFuncionarioTipoFieldUpdateOperationsInput = {
@@ -22534,6 +34561,34 @@ export namespace Prisma {
     deleteMany?: PagamentoScalarWhereInput | PagamentoScalarWhereInput[]
   }
 
+  export type RegistroFrequenciaUpdateManyWithoutFuncionarioNestedInput = {
+    create?: XOR<RegistroFrequenciaCreateWithoutFuncionarioInput, RegistroFrequenciaUncheckedCreateWithoutFuncionarioInput> | RegistroFrequenciaCreateWithoutFuncionarioInput[] | RegistroFrequenciaUncheckedCreateWithoutFuncionarioInput[]
+    connectOrCreate?: RegistroFrequenciaCreateOrConnectWithoutFuncionarioInput | RegistroFrequenciaCreateOrConnectWithoutFuncionarioInput[]
+    upsert?: RegistroFrequenciaUpsertWithWhereUniqueWithoutFuncionarioInput | RegistroFrequenciaUpsertWithWhereUniqueWithoutFuncionarioInput[]
+    createMany?: RegistroFrequenciaCreateManyFuncionarioInputEnvelope
+    set?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    disconnect?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    delete?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    connect?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    update?: RegistroFrequenciaUpdateWithWhereUniqueWithoutFuncionarioInput | RegistroFrequenciaUpdateWithWhereUniqueWithoutFuncionarioInput[]
+    updateMany?: RegistroFrequenciaUpdateManyWithWhereWithoutFuncionarioInput | RegistroFrequenciaUpdateManyWithWhereWithoutFuncionarioInput[]
+    deleteMany?: RegistroFrequenciaScalarWhereInput | RegistroFrequenciaScalarWhereInput[]
+  }
+
+  export type FuncionarioObraUpdateManyWithoutFuncionarioNestedInput = {
+    create?: XOR<FuncionarioObraCreateWithoutFuncionarioInput, FuncionarioObraUncheckedCreateWithoutFuncionarioInput> | FuncionarioObraCreateWithoutFuncionarioInput[] | FuncionarioObraUncheckedCreateWithoutFuncionarioInput[]
+    connectOrCreate?: FuncionarioObraCreateOrConnectWithoutFuncionarioInput | FuncionarioObraCreateOrConnectWithoutFuncionarioInput[]
+    upsert?: FuncionarioObraUpsertWithWhereUniqueWithoutFuncionarioInput | FuncionarioObraUpsertWithWhereUniqueWithoutFuncionarioInput[]
+    createMany?: FuncionarioObraCreateManyFuncionarioInputEnvelope
+    set?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    disconnect?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    delete?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    connect?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    update?: FuncionarioObraUpdateWithWhereUniqueWithoutFuncionarioInput | FuncionarioObraUpdateWithWhereUniqueWithoutFuncionarioInput[]
+    updateMany?: FuncionarioObraUpdateManyWithWhereWithoutFuncionarioInput | FuncionarioObraUpdateManyWithWhereWithoutFuncionarioInput[]
+    deleteMany?: FuncionarioObraScalarWhereInput | FuncionarioObraScalarWhereInput[]
+  }
+
   export type PagamentoUncheckedUpdateManyWithoutFuncionarioNestedInput = {
     create?: XOR<PagamentoCreateWithoutFuncionarioInput, PagamentoUncheckedCreateWithoutFuncionarioInput> | PagamentoCreateWithoutFuncionarioInput[] | PagamentoUncheckedCreateWithoutFuncionarioInput[]
     connectOrCreate?: PagamentoCreateOrConnectWithoutFuncionarioInput | PagamentoCreateOrConnectWithoutFuncionarioInput[]
@@ -22546,6 +34601,76 @@ export namespace Prisma {
     update?: PagamentoUpdateWithWhereUniqueWithoutFuncionarioInput | PagamentoUpdateWithWhereUniqueWithoutFuncionarioInput[]
     updateMany?: PagamentoUpdateManyWithWhereWithoutFuncionarioInput | PagamentoUpdateManyWithWhereWithoutFuncionarioInput[]
     deleteMany?: PagamentoScalarWhereInput | PagamentoScalarWhereInput[]
+  }
+
+  export type RegistroFrequenciaUncheckedUpdateManyWithoutFuncionarioNestedInput = {
+    create?: XOR<RegistroFrequenciaCreateWithoutFuncionarioInput, RegistroFrequenciaUncheckedCreateWithoutFuncionarioInput> | RegistroFrequenciaCreateWithoutFuncionarioInput[] | RegistroFrequenciaUncheckedCreateWithoutFuncionarioInput[]
+    connectOrCreate?: RegistroFrequenciaCreateOrConnectWithoutFuncionarioInput | RegistroFrequenciaCreateOrConnectWithoutFuncionarioInput[]
+    upsert?: RegistroFrequenciaUpsertWithWhereUniqueWithoutFuncionarioInput | RegistroFrequenciaUpsertWithWhereUniqueWithoutFuncionarioInput[]
+    createMany?: RegistroFrequenciaCreateManyFuncionarioInputEnvelope
+    set?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    disconnect?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    delete?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    connect?: RegistroFrequenciaWhereUniqueInput | RegistroFrequenciaWhereUniqueInput[]
+    update?: RegistroFrequenciaUpdateWithWhereUniqueWithoutFuncionarioInput | RegistroFrequenciaUpdateWithWhereUniqueWithoutFuncionarioInput[]
+    updateMany?: RegistroFrequenciaUpdateManyWithWhereWithoutFuncionarioInput | RegistroFrequenciaUpdateManyWithWhereWithoutFuncionarioInput[]
+    deleteMany?: RegistroFrequenciaScalarWhereInput | RegistroFrequenciaScalarWhereInput[]
+  }
+
+  export type FuncionarioObraUncheckedUpdateManyWithoutFuncionarioNestedInput = {
+    create?: XOR<FuncionarioObraCreateWithoutFuncionarioInput, FuncionarioObraUncheckedCreateWithoutFuncionarioInput> | FuncionarioObraCreateWithoutFuncionarioInput[] | FuncionarioObraUncheckedCreateWithoutFuncionarioInput[]
+    connectOrCreate?: FuncionarioObraCreateOrConnectWithoutFuncionarioInput | FuncionarioObraCreateOrConnectWithoutFuncionarioInput[]
+    upsert?: FuncionarioObraUpsertWithWhereUniqueWithoutFuncionarioInput | FuncionarioObraUpsertWithWhereUniqueWithoutFuncionarioInput[]
+    createMany?: FuncionarioObraCreateManyFuncionarioInputEnvelope
+    set?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    disconnect?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    delete?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    connect?: FuncionarioObraWhereUniqueInput | FuncionarioObraWhereUniqueInput[]
+    update?: FuncionarioObraUpdateWithWhereUniqueWithoutFuncionarioInput | FuncionarioObraUpdateWithWhereUniqueWithoutFuncionarioInput[]
+    updateMany?: FuncionarioObraUpdateManyWithWhereWithoutFuncionarioInput | FuncionarioObraUpdateManyWithWhereWithoutFuncionarioInput[]
+    deleteMany?: FuncionarioObraScalarWhereInput | FuncionarioObraScalarWhereInput[]
+  }
+
+  export type FuncionarioCreateNestedOneWithoutObrasVinculadasInput = {
+    create?: XOR<FuncionarioCreateWithoutObrasVinculadasInput, FuncionarioUncheckedCreateWithoutObrasVinculadasInput>
+    connectOrCreate?: FuncionarioCreateOrConnectWithoutObrasVinculadasInput
+    connect?: FuncionarioWhereUniqueInput
+  }
+
+  export type ObraCreateNestedOneWithoutFuncionariosVinculadosInput = {
+    create?: XOR<ObraCreateWithoutFuncionariosVinculadosInput, ObraUncheckedCreateWithoutFuncionariosVinculadosInput>
+    connectOrCreate?: ObraCreateOrConnectWithoutFuncionariosVinculadosInput
+    connect?: ObraWhereUniqueInput
+  }
+
+  export type OrganizationCreateNestedOneWithoutFuncionariosVinculadosInput = {
+    create?: XOR<OrganizationCreateWithoutFuncionariosVinculadosInput, OrganizationUncheckedCreateWithoutFuncionariosVinculadosInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutFuncionariosVinculadosInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type FuncionarioUpdateOneRequiredWithoutObrasVinculadasNestedInput = {
+    create?: XOR<FuncionarioCreateWithoutObrasVinculadasInput, FuncionarioUncheckedCreateWithoutObrasVinculadasInput>
+    connectOrCreate?: FuncionarioCreateOrConnectWithoutObrasVinculadasInput
+    upsert?: FuncionarioUpsertWithoutObrasVinculadasInput
+    connect?: FuncionarioWhereUniqueInput
+    update?: XOR<XOR<FuncionarioUpdateToOneWithWhereWithoutObrasVinculadasInput, FuncionarioUpdateWithoutObrasVinculadasInput>, FuncionarioUncheckedUpdateWithoutObrasVinculadasInput>
+  }
+
+  export type ObraUpdateOneRequiredWithoutFuncionariosVinculadosNestedInput = {
+    create?: XOR<ObraCreateWithoutFuncionariosVinculadosInput, ObraUncheckedCreateWithoutFuncionariosVinculadosInput>
+    connectOrCreate?: ObraCreateOrConnectWithoutFuncionariosVinculadosInput
+    upsert?: ObraUpsertWithoutFuncionariosVinculadosInput
+    connect?: ObraWhereUniqueInput
+    update?: XOR<XOR<ObraUpdateToOneWithWhereWithoutFuncionariosVinculadosInput, ObraUpdateWithoutFuncionariosVinculadosInput>, ObraUncheckedUpdateWithoutFuncionariosVinculadosInput>
+  }
+
+  export type OrganizationUpdateOneRequiredWithoutFuncionariosVinculadosNestedInput = {
+    create?: XOR<OrganizationCreateWithoutFuncionariosVinculadosInput, OrganizationUncheckedCreateWithoutFuncionariosVinculadosInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutFuncionariosVinculadosInput
+    upsert?: OrganizationUpsertWithoutFuncionariosVinculadosInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutFuncionariosVinculadosInput, OrganizationUpdateWithoutFuncionariosVinculadosInput>, OrganizationUncheckedUpdateWithoutFuncionariosVinculadosInput>
   }
 
   export type FuncionarioCreateNestedOneWithoutPagamentosInput = {
@@ -22604,10 +34729,6 @@ export namespace Prisma {
 
   export type EnumMaquinarioStatusFieldUpdateOperationsInput = {
     set?: $Enums.MaquinarioStatus
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type NullableEnumPeriodicidadeFieldUpdateOperationsInput = {
@@ -22750,6 +34871,12 @@ export namespace Prisma {
     connect?: OrganizationWhereUniqueInput
   }
 
+  export type ObraCreateNestedOneWithoutOrcamentosInput = {
+    create?: XOR<ObraCreateWithoutOrcamentosInput, ObraUncheckedCreateWithoutOrcamentosInput>
+    connectOrCreate?: ObraCreateOrConnectWithoutOrcamentosInput
+    connect?: ObraWhereUniqueInput
+  }
+
   export type FloatFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -22772,6 +34899,16 @@ export namespace Prisma {
     upsert?: OrganizationUpsertWithoutOrcamentosInput
     connect?: OrganizationWhereUniqueInput
     update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutOrcamentosInput, OrganizationUpdateWithoutOrcamentosInput>, OrganizationUncheckedUpdateWithoutOrcamentosInput>
+  }
+
+  export type ObraUpdateOneWithoutOrcamentosNestedInput = {
+    create?: XOR<ObraCreateWithoutOrcamentosInput, ObraUncheckedCreateWithoutOrcamentosInput>
+    connectOrCreate?: ObraCreateOrConnectWithoutOrcamentosInput
+    upsert?: ObraUpsertWithoutOrcamentosInput
+    disconnect?: ObraWhereInput | boolean
+    delete?: ObraWhereInput | boolean
+    connect?: ObraWhereUniqueInput
+    update?: XOR<XOR<ObraUpdateToOneWithWhereWithoutOrcamentosInput, ObraUpdateWithoutOrcamentosInput>, ObraUncheckedUpdateWithoutOrcamentosInput>
   }
 
   export type OrganizationCreateNestedOneWithoutDocumentosInput = {
@@ -22814,6 +34951,210 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutDocumentosInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDocumentosInput, UserUpdateWithoutDocumentosInput>, UserUncheckedUpdateWithoutDocumentosInput>
+  }
+
+  export type FuncionarioCreateNestedOneWithoutFrequenciasInput = {
+    create?: XOR<FuncionarioCreateWithoutFrequenciasInput, FuncionarioUncheckedCreateWithoutFrequenciasInput>
+    connectOrCreate?: FuncionarioCreateOrConnectWithoutFrequenciasInput
+    connect?: FuncionarioWhereUniqueInput
+  }
+
+  export type ObraCreateNestedOneWithoutFrequenciasInput = {
+    create?: XOR<ObraCreateWithoutFrequenciasInput, ObraUncheckedCreateWithoutFrequenciasInput>
+    connectOrCreate?: ObraCreateOrConnectWithoutFrequenciasInput
+    connect?: ObraWhereUniqueInput
+  }
+
+  export type OrganizationCreateNestedOneWithoutFrequenciasInput = {
+    create?: XOR<OrganizationCreateWithoutFrequenciasInput, OrganizationUncheckedCreateWithoutFrequenciasInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutFrequenciasInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type FuncionarioUpdateOneRequiredWithoutFrequenciasNestedInput = {
+    create?: XOR<FuncionarioCreateWithoutFrequenciasInput, FuncionarioUncheckedCreateWithoutFrequenciasInput>
+    connectOrCreate?: FuncionarioCreateOrConnectWithoutFrequenciasInput
+    upsert?: FuncionarioUpsertWithoutFrequenciasInput
+    connect?: FuncionarioWhereUniqueInput
+    update?: XOR<XOR<FuncionarioUpdateToOneWithWhereWithoutFrequenciasInput, FuncionarioUpdateWithoutFrequenciasInput>, FuncionarioUncheckedUpdateWithoutFrequenciasInput>
+  }
+
+  export type ObraUpdateOneRequiredWithoutFrequenciasNestedInput = {
+    create?: XOR<ObraCreateWithoutFrequenciasInput, ObraUncheckedCreateWithoutFrequenciasInput>
+    connectOrCreate?: ObraCreateOrConnectWithoutFrequenciasInput
+    upsert?: ObraUpsertWithoutFrequenciasInput
+    connect?: ObraWhereUniqueInput
+    update?: XOR<XOR<ObraUpdateToOneWithWhereWithoutFrequenciasInput, ObraUpdateWithoutFrequenciasInput>, ObraUncheckedUpdateWithoutFrequenciasInput>
+  }
+
+  export type OrganizationUpdateOneRequiredWithoutFrequenciasNestedInput = {
+    create?: XOR<OrganizationCreateWithoutFrequenciasInput, OrganizationUncheckedCreateWithoutFrequenciasInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutFrequenciasInput
+    upsert?: OrganizationUpsertWithoutFrequenciasInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutFrequenciasInput, OrganizationUpdateWithoutFrequenciasInput>, OrganizationUncheckedUpdateWithoutFrequenciasInput>
+  }
+
+  export type ObraCreateNestedOneWithoutEtapasInput = {
+    create?: XOR<ObraCreateWithoutEtapasInput, ObraUncheckedCreateWithoutEtapasInput>
+    connectOrCreate?: ObraCreateOrConnectWithoutEtapasInput
+    connect?: ObraWhereUniqueInput
+  }
+
+  export type OrganizationCreateNestedOneWithoutEtapasInput = {
+    create?: XOR<OrganizationCreateWithoutEtapasInput, OrganizationUncheckedCreateWithoutEtapasInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutEtapasInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type EnumEtapaStatusFieldUpdateOperationsInput = {
+    set?: $Enums.EtapaStatus
+  }
+
+  export type ObraUpdateOneRequiredWithoutEtapasNestedInput = {
+    create?: XOR<ObraCreateWithoutEtapasInput, ObraUncheckedCreateWithoutEtapasInput>
+    connectOrCreate?: ObraCreateOrConnectWithoutEtapasInput
+    upsert?: ObraUpsertWithoutEtapasInput
+    connect?: ObraWhereUniqueInput
+    update?: XOR<XOR<ObraUpdateToOneWithWhereWithoutEtapasInput, ObraUpdateWithoutEtapasInput>, ObraUncheckedUpdateWithoutEtapasInput>
+  }
+
+  export type OrganizationUpdateOneRequiredWithoutEtapasNestedInput = {
+    create?: XOR<OrganizationCreateWithoutEtapasInput, OrganizationUncheckedCreateWithoutEtapasInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutEtapasInput
+    upsert?: OrganizationUpsertWithoutEtapasInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutEtapasInput, OrganizationUpdateWithoutEtapasInput>, OrganizationUncheckedUpdateWithoutEtapasInput>
+  }
+
+  export type ObraCreateNestedOneWithoutItensEstoqueInput = {
+    create?: XOR<ObraCreateWithoutItensEstoqueInput, ObraUncheckedCreateWithoutItensEstoqueInput>
+    connectOrCreate?: ObraCreateOrConnectWithoutItensEstoqueInput
+    connect?: ObraWhereUniqueInput
+  }
+
+  export type OrganizationCreateNestedOneWithoutItensEstoqueInput = {
+    create?: XOR<OrganizationCreateWithoutItensEstoqueInput, OrganizationUncheckedCreateWithoutItensEstoqueInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutItensEstoqueInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type MovimentacaoEstoqueCreateNestedManyWithoutItemEstoqueInput = {
+    create?: XOR<MovimentacaoEstoqueCreateWithoutItemEstoqueInput, MovimentacaoEstoqueUncheckedCreateWithoutItemEstoqueInput> | MovimentacaoEstoqueCreateWithoutItemEstoqueInput[] | MovimentacaoEstoqueUncheckedCreateWithoutItemEstoqueInput[]
+    connectOrCreate?: MovimentacaoEstoqueCreateOrConnectWithoutItemEstoqueInput | MovimentacaoEstoqueCreateOrConnectWithoutItemEstoqueInput[]
+    createMany?: MovimentacaoEstoqueCreateManyItemEstoqueInputEnvelope
+    connect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+  }
+
+  export type MovimentacaoEstoqueUncheckedCreateNestedManyWithoutItemEstoqueInput = {
+    create?: XOR<MovimentacaoEstoqueCreateWithoutItemEstoqueInput, MovimentacaoEstoqueUncheckedCreateWithoutItemEstoqueInput> | MovimentacaoEstoqueCreateWithoutItemEstoqueInput[] | MovimentacaoEstoqueUncheckedCreateWithoutItemEstoqueInput[]
+    connectOrCreate?: MovimentacaoEstoqueCreateOrConnectWithoutItemEstoqueInput | MovimentacaoEstoqueCreateOrConnectWithoutItemEstoqueInput[]
+    createMany?: MovimentacaoEstoqueCreateManyItemEstoqueInputEnvelope
+    connect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+  }
+
+  export type ObraUpdateOneRequiredWithoutItensEstoqueNestedInput = {
+    create?: XOR<ObraCreateWithoutItensEstoqueInput, ObraUncheckedCreateWithoutItensEstoqueInput>
+    connectOrCreate?: ObraCreateOrConnectWithoutItensEstoqueInput
+    upsert?: ObraUpsertWithoutItensEstoqueInput
+    connect?: ObraWhereUniqueInput
+    update?: XOR<XOR<ObraUpdateToOneWithWhereWithoutItensEstoqueInput, ObraUpdateWithoutItensEstoqueInput>, ObraUncheckedUpdateWithoutItensEstoqueInput>
+  }
+
+  export type OrganizationUpdateOneRequiredWithoutItensEstoqueNestedInput = {
+    create?: XOR<OrganizationCreateWithoutItensEstoqueInput, OrganizationUncheckedCreateWithoutItensEstoqueInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutItensEstoqueInput
+    upsert?: OrganizationUpsertWithoutItensEstoqueInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutItensEstoqueInput, OrganizationUpdateWithoutItensEstoqueInput>, OrganizationUncheckedUpdateWithoutItensEstoqueInput>
+  }
+
+  export type MovimentacaoEstoqueUpdateManyWithoutItemEstoqueNestedInput = {
+    create?: XOR<MovimentacaoEstoqueCreateWithoutItemEstoqueInput, MovimentacaoEstoqueUncheckedCreateWithoutItemEstoqueInput> | MovimentacaoEstoqueCreateWithoutItemEstoqueInput[] | MovimentacaoEstoqueUncheckedCreateWithoutItemEstoqueInput[]
+    connectOrCreate?: MovimentacaoEstoqueCreateOrConnectWithoutItemEstoqueInput | MovimentacaoEstoqueCreateOrConnectWithoutItemEstoqueInput[]
+    upsert?: MovimentacaoEstoqueUpsertWithWhereUniqueWithoutItemEstoqueInput | MovimentacaoEstoqueUpsertWithWhereUniqueWithoutItemEstoqueInput[]
+    createMany?: MovimentacaoEstoqueCreateManyItemEstoqueInputEnvelope
+    set?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    disconnect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    delete?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    connect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    update?: MovimentacaoEstoqueUpdateWithWhereUniqueWithoutItemEstoqueInput | MovimentacaoEstoqueUpdateWithWhereUniqueWithoutItemEstoqueInput[]
+    updateMany?: MovimentacaoEstoqueUpdateManyWithWhereWithoutItemEstoqueInput | MovimentacaoEstoqueUpdateManyWithWhereWithoutItemEstoqueInput[]
+    deleteMany?: MovimentacaoEstoqueScalarWhereInput | MovimentacaoEstoqueScalarWhereInput[]
+  }
+
+  export type MovimentacaoEstoqueUncheckedUpdateManyWithoutItemEstoqueNestedInput = {
+    create?: XOR<MovimentacaoEstoqueCreateWithoutItemEstoqueInput, MovimentacaoEstoqueUncheckedCreateWithoutItemEstoqueInput> | MovimentacaoEstoqueCreateWithoutItemEstoqueInput[] | MovimentacaoEstoqueUncheckedCreateWithoutItemEstoqueInput[]
+    connectOrCreate?: MovimentacaoEstoqueCreateOrConnectWithoutItemEstoqueInput | MovimentacaoEstoqueCreateOrConnectWithoutItemEstoqueInput[]
+    upsert?: MovimentacaoEstoqueUpsertWithWhereUniqueWithoutItemEstoqueInput | MovimentacaoEstoqueUpsertWithWhereUniqueWithoutItemEstoqueInput[]
+    createMany?: MovimentacaoEstoqueCreateManyItemEstoqueInputEnvelope
+    set?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    disconnect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    delete?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    connect?: MovimentacaoEstoqueWhereUniqueInput | MovimentacaoEstoqueWhereUniqueInput[]
+    update?: MovimentacaoEstoqueUpdateWithWhereUniqueWithoutItemEstoqueInput | MovimentacaoEstoqueUpdateWithWhereUniqueWithoutItemEstoqueInput[]
+    updateMany?: MovimentacaoEstoqueUpdateManyWithWhereWithoutItemEstoqueInput | MovimentacaoEstoqueUpdateManyWithWhereWithoutItemEstoqueInput[]
+    deleteMany?: MovimentacaoEstoqueScalarWhereInput | MovimentacaoEstoqueScalarWhereInput[]
+  }
+
+  export type ItemEstoqueCreateNestedOneWithoutMovimentacoesInput = {
+    create?: XOR<ItemEstoqueCreateWithoutMovimentacoesInput, ItemEstoqueUncheckedCreateWithoutMovimentacoesInput>
+    connectOrCreate?: ItemEstoqueCreateOrConnectWithoutMovimentacoesInput
+    connect?: ItemEstoqueWhereUniqueInput
+  }
+
+  export type ObraCreateNestedOneWithoutMovimentacoesEstoqueInput = {
+    create?: XOR<ObraCreateWithoutMovimentacoesEstoqueInput, ObraUncheckedCreateWithoutMovimentacoesEstoqueInput>
+    connectOrCreate?: ObraCreateOrConnectWithoutMovimentacoesEstoqueInput
+    connect?: ObraWhereUniqueInput
+  }
+
+  export type OrganizationCreateNestedOneWithoutMovimentacoesEstoqueInput = {
+    create?: XOR<OrganizationCreateWithoutMovimentacoesEstoqueInput, OrganizationUncheckedCreateWithoutMovimentacoesEstoqueInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutMovimentacoesEstoqueInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutMovimentacoesEstoqueInput = {
+    create?: XOR<UserCreateWithoutMovimentacoesEstoqueInput, UserUncheckedCreateWithoutMovimentacoesEstoqueInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMovimentacoesEstoqueInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumMovimentacaoTipoFieldUpdateOperationsInput = {
+    set?: $Enums.MovimentacaoTipo
+  }
+
+  export type ItemEstoqueUpdateOneRequiredWithoutMovimentacoesNestedInput = {
+    create?: XOR<ItemEstoqueCreateWithoutMovimentacoesInput, ItemEstoqueUncheckedCreateWithoutMovimentacoesInput>
+    connectOrCreate?: ItemEstoqueCreateOrConnectWithoutMovimentacoesInput
+    upsert?: ItemEstoqueUpsertWithoutMovimentacoesInput
+    connect?: ItemEstoqueWhereUniqueInput
+    update?: XOR<XOR<ItemEstoqueUpdateToOneWithWhereWithoutMovimentacoesInput, ItemEstoqueUpdateWithoutMovimentacoesInput>, ItemEstoqueUncheckedUpdateWithoutMovimentacoesInput>
+  }
+
+  export type ObraUpdateOneRequiredWithoutMovimentacoesEstoqueNestedInput = {
+    create?: XOR<ObraCreateWithoutMovimentacoesEstoqueInput, ObraUncheckedCreateWithoutMovimentacoesEstoqueInput>
+    connectOrCreate?: ObraCreateOrConnectWithoutMovimentacoesEstoqueInput
+    upsert?: ObraUpsertWithoutMovimentacoesEstoqueInput
+    connect?: ObraWhereUniqueInput
+    update?: XOR<XOR<ObraUpdateToOneWithWhereWithoutMovimentacoesEstoqueInput, ObraUpdateWithoutMovimentacoesEstoqueInput>, ObraUncheckedUpdateWithoutMovimentacoesEstoqueInput>
+  }
+
+  export type OrganizationUpdateOneRequiredWithoutMovimentacoesEstoqueNestedInput = {
+    create?: XOR<OrganizationCreateWithoutMovimentacoesEstoqueInput, OrganizationUncheckedCreateWithoutMovimentacoesEstoqueInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutMovimentacoesEstoqueInput
+    upsert?: OrganizationUpsertWithoutMovimentacoesEstoqueInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutMovimentacoesEstoqueInput, OrganizationUpdateWithoutMovimentacoesEstoqueInput>, OrganizationUncheckedUpdateWithoutMovimentacoesEstoqueInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutMovimentacoesEstoqueNestedInput = {
+    create?: XOR<UserCreateWithoutMovimentacoesEstoqueInput, UserUncheckedCreateWithoutMovimentacoesEstoqueInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMovimentacoesEstoqueInput
+    upsert?: UserUpsertWithoutMovimentacoesEstoqueInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMovimentacoesEstoqueInput, UserUpdateWithoutMovimentacoesEstoqueInput>, UserUncheckedUpdateWithoutMovimentacoesEstoqueInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -22973,6 +35314,17 @@ export namespace Prisma {
     not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedEnumObraStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.ObraStatus | EnumObraStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ObraStatus[] | ListEnumObraStatusFieldRefInput<$PrismaModel>
@@ -22997,6 +35349,20 @@ export namespace Prisma {
     _sum?: NestedDecimalNullableFilter<$PrismaModel>
     _min?: NestedDecimalNullableFilter<$PrismaModel>
     _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumFuncionarioTipoFilter<$PrismaModel = never> = {
@@ -23084,17 +35450,6 @@ export namespace Prisma {
     not?: NestedEnumMaquinarioStatusFilter<$PrismaModel> | $Enums.MaquinarioStatus
   }
 
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type NestedEnumPeriodicidadeNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.Periodicidade | EnumPeriodicidadeFieldRefInput<$PrismaModel> | null
     in?: $Enums.Periodicidade[] | ListEnumPeriodicidadeFieldRefInput<$PrismaModel> | null
@@ -23110,20 +35465,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumMaquinarioStatusFilter<$PrismaModel>
     _max?: NestedEnumMaquinarioStatusFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumPeriodicidadeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -23253,6 +35594,63 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedEnumEtapaStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.EtapaStatus | EnumEtapaStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EtapaStatus[] | ListEnumEtapaStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EtapaStatus[] | ListEnumEtapaStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEtapaStatusFilter<$PrismaModel> | $Enums.EtapaStatus
+  }
+
+  export type NestedEnumEtapaStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EtapaStatus | EnumEtapaStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EtapaStatus[] | ListEnumEtapaStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EtapaStatus[] | ListEnumEtapaStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEtapaStatusWithAggregatesFilter<$PrismaModel> | $Enums.EtapaStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEtapaStatusFilter<$PrismaModel>
+    _max?: NestedEnumEtapaStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumMovimentacaoTipoFilter<$PrismaModel = never> = {
+    equals?: $Enums.MovimentacaoTipo | EnumMovimentacaoTipoFieldRefInput<$PrismaModel>
+    in?: $Enums.MovimentacaoTipo[] | ListEnumMovimentacaoTipoFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MovimentacaoTipo[] | ListEnumMovimentacaoTipoFieldRefInput<$PrismaModel>
+    not?: NestedEnumMovimentacaoTipoFilter<$PrismaModel> | $Enums.MovimentacaoTipo
+  }
+
+  export type NestedEnumMovimentacaoTipoWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MovimentacaoTipo | EnumMovimentacaoTipoFieldRefInput<$PrismaModel>
+    in?: $Enums.MovimentacaoTipo[] | ListEnumMovimentacaoTipoFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MovimentacaoTipo[] | ListEnumMovimentacaoTipoFieldRefInput<$PrismaModel>
+    not?: NestedEnumMovimentacaoTipoWithAggregatesFilter<$PrismaModel> | $Enums.MovimentacaoTipo
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMovimentacaoTipoFilter<$PrismaModel>
+    _max?: NestedEnumMovimentacaoTipoFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
   export type UserCreateWithoutOrganizationInput = {
     id?: string
     nome: string
@@ -23265,6 +35663,7 @@ export namespace Prisma {
     obras?: ObraCreateNestedManyWithoutUserInput
     documentos?: DocumentoCreateNestedManyWithoutUserInput
     transacoes?: TransacaoFinanceiraCreateNestedManyWithoutUserInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOrganizationInput = {
@@ -23279,6 +35678,7 @@ export namespace Prisma {
     obras?: ObraUncheckedCreateNestedManyWithoutUserInput
     documentos?: DocumentoUncheckedCreateNestedManyWithoutUserInput
     transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutUserInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOrganizationInput = {
@@ -23310,6 +35710,7 @@ export namespace Prisma {
     orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     user: UserCreateNestedOneWithoutObrasInput
     funcionarios?: FuncionarioCreateNestedManyWithoutObraInput
     maquinarios?: MaquinarioCreateNestedManyWithoutObraInput
@@ -23318,6 +35719,12 @@ export namespace Prisma {
     alertas?: AlertaCreateNestedManyWithoutObraInput
     documentos?: DocumentoCreateNestedManyWithoutObraInput
     pagamentos?: PagamentoCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutObraInput
   }
 
   export type ObraUncheckedCreateWithoutOrganizationInput = {
@@ -23340,6 +35747,7 @@ export namespace Prisma {
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutObraInput
     maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutObraInput
     transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutObraInput
@@ -23347,6 +35755,12 @@ export namespace Prisma {
     alertas?: AlertaUncheckedCreateNestedManyWithoutObraInput
     documentos?: DocumentoUncheckedCreateNestedManyWithoutObraInput
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutObraInput
   }
 
   export type ObraCreateOrConnectWithoutOrganizationInput = {
@@ -23374,8 +35788,11 @@ export namespace Prisma {
     fotoPath?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     obra: ObraCreateNestedOneWithoutFuncionariosInput
     pagamentos?: PagamentoCreateNestedManyWithoutFuncionarioInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutFuncionarioInput
+    obrasVinculadas?: FuncionarioObraCreateNestedManyWithoutFuncionarioInput
   }
 
   export type FuncionarioUncheckedCreateWithoutOrganizationInput = {
@@ -23394,7 +35811,10 @@ export namespace Prisma {
     obraId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutFuncionarioInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutFuncionarioInput
+    obrasVinculadas?: FuncionarioObraUncheckedCreateNestedManyWithoutFuncionarioInput
   }
 
   export type FuncionarioCreateOrConnectWithoutOrganizationInput = {
@@ -23426,6 +35846,7 @@ export namespace Prisma {
     fotoPath?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     obra: ObraCreateNestedOneWithoutMaquinariosInput
   }
 
@@ -23449,6 +35870,7 @@ export namespace Prisma {
     obraId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type MaquinarioCreateOrConnectWithoutOrganizationInput = {
@@ -23680,11 +36102,13 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    obra?: ObraCreateNestedOneWithoutOrcamentosInput
   }
 
   export type OrcamentoUncheckedCreateWithoutOrganizationInput = {
     id?: string
     titulo: string
+    obraId?: string | null
     empresa?: string | null
     cnpj?: string | null
     responsavel?: string | null
@@ -23712,6 +36136,198 @@ export namespace Prisma {
 
   export type OrcamentoCreateManyOrganizationInputEnvelope = {
     data: OrcamentoCreateManyOrganizationInput | OrcamentoCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RegistroFrequenciaCreateWithoutOrganizationInput = {
+    id?: string
+    data: Date | string
+    presente?: boolean
+    periodo?: number
+    horasExtras?: number
+    observacao?: string | null
+    createdAt?: Date | string
+    funcionario: FuncionarioCreateNestedOneWithoutFrequenciasInput
+    obra: ObraCreateNestedOneWithoutFrequenciasInput
+  }
+
+  export type RegistroFrequenciaUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    funcionarioId: string
+    obraId: string
+    data: Date | string
+    presente?: boolean
+    periodo?: number
+    horasExtras?: number
+    observacao?: string | null
+    createdAt?: Date | string
+  }
+
+  export type RegistroFrequenciaCreateOrConnectWithoutOrganizationInput = {
+    where: RegistroFrequenciaWhereUniqueInput
+    create: XOR<RegistroFrequenciaCreateWithoutOrganizationInput, RegistroFrequenciaUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type RegistroFrequenciaCreateManyOrganizationInputEnvelope = {
+    data: RegistroFrequenciaCreateManyOrganizationInput | RegistroFrequenciaCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EtapaObraCreateWithoutOrganizationInput = {
+    id?: string
+    nome: string
+    descricao?: string | null
+    ordem: number
+    dataInicioPrev?: Date | string | null
+    dataFimPrev?: Date | string | null
+    dataInicioReal?: Date | string | null
+    dataFimReal?: Date | string | null
+    percentual?: number
+    status?: $Enums.EtapaStatus
+    valorPrevisto?: Decimal | DecimalJsLike | number | string | null
+    observacoes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    obra: ObraCreateNestedOneWithoutEtapasInput
+  }
+
+  export type EtapaObraUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    nome: string
+    descricao?: string | null
+    ordem: number
+    obraId: string
+    dataInicioPrev?: Date | string | null
+    dataFimPrev?: Date | string | null
+    dataInicioReal?: Date | string | null
+    dataFimReal?: Date | string | null
+    percentual?: number
+    status?: $Enums.EtapaStatus
+    valorPrevisto?: Decimal | DecimalJsLike | number | string | null
+    observacoes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EtapaObraCreateOrConnectWithoutOrganizationInput = {
+    where: EtapaObraWhereUniqueInput
+    create: XOR<EtapaObraCreateWithoutOrganizationInput, EtapaObraUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type EtapaObraCreateManyOrganizationInputEnvelope = {
+    data: EtapaObraCreateManyOrganizationInput | EtapaObraCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ItemEstoqueCreateWithoutOrganizationInput = {
+    id?: string
+    nome: string
+    unidade: string
+    categoria?: string | null
+    quantidadeAtual?: Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    obra: ObraCreateNestedOneWithoutItensEstoqueInput
+    movimentacoes?: MovimentacaoEstoqueCreateNestedManyWithoutItemEstoqueInput
+  }
+
+  export type ItemEstoqueUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    nome: string
+    unidade: string
+    categoria?: string | null
+    quantidadeAtual?: Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    obraId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    movimentacoes?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutItemEstoqueInput
+  }
+
+  export type ItemEstoqueCreateOrConnectWithoutOrganizationInput = {
+    where: ItemEstoqueWhereUniqueInput
+    create: XOR<ItemEstoqueCreateWithoutOrganizationInput, ItemEstoqueUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type ItemEstoqueCreateManyOrganizationInputEnvelope = {
+    data: ItemEstoqueCreateManyOrganizationInput | ItemEstoqueCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MovimentacaoEstoqueCreateWithoutOrganizationInput = {
+    id?: string
+    tipo: $Enums.MovimentacaoTipo
+    quantidade: Decimal | DecimalJsLike | number | string
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    motivo?: string | null
+    fornecedor?: string | null
+    notaFiscal?: string | null
+    responsavel?: string | null
+    createdAt?: Date | string
+    itemEstoque: ItemEstoqueCreateNestedOneWithoutMovimentacoesInput
+    obra: ObraCreateNestedOneWithoutMovimentacoesEstoqueInput
+    user: UserCreateNestedOneWithoutMovimentacoesEstoqueInput
+  }
+
+  export type MovimentacaoEstoqueUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    itemEstoqueId: string
+    tipo: $Enums.MovimentacaoTipo
+    quantidade: Decimal | DecimalJsLike | number | string
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    motivo?: string | null
+    fornecedor?: string | null
+    notaFiscal?: string | null
+    responsavel?: string | null
+    obraId: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type MovimentacaoEstoqueCreateOrConnectWithoutOrganizationInput = {
+    where: MovimentacaoEstoqueWhereUniqueInput
+    create: XOR<MovimentacaoEstoqueCreateWithoutOrganizationInput, MovimentacaoEstoqueUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type MovimentacaoEstoqueCreateManyOrganizationInputEnvelope = {
+    data: MovimentacaoEstoqueCreateManyOrganizationInput | MovimentacaoEstoqueCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FuncionarioObraCreateWithoutOrganizationInput = {
+    id?: string
+    dataInicio: Date | string
+    dataFim?: Date | string | null
+    funcao?: string | null
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    funcionario: FuncionarioCreateNestedOneWithoutObrasVinculadasInput
+    obra: ObraCreateNestedOneWithoutFuncionariosVinculadosInput
+  }
+
+  export type FuncionarioObraUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    funcionarioId: string
+    obraId: string
+    dataInicio: Date | string
+    dataFim?: Date | string | null
+    funcao?: string | null
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FuncionarioObraCreateOrConnectWithoutOrganizationInput = {
+    where: FuncionarioObraWhereUniqueInput
+    create: XOR<FuncionarioObraCreateWithoutOrganizationInput, FuncionarioObraUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type FuncionarioObraCreateManyOrganizationInputEnvelope = {
+    data: FuncionarioObraCreateManyOrganizationInput | FuncionarioObraCreateManyOrganizationInput[]
     skipDuplicates?: boolean
   }
 
@@ -23786,6 +36402,7 @@ export namespace Prisma {
     userId?: StringFilter<"Obra"> | string
     createdAt?: DateTimeFilter<"Obra"> | Date | string
     updatedAt?: DateTimeFilter<"Obra"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Obra"> | Date | string | null
   }
 
   export type FuncionarioUpsertWithWhereUniqueWithoutOrganizationInput = {
@@ -23824,6 +36441,7 @@ export namespace Prisma {
     obraId?: StringFilter<"Funcionario"> | string
     createdAt?: DateTimeFilter<"Funcionario"> | Date | string
     updatedAt?: DateTimeFilter<"Funcionario"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Funcionario"> | Date | string | null
   }
 
   export type MaquinarioUpsertWithWhereUniqueWithoutOrganizationInput = {
@@ -23866,6 +36484,7 @@ export namespace Prisma {
     obraId?: StringFilter<"Maquinario"> | string
     createdAt?: DateTimeFilter<"Maquinario"> | Date | string
     updatedAt?: DateTimeFilter<"Maquinario"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Maquinario"> | Date | string | null
   }
 
   export type TransacaoFinanceiraUpsertWithWhereUniqueWithoutOrganizationInput = {
@@ -24080,6 +36699,7 @@ export namespace Prisma {
     id?: StringFilter<"Orcamento"> | string
     titulo?: StringFilter<"Orcamento"> | string
     organizationId?: StringFilter<"Orcamento"> | string
+    obraId?: StringNullableFilter<"Orcamento"> | string | null
     empresa?: StringNullableFilter<"Orcamento"> | string | null
     cnpj?: StringNullableFilter<"Orcamento"> | string | null
     responsavel?: StringNullableFilter<"Orcamento"> | string | null
@@ -24100,6 +36720,176 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Orcamento"> | Date | string
   }
 
+  export type RegistroFrequenciaUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: RegistroFrequenciaWhereUniqueInput
+    update: XOR<RegistroFrequenciaUpdateWithoutOrganizationInput, RegistroFrequenciaUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<RegistroFrequenciaCreateWithoutOrganizationInput, RegistroFrequenciaUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type RegistroFrequenciaUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: RegistroFrequenciaWhereUniqueInput
+    data: XOR<RegistroFrequenciaUpdateWithoutOrganizationInput, RegistroFrequenciaUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type RegistroFrequenciaUpdateManyWithWhereWithoutOrganizationInput = {
+    where: RegistroFrequenciaScalarWhereInput
+    data: XOR<RegistroFrequenciaUpdateManyMutationInput, RegistroFrequenciaUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type RegistroFrequenciaScalarWhereInput = {
+    AND?: RegistroFrequenciaScalarWhereInput | RegistroFrequenciaScalarWhereInput[]
+    OR?: RegistroFrequenciaScalarWhereInput[]
+    NOT?: RegistroFrequenciaScalarWhereInput | RegistroFrequenciaScalarWhereInput[]
+    id?: StringFilter<"RegistroFrequencia"> | string
+    funcionarioId?: StringFilter<"RegistroFrequencia"> | string
+    obraId?: StringFilter<"RegistroFrequencia"> | string
+    organizationId?: StringFilter<"RegistroFrequencia"> | string
+    data?: DateTimeFilter<"RegistroFrequencia"> | Date | string
+    presente?: BoolFilter<"RegistroFrequencia"> | boolean
+    periodo?: FloatFilter<"RegistroFrequencia"> | number
+    horasExtras?: FloatFilter<"RegistroFrequencia"> | number
+    observacao?: StringNullableFilter<"RegistroFrequencia"> | string | null
+    createdAt?: DateTimeFilter<"RegistroFrequencia"> | Date | string
+  }
+
+  export type EtapaObraUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: EtapaObraWhereUniqueInput
+    update: XOR<EtapaObraUpdateWithoutOrganizationInput, EtapaObraUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<EtapaObraCreateWithoutOrganizationInput, EtapaObraUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type EtapaObraUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: EtapaObraWhereUniqueInput
+    data: XOR<EtapaObraUpdateWithoutOrganizationInput, EtapaObraUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type EtapaObraUpdateManyWithWhereWithoutOrganizationInput = {
+    where: EtapaObraScalarWhereInput
+    data: XOR<EtapaObraUpdateManyMutationInput, EtapaObraUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type EtapaObraScalarWhereInput = {
+    AND?: EtapaObraScalarWhereInput | EtapaObraScalarWhereInput[]
+    OR?: EtapaObraScalarWhereInput[]
+    NOT?: EtapaObraScalarWhereInput | EtapaObraScalarWhereInput[]
+    id?: StringFilter<"EtapaObra"> | string
+    nome?: StringFilter<"EtapaObra"> | string
+    descricao?: StringNullableFilter<"EtapaObra"> | string | null
+    ordem?: IntFilter<"EtapaObra"> | number
+    obraId?: StringFilter<"EtapaObra"> | string
+    organizationId?: StringFilter<"EtapaObra"> | string
+    dataInicioPrev?: DateTimeNullableFilter<"EtapaObra"> | Date | string | null
+    dataFimPrev?: DateTimeNullableFilter<"EtapaObra"> | Date | string | null
+    dataInicioReal?: DateTimeNullableFilter<"EtapaObra"> | Date | string | null
+    dataFimReal?: DateTimeNullableFilter<"EtapaObra"> | Date | string | null
+    percentual?: FloatFilter<"EtapaObra"> | number
+    status?: EnumEtapaStatusFilter<"EtapaObra"> | $Enums.EtapaStatus
+    valorPrevisto?: DecimalNullableFilter<"EtapaObra"> | Decimal | DecimalJsLike | number | string | null
+    observacoes?: StringNullableFilter<"EtapaObra"> | string | null
+    createdAt?: DateTimeFilter<"EtapaObra"> | Date | string
+    updatedAt?: DateTimeFilter<"EtapaObra"> | Date | string
+  }
+
+  export type ItemEstoqueUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: ItemEstoqueWhereUniqueInput
+    update: XOR<ItemEstoqueUpdateWithoutOrganizationInput, ItemEstoqueUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<ItemEstoqueCreateWithoutOrganizationInput, ItemEstoqueUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type ItemEstoqueUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: ItemEstoqueWhereUniqueInput
+    data: XOR<ItemEstoqueUpdateWithoutOrganizationInput, ItemEstoqueUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type ItemEstoqueUpdateManyWithWhereWithoutOrganizationInput = {
+    where: ItemEstoqueScalarWhereInput
+    data: XOR<ItemEstoqueUpdateManyMutationInput, ItemEstoqueUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type ItemEstoqueScalarWhereInput = {
+    AND?: ItemEstoqueScalarWhereInput | ItemEstoqueScalarWhereInput[]
+    OR?: ItemEstoqueScalarWhereInput[]
+    NOT?: ItemEstoqueScalarWhereInput | ItemEstoqueScalarWhereInput[]
+    id?: StringFilter<"ItemEstoque"> | string
+    nome?: StringFilter<"ItemEstoque"> | string
+    unidade?: StringFilter<"ItemEstoque"> | string
+    categoria?: StringNullableFilter<"ItemEstoque"> | string | null
+    quantidadeAtual?: DecimalFilter<"ItemEstoque"> | Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: DecimalNullableFilter<"ItemEstoque"> | Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: DecimalNullableFilter<"ItemEstoque"> | Decimal | DecimalJsLike | number | string | null
+    obraId?: StringFilter<"ItemEstoque"> | string
+    organizationId?: StringFilter<"ItemEstoque"> | string
+    createdAt?: DateTimeFilter<"ItemEstoque"> | Date | string
+    updatedAt?: DateTimeFilter<"ItemEstoque"> | Date | string
+  }
+
+  export type MovimentacaoEstoqueUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: MovimentacaoEstoqueWhereUniqueInput
+    update: XOR<MovimentacaoEstoqueUpdateWithoutOrganizationInput, MovimentacaoEstoqueUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<MovimentacaoEstoqueCreateWithoutOrganizationInput, MovimentacaoEstoqueUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type MovimentacaoEstoqueUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: MovimentacaoEstoqueWhereUniqueInput
+    data: XOR<MovimentacaoEstoqueUpdateWithoutOrganizationInput, MovimentacaoEstoqueUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type MovimentacaoEstoqueUpdateManyWithWhereWithoutOrganizationInput = {
+    where: MovimentacaoEstoqueScalarWhereInput
+    data: XOR<MovimentacaoEstoqueUpdateManyMutationInput, MovimentacaoEstoqueUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type MovimentacaoEstoqueScalarWhereInput = {
+    AND?: MovimentacaoEstoqueScalarWhereInput | MovimentacaoEstoqueScalarWhereInput[]
+    OR?: MovimentacaoEstoqueScalarWhereInput[]
+    NOT?: MovimentacaoEstoqueScalarWhereInput | MovimentacaoEstoqueScalarWhereInput[]
+    id?: StringFilter<"MovimentacaoEstoque"> | string
+    itemEstoqueId?: StringFilter<"MovimentacaoEstoque"> | string
+    tipo?: EnumMovimentacaoTipoFilter<"MovimentacaoEstoque"> | $Enums.MovimentacaoTipo
+    quantidade?: DecimalFilter<"MovimentacaoEstoque"> | Decimal | DecimalJsLike | number | string
+    valorUnitario?: DecimalNullableFilter<"MovimentacaoEstoque"> | Decimal | DecimalJsLike | number | string | null
+    motivo?: StringNullableFilter<"MovimentacaoEstoque"> | string | null
+    fornecedor?: StringNullableFilter<"MovimentacaoEstoque"> | string | null
+    notaFiscal?: StringNullableFilter<"MovimentacaoEstoque"> | string | null
+    responsavel?: StringNullableFilter<"MovimentacaoEstoque"> | string | null
+    obraId?: StringFilter<"MovimentacaoEstoque"> | string
+    organizationId?: StringFilter<"MovimentacaoEstoque"> | string
+    userId?: StringFilter<"MovimentacaoEstoque"> | string
+    createdAt?: DateTimeFilter<"MovimentacaoEstoque"> | Date | string
+  }
+
+  export type FuncionarioObraUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: FuncionarioObraWhereUniqueInput
+    update: XOR<FuncionarioObraUpdateWithoutOrganizationInput, FuncionarioObraUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<FuncionarioObraCreateWithoutOrganizationInput, FuncionarioObraUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type FuncionarioObraUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: FuncionarioObraWhereUniqueInput
+    data: XOR<FuncionarioObraUpdateWithoutOrganizationInput, FuncionarioObraUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type FuncionarioObraUpdateManyWithWhereWithoutOrganizationInput = {
+    where: FuncionarioObraScalarWhereInput
+    data: XOR<FuncionarioObraUpdateManyMutationInput, FuncionarioObraUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type FuncionarioObraScalarWhereInput = {
+    AND?: FuncionarioObraScalarWhereInput | FuncionarioObraScalarWhereInput[]
+    OR?: FuncionarioObraScalarWhereInput[]
+    NOT?: FuncionarioObraScalarWhereInput | FuncionarioObraScalarWhereInput[]
+    id?: StringFilter<"FuncionarioObra"> | string
+    funcionarioId?: StringFilter<"FuncionarioObra"> | string
+    obraId?: StringFilter<"FuncionarioObra"> | string
+    organizationId?: StringFilter<"FuncionarioObra"> | string
+    dataInicio?: DateTimeFilter<"FuncionarioObra"> | Date | string
+    dataFim?: DateTimeNullableFilter<"FuncionarioObra"> | Date | string | null
+    funcao?: StringNullableFilter<"FuncionarioObra"> | string | null
+    ativo?: BoolFilter<"FuncionarioObra"> | boolean
+    createdAt?: DateTimeFilter<"FuncionarioObra"> | Date | string
+    updatedAt?: DateTimeFilter<"FuncionarioObra"> | Date | string
+  }
+
   export type OrganizationCreateWithoutCargosInput = {
     id?: string
     nome: string
@@ -24117,6 +36907,11 @@ export namespace Prisma {
     documentos?: DocumentoCreateNestedManyWithoutOrganizationInput
     pagamentos?: PagamentoCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutCargosInput = {
@@ -24136,6 +36931,11 @@ export namespace Prisma {
     documentos?: DocumentoUncheckedCreateNestedManyWithoutOrganizationInput
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutCargosInput = {
@@ -24171,6 +36971,11 @@ export namespace Prisma {
     documentos?: DocumentoUpdateManyWithoutOrganizationNestedInput
     pagamentos?: PagamentoUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutCargosInput = {
@@ -24190,6 +36995,11 @@ export namespace Prisma {
     documentos?: DocumentoUncheckedUpdateManyWithoutOrganizationNestedInput
     pagamentos?: PagamentoUncheckedUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationCreateWithoutUsersInput = {
@@ -24209,6 +37019,11 @@ export namespace Prisma {
     pagamentos?: PagamentoCreateNestedManyWithoutOrganizationInput
     cargos?: CargoCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutUsersInput = {
@@ -24228,6 +37043,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutOrganizationInput
     cargos?: CargoUncheckedCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutUsersInput = {
@@ -24254,6 +37074,7 @@ export namespace Prisma {
     orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     organization: OrganizationCreateNestedOneWithoutObrasInput
     funcionarios?: FuncionarioCreateNestedManyWithoutObraInput
     maquinarios?: MaquinarioCreateNestedManyWithoutObraInput
@@ -24262,6 +37083,12 @@ export namespace Prisma {
     alertas?: AlertaCreateNestedManyWithoutObraInput
     documentos?: DocumentoCreateNestedManyWithoutObraInput
     pagamentos?: PagamentoCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutObraInput
   }
 
   export type ObraUncheckedCreateWithoutUserInput = {
@@ -24284,6 +37111,7 @@ export namespace Prisma {
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutObraInput
     maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutObraInput
     transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutObraInput
@@ -24291,6 +37119,12 @@ export namespace Prisma {
     alertas?: AlertaUncheckedCreateNestedManyWithoutObraInput
     documentos?: DocumentoUncheckedCreateNestedManyWithoutObraInput
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutObraInput
   }
 
   export type ObraCreateOrConnectWithoutUserInput = {
@@ -24385,6 +37219,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MovimentacaoEstoqueCreateWithoutUserInput = {
+    id?: string
+    tipo: $Enums.MovimentacaoTipo
+    quantidade: Decimal | DecimalJsLike | number | string
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    motivo?: string | null
+    fornecedor?: string | null
+    notaFiscal?: string | null
+    responsavel?: string | null
+    createdAt?: Date | string
+    itemEstoque: ItemEstoqueCreateNestedOneWithoutMovimentacoesInput
+    obra: ObraCreateNestedOneWithoutMovimentacoesEstoqueInput
+    organization: OrganizationCreateNestedOneWithoutMovimentacoesEstoqueInput
+  }
+
+  export type MovimentacaoEstoqueUncheckedCreateWithoutUserInput = {
+    id?: string
+    itemEstoqueId: string
+    tipo: $Enums.MovimentacaoTipo
+    quantidade: Decimal | DecimalJsLike | number | string
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    motivo?: string | null
+    fornecedor?: string | null
+    notaFiscal?: string | null
+    responsavel?: string | null
+    obraId: string
+    organizationId: string
+    createdAt?: Date | string
+  }
+
+  export type MovimentacaoEstoqueCreateOrConnectWithoutUserInput = {
+    where: MovimentacaoEstoqueWhereUniqueInput
+    create: XOR<MovimentacaoEstoqueCreateWithoutUserInput, MovimentacaoEstoqueUncheckedCreateWithoutUserInput>
+  }
+
+  export type MovimentacaoEstoqueCreateManyUserInputEnvelope = {
+    data: MovimentacaoEstoqueCreateManyUserInput | MovimentacaoEstoqueCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type OrganizationUpsertWithoutUsersInput = {
     update: XOR<OrganizationUpdateWithoutUsersInput, OrganizationUncheckedUpdateWithoutUsersInput>
     create: XOR<OrganizationCreateWithoutUsersInput, OrganizationUncheckedCreateWithoutUsersInput>
@@ -24413,6 +37287,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutUsersInput = {
@@ -24432,6 +37311,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUncheckedUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUncheckedUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type ObraUpsertWithWhereUniqueWithoutUserInput = {
@@ -24482,6 +37366,22 @@ export namespace Prisma {
     data: XOR<TransacaoFinanceiraUpdateManyMutationInput, TransacaoFinanceiraUncheckedUpdateManyWithoutUserInput>
   }
 
+  export type MovimentacaoEstoqueUpsertWithWhereUniqueWithoutUserInput = {
+    where: MovimentacaoEstoqueWhereUniqueInput
+    update: XOR<MovimentacaoEstoqueUpdateWithoutUserInput, MovimentacaoEstoqueUncheckedUpdateWithoutUserInput>
+    create: XOR<MovimentacaoEstoqueCreateWithoutUserInput, MovimentacaoEstoqueUncheckedCreateWithoutUserInput>
+  }
+
+  export type MovimentacaoEstoqueUpdateWithWhereUniqueWithoutUserInput = {
+    where: MovimentacaoEstoqueWhereUniqueInput
+    data: XOR<MovimentacaoEstoqueUpdateWithoutUserInput, MovimentacaoEstoqueUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MovimentacaoEstoqueUpdateManyWithWhereWithoutUserInput = {
+    where: MovimentacaoEstoqueScalarWhereInput
+    data: XOR<MovimentacaoEstoqueUpdateManyMutationInput, MovimentacaoEstoqueUncheckedUpdateManyWithoutUserInput>
+  }
+
   export type OrganizationCreateWithoutObrasInput = {
     id?: string
     nome: string
@@ -24499,6 +37399,11 @@ export namespace Prisma {
     pagamentos?: PagamentoCreateNestedManyWithoutOrganizationInput
     cargos?: CargoCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutObrasInput = {
@@ -24518,6 +37423,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutOrganizationInput
     cargos?: CargoUncheckedCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutObrasInput = {
@@ -24537,6 +37447,7 @@ export namespace Prisma {
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     documentos?: DocumentoCreateNestedManyWithoutUserInput
     transacoes?: TransacaoFinanceiraCreateNestedManyWithoutUserInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutObrasInput = {
@@ -24551,6 +37462,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     documentos?: DocumentoUncheckedCreateNestedManyWithoutUserInput
     transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutUserInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutObrasInput = {
@@ -24573,8 +37485,11 @@ export namespace Prisma {
     fotoPath?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     organization: OrganizationCreateNestedOneWithoutFuncionariosInput
     pagamentos?: PagamentoCreateNestedManyWithoutFuncionarioInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutFuncionarioInput
+    obrasVinculadas?: FuncionarioObraCreateNestedManyWithoutFuncionarioInput
   }
 
   export type FuncionarioUncheckedCreateWithoutObraInput = {
@@ -24593,7 +37508,10 @@ export namespace Prisma {
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutFuncionarioInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutFuncionarioInput
+    obrasVinculadas?: FuncionarioObraUncheckedCreateNestedManyWithoutFuncionarioInput
   }
 
   export type FuncionarioCreateOrConnectWithoutObraInput = {
@@ -24625,6 +37543,7 @@ export namespace Prisma {
     fotoPath?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     organization: OrganizationCreateNestedOneWithoutMaquinariosInput
   }
 
@@ -24648,6 +37567,7 @@ export namespace Prisma {
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type MaquinarioCreateOrConnectWithoutObraInput = {
@@ -24832,6 +37752,256 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type RegistroFrequenciaCreateWithoutObraInput = {
+    id?: string
+    data: Date | string
+    presente?: boolean
+    periodo?: number
+    horasExtras?: number
+    observacao?: string | null
+    createdAt?: Date | string
+    funcionario: FuncionarioCreateNestedOneWithoutFrequenciasInput
+    organization: OrganizationCreateNestedOneWithoutFrequenciasInput
+  }
+
+  export type RegistroFrequenciaUncheckedCreateWithoutObraInput = {
+    id?: string
+    funcionarioId: string
+    organizationId: string
+    data: Date | string
+    presente?: boolean
+    periodo?: number
+    horasExtras?: number
+    observacao?: string | null
+    createdAt?: Date | string
+  }
+
+  export type RegistroFrequenciaCreateOrConnectWithoutObraInput = {
+    where: RegistroFrequenciaWhereUniqueInput
+    create: XOR<RegistroFrequenciaCreateWithoutObraInput, RegistroFrequenciaUncheckedCreateWithoutObraInput>
+  }
+
+  export type RegistroFrequenciaCreateManyObraInputEnvelope = {
+    data: RegistroFrequenciaCreateManyObraInput | RegistroFrequenciaCreateManyObraInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OrcamentoCreateWithoutObraInput = {
+    id?: string
+    titulo: string
+    empresa?: string | null
+    cnpj?: string | null
+    responsavel?: string | null
+    contato?: string | null
+    cliente?: string | null
+    cnpjCliente?: string | null
+    nomeObra?: string | null
+    area?: number
+    endereco?: string | null
+    dataOrcamento?: Date | string | null
+    validade?: number
+    margem?: number
+    desconto?: number
+    obs?: string | null
+    rows?: JsonNullValueInput | InputJsonValue
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutOrcamentosInput
+  }
+
+  export type OrcamentoUncheckedCreateWithoutObraInput = {
+    id?: string
+    titulo: string
+    organizationId: string
+    empresa?: string | null
+    cnpj?: string | null
+    responsavel?: string | null
+    contato?: string | null
+    cliente?: string | null
+    cnpjCliente?: string | null
+    nomeObra?: string | null
+    area?: number
+    endereco?: string | null
+    dataOrcamento?: Date | string | null
+    validade?: number
+    margem?: number
+    desconto?: number
+    obs?: string | null
+    rows?: JsonNullValueInput | InputJsonValue
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OrcamentoCreateOrConnectWithoutObraInput = {
+    where: OrcamentoWhereUniqueInput
+    create: XOR<OrcamentoCreateWithoutObraInput, OrcamentoUncheckedCreateWithoutObraInput>
+  }
+
+  export type OrcamentoCreateManyObraInputEnvelope = {
+    data: OrcamentoCreateManyObraInput | OrcamentoCreateManyObraInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EtapaObraCreateWithoutObraInput = {
+    id?: string
+    nome: string
+    descricao?: string | null
+    ordem: number
+    dataInicioPrev?: Date | string | null
+    dataFimPrev?: Date | string | null
+    dataInicioReal?: Date | string | null
+    dataFimReal?: Date | string | null
+    percentual?: number
+    status?: $Enums.EtapaStatus
+    valorPrevisto?: Decimal | DecimalJsLike | number | string | null
+    observacoes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutEtapasInput
+  }
+
+  export type EtapaObraUncheckedCreateWithoutObraInput = {
+    id?: string
+    nome: string
+    descricao?: string | null
+    ordem: number
+    organizationId: string
+    dataInicioPrev?: Date | string | null
+    dataFimPrev?: Date | string | null
+    dataInicioReal?: Date | string | null
+    dataFimReal?: Date | string | null
+    percentual?: number
+    status?: $Enums.EtapaStatus
+    valorPrevisto?: Decimal | DecimalJsLike | number | string | null
+    observacoes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EtapaObraCreateOrConnectWithoutObraInput = {
+    where: EtapaObraWhereUniqueInput
+    create: XOR<EtapaObraCreateWithoutObraInput, EtapaObraUncheckedCreateWithoutObraInput>
+  }
+
+  export type EtapaObraCreateManyObraInputEnvelope = {
+    data: EtapaObraCreateManyObraInput | EtapaObraCreateManyObraInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ItemEstoqueCreateWithoutObraInput = {
+    id?: string
+    nome: string
+    unidade: string
+    categoria?: string | null
+    quantidadeAtual?: Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutItensEstoqueInput
+    movimentacoes?: MovimentacaoEstoqueCreateNestedManyWithoutItemEstoqueInput
+  }
+
+  export type ItemEstoqueUncheckedCreateWithoutObraInput = {
+    id?: string
+    nome: string
+    unidade: string
+    categoria?: string | null
+    quantidadeAtual?: Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    organizationId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    movimentacoes?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutItemEstoqueInput
+  }
+
+  export type ItemEstoqueCreateOrConnectWithoutObraInput = {
+    where: ItemEstoqueWhereUniqueInput
+    create: XOR<ItemEstoqueCreateWithoutObraInput, ItemEstoqueUncheckedCreateWithoutObraInput>
+  }
+
+  export type ItemEstoqueCreateManyObraInputEnvelope = {
+    data: ItemEstoqueCreateManyObraInput | ItemEstoqueCreateManyObraInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MovimentacaoEstoqueCreateWithoutObraInput = {
+    id?: string
+    tipo: $Enums.MovimentacaoTipo
+    quantidade: Decimal | DecimalJsLike | number | string
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    motivo?: string | null
+    fornecedor?: string | null
+    notaFiscal?: string | null
+    responsavel?: string | null
+    createdAt?: Date | string
+    itemEstoque: ItemEstoqueCreateNestedOneWithoutMovimentacoesInput
+    organization: OrganizationCreateNestedOneWithoutMovimentacoesEstoqueInput
+    user: UserCreateNestedOneWithoutMovimentacoesEstoqueInput
+  }
+
+  export type MovimentacaoEstoqueUncheckedCreateWithoutObraInput = {
+    id?: string
+    itemEstoqueId: string
+    tipo: $Enums.MovimentacaoTipo
+    quantidade: Decimal | DecimalJsLike | number | string
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    motivo?: string | null
+    fornecedor?: string | null
+    notaFiscal?: string | null
+    responsavel?: string | null
+    organizationId: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type MovimentacaoEstoqueCreateOrConnectWithoutObraInput = {
+    where: MovimentacaoEstoqueWhereUniqueInput
+    create: XOR<MovimentacaoEstoqueCreateWithoutObraInput, MovimentacaoEstoqueUncheckedCreateWithoutObraInput>
+  }
+
+  export type MovimentacaoEstoqueCreateManyObraInputEnvelope = {
+    data: MovimentacaoEstoqueCreateManyObraInput | MovimentacaoEstoqueCreateManyObraInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FuncionarioObraCreateWithoutObraInput = {
+    id?: string
+    dataInicio: Date | string
+    dataFim?: Date | string | null
+    funcao?: string | null
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    funcionario: FuncionarioCreateNestedOneWithoutObrasVinculadasInput
+    organization: OrganizationCreateNestedOneWithoutFuncionariosVinculadosInput
+  }
+
+  export type FuncionarioObraUncheckedCreateWithoutObraInput = {
+    id?: string
+    funcionarioId: string
+    organizationId: string
+    dataInicio: Date | string
+    dataFim?: Date | string | null
+    funcao?: string | null
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FuncionarioObraCreateOrConnectWithoutObraInput = {
+    where: FuncionarioObraWhereUniqueInput
+    create: XOR<FuncionarioObraCreateWithoutObraInput, FuncionarioObraUncheckedCreateWithoutObraInput>
+  }
+
+  export type FuncionarioObraCreateManyObraInputEnvelope = {
+    data: FuncionarioObraCreateManyObraInput | FuncionarioObraCreateManyObraInput[]
+    skipDuplicates?: boolean
+  }
+
   export type OrganizationUpsertWithoutObrasInput = {
     update: XOR<OrganizationUpdateWithoutObrasInput, OrganizationUncheckedUpdateWithoutObrasInput>
     create: XOR<OrganizationCreateWithoutObrasInput, OrganizationUncheckedCreateWithoutObrasInput>
@@ -24860,6 +38030,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutObrasInput = {
@@ -24879,6 +38054,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUncheckedUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUncheckedUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type UserUpsertWithoutObrasInput = {
@@ -24904,6 +38084,7 @@ export namespace Prisma {
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     documentos?: DocumentoUpdateManyWithoutUserNestedInput
     transacoes?: TransacaoFinanceiraUpdateManyWithoutUserNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutObrasInput = {
@@ -24918,6 +38099,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     documentos?: DocumentoUncheckedUpdateManyWithoutUserNestedInput
     transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutUserNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type FuncionarioUpsertWithWhereUniqueWithoutObraInput = {
@@ -25032,6 +38214,102 @@ export namespace Prisma {
     data: XOR<PagamentoUpdateManyMutationInput, PagamentoUncheckedUpdateManyWithoutObraInput>
   }
 
+  export type RegistroFrequenciaUpsertWithWhereUniqueWithoutObraInput = {
+    where: RegistroFrequenciaWhereUniqueInput
+    update: XOR<RegistroFrequenciaUpdateWithoutObraInput, RegistroFrequenciaUncheckedUpdateWithoutObraInput>
+    create: XOR<RegistroFrequenciaCreateWithoutObraInput, RegistroFrequenciaUncheckedCreateWithoutObraInput>
+  }
+
+  export type RegistroFrequenciaUpdateWithWhereUniqueWithoutObraInput = {
+    where: RegistroFrequenciaWhereUniqueInput
+    data: XOR<RegistroFrequenciaUpdateWithoutObraInput, RegistroFrequenciaUncheckedUpdateWithoutObraInput>
+  }
+
+  export type RegistroFrequenciaUpdateManyWithWhereWithoutObraInput = {
+    where: RegistroFrequenciaScalarWhereInput
+    data: XOR<RegistroFrequenciaUpdateManyMutationInput, RegistroFrequenciaUncheckedUpdateManyWithoutObraInput>
+  }
+
+  export type OrcamentoUpsertWithWhereUniqueWithoutObraInput = {
+    where: OrcamentoWhereUniqueInput
+    update: XOR<OrcamentoUpdateWithoutObraInput, OrcamentoUncheckedUpdateWithoutObraInput>
+    create: XOR<OrcamentoCreateWithoutObraInput, OrcamentoUncheckedCreateWithoutObraInput>
+  }
+
+  export type OrcamentoUpdateWithWhereUniqueWithoutObraInput = {
+    where: OrcamentoWhereUniqueInput
+    data: XOR<OrcamentoUpdateWithoutObraInput, OrcamentoUncheckedUpdateWithoutObraInput>
+  }
+
+  export type OrcamentoUpdateManyWithWhereWithoutObraInput = {
+    where: OrcamentoScalarWhereInput
+    data: XOR<OrcamentoUpdateManyMutationInput, OrcamentoUncheckedUpdateManyWithoutObraInput>
+  }
+
+  export type EtapaObraUpsertWithWhereUniqueWithoutObraInput = {
+    where: EtapaObraWhereUniqueInput
+    update: XOR<EtapaObraUpdateWithoutObraInput, EtapaObraUncheckedUpdateWithoutObraInput>
+    create: XOR<EtapaObraCreateWithoutObraInput, EtapaObraUncheckedCreateWithoutObraInput>
+  }
+
+  export type EtapaObraUpdateWithWhereUniqueWithoutObraInput = {
+    where: EtapaObraWhereUniqueInput
+    data: XOR<EtapaObraUpdateWithoutObraInput, EtapaObraUncheckedUpdateWithoutObraInput>
+  }
+
+  export type EtapaObraUpdateManyWithWhereWithoutObraInput = {
+    where: EtapaObraScalarWhereInput
+    data: XOR<EtapaObraUpdateManyMutationInput, EtapaObraUncheckedUpdateManyWithoutObraInput>
+  }
+
+  export type ItemEstoqueUpsertWithWhereUniqueWithoutObraInput = {
+    where: ItemEstoqueWhereUniqueInput
+    update: XOR<ItemEstoqueUpdateWithoutObraInput, ItemEstoqueUncheckedUpdateWithoutObraInput>
+    create: XOR<ItemEstoqueCreateWithoutObraInput, ItemEstoqueUncheckedCreateWithoutObraInput>
+  }
+
+  export type ItemEstoqueUpdateWithWhereUniqueWithoutObraInput = {
+    where: ItemEstoqueWhereUniqueInput
+    data: XOR<ItemEstoqueUpdateWithoutObraInput, ItemEstoqueUncheckedUpdateWithoutObraInput>
+  }
+
+  export type ItemEstoqueUpdateManyWithWhereWithoutObraInput = {
+    where: ItemEstoqueScalarWhereInput
+    data: XOR<ItemEstoqueUpdateManyMutationInput, ItemEstoqueUncheckedUpdateManyWithoutObraInput>
+  }
+
+  export type MovimentacaoEstoqueUpsertWithWhereUniqueWithoutObraInput = {
+    where: MovimentacaoEstoqueWhereUniqueInput
+    update: XOR<MovimentacaoEstoqueUpdateWithoutObraInput, MovimentacaoEstoqueUncheckedUpdateWithoutObraInput>
+    create: XOR<MovimentacaoEstoqueCreateWithoutObraInput, MovimentacaoEstoqueUncheckedCreateWithoutObraInput>
+  }
+
+  export type MovimentacaoEstoqueUpdateWithWhereUniqueWithoutObraInput = {
+    where: MovimentacaoEstoqueWhereUniqueInput
+    data: XOR<MovimentacaoEstoqueUpdateWithoutObraInput, MovimentacaoEstoqueUncheckedUpdateWithoutObraInput>
+  }
+
+  export type MovimentacaoEstoqueUpdateManyWithWhereWithoutObraInput = {
+    where: MovimentacaoEstoqueScalarWhereInput
+    data: XOR<MovimentacaoEstoqueUpdateManyMutationInput, MovimentacaoEstoqueUncheckedUpdateManyWithoutObraInput>
+  }
+
+  export type FuncionarioObraUpsertWithWhereUniqueWithoutObraInput = {
+    where: FuncionarioObraWhereUniqueInput
+    update: XOR<FuncionarioObraUpdateWithoutObraInput, FuncionarioObraUncheckedUpdateWithoutObraInput>
+    create: XOR<FuncionarioObraCreateWithoutObraInput, FuncionarioObraUncheckedCreateWithoutObraInput>
+  }
+
+  export type FuncionarioObraUpdateWithWhereUniqueWithoutObraInput = {
+    where: FuncionarioObraWhereUniqueInput
+    data: XOR<FuncionarioObraUpdateWithoutObraInput, FuncionarioObraUncheckedUpdateWithoutObraInput>
+  }
+
+  export type FuncionarioObraUpdateManyWithWhereWithoutObraInput = {
+    where: FuncionarioObraScalarWhereInput
+    data: XOR<FuncionarioObraUpdateManyMutationInput, FuncionarioObraUncheckedUpdateManyWithoutObraInput>
+  }
+
   export type OrganizationCreateWithoutFuncionariosInput = {
     id?: string
     nome: string
@@ -25049,6 +38327,11 @@ export namespace Prisma {
     pagamentos?: PagamentoCreateNestedManyWithoutOrganizationInput
     cargos?: CargoCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutFuncionariosInput = {
@@ -25068,6 +38351,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutOrganizationInput
     cargos?: CargoUncheckedCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutFuncionariosInput = {
@@ -25094,6 +38382,7 @@ export namespace Prisma {
     orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     organization: OrganizationCreateNestedOneWithoutObrasInput
     user: UserCreateNestedOneWithoutObrasInput
     maquinarios?: MaquinarioCreateNestedManyWithoutObraInput
@@ -25102,6 +38391,12 @@ export namespace Prisma {
     alertas?: AlertaCreateNestedManyWithoutObraInput
     documentos?: DocumentoCreateNestedManyWithoutObraInput
     pagamentos?: PagamentoCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutObraInput
   }
 
   export type ObraUncheckedCreateWithoutFuncionariosInput = {
@@ -25125,12 +38420,19 @@ export namespace Prisma {
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutObraInput
     transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutObraInput
     categorias?: CategoriaFinanceiraUncheckedCreateNestedManyWithoutObraInput
     alertas?: AlertaUncheckedCreateNestedManyWithoutObraInput
     documentos?: DocumentoUncheckedCreateNestedManyWithoutObraInput
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutObraInput
   }
 
   export type ObraCreateOrConnectWithoutFuncionariosInput = {
@@ -25170,6 +38472,74 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type RegistroFrequenciaCreateWithoutFuncionarioInput = {
+    id?: string
+    data: Date | string
+    presente?: boolean
+    periodo?: number
+    horasExtras?: number
+    observacao?: string | null
+    createdAt?: Date | string
+    obra: ObraCreateNestedOneWithoutFrequenciasInput
+    organization: OrganizationCreateNestedOneWithoutFrequenciasInput
+  }
+
+  export type RegistroFrequenciaUncheckedCreateWithoutFuncionarioInput = {
+    id?: string
+    obraId: string
+    organizationId: string
+    data: Date | string
+    presente?: boolean
+    periodo?: number
+    horasExtras?: number
+    observacao?: string | null
+    createdAt?: Date | string
+  }
+
+  export type RegistroFrequenciaCreateOrConnectWithoutFuncionarioInput = {
+    where: RegistroFrequenciaWhereUniqueInput
+    create: XOR<RegistroFrequenciaCreateWithoutFuncionarioInput, RegistroFrequenciaUncheckedCreateWithoutFuncionarioInput>
+  }
+
+  export type RegistroFrequenciaCreateManyFuncionarioInputEnvelope = {
+    data: RegistroFrequenciaCreateManyFuncionarioInput | RegistroFrequenciaCreateManyFuncionarioInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FuncionarioObraCreateWithoutFuncionarioInput = {
+    id?: string
+    dataInicio: Date | string
+    dataFim?: Date | string | null
+    funcao?: string | null
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    obra: ObraCreateNestedOneWithoutFuncionariosVinculadosInput
+    organization: OrganizationCreateNestedOneWithoutFuncionariosVinculadosInput
+  }
+
+  export type FuncionarioObraUncheckedCreateWithoutFuncionarioInput = {
+    id?: string
+    obraId: string
+    organizationId: string
+    dataInicio: Date | string
+    dataFim?: Date | string | null
+    funcao?: string | null
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FuncionarioObraCreateOrConnectWithoutFuncionarioInput = {
+    where: FuncionarioObraWhereUniqueInput
+    create: XOR<FuncionarioObraCreateWithoutFuncionarioInput, FuncionarioObraUncheckedCreateWithoutFuncionarioInput>
+  }
+
+  export type FuncionarioObraCreateManyFuncionarioInputEnvelope = {
+    data: FuncionarioObraCreateManyFuncionarioInput | FuncionarioObraCreateManyFuncionarioInput[]
+    skipDuplicates?: boolean
+  }
+
   export type OrganizationUpsertWithoutFuncionariosInput = {
     update: XOR<OrganizationUpdateWithoutFuncionariosInput, OrganizationUncheckedUpdateWithoutFuncionariosInput>
     create: XOR<OrganizationCreateWithoutFuncionariosInput, OrganizationUncheckedCreateWithoutFuncionariosInput>
@@ -25198,6 +38568,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutFuncionariosInput = {
@@ -25217,6 +38592,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUncheckedUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUncheckedUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type ObraUpsertWithoutFuncionariosInput = {
@@ -25249,6 +38629,7 @@ export namespace Prisma {
     orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     organization?: OrganizationUpdateOneRequiredWithoutObrasNestedInput
     user?: UserUpdateOneRequiredWithoutObrasNestedInput
     maquinarios?: MaquinarioUpdateManyWithoutObraNestedInput
@@ -25257,6 +38638,12 @@ export namespace Prisma {
     alertas?: AlertaUpdateManyWithoutObraNestedInput
     documentos?: DocumentoUpdateManyWithoutObraNestedInput
     pagamentos?: PagamentoUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutObraNestedInput
   }
 
   export type ObraUncheckedUpdateWithoutFuncionariosInput = {
@@ -25280,12 +38667,19 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     maquinarios?: MaquinarioUncheckedUpdateManyWithoutObraNestedInput
     transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutObraNestedInput
     categorias?: CategoriaFinanceiraUncheckedUpdateManyWithoutObraNestedInput
     alertas?: AlertaUncheckedUpdateManyWithoutObraNestedInput
     documentos?: DocumentoUncheckedUpdateManyWithoutObraNestedInput
     pagamentos?: PagamentoUncheckedUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutObraNestedInput
   }
 
   export type PagamentoUpsertWithWhereUniqueWithoutFuncionarioInput = {
@@ -25304,6 +38698,414 @@ export namespace Prisma {
     data: XOR<PagamentoUpdateManyMutationInput, PagamentoUncheckedUpdateManyWithoutFuncionarioInput>
   }
 
+  export type RegistroFrequenciaUpsertWithWhereUniqueWithoutFuncionarioInput = {
+    where: RegistroFrequenciaWhereUniqueInput
+    update: XOR<RegistroFrequenciaUpdateWithoutFuncionarioInput, RegistroFrequenciaUncheckedUpdateWithoutFuncionarioInput>
+    create: XOR<RegistroFrequenciaCreateWithoutFuncionarioInput, RegistroFrequenciaUncheckedCreateWithoutFuncionarioInput>
+  }
+
+  export type RegistroFrequenciaUpdateWithWhereUniqueWithoutFuncionarioInput = {
+    where: RegistroFrequenciaWhereUniqueInput
+    data: XOR<RegistroFrequenciaUpdateWithoutFuncionarioInput, RegistroFrequenciaUncheckedUpdateWithoutFuncionarioInput>
+  }
+
+  export type RegistroFrequenciaUpdateManyWithWhereWithoutFuncionarioInput = {
+    where: RegistroFrequenciaScalarWhereInput
+    data: XOR<RegistroFrequenciaUpdateManyMutationInput, RegistroFrequenciaUncheckedUpdateManyWithoutFuncionarioInput>
+  }
+
+  export type FuncionarioObraUpsertWithWhereUniqueWithoutFuncionarioInput = {
+    where: FuncionarioObraWhereUniqueInput
+    update: XOR<FuncionarioObraUpdateWithoutFuncionarioInput, FuncionarioObraUncheckedUpdateWithoutFuncionarioInput>
+    create: XOR<FuncionarioObraCreateWithoutFuncionarioInput, FuncionarioObraUncheckedCreateWithoutFuncionarioInput>
+  }
+
+  export type FuncionarioObraUpdateWithWhereUniqueWithoutFuncionarioInput = {
+    where: FuncionarioObraWhereUniqueInput
+    data: XOR<FuncionarioObraUpdateWithoutFuncionarioInput, FuncionarioObraUncheckedUpdateWithoutFuncionarioInput>
+  }
+
+  export type FuncionarioObraUpdateManyWithWhereWithoutFuncionarioInput = {
+    where: FuncionarioObraScalarWhereInput
+    data: XOR<FuncionarioObraUpdateManyMutationInput, FuncionarioObraUncheckedUpdateManyWithoutFuncionarioInput>
+  }
+
+  export type FuncionarioCreateWithoutObrasVinculadasInput = {
+    id?: string
+    nome: string
+    cpf: string
+    cargo: string
+    tipo: $Enums.FuncionarioTipo
+    valorPagamento: Decimal | DecimalJsLike | number | string
+    periodicidade: $Enums.Periodicidade
+    dadosBancarios?: string | null
+    contato?: string | null
+    dataAdmissao: Date | string
+    status?: $Enums.FuncionarioStatus
+    fotoPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    organization: OrganizationCreateNestedOneWithoutFuncionariosInput
+    obra: ObraCreateNestedOneWithoutFuncionariosInput
+    pagamentos?: PagamentoCreateNestedManyWithoutFuncionarioInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutFuncionarioInput
+  }
+
+  export type FuncionarioUncheckedCreateWithoutObrasVinculadasInput = {
+    id?: string
+    nome: string
+    cpf: string
+    cargo: string
+    tipo: $Enums.FuncionarioTipo
+    valorPagamento: Decimal | DecimalJsLike | number | string
+    periodicidade: $Enums.Periodicidade
+    dadosBancarios?: string | null
+    contato?: string | null
+    dataAdmissao: Date | string
+    status?: $Enums.FuncionarioStatus
+    fotoPath?: string | null
+    organizationId: string
+    obraId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    pagamentos?: PagamentoUncheckedCreateNestedManyWithoutFuncionarioInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutFuncionarioInput
+  }
+
+  export type FuncionarioCreateOrConnectWithoutObrasVinculadasInput = {
+    where: FuncionarioWhereUniqueInput
+    create: XOR<FuncionarioCreateWithoutObrasVinculadasInput, FuncionarioUncheckedCreateWithoutObrasVinculadasInput>
+  }
+
+  export type ObraCreateWithoutFuncionariosVinculadosInput = {
+    id?: string
+    nome: string
+    endereco: string
+    bairro?: string | null
+    cidade: string
+    estado: string
+    cep: string
+    responsavel: string
+    cliente: string
+    dataInicio: Date | string
+    dataPrevisaoFim: Date | string
+    status?: $Enums.ObraStatus
+    descricao?: string | null
+    observacoes?: string | null
+    fotoPath?: string | null
+    orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    organization: OrganizationCreateNestedOneWithoutObrasInput
+    user: UserCreateNestedOneWithoutObrasInput
+    funcionarios?: FuncionarioCreateNestedManyWithoutObraInput
+    maquinarios?: MaquinarioCreateNestedManyWithoutObraInput
+    transacoes?: TransacaoFinanceiraCreateNestedManyWithoutObraInput
+    categorias?: CategoriaFinanceiraCreateNestedManyWithoutObraInput
+    alertas?: AlertaCreateNestedManyWithoutObraInput
+    documentos?: DocumentoCreateNestedManyWithoutObraInput
+    pagamentos?: PagamentoCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutObraInput
+  }
+
+  export type ObraUncheckedCreateWithoutFuncionariosVinculadosInput = {
+    id?: string
+    nome: string
+    endereco: string
+    bairro?: string | null
+    cidade: string
+    estado: string
+    cep: string
+    responsavel: string
+    cliente: string
+    dataInicio: Date | string
+    dataPrevisaoFim: Date | string
+    status?: $Enums.ObraStatus
+    descricao?: string | null
+    observacoes?: string | null
+    fotoPath?: string | null
+    orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
+    organizationId: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutObraInput
+    maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutObraInput
+    transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutObraInput
+    categorias?: CategoriaFinanceiraUncheckedCreateNestedManyWithoutObraInput
+    alertas?: AlertaUncheckedCreateNestedManyWithoutObraInput
+    documentos?: DocumentoUncheckedCreateNestedManyWithoutObraInput
+    pagamentos?: PagamentoUncheckedCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutObraInput
+  }
+
+  export type ObraCreateOrConnectWithoutFuncionariosVinculadosInput = {
+    where: ObraWhereUniqueInput
+    create: XOR<ObraCreateWithoutFuncionariosVinculadosInput, ObraUncheckedCreateWithoutFuncionariosVinculadosInput>
+  }
+
+  export type OrganizationCreateWithoutFuncionariosVinculadosInput = {
+    id?: string
+    nome: string
+    slug: string
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutOrganizationInput
+    obras?: ObraCreateNestedManyWithoutOrganizationInput
+    funcionarios?: FuncionarioCreateNestedManyWithoutOrganizationInput
+    maquinarios?: MaquinarioCreateNestedManyWithoutOrganizationInput
+    transacoes?: TransacaoFinanceiraCreateNestedManyWithoutOrganizationInput
+    categorias?: CategoriaFinanceiraCreateNestedManyWithoutOrganizationInput
+    alertas?: AlertaCreateNestedManyWithoutOrganizationInput
+    documentos?: DocumentoCreateNestedManyWithoutOrganizationInput
+    pagamentos?: PagamentoCreateNestedManyWithoutOrganizationInput
+    cargos?: CargoCreateNestedManyWithoutOrganizationInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutFuncionariosVinculadosInput = {
+    id?: string
+    nome: string
+    slug: string
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
+    obras?: ObraUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutOrganizationInput
+    maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutOrganizationInput
+    transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutOrganizationInput
+    categorias?: CategoriaFinanceiraUncheckedCreateNestedManyWithoutOrganizationInput
+    alertas?: AlertaUncheckedCreateNestedManyWithoutOrganizationInput
+    documentos?: DocumentoUncheckedCreateNestedManyWithoutOrganizationInput
+    pagamentos?: PagamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    cargos?: CargoUncheckedCreateNestedManyWithoutOrganizationInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutFuncionariosVinculadosInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutFuncionariosVinculadosInput, OrganizationUncheckedCreateWithoutFuncionariosVinculadosInput>
+  }
+
+  export type FuncionarioUpsertWithoutObrasVinculadasInput = {
+    update: XOR<FuncionarioUpdateWithoutObrasVinculadasInput, FuncionarioUncheckedUpdateWithoutObrasVinculadasInput>
+    create: XOR<FuncionarioCreateWithoutObrasVinculadasInput, FuncionarioUncheckedCreateWithoutObrasVinculadasInput>
+    where?: FuncionarioWhereInput
+  }
+
+  export type FuncionarioUpdateToOneWithWhereWithoutObrasVinculadasInput = {
+    where?: FuncionarioWhereInput
+    data: XOR<FuncionarioUpdateWithoutObrasVinculadasInput, FuncionarioUncheckedUpdateWithoutObrasVinculadasInput>
+  }
+
+  export type FuncionarioUpdateWithoutObrasVinculadasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    cargo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumFuncionarioTipoFieldUpdateOperationsInput | $Enums.FuncionarioTipo
+    valorPagamento?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    periodicidade?: EnumPeriodicidadeFieldUpdateOperationsInput | $Enums.Periodicidade
+    dadosBancarios?: NullableStringFieldUpdateOperationsInput | string | null
+    contato?: NullableStringFieldUpdateOperationsInput | string | null
+    dataAdmissao?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumFuncionarioStatusFieldUpdateOperationsInput | $Enums.FuncionarioStatus
+    fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    organization?: OrganizationUpdateOneRequiredWithoutFuncionariosNestedInput
+    obra?: ObraUpdateOneRequiredWithoutFuncionariosNestedInput
+    pagamentos?: PagamentoUpdateManyWithoutFuncionarioNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutFuncionarioNestedInput
+  }
+
+  export type FuncionarioUncheckedUpdateWithoutObrasVinculadasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    cargo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumFuncionarioTipoFieldUpdateOperationsInput | $Enums.FuncionarioTipo
+    valorPagamento?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    periodicidade?: EnumPeriodicidadeFieldUpdateOperationsInput | $Enums.Periodicidade
+    dadosBancarios?: NullableStringFieldUpdateOperationsInput | string | null
+    contato?: NullableStringFieldUpdateOperationsInput | string | null
+    dataAdmissao?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumFuncionarioStatusFieldUpdateOperationsInput | $Enums.FuncionarioStatus
+    fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: StringFieldUpdateOperationsInput | string
+    obraId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pagamentos?: PagamentoUncheckedUpdateManyWithoutFuncionarioNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutFuncionarioNestedInput
+  }
+
+  export type ObraUpsertWithoutFuncionariosVinculadosInput = {
+    update: XOR<ObraUpdateWithoutFuncionariosVinculadosInput, ObraUncheckedUpdateWithoutFuncionariosVinculadosInput>
+    create: XOR<ObraCreateWithoutFuncionariosVinculadosInput, ObraUncheckedCreateWithoutFuncionariosVinculadosInput>
+    where?: ObraWhereInput
+  }
+
+  export type ObraUpdateToOneWithWhereWithoutFuncionariosVinculadosInput = {
+    where?: ObraWhereInput
+    data: XOR<ObraUpdateWithoutFuncionariosVinculadosInput, ObraUncheckedUpdateWithoutFuncionariosVinculadosInput>
+  }
+
+  export type ObraUpdateWithoutFuncionariosVinculadosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    cep?: StringFieldUpdateOperationsInput | string
+    responsavel?: StringFieldUpdateOperationsInput | string
+    cliente?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataPrevisaoFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumObraStatusFieldUpdateOperationsInput | $Enums.ObraStatus
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    organization?: OrganizationUpdateOneRequiredWithoutObrasNestedInput
+    user?: UserUpdateOneRequiredWithoutObrasNestedInput
+    funcionarios?: FuncionarioUpdateManyWithoutObraNestedInput
+    maquinarios?: MaquinarioUpdateManyWithoutObraNestedInput
+    transacoes?: TransacaoFinanceiraUpdateManyWithoutObraNestedInput
+    categorias?: CategoriaFinanceiraUpdateManyWithoutObraNestedInput
+    alertas?: AlertaUpdateManyWithoutObraNestedInput
+    documentos?: DocumentoUpdateManyWithoutObraNestedInput
+    pagamentos?: PagamentoUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutObraNestedInput
+  }
+
+  export type ObraUncheckedUpdateWithoutFuncionariosVinculadosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    cep?: StringFieldUpdateOperationsInput | string
+    responsavel?: StringFieldUpdateOperationsInput | string
+    cliente?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataPrevisaoFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumObraStatusFieldUpdateOperationsInput | $Enums.ObraStatus
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    organizationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    funcionarios?: FuncionarioUncheckedUpdateManyWithoutObraNestedInput
+    maquinarios?: MaquinarioUncheckedUpdateManyWithoutObraNestedInput
+    transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutObraNestedInput
+    categorias?: CategoriaFinanceiraUncheckedUpdateManyWithoutObraNestedInput
+    alertas?: AlertaUncheckedUpdateManyWithoutObraNestedInput
+    documentos?: DocumentoUncheckedUpdateManyWithoutObraNestedInput
+    pagamentos?: PagamentoUncheckedUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutObraNestedInput
+  }
+
+  export type OrganizationUpsertWithoutFuncionariosVinculadosInput = {
+    update: XOR<OrganizationUpdateWithoutFuncionariosVinculadosInput, OrganizationUncheckedUpdateWithoutFuncionariosVinculadosInput>
+    create: XOR<OrganizationCreateWithoutFuncionariosVinculadosInput, OrganizationUncheckedCreateWithoutFuncionariosVinculadosInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutFuncionariosVinculadosInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutFuncionariosVinculadosInput, OrganizationUncheckedUpdateWithoutFuncionariosVinculadosInput>
+  }
+
+  export type OrganizationUpdateWithoutFuncionariosVinculadosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutOrganizationNestedInput
+    obras?: ObraUpdateManyWithoutOrganizationNestedInput
+    funcionarios?: FuncionarioUpdateManyWithoutOrganizationNestedInput
+    maquinarios?: MaquinarioUpdateManyWithoutOrganizationNestedInput
+    transacoes?: TransacaoFinanceiraUpdateManyWithoutOrganizationNestedInput
+    categorias?: CategoriaFinanceiraUpdateManyWithoutOrganizationNestedInput
+    alertas?: AlertaUpdateManyWithoutOrganizationNestedInput
+    documentos?: DocumentoUpdateManyWithoutOrganizationNestedInput
+    pagamentos?: PagamentoUpdateManyWithoutOrganizationNestedInput
+    cargos?: CargoUpdateManyWithoutOrganizationNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutFuncionariosVinculadosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
+    obras?: ObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionarios?: FuncionarioUncheckedUpdateManyWithoutOrganizationNestedInput
+    maquinarios?: MaquinarioUncheckedUpdateManyWithoutOrganizationNestedInput
+    transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutOrganizationNestedInput
+    categorias?: CategoriaFinanceiraUncheckedUpdateManyWithoutOrganizationNestedInput
+    alertas?: AlertaUncheckedUpdateManyWithoutOrganizationNestedInput
+    documentos?: DocumentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    pagamentos?: PagamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    cargos?: CargoUncheckedUpdateManyWithoutOrganizationNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
   export type FuncionarioCreateWithoutPagamentosInput = {
     id?: string
     nome: string
@@ -25319,8 +39121,11 @@ export namespace Prisma {
     fotoPath?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     organization: OrganizationCreateNestedOneWithoutFuncionariosInput
     obra: ObraCreateNestedOneWithoutFuncionariosInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutFuncionarioInput
+    obrasVinculadas?: FuncionarioObraCreateNestedManyWithoutFuncionarioInput
   }
 
   export type FuncionarioUncheckedCreateWithoutPagamentosInput = {
@@ -25340,6 +39145,9 @@ export namespace Prisma {
     obraId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutFuncionarioInput
+    obrasVinculadas?: FuncionarioObraUncheckedCreateNestedManyWithoutFuncionarioInput
   }
 
   export type FuncionarioCreateOrConnectWithoutPagamentosInput = {
@@ -25366,6 +39174,7 @@ export namespace Prisma {
     orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     organization: OrganizationCreateNestedOneWithoutObrasInput
     user: UserCreateNestedOneWithoutObrasInput
     funcionarios?: FuncionarioCreateNestedManyWithoutObraInput
@@ -25374,6 +39183,12 @@ export namespace Prisma {
     categorias?: CategoriaFinanceiraCreateNestedManyWithoutObraInput
     alertas?: AlertaCreateNestedManyWithoutObraInput
     documentos?: DocumentoCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutObraInput
   }
 
   export type ObraUncheckedCreateWithoutPagamentosInput = {
@@ -25397,12 +39212,19 @@ export namespace Prisma {
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutObraInput
     maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutObraInput
     transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutObraInput
     categorias?: CategoriaFinanceiraUncheckedCreateNestedManyWithoutObraInput
     alertas?: AlertaUncheckedCreateNestedManyWithoutObraInput
     documentos?: DocumentoUncheckedCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutObraInput
   }
 
   export type ObraCreateOrConnectWithoutPagamentosInput = {
@@ -25427,6 +39249,11 @@ export namespace Prisma {
     documentos?: DocumentoCreateNestedManyWithoutOrganizationInput
     cargos?: CargoCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutPagamentosInput = {
@@ -25446,6 +39273,11 @@ export namespace Prisma {
     documentos?: DocumentoUncheckedCreateNestedManyWithoutOrganizationInput
     cargos?: CargoUncheckedCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutPagamentosInput = {
@@ -25479,8 +39311,11 @@ export namespace Prisma {
     fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     organization?: OrganizationUpdateOneRequiredWithoutFuncionariosNestedInput
     obra?: ObraUpdateOneRequiredWithoutFuncionariosNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutFuncionarioNestedInput
+    obrasVinculadas?: FuncionarioObraUpdateManyWithoutFuncionarioNestedInput
   }
 
   export type FuncionarioUncheckedUpdateWithoutPagamentosInput = {
@@ -25500,6 +39335,9 @@ export namespace Prisma {
     obraId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutFuncionarioNestedInput
+    obrasVinculadas?: FuncionarioObraUncheckedUpdateManyWithoutFuncionarioNestedInput
   }
 
   export type ObraUpsertWithoutPagamentosInput = {
@@ -25532,6 +39370,7 @@ export namespace Prisma {
     orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     organization?: OrganizationUpdateOneRequiredWithoutObrasNestedInput
     user?: UserUpdateOneRequiredWithoutObrasNestedInput
     funcionarios?: FuncionarioUpdateManyWithoutObraNestedInput
@@ -25540,6 +39379,12 @@ export namespace Prisma {
     categorias?: CategoriaFinanceiraUpdateManyWithoutObraNestedInput
     alertas?: AlertaUpdateManyWithoutObraNestedInput
     documentos?: DocumentoUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutObraNestedInput
   }
 
   export type ObraUncheckedUpdateWithoutPagamentosInput = {
@@ -25563,12 +39408,19 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     funcionarios?: FuncionarioUncheckedUpdateManyWithoutObraNestedInput
     maquinarios?: MaquinarioUncheckedUpdateManyWithoutObraNestedInput
     transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutObraNestedInput
     categorias?: CategoriaFinanceiraUncheckedUpdateManyWithoutObraNestedInput
     alertas?: AlertaUncheckedUpdateManyWithoutObraNestedInput
     documentos?: DocumentoUncheckedUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutObraNestedInput
   }
 
   export type OrganizationUpsertWithoutPagamentosInput = {
@@ -25599,6 +39451,11 @@ export namespace Prisma {
     documentos?: DocumentoUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutPagamentosInput = {
@@ -25618,6 +39475,11 @@ export namespace Prisma {
     documentos?: DocumentoUncheckedUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUncheckedUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationCreateWithoutMaquinariosInput = {
@@ -25637,6 +39499,11 @@ export namespace Prisma {
     pagamentos?: PagamentoCreateNestedManyWithoutOrganizationInput
     cargos?: CargoCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutMaquinariosInput = {
@@ -25656,6 +39523,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutOrganizationInput
     cargos?: CargoUncheckedCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutMaquinariosInput = {
@@ -25682,6 +39554,7 @@ export namespace Prisma {
     orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     organization: OrganizationCreateNestedOneWithoutObrasInput
     user: UserCreateNestedOneWithoutObrasInput
     funcionarios?: FuncionarioCreateNestedManyWithoutObraInput
@@ -25690,6 +39563,12 @@ export namespace Prisma {
     alertas?: AlertaCreateNestedManyWithoutObraInput
     documentos?: DocumentoCreateNestedManyWithoutObraInput
     pagamentos?: PagamentoCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutObraInput
   }
 
   export type ObraUncheckedCreateWithoutMaquinariosInput = {
@@ -25713,12 +39592,19 @@ export namespace Prisma {
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutObraInput
     transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutObraInput
     categorias?: CategoriaFinanceiraUncheckedCreateNestedManyWithoutObraInput
     alertas?: AlertaUncheckedCreateNestedManyWithoutObraInput
     documentos?: DocumentoUncheckedCreateNestedManyWithoutObraInput
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutObraInput
   }
 
   export type ObraCreateOrConnectWithoutMaquinariosInput = {
@@ -25754,6 +39640,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutMaquinariosInput = {
@@ -25773,6 +39664,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUncheckedUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUncheckedUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type ObraUpsertWithoutMaquinariosInput = {
@@ -25805,6 +39701,7 @@ export namespace Prisma {
     orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     organization?: OrganizationUpdateOneRequiredWithoutObrasNestedInput
     user?: UserUpdateOneRequiredWithoutObrasNestedInput
     funcionarios?: FuncionarioUpdateManyWithoutObraNestedInput
@@ -25813,6 +39710,12 @@ export namespace Prisma {
     alertas?: AlertaUpdateManyWithoutObraNestedInput
     documentos?: DocumentoUpdateManyWithoutObraNestedInput
     pagamentos?: PagamentoUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutObraNestedInput
   }
 
   export type ObraUncheckedUpdateWithoutMaquinariosInput = {
@@ -25836,12 +39739,19 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     funcionarios?: FuncionarioUncheckedUpdateManyWithoutObraNestedInput
     transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutObraNestedInput
     categorias?: CategoriaFinanceiraUncheckedUpdateManyWithoutObraNestedInput
     alertas?: AlertaUncheckedUpdateManyWithoutObraNestedInput
     documentos?: DocumentoUncheckedUpdateManyWithoutObraNestedInput
     pagamentos?: PagamentoUncheckedUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutObraNestedInput
   }
 
   export type OrganizationCreateWithoutTransacoesInput = {
@@ -25861,6 +39771,11 @@ export namespace Prisma {
     pagamentos?: PagamentoCreateNestedManyWithoutOrganizationInput
     cargos?: CargoCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutTransacoesInput = {
@@ -25880,6 +39795,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutOrganizationInput
     cargos?: CargoUncheckedCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutTransacoesInput = {
@@ -25906,6 +39826,7 @@ export namespace Prisma {
     orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     organization: OrganizationCreateNestedOneWithoutObrasInput
     user: UserCreateNestedOneWithoutObrasInput
     funcionarios?: FuncionarioCreateNestedManyWithoutObraInput
@@ -25914,6 +39835,12 @@ export namespace Prisma {
     alertas?: AlertaCreateNestedManyWithoutObraInput
     documentos?: DocumentoCreateNestedManyWithoutObraInput
     pagamentos?: PagamentoCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutObraInput
   }
 
   export type ObraUncheckedCreateWithoutTransacoesInput = {
@@ -25937,12 +39864,19 @@ export namespace Prisma {
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutObraInput
     maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutObraInput
     categorias?: CategoriaFinanceiraUncheckedCreateNestedManyWithoutObraInput
     alertas?: AlertaUncheckedCreateNestedManyWithoutObraInput
     documentos?: DocumentoUncheckedCreateNestedManyWithoutObraInput
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutObraInput
   }
 
   export type ObraCreateOrConnectWithoutTransacoesInput = {
@@ -25962,6 +39896,7 @@ export namespace Prisma {
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     obras?: ObraCreateNestedManyWithoutUserInput
     documentos?: DocumentoCreateNestedManyWithoutUserInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTransacoesInput = {
@@ -25976,6 +39911,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     obras?: ObraUncheckedCreateNestedManyWithoutUserInput
     documentos?: DocumentoUncheckedCreateNestedManyWithoutUserInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTransacoesInput = {
@@ -26011,6 +39947,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutTransacoesInput = {
@@ -26030,6 +39971,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUncheckedUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUncheckedUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type ObraUpsertWithoutTransacoesInput = {
@@ -26062,6 +40008,7 @@ export namespace Prisma {
     orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     organization?: OrganizationUpdateOneRequiredWithoutObrasNestedInput
     user?: UserUpdateOneRequiredWithoutObrasNestedInput
     funcionarios?: FuncionarioUpdateManyWithoutObraNestedInput
@@ -26070,6 +40017,12 @@ export namespace Prisma {
     alertas?: AlertaUpdateManyWithoutObraNestedInput
     documentos?: DocumentoUpdateManyWithoutObraNestedInput
     pagamentos?: PagamentoUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutObraNestedInput
   }
 
   export type ObraUncheckedUpdateWithoutTransacoesInput = {
@@ -26093,12 +40046,19 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     funcionarios?: FuncionarioUncheckedUpdateManyWithoutObraNestedInput
     maquinarios?: MaquinarioUncheckedUpdateManyWithoutObraNestedInput
     categorias?: CategoriaFinanceiraUncheckedUpdateManyWithoutObraNestedInput
     alertas?: AlertaUncheckedUpdateManyWithoutObraNestedInput
     documentos?: DocumentoUncheckedUpdateManyWithoutObraNestedInput
     pagamentos?: PagamentoUncheckedUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutObraNestedInput
   }
 
   export type UserUpsertWithoutTransacoesInput = {
@@ -26124,6 +40084,7 @@ export namespace Prisma {
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     obras?: ObraUpdateManyWithoutUserNestedInput
     documentos?: DocumentoUpdateManyWithoutUserNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTransacoesInput = {
@@ -26138,6 +40099,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     obras?: ObraUncheckedUpdateManyWithoutUserNestedInput
     documentos?: DocumentoUncheckedUpdateManyWithoutUserNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OrganizationCreateWithoutCategoriasInput = {
@@ -26157,6 +40119,11 @@ export namespace Prisma {
     pagamentos?: PagamentoCreateNestedManyWithoutOrganizationInput
     cargos?: CargoCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutCategoriasInput = {
@@ -26176,6 +40143,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutOrganizationInput
     cargos?: CargoUncheckedCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutCategoriasInput = {
@@ -26202,6 +40174,7 @@ export namespace Prisma {
     orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     organization: OrganizationCreateNestedOneWithoutObrasInput
     user: UserCreateNestedOneWithoutObrasInput
     funcionarios?: FuncionarioCreateNestedManyWithoutObraInput
@@ -26210,6 +40183,12 @@ export namespace Prisma {
     alertas?: AlertaCreateNestedManyWithoutObraInput
     documentos?: DocumentoCreateNestedManyWithoutObraInput
     pagamentos?: PagamentoCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutObraInput
   }
 
   export type ObraUncheckedCreateWithoutCategoriasInput = {
@@ -26233,12 +40212,19 @@ export namespace Prisma {
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutObraInput
     maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutObraInput
     transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutObraInput
     alertas?: AlertaUncheckedCreateNestedManyWithoutObraInput
     documentos?: DocumentoUncheckedCreateNestedManyWithoutObraInput
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutObraInput
   }
 
   export type ObraCreateOrConnectWithoutCategoriasInput = {
@@ -26274,6 +40260,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutCategoriasInput = {
@@ -26293,6 +40284,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUncheckedUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUncheckedUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type ObraUpsertWithoutCategoriasInput = {
@@ -26325,6 +40321,7 @@ export namespace Prisma {
     orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     organization?: OrganizationUpdateOneRequiredWithoutObrasNestedInput
     user?: UserUpdateOneRequiredWithoutObrasNestedInput
     funcionarios?: FuncionarioUpdateManyWithoutObraNestedInput
@@ -26333,6 +40330,12 @@ export namespace Prisma {
     alertas?: AlertaUpdateManyWithoutObraNestedInput
     documentos?: DocumentoUpdateManyWithoutObraNestedInput
     pagamentos?: PagamentoUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutObraNestedInput
   }
 
   export type ObraUncheckedUpdateWithoutCategoriasInput = {
@@ -26356,12 +40359,19 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     funcionarios?: FuncionarioUncheckedUpdateManyWithoutObraNestedInput
     maquinarios?: MaquinarioUncheckedUpdateManyWithoutObraNestedInput
     transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutObraNestedInput
     alertas?: AlertaUncheckedUpdateManyWithoutObraNestedInput
     documentos?: DocumentoUncheckedUpdateManyWithoutObraNestedInput
     pagamentos?: PagamentoUncheckedUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutObraNestedInput
   }
 
   export type OrganizationCreateWithoutAlertasInput = {
@@ -26381,6 +40391,11 @@ export namespace Prisma {
     pagamentos?: PagamentoCreateNestedManyWithoutOrganizationInput
     cargos?: CargoCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutAlertasInput = {
@@ -26400,6 +40415,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutOrganizationInput
     cargos?: CargoUncheckedCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutAlertasInput = {
@@ -26426,6 +40446,7 @@ export namespace Prisma {
     orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     organization: OrganizationCreateNestedOneWithoutObrasInput
     user: UserCreateNestedOneWithoutObrasInput
     funcionarios?: FuncionarioCreateNestedManyWithoutObraInput
@@ -26434,6 +40455,12 @@ export namespace Prisma {
     categorias?: CategoriaFinanceiraCreateNestedManyWithoutObraInput
     documentos?: DocumentoCreateNestedManyWithoutObraInput
     pagamentos?: PagamentoCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutObraInput
   }
 
   export type ObraUncheckedCreateWithoutAlertasInput = {
@@ -26457,12 +40484,19 @@ export namespace Prisma {
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutObraInput
     maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutObraInput
     transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutObraInput
     categorias?: CategoriaFinanceiraUncheckedCreateNestedManyWithoutObraInput
     documentos?: DocumentoUncheckedCreateNestedManyWithoutObraInput
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutObraInput
   }
 
   export type ObraCreateOrConnectWithoutAlertasInput = {
@@ -26498,6 +40532,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutAlertasInput = {
@@ -26517,6 +40556,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUncheckedUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUncheckedUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type ObraUpsertWithoutAlertasInput = {
@@ -26549,6 +40593,7 @@ export namespace Prisma {
     orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     organization?: OrganizationUpdateOneRequiredWithoutObrasNestedInput
     user?: UserUpdateOneRequiredWithoutObrasNestedInput
     funcionarios?: FuncionarioUpdateManyWithoutObraNestedInput
@@ -26557,6 +40602,12 @@ export namespace Prisma {
     categorias?: CategoriaFinanceiraUpdateManyWithoutObraNestedInput
     documentos?: DocumentoUpdateManyWithoutObraNestedInput
     pagamentos?: PagamentoUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutObraNestedInput
   }
 
   export type ObraUncheckedUpdateWithoutAlertasInput = {
@@ -26580,12 +40631,19 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     funcionarios?: FuncionarioUncheckedUpdateManyWithoutObraNestedInput
     maquinarios?: MaquinarioUncheckedUpdateManyWithoutObraNestedInput
     transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutObraNestedInput
     categorias?: CategoriaFinanceiraUncheckedUpdateManyWithoutObraNestedInput
     documentos?: DocumentoUncheckedUpdateManyWithoutObraNestedInput
     pagamentos?: PagamentoUncheckedUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutObraNestedInput
   }
 
   export type OrganizationCreateWithoutOrcamentosInput = {
@@ -26605,6 +40663,11 @@ export namespace Prisma {
     documentos?: DocumentoCreateNestedManyWithoutOrganizationInput
     pagamentos?: PagamentoCreateNestedManyWithoutOrganizationInput
     cargos?: CargoCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutOrcamentosInput = {
@@ -26624,11 +40687,93 @@ export namespace Prisma {
     documentos?: DocumentoUncheckedCreateNestedManyWithoutOrganizationInput
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutOrganizationInput
     cargos?: CargoUncheckedCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutOrcamentosInput = {
     where: OrganizationWhereUniqueInput
     create: XOR<OrganizationCreateWithoutOrcamentosInput, OrganizationUncheckedCreateWithoutOrcamentosInput>
+  }
+
+  export type ObraCreateWithoutOrcamentosInput = {
+    id?: string
+    nome: string
+    endereco: string
+    bairro?: string | null
+    cidade: string
+    estado: string
+    cep: string
+    responsavel: string
+    cliente: string
+    dataInicio: Date | string
+    dataPrevisaoFim: Date | string
+    status?: $Enums.ObraStatus
+    descricao?: string | null
+    observacoes?: string | null
+    fotoPath?: string | null
+    orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    organization: OrganizationCreateNestedOneWithoutObrasInput
+    user: UserCreateNestedOneWithoutObrasInput
+    funcionarios?: FuncionarioCreateNestedManyWithoutObraInput
+    maquinarios?: MaquinarioCreateNestedManyWithoutObraInput
+    transacoes?: TransacaoFinanceiraCreateNestedManyWithoutObraInput
+    categorias?: CategoriaFinanceiraCreateNestedManyWithoutObraInput
+    alertas?: AlertaCreateNestedManyWithoutObraInput
+    documentos?: DocumentoCreateNestedManyWithoutObraInput
+    pagamentos?: PagamentoCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutObraInput
+  }
+
+  export type ObraUncheckedCreateWithoutOrcamentosInput = {
+    id?: string
+    nome: string
+    endereco: string
+    bairro?: string | null
+    cidade: string
+    estado: string
+    cep: string
+    responsavel: string
+    cliente: string
+    dataInicio: Date | string
+    dataPrevisaoFim: Date | string
+    status?: $Enums.ObraStatus
+    descricao?: string | null
+    observacoes?: string | null
+    fotoPath?: string | null
+    orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
+    organizationId: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutObraInput
+    maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutObraInput
+    transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutObraInput
+    categorias?: CategoriaFinanceiraUncheckedCreateNestedManyWithoutObraInput
+    alertas?: AlertaUncheckedCreateNestedManyWithoutObraInput
+    documentos?: DocumentoUncheckedCreateNestedManyWithoutObraInput
+    pagamentos?: PagamentoUncheckedCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutObraInput
+  }
+
+  export type ObraCreateOrConnectWithoutOrcamentosInput = {
+    where: ObraWhereUniqueInput
+    create: XOR<ObraCreateWithoutOrcamentosInput, ObraUncheckedCreateWithoutOrcamentosInput>
   }
 
   export type OrganizationUpsertWithoutOrcamentosInput = {
@@ -26659,6 +40804,11 @@ export namespace Prisma {
     documentos?: DocumentoUpdateManyWithoutOrganizationNestedInput
     pagamentos?: PagamentoUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutOrcamentosInput = {
@@ -26678,6 +40828,94 @@ export namespace Prisma {
     documentos?: DocumentoUncheckedUpdateManyWithoutOrganizationNestedInput
     pagamentos?: PagamentoUncheckedUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUncheckedUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type ObraUpsertWithoutOrcamentosInput = {
+    update: XOR<ObraUpdateWithoutOrcamentosInput, ObraUncheckedUpdateWithoutOrcamentosInput>
+    create: XOR<ObraCreateWithoutOrcamentosInput, ObraUncheckedCreateWithoutOrcamentosInput>
+    where?: ObraWhereInput
+  }
+
+  export type ObraUpdateToOneWithWhereWithoutOrcamentosInput = {
+    where?: ObraWhereInput
+    data: XOR<ObraUpdateWithoutOrcamentosInput, ObraUncheckedUpdateWithoutOrcamentosInput>
+  }
+
+  export type ObraUpdateWithoutOrcamentosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    cep?: StringFieldUpdateOperationsInput | string
+    responsavel?: StringFieldUpdateOperationsInput | string
+    cliente?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataPrevisaoFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumObraStatusFieldUpdateOperationsInput | $Enums.ObraStatus
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    organization?: OrganizationUpdateOneRequiredWithoutObrasNestedInput
+    user?: UserUpdateOneRequiredWithoutObrasNestedInput
+    funcionarios?: FuncionarioUpdateManyWithoutObraNestedInput
+    maquinarios?: MaquinarioUpdateManyWithoutObraNestedInput
+    transacoes?: TransacaoFinanceiraUpdateManyWithoutObraNestedInput
+    categorias?: CategoriaFinanceiraUpdateManyWithoutObraNestedInput
+    alertas?: AlertaUpdateManyWithoutObraNestedInput
+    documentos?: DocumentoUpdateManyWithoutObraNestedInput
+    pagamentos?: PagamentoUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutObraNestedInput
+  }
+
+  export type ObraUncheckedUpdateWithoutOrcamentosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    cep?: StringFieldUpdateOperationsInput | string
+    responsavel?: StringFieldUpdateOperationsInput | string
+    cliente?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataPrevisaoFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumObraStatusFieldUpdateOperationsInput | $Enums.ObraStatus
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    organizationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    funcionarios?: FuncionarioUncheckedUpdateManyWithoutObraNestedInput
+    maquinarios?: MaquinarioUncheckedUpdateManyWithoutObraNestedInput
+    transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutObraNestedInput
+    categorias?: CategoriaFinanceiraUncheckedUpdateManyWithoutObraNestedInput
+    alertas?: AlertaUncheckedUpdateManyWithoutObraNestedInput
+    documentos?: DocumentoUncheckedUpdateManyWithoutObraNestedInput
+    pagamentos?: PagamentoUncheckedUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutObraNestedInput
   }
 
   export type OrganizationCreateWithoutDocumentosInput = {
@@ -26697,6 +40935,11 @@ export namespace Prisma {
     pagamentos?: PagamentoCreateNestedManyWithoutOrganizationInput
     cargos?: CargoCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutDocumentosInput = {
@@ -26716,6 +40959,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutOrganizationInput
     cargos?: CargoUncheckedCreateNestedManyWithoutOrganizationInput
     orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutDocumentosInput = {
@@ -26742,6 +40990,7 @@ export namespace Prisma {
     orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     organization: OrganizationCreateNestedOneWithoutObrasInput
     user: UserCreateNestedOneWithoutObrasInput
     funcionarios?: FuncionarioCreateNestedManyWithoutObraInput
@@ -26750,6 +40999,12 @@ export namespace Prisma {
     categorias?: CategoriaFinanceiraCreateNestedManyWithoutObraInput
     alertas?: AlertaCreateNestedManyWithoutObraInput
     pagamentos?: PagamentoCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutObraInput
   }
 
   export type ObraUncheckedCreateWithoutDocumentosInput = {
@@ -26773,12 +41028,19 @@ export namespace Prisma {
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutObraInput
     maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutObraInput
     transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutObraInput
     categorias?: CategoriaFinanceiraUncheckedCreateNestedManyWithoutObraInput
     alertas?: AlertaUncheckedCreateNestedManyWithoutObraInput
     pagamentos?: PagamentoUncheckedCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutObraInput
   }
 
   export type ObraCreateOrConnectWithoutDocumentosInput = {
@@ -26798,6 +41060,7 @@ export namespace Prisma {
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     obras?: ObraCreateNestedManyWithoutUserInput
     transacoes?: TransacaoFinanceiraCreateNestedManyWithoutUserInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDocumentosInput = {
@@ -26812,6 +41075,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     obras?: ObraUncheckedCreateNestedManyWithoutUserInput
     transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutUserInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDocumentosInput = {
@@ -26847,6 +41111,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutDocumentosInput = {
@@ -26866,6 +41135,11 @@ export namespace Prisma {
     pagamentos?: PagamentoUncheckedUpdateManyWithoutOrganizationNestedInput
     cargos?: CargoUncheckedUpdateManyWithoutOrganizationNestedInput
     orcamentos?: OrcamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type ObraUpsertWithoutDocumentosInput = {
@@ -26898,6 +41172,7 @@ export namespace Prisma {
     orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     organization?: OrganizationUpdateOneRequiredWithoutObrasNestedInput
     user?: UserUpdateOneRequiredWithoutObrasNestedInput
     funcionarios?: FuncionarioUpdateManyWithoutObraNestedInput
@@ -26906,6 +41181,12 @@ export namespace Prisma {
     categorias?: CategoriaFinanceiraUpdateManyWithoutObraNestedInput
     alertas?: AlertaUpdateManyWithoutObraNestedInput
     pagamentos?: PagamentoUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutObraNestedInput
   }
 
   export type ObraUncheckedUpdateWithoutDocumentosInput = {
@@ -26929,12 +41210,19 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     funcionarios?: FuncionarioUncheckedUpdateManyWithoutObraNestedInput
     maquinarios?: MaquinarioUncheckedUpdateManyWithoutObraNestedInput
     transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutObraNestedInput
     categorias?: CategoriaFinanceiraUncheckedUpdateManyWithoutObraNestedInput
     alertas?: AlertaUncheckedUpdateManyWithoutObraNestedInput
     pagamentos?: PagamentoUncheckedUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutObraNestedInput
   }
 
   export type UserUpsertWithoutDocumentosInput = {
@@ -26960,6 +41248,7 @@ export namespace Prisma {
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     obras?: ObraUpdateManyWithoutUserNestedInput
     transacoes?: TransacaoFinanceiraUpdateManyWithoutUserNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDocumentosInput = {
@@ -26973,6 +41262,1403 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     obras?: ObraUncheckedUpdateManyWithoutUserNestedInput
+    transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutUserNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type FuncionarioCreateWithoutFrequenciasInput = {
+    id?: string
+    nome: string
+    cpf: string
+    cargo: string
+    tipo: $Enums.FuncionarioTipo
+    valorPagamento: Decimal | DecimalJsLike | number | string
+    periodicidade: $Enums.Periodicidade
+    dadosBancarios?: string | null
+    contato?: string | null
+    dataAdmissao: Date | string
+    status?: $Enums.FuncionarioStatus
+    fotoPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    organization: OrganizationCreateNestedOneWithoutFuncionariosInput
+    obra: ObraCreateNestedOneWithoutFuncionariosInput
+    pagamentos?: PagamentoCreateNestedManyWithoutFuncionarioInput
+    obrasVinculadas?: FuncionarioObraCreateNestedManyWithoutFuncionarioInput
+  }
+
+  export type FuncionarioUncheckedCreateWithoutFrequenciasInput = {
+    id?: string
+    nome: string
+    cpf: string
+    cargo: string
+    tipo: $Enums.FuncionarioTipo
+    valorPagamento: Decimal | DecimalJsLike | number | string
+    periodicidade: $Enums.Periodicidade
+    dadosBancarios?: string | null
+    contato?: string | null
+    dataAdmissao: Date | string
+    status?: $Enums.FuncionarioStatus
+    fotoPath?: string | null
+    organizationId: string
+    obraId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    pagamentos?: PagamentoUncheckedCreateNestedManyWithoutFuncionarioInput
+    obrasVinculadas?: FuncionarioObraUncheckedCreateNestedManyWithoutFuncionarioInput
+  }
+
+  export type FuncionarioCreateOrConnectWithoutFrequenciasInput = {
+    where: FuncionarioWhereUniqueInput
+    create: XOR<FuncionarioCreateWithoutFrequenciasInput, FuncionarioUncheckedCreateWithoutFrequenciasInput>
+  }
+
+  export type ObraCreateWithoutFrequenciasInput = {
+    id?: string
+    nome: string
+    endereco: string
+    bairro?: string | null
+    cidade: string
+    estado: string
+    cep: string
+    responsavel: string
+    cliente: string
+    dataInicio: Date | string
+    dataPrevisaoFim: Date | string
+    status?: $Enums.ObraStatus
+    descricao?: string | null
+    observacoes?: string | null
+    fotoPath?: string | null
+    orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    organization: OrganizationCreateNestedOneWithoutObrasInput
+    user: UserCreateNestedOneWithoutObrasInput
+    funcionarios?: FuncionarioCreateNestedManyWithoutObraInput
+    maquinarios?: MaquinarioCreateNestedManyWithoutObraInput
+    transacoes?: TransacaoFinanceiraCreateNestedManyWithoutObraInput
+    categorias?: CategoriaFinanceiraCreateNestedManyWithoutObraInput
+    alertas?: AlertaCreateNestedManyWithoutObraInput
+    documentos?: DocumentoCreateNestedManyWithoutObraInput
+    pagamentos?: PagamentoCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutObraInput
+  }
+
+  export type ObraUncheckedCreateWithoutFrequenciasInput = {
+    id?: string
+    nome: string
+    endereco: string
+    bairro?: string | null
+    cidade: string
+    estado: string
+    cep: string
+    responsavel: string
+    cliente: string
+    dataInicio: Date | string
+    dataPrevisaoFim: Date | string
+    status?: $Enums.ObraStatus
+    descricao?: string | null
+    observacoes?: string | null
+    fotoPath?: string | null
+    orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
+    organizationId: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutObraInput
+    maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutObraInput
+    transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutObraInput
+    categorias?: CategoriaFinanceiraUncheckedCreateNestedManyWithoutObraInput
+    alertas?: AlertaUncheckedCreateNestedManyWithoutObraInput
+    documentos?: DocumentoUncheckedCreateNestedManyWithoutObraInput
+    pagamentos?: PagamentoUncheckedCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutObraInput
+  }
+
+  export type ObraCreateOrConnectWithoutFrequenciasInput = {
+    where: ObraWhereUniqueInput
+    create: XOR<ObraCreateWithoutFrequenciasInput, ObraUncheckedCreateWithoutFrequenciasInput>
+  }
+
+  export type OrganizationCreateWithoutFrequenciasInput = {
+    id?: string
+    nome: string
+    slug: string
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutOrganizationInput
+    obras?: ObraCreateNestedManyWithoutOrganizationInput
+    funcionarios?: FuncionarioCreateNestedManyWithoutOrganizationInput
+    maquinarios?: MaquinarioCreateNestedManyWithoutOrganizationInput
+    transacoes?: TransacaoFinanceiraCreateNestedManyWithoutOrganizationInput
+    categorias?: CategoriaFinanceiraCreateNestedManyWithoutOrganizationInput
+    alertas?: AlertaCreateNestedManyWithoutOrganizationInput
+    documentos?: DocumentoCreateNestedManyWithoutOrganizationInput
+    pagamentos?: PagamentoCreateNestedManyWithoutOrganizationInput
+    cargos?: CargoCreateNestedManyWithoutOrganizationInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutFrequenciasInput = {
+    id?: string
+    nome: string
+    slug: string
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
+    obras?: ObraUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutOrganizationInput
+    maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutOrganizationInput
+    transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutOrganizationInput
+    categorias?: CategoriaFinanceiraUncheckedCreateNestedManyWithoutOrganizationInput
+    alertas?: AlertaUncheckedCreateNestedManyWithoutOrganizationInput
+    documentos?: DocumentoUncheckedCreateNestedManyWithoutOrganizationInput
+    pagamentos?: PagamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    cargos?: CargoUncheckedCreateNestedManyWithoutOrganizationInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutFrequenciasInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutFrequenciasInput, OrganizationUncheckedCreateWithoutFrequenciasInput>
+  }
+
+  export type FuncionarioUpsertWithoutFrequenciasInput = {
+    update: XOR<FuncionarioUpdateWithoutFrequenciasInput, FuncionarioUncheckedUpdateWithoutFrequenciasInput>
+    create: XOR<FuncionarioCreateWithoutFrequenciasInput, FuncionarioUncheckedCreateWithoutFrequenciasInput>
+    where?: FuncionarioWhereInput
+  }
+
+  export type FuncionarioUpdateToOneWithWhereWithoutFrequenciasInput = {
+    where?: FuncionarioWhereInput
+    data: XOR<FuncionarioUpdateWithoutFrequenciasInput, FuncionarioUncheckedUpdateWithoutFrequenciasInput>
+  }
+
+  export type FuncionarioUpdateWithoutFrequenciasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    cargo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumFuncionarioTipoFieldUpdateOperationsInput | $Enums.FuncionarioTipo
+    valorPagamento?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    periodicidade?: EnumPeriodicidadeFieldUpdateOperationsInput | $Enums.Periodicidade
+    dadosBancarios?: NullableStringFieldUpdateOperationsInput | string | null
+    contato?: NullableStringFieldUpdateOperationsInput | string | null
+    dataAdmissao?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumFuncionarioStatusFieldUpdateOperationsInput | $Enums.FuncionarioStatus
+    fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    organization?: OrganizationUpdateOneRequiredWithoutFuncionariosNestedInput
+    obra?: ObraUpdateOneRequiredWithoutFuncionariosNestedInput
+    pagamentos?: PagamentoUpdateManyWithoutFuncionarioNestedInput
+    obrasVinculadas?: FuncionarioObraUpdateManyWithoutFuncionarioNestedInput
+  }
+
+  export type FuncionarioUncheckedUpdateWithoutFrequenciasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    cargo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumFuncionarioTipoFieldUpdateOperationsInput | $Enums.FuncionarioTipo
+    valorPagamento?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    periodicidade?: EnumPeriodicidadeFieldUpdateOperationsInput | $Enums.Periodicidade
+    dadosBancarios?: NullableStringFieldUpdateOperationsInput | string | null
+    contato?: NullableStringFieldUpdateOperationsInput | string | null
+    dataAdmissao?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumFuncionarioStatusFieldUpdateOperationsInput | $Enums.FuncionarioStatus
+    fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: StringFieldUpdateOperationsInput | string
+    obraId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pagamentos?: PagamentoUncheckedUpdateManyWithoutFuncionarioNestedInput
+    obrasVinculadas?: FuncionarioObraUncheckedUpdateManyWithoutFuncionarioNestedInput
+  }
+
+  export type ObraUpsertWithoutFrequenciasInput = {
+    update: XOR<ObraUpdateWithoutFrequenciasInput, ObraUncheckedUpdateWithoutFrequenciasInput>
+    create: XOR<ObraCreateWithoutFrequenciasInput, ObraUncheckedCreateWithoutFrequenciasInput>
+    where?: ObraWhereInput
+  }
+
+  export type ObraUpdateToOneWithWhereWithoutFrequenciasInput = {
+    where?: ObraWhereInput
+    data: XOR<ObraUpdateWithoutFrequenciasInput, ObraUncheckedUpdateWithoutFrequenciasInput>
+  }
+
+  export type ObraUpdateWithoutFrequenciasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    cep?: StringFieldUpdateOperationsInput | string
+    responsavel?: StringFieldUpdateOperationsInput | string
+    cliente?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataPrevisaoFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumObraStatusFieldUpdateOperationsInput | $Enums.ObraStatus
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    organization?: OrganizationUpdateOneRequiredWithoutObrasNestedInput
+    user?: UserUpdateOneRequiredWithoutObrasNestedInput
+    funcionarios?: FuncionarioUpdateManyWithoutObraNestedInput
+    maquinarios?: MaquinarioUpdateManyWithoutObraNestedInput
+    transacoes?: TransacaoFinanceiraUpdateManyWithoutObraNestedInput
+    categorias?: CategoriaFinanceiraUpdateManyWithoutObraNestedInput
+    alertas?: AlertaUpdateManyWithoutObraNestedInput
+    documentos?: DocumentoUpdateManyWithoutObraNestedInput
+    pagamentos?: PagamentoUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutObraNestedInput
+  }
+
+  export type ObraUncheckedUpdateWithoutFrequenciasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    cep?: StringFieldUpdateOperationsInput | string
+    responsavel?: StringFieldUpdateOperationsInput | string
+    cliente?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataPrevisaoFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumObraStatusFieldUpdateOperationsInput | $Enums.ObraStatus
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    organizationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    funcionarios?: FuncionarioUncheckedUpdateManyWithoutObraNestedInput
+    maquinarios?: MaquinarioUncheckedUpdateManyWithoutObraNestedInput
+    transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutObraNestedInput
+    categorias?: CategoriaFinanceiraUncheckedUpdateManyWithoutObraNestedInput
+    alertas?: AlertaUncheckedUpdateManyWithoutObraNestedInput
+    documentos?: DocumentoUncheckedUpdateManyWithoutObraNestedInput
+    pagamentos?: PagamentoUncheckedUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutObraNestedInput
+  }
+
+  export type OrganizationUpsertWithoutFrequenciasInput = {
+    update: XOR<OrganizationUpdateWithoutFrequenciasInput, OrganizationUncheckedUpdateWithoutFrequenciasInput>
+    create: XOR<OrganizationCreateWithoutFrequenciasInput, OrganizationUncheckedCreateWithoutFrequenciasInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutFrequenciasInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutFrequenciasInput, OrganizationUncheckedUpdateWithoutFrequenciasInput>
+  }
+
+  export type OrganizationUpdateWithoutFrequenciasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutOrganizationNestedInput
+    obras?: ObraUpdateManyWithoutOrganizationNestedInput
+    funcionarios?: FuncionarioUpdateManyWithoutOrganizationNestedInput
+    maquinarios?: MaquinarioUpdateManyWithoutOrganizationNestedInput
+    transacoes?: TransacaoFinanceiraUpdateManyWithoutOrganizationNestedInput
+    categorias?: CategoriaFinanceiraUpdateManyWithoutOrganizationNestedInput
+    alertas?: AlertaUpdateManyWithoutOrganizationNestedInput
+    documentos?: DocumentoUpdateManyWithoutOrganizationNestedInput
+    pagamentos?: PagamentoUpdateManyWithoutOrganizationNestedInput
+    cargos?: CargoUpdateManyWithoutOrganizationNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutFrequenciasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
+    obras?: ObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionarios?: FuncionarioUncheckedUpdateManyWithoutOrganizationNestedInput
+    maquinarios?: MaquinarioUncheckedUpdateManyWithoutOrganizationNestedInput
+    transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutOrganizationNestedInput
+    categorias?: CategoriaFinanceiraUncheckedUpdateManyWithoutOrganizationNestedInput
+    alertas?: AlertaUncheckedUpdateManyWithoutOrganizationNestedInput
+    documentos?: DocumentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    pagamentos?: PagamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    cargos?: CargoUncheckedUpdateManyWithoutOrganizationNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type ObraCreateWithoutEtapasInput = {
+    id?: string
+    nome: string
+    endereco: string
+    bairro?: string | null
+    cidade: string
+    estado: string
+    cep: string
+    responsavel: string
+    cliente: string
+    dataInicio: Date | string
+    dataPrevisaoFim: Date | string
+    status?: $Enums.ObraStatus
+    descricao?: string | null
+    observacoes?: string | null
+    fotoPath?: string | null
+    orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    organization: OrganizationCreateNestedOneWithoutObrasInput
+    user: UserCreateNestedOneWithoutObrasInput
+    funcionarios?: FuncionarioCreateNestedManyWithoutObraInput
+    maquinarios?: MaquinarioCreateNestedManyWithoutObraInput
+    transacoes?: TransacaoFinanceiraCreateNestedManyWithoutObraInput
+    categorias?: CategoriaFinanceiraCreateNestedManyWithoutObraInput
+    alertas?: AlertaCreateNestedManyWithoutObraInput
+    documentos?: DocumentoCreateNestedManyWithoutObraInput
+    pagamentos?: PagamentoCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutObraInput
+  }
+
+  export type ObraUncheckedCreateWithoutEtapasInput = {
+    id?: string
+    nome: string
+    endereco: string
+    bairro?: string | null
+    cidade: string
+    estado: string
+    cep: string
+    responsavel: string
+    cliente: string
+    dataInicio: Date | string
+    dataPrevisaoFim: Date | string
+    status?: $Enums.ObraStatus
+    descricao?: string | null
+    observacoes?: string | null
+    fotoPath?: string | null
+    orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
+    organizationId: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutObraInput
+    maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutObraInput
+    transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutObraInput
+    categorias?: CategoriaFinanceiraUncheckedCreateNestedManyWithoutObraInput
+    alertas?: AlertaUncheckedCreateNestedManyWithoutObraInput
+    documentos?: DocumentoUncheckedCreateNestedManyWithoutObraInput
+    pagamentos?: PagamentoUncheckedCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutObraInput
+  }
+
+  export type ObraCreateOrConnectWithoutEtapasInput = {
+    where: ObraWhereUniqueInput
+    create: XOR<ObraCreateWithoutEtapasInput, ObraUncheckedCreateWithoutEtapasInput>
+  }
+
+  export type OrganizationCreateWithoutEtapasInput = {
+    id?: string
+    nome: string
+    slug: string
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutOrganizationInput
+    obras?: ObraCreateNestedManyWithoutOrganizationInput
+    funcionarios?: FuncionarioCreateNestedManyWithoutOrganizationInput
+    maquinarios?: MaquinarioCreateNestedManyWithoutOrganizationInput
+    transacoes?: TransacaoFinanceiraCreateNestedManyWithoutOrganizationInput
+    categorias?: CategoriaFinanceiraCreateNestedManyWithoutOrganizationInput
+    alertas?: AlertaCreateNestedManyWithoutOrganizationInput
+    documentos?: DocumentoCreateNestedManyWithoutOrganizationInput
+    pagamentos?: PagamentoCreateNestedManyWithoutOrganizationInput
+    cargos?: CargoCreateNestedManyWithoutOrganizationInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutEtapasInput = {
+    id?: string
+    nome: string
+    slug: string
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
+    obras?: ObraUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutOrganizationInput
+    maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutOrganizationInput
+    transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutOrganizationInput
+    categorias?: CategoriaFinanceiraUncheckedCreateNestedManyWithoutOrganizationInput
+    alertas?: AlertaUncheckedCreateNestedManyWithoutOrganizationInput
+    documentos?: DocumentoUncheckedCreateNestedManyWithoutOrganizationInput
+    pagamentos?: PagamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    cargos?: CargoUncheckedCreateNestedManyWithoutOrganizationInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutEtapasInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutEtapasInput, OrganizationUncheckedCreateWithoutEtapasInput>
+  }
+
+  export type ObraUpsertWithoutEtapasInput = {
+    update: XOR<ObraUpdateWithoutEtapasInput, ObraUncheckedUpdateWithoutEtapasInput>
+    create: XOR<ObraCreateWithoutEtapasInput, ObraUncheckedCreateWithoutEtapasInput>
+    where?: ObraWhereInput
+  }
+
+  export type ObraUpdateToOneWithWhereWithoutEtapasInput = {
+    where?: ObraWhereInput
+    data: XOR<ObraUpdateWithoutEtapasInput, ObraUncheckedUpdateWithoutEtapasInput>
+  }
+
+  export type ObraUpdateWithoutEtapasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    cep?: StringFieldUpdateOperationsInput | string
+    responsavel?: StringFieldUpdateOperationsInput | string
+    cliente?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataPrevisaoFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumObraStatusFieldUpdateOperationsInput | $Enums.ObraStatus
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    organization?: OrganizationUpdateOneRequiredWithoutObrasNestedInput
+    user?: UserUpdateOneRequiredWithoutObrasNestedInput
+    funcionarios?: FuncionarioUpdateManyWithoutObraNestedInput
+    maquinarios?: MaquinarioUpdateManyWithoutObraNestedInput
+    transacoes?: TransacaoFinanceiraUpdateManyWithoutObraNestedInput
+    categorias?: CategoriaFinanceiraUpdateManyWithoutObraNestedInput
+    alertas?: AlertaUpdateManyWithoutObraNestedInput
+    documentos?: DocumentoUpdateManyWithoutObraNestedInput
+    pagamentos?: PagamentoUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutObraNestedInput
+  }
+
+  export type ObraUncheckedUpdateWithoutEtapasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    cep?: StringFieldUpdateOperationsInput | string
+    responsavel?: StringFieldUpdateOperationsInput | string
+    cliente?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataPrevisaoFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumObraStatusFieldUpdateOperationsInput | $Enums.ObraStatus
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    organizationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    funcionarios?: FuncionarioUncheckedUpdateManyWithoutObraNestedInput
+    maquinarios?: MaquinarioUncheckedUpdateManyWithoutObraNestedInput
+    transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutObraNestedInput
+    categorias?: CategoriaFinanceiraUncheckedUpdateManyWithoutObraNestedInput
+    alertas?: AlertaUncheckedUpdateManyWithoutObraNestedInput
+    documentos?: DocumentoUncheckedUpdateManyWithoutObraNestedInput
+    pagamentos?: PagamentoUncheckedUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutObraNestedInput
+  }
+
+  export type OrganizationUpsertWithoutEtapasInput = {
+    update: XOR<OrganizationUpdateWithoutEtapasInput, OrganizationUncheckedUpdateWithoutEtapasInput>
+    create: XOR<OrganizationCreateWithoutEtapasInput, OrganizationUncheckedCreateWithoutEtapasInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutEtapasInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutEtapasInput, OrganizationUncheckedUpdateWithoutEtapasInput>
+  }
+
+  export type OrganizationUpdateWithoutEtapasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutOrganizationNestedInput
+    obras?: ObraUpdateManyWithoutOrganizationNestedInput
+    funcionarios?: FuncionarioUpdateManyWithoutOrganizationNestedInput
+    maquinarios?: MaquinarioUpdateManyWithoutOrganizationNestedInput
+    transacoes?: TransacaoFinanceiraUpdateManyWithoutOrganizationNestedInput
+    categorias?: CategoriaFinanceiraUpdateManyWithoutOrganizationNestedInput
+    alertas?: AlertaUpdateManyWithoutOrganizationNestedInput
+    documentos?: DocumentoUpdateManyWithoutOrganizationNestedInput
+    pagamentos?: PagamentoUpdateManyWithoutOrganizationNestedInput
+    cargos?: CargoUpdateManyWithoutOrganizationNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutEtapasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
+    obras?: ObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionarios?: FuncionarioUncheckedUpdateManyWithoutOrganizationNestedInput
+    maquinarios?: MaquinarioUncheckedUpdateManyWithoutOrganizationNestedInput
+    transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutOrganizationNestedInput
+    categorias?: CategoriaFinanceiraUncheckedUpdateManyWithoutOrganizationNestedInput
+    alertas?: AlertaUncheckedUpdateManyWithoutOrganizationNestedInput
+    documentos?: DocumentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    pagamentos?: PagamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    cargos?: CargoUncheckedUpdateManyWithoutOrganizationNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type ObraCreateWithoutItensEstoqueInput = {
+    id?: string
+    nome: string
+    endereco: string
+    bairro?: string | null
+    cidade: string
+    estado: string
+    cep: string
+    responsavel: string
+    cliente: string
+    dataInicio: Date | string
+    dataPrevisaoFim: Date | string
+    status?: $Enums.ObraStatus
+    descricao?: string | null
+    observacoes?: string | null
+    fotoPath?: string | null
+    orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    organization: OrganizationCreateNestedOneWithoutObrasInput
+    user: UserCreateNestedOneWithoutObrasInput
+    funcionarios?: FuncionarioCreateNestedManyWithoutObraInput
+    maquinarios?: MaquinarioCreateNestedManyWithoutObraInput
+    transacoes?: TransacaoFinanceiraCreateNestedManyWithoutObraInput
+    categorias?: CategoriaFinanceiraCreateNestedManyWithoutObraInput
+    alertas?: AlertaCreateNestedManyWithoutObraInput
+    documentos?: DocumentoCreateNestedManyWithoutObraInput
+    pagamentos?: PagamentoCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutObraInput
+  }
+
+  export type ObraUncheckedCreateWithoutItensEstoqueInput = {
+    id?: string
+    nome: string
+    endereco: string
+    bairro?: string | null
+    cidade: string
+    estado: string
+    cep: string
+    responsavel: string
+    cliente: string
+    dataInicio: Date | string
+    dataPrevisaoFim: Date | string
+    status?: $Enums.ObraStatus
+    descricao?: string | null
+    observacoes?: string | null
+    fotoPath?: string | null
+    orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
+    organizationId: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutObraInput
+    maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutObraInput
+    transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutObraInput
+    categorias?: CategoriaFinanceiraUncheckedCreateNestedManyWithoutObraInput
+    alertas?: AlertaUncheckedCreateNestedManyWithoutObraInput
+    documentos?: DocumentoUncheckedCreateNestedManyWithoutObraInput
+    pagamentos?: PagamentoUncheckedCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutObraInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutObraInput
+  }
+
+  export type ObraCreateOrConnectWithoutItensEstoqueInput = {
+    where: ObraWhereUniqueInput
+    create: XOR<ObraCreateWithoutItensEstoqueInput, ObraUncheckedCreateWithoutItensEstoqueInput>
+  }
+
+  export type OrganizationCreateWithoutItensEstoqueInput = {
+    id?: string
+    nome: string
+    slug: string
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutOrganizationInput
+    obras?: ObraCreateNestedManyWithoutOrganizationInput
+    funcionarios?: FuncionarioCreateNestedManyWithoutOrganizationInput
+    maquinarios?: MaquinarioCreateNestedManyWithoutOrganizationInput
+    transacoes?: TransacaoFinanceiraCreateNestedManyWithoutOrganizationInput
+    categorias?: CategoriaFinanceiraCreateNestedManyWithoutOrganizationInput
+    alertas?: AlertaCreateNestedManyWithoutOrganizationInput
+    documentos?: DocumentoCreateNestedManyWithoutOrganizationInput
+    pagamentos?: PagamentoCreateNestedManyWithoutOrganizationInput
+    cargos?: CargoCreateNestedManyWithoutOrganizationInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutItensEstoqueInput = {
+    id?: string
+    nome: string
+    slug: string
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
+    obras?: ObraUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutOrganizationInput
+    maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutOrganizationInput
+    transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutOrganizationInput
+    categorias?: CategoriaFinanceiraUncheckedCreateNestedManyWithoutOrganizationInput
+    alertas?: AlertaUncheckedCreateNestedManyWithoutOrganizationInput
+    documentos?: DocumentoUncheckedCreateNestedManyWithoutOrganizationInput
+    pagamentos?: PagamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    cargos?: CargoUncheckedCreateNestedManyWithoutOrganizationInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutOrganizationInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutItensEstoqueInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutItensEstoqueInput, OrganizationUncheckedCreateWithoutItensEstoqueInput>
+  }
+
+  export type MovimentacaoEstoqueCreateWithoutItemEstoqueInput = {
+    id?: string
+    tipo: $Enums.MovimentacaoTipo
+    quantidade: Decimal | DecimalJsLike | number | string
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    motivo?: string | null
+    fornecedor?: string | null
+    notaFiscal?: string | null
+    responsavel?: string | null
+    createdAt?: Date | string
+    obra: ObraCreateNestedOneWithoutMovimentacoesEstoqueInput
+    organization: OrganizationCreateNestedOneWithoutMovimentacoesEstoqueInput
+    user: UserCreateNestedOneWithoutMovimentacoesEstoqueInput
+  }
+
+  export type MovimentacaoEstoqueUncheckedCreateWithoutItemEstoqueInput = {
+    id?: string
+    tipo: $Enums.MovimentacaoTipo
+    quantidade: Decimal | DecimalJsLike | number | string
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    motivo?: string | null
+    fornecedor?: string | null
+    notaFiscal?: string | null
+    responsavel?: string | null
+    obraId: string
+    organizationId: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type MovimentacaoEstoqueCreateOrConnectWithoutItemEstoqueInput = {
+    where: MovimentacaoEstoqueWhereUniqueInput
+    create: XOR<MovimentacaoEstoqueCreateWithoutItemEstoqueInput, MovimentacaoEstoqueUncheckedCreateWithoutItemEstoqueInput>
+  }
+
+  export type MovimentacaoEstoqueCreateManyItemEstoqueInputEnvelope = {
+    data: MovimentacaoEstoqueCreateManyItemEstoqueInput | MovimentacaoEstoqueCreateManyItemEstoqueInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ObraUpsertWithoutItensEstoqueInput = {
+    update: XOR<ObraUpdateWithoutItensEstoqueInput, ObraUncheckedUpdateWithoutItensEstoqueInput>
+    create: XOR<ObraCreateWithoutItensEstoqueInput, ObraUncheckedCreateWithoutItensEstoqueInput>
+    where?: ObraWhereInput
+  }
+
+  export type ObraUpdateToOneWithWhereWithoutItensEstoqueInput = {
+    where?: ObraWhereInput
+    data: XOR<ObraUpdateWithoutItensEstoqueInput, ObraUncheckedUpdateWithoutItensEstoqueInput>
+  }
+
+  export type ObraUpdateWithoutItensEstoqueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    cep?: StringFieldUpdateOperationsInput | string
+    responsavel?: StringFieldUpdateOperationsInput | string
+    cliente?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataPrevisaoFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumObraStatusFieldUpdateOperationsInput | $Enums.ObraStatus
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    organization?: OrganizationUpdateOneRequiredWithoutObrasNestedInput
+    user?: UserUpdateOneRequiredWithoutObrasNestedInput
+    funcionarios?: FuncionarioUpdateManyWithoutObraNestedInput
+    maquinarios?: MaquinarioUpdateManyWithoutObraNestedInput
+    transacoes?: TransacaoFinanceiraUpdateManyWithoutObraNestedInput
+    categorias?: CategoriaFinanceiraUpdateManyWithoutObraNestedInput
+    alertas?: AlertaUpdateManyWithoutObraNestedInput
+    documentos?: DocumentoUpdateManyWithoutObraNestedInput
+    pagamentos?: PagamentoUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutObraNestedInput
+  }
+
+  export type ObraUncheckedUpdateWithoutItensEstoqueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    cep?: StringFieldUpdateOperationsInput | string
+    responsavel?: StringFieldUpdateOperationsInput | string
+    cliente?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataPrevisaoFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumObraStatusFieldUpdateOperationsInput | $Enums.ObraStatus
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    organizationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    funcionarios?: FuncionarioUncheckedUpdateManyWithoutObraNestedInput
+    maquinarios?: MaquinarioUncheckedUpdateManyWithoutObraNestedInput
+    transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutObraNestedInput
+    categorias?: CategoriaFinanceiraUncheckedUpdateManyWithoutObraNestedInput
+    alertas?: AlertaUncheckedUpdateManyWithoutObraNestedInput
+    documentos?: DocumentoUncheckedUpdateManyWithoutObraNestedInput
+    pagamentos?: PagamentoUncheckedUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutObraNestedInput
+  }
+
+  export type OrganizationUpsertWithoutItensEstoqueInput = {
+    update: XOR<OrganizationUpdateWithoutItensEstoqueInput, OrganizationUncheckedUpdateWithoutItensEstoqueInput>
+    create: XOR<OrganizationCreateWithoutItensEstoqueInput, OrganizationUncheckedCreateWithoutItensEstoqueInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutItensEstoqueInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutItensEstoqueInput, OrganizationUncheckedUpdateWithoutItensEstoqueInput>
+  }
+
+  export type OrganizationUpdateWithoutItensEstoqueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutOrganizationNestedInput
+    obras?: ObraUpdateManyWithoutOrganizationNestedInput
+    funcionarios?: FuncionarioUpdateManyWithoutOrganizationNestedInput
+    maquinarios?: MaquinarioUpdateManyWithoutOrganizationNestedInput
+    transacoes?: TransacaoFinanceiraUpdateManyWithoutOrganizationNestedInput
+    categorias?: CategoriaFinanceiraUpdateManyWithoutOrganizationNestedInput
+    alertas?: AlertaUpdateManyWithoutOrganizationNestedInput
+    documentos?: DocumentoUpdateManyWithoutOrganizationNestedInput
+    pagamentos?: PagamentoUpdateManyWithoutOrganizationNestedInput
+    cargos?: CargoUpdateManyWithoutOrganizationNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutItensEstoqueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
+    obras?: ObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionarios?: FuncionarioUncheckedUpdateManyWithoutOrganizationNestedInput
+    maquinarios?: MaquinarioUncheckedUpdateManyWithoutOrganizationNestedInput
+    transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutOrganizationNestedInput
+    categorias?: CategoriaFinanceiraUncheckedUpdateManyWithoutOrganizationNestedInput
+    alertas?: AlertaUncheckedUpdateManyWithoutOrganizationNestedInput
+    documentos?: DocumentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    pagamentos?: PagamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    cargos?: CargoUncheckedUpdateManyWithoutOrganizationNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type MovimentacaoEstoqueUpsertWithWhereUniqueWithoutItemEstoqueInput = {
+    where: MovimentacaoEstoqueWhereUniqueInput
+    update: XOR<MovimentacaoEstoqueUpdateWithoutItemEstoqueInput, MovimentacaoEstoqueUncheckedUpdateWithoutItemEstoqueInput>
+    create: XOR<MovimentacaoEstoqueCreateWithoutItemEstoqueInput, MovimentacaoEstoqueUncheckedCreateWithoutItemEstoqueInput>
+  }
+
+  export type MovimentacaoEstoqueUpdateWithWhereUniqueWithoutItemEstoqueInput = {
+    where: MovimentacaoEstoqueWhereUniqueInput
+    data: XOR<MovimentacaoEstoqueUpdateWithoutItemEstoqueInput, MovimentacaoEstoqueUncheckedUpdateWithoutItemEstoqueInput>
+  }
+
+  export type MovimentacaoEstoqueUpdateManyWithWhereWithoutItemEstoqueInput = {
+    where: MovimentacaoEstoqueScalarWhereInput
+    data: XOR<MovimentacaoEstoqueUpdateManyMutationInput, MovimentacaoEstoqueUncheckedUpdateManyWithoutItemEstoqueInput>
+  }
+
+  export type ItemEstoqueCreateWithoutMovimentacoesInput = {
+    id?: string
+    nome: string
+    unidade: string
+    categoria?: string | null
+    quantidadeAtual?: Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    obra: ObraCreateNestedOneWithoutItensEstoqueInput
+    organization: OrganizationCreateNestedOneWithoutItensEstoqueInput
+  }
+
+  export type ItemEstoqueUncheckedCreateWithoutMovimentacoesInput = {
+    id?: string
+    nome: string
+    unidade: string
+    categoria?: string | null
+    quantidadeAtual?: Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    obraId: string
+    organizationId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ItemEstoqueCreateOrConnectWithoutMovimentacoesInput = {
+    where: ItemEstoqueWhereUniqueInput
+    create: XOR<ItemEstoqueCreateWithoutMovimentacoesInput, ItemEstoqueUncheckedCreateWithoutMovimentacoesInput>
+  }
+
+  export type ObraCreateWithoutMovimentacoesEstoqueInput = {
+    id?: string
+    nome: string
+    endereco: string
+    bairro?: string | null
+    cidade: string
+    estado: string
+    cep: string
+    responsavel: string
+    cliente: string
+    dataInicio: Date | string
+    dataPrevisaoFim: Date | string
+    status?: $Enums.ObraStatus
+    descricao?: string | null
+    observacoes?: string | null
+    fotoPath?: string | null
+    orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    organization: OrganizationCreateNestedOneWithoutObrasInput
+    user: UserCreateNestedOneWithoutObrasInput
+    funcionarios?: FuncionarioCreateNestedManyWithoutObraInput
+    maquinarios?: MaquinarioCreateNestedManyWithoutObraInput
+    transacoes?: TransacaoFinanceiraCreateNestedManyWithoutObraInput
+    categorias?: CategoriaFinanceiraCreateNestedManyWithoutObraInput
+    alertas?: AlertaCreateNestedManyWithoutObraInput
+    documentos?: DocumentoCreateNestedManyWithoutObraInput
+    pagamentos?: PagamentoCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutObraInput
+  }
+
+  export type ObraUncheckedCreateWithoutMovimentacoesEstoqueInput = {
+    id?: string
+    nome: string
+    endereco: string
+    bairro?: string | null
+    cidade: string
+    estado: string
+    cep: string
+    responsavel: string
+    cliente: string
+    dataInicio: Date | string
+    dataPrevisaoFim: Date | string
+    status?: $Enums.ObraStatus
+    descricao?: string | null
+    observacoes?: string | null
+    fotoPath?: string | null
+    orcamentoPrevisto?: Decimal | DecimalJsLike | number | string | null
+    organizationId: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutObraInput
+    maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutObraInput
+    transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutObraInput
+    categorias?: CategoriaFinanceiraUncheckedCreateNestedManyWithoutObraInput
+    alertas?: AlertaUncheckedCreateNestedManyWithoutObraInput
+    documentos?: DocumentoUncheckedCreateNestedManyWithoutObraInput
+    pagamentos?: PagamentoUncheckedCreateNestedManyWithoutObraInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutObraInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutObraInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutObraInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutObraInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutObraInput
+  }
+
+  export type ObraCreateOrConnectWithoutMovimentacoesEstoqueInput = {
+    where: ObraWhereUniqueInput
+    create: XOR<ObraCreateWithoutMovimentacoesEstoqueInput, ObraUncheckedCreateWithoutMovimentacoesEstoqueInput>
+  }
+
+  export type OrganizationCreateWithoutMovimentacoesEstoqueInput = {
+    id?: string
+    nome: string
+    slug: string
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutOrganizationInput
+    obras?: ObraCreateNestedManyWithoutOrganizationInput
+    funcionarios?: FuncionarioCreateNestedManyWithoutOrganizationInput
+    maquinarios?: MaquinarioCreateNestedManyWithoutOrganizationInput
+    transacoes?: TransacaoFinanceiraCreateNestedManyWithoutOrganizationInput
+    categorias?: CategoriaFinanceiraCreateNestedManyWithoutOrganizationInput
+    alertas?: AlertaCreateNestedManyWithoutOrganizationInput
+    documentos?: DocumentoCreateNestedManyWithoutOrganizationInput
+    pagamentos?: PagamentoCreateNestedManyWithoutOrganizationInput
+    cargos?: CargoCreateNestedManyWithoutOrganizationInput
+    orcamentos?: OrcamentoCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutMovimentacoesEstoqueInput = {
+    id?: string
+    nome: string
+    slug: string
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
+    obras?: ObraUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionarios?: FuncionarioUncheckedCreateNestedManyWithoutOrganizationInput
+    maquinarios?: MaquinarioUncheckedCreateNestedManyWithoutOrganizationInput
+    transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutOrganizationInput
+    categorias?: CategoriaFinanceiraUncheckedCreateNestedManyWithoutOrganizationInput
+    alertas?: AlertaUncheckedCreateNestedManyWithoutOrganizationInput
+    documentos?: DocumentoUncheckedCreateNestedManyWithoutOrganizationInput
+    pagamentos?: PagamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    cargos?: CargoUncheckedCreateNestedManyWithoutOrganizationInput
+    orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutOrganizationInput
+    frequencias?: RegistroFrequenciaUncheckedCreateNestedManyWithoutOrganizationInput
+    etapas?: EtapaObraUncheckedCreateNestedManyWithoutOrganizationInput
+    itensEstoque?: ItemEstoqueUncheckedCreateNestedManyWithoutOrganizationInput
+    funcionariosVinculados?: FuncionarioObraUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutMovimentacoesEstoqueInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutMovimentacoesEstoqueInput, OrganizationUncheckedCreateWithoutMovimentacoesEstoqueInput>
+  }
+
+  export type UserCreateWithoutMovimentacoesEstoqueInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+    perfil?: $Enums.UserRole
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization?: OrganizationCreateNestedOneWithoutUsersInput
+    obras?: ObraCreateNestedManyWithoutUserInput
+    documentos?: DocumentoCreateNestedManyWithoutUserInput
+    transacoes?: TransacaoFinanceiraCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMovimentacoesEstoqueInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+    perfil?: $Enums.UserRole
+    ativo?: boolean
+    organizationId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    obras?: ObraUncheckedCreateNestedManyWithoutUserInput
+    documentos?: DocumentoUncheckedCreateNestedManyWithoutUserInput
+    transacoes?: TransacaoFinanceiraUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMovimentacoesEstoqueInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMovimentacoesEstoqueInput, UserUncheckedCreateWithoutMovimentacoesEstoqueInput>
+  }
+
+  export type ItemEstoqueUpsertWithoutMovimentacoesInput = {
+    update: XOR<ItemEstoqueUpdateWithoutMovimentacoesInput, ItemEstoqueUncheckedUpdateWithoutMovimentacoesInput>
+    create: XOR<ItemEstoqueCreateWithoutMovimentacoesInput, ItemEstoqueUncheckedCreateWithoutMovimentacoesInput>
+    where?: ItemEstoqueWhereInput
+  }
+
+  export type ItemEstoqueUpdateToOneWithWhereWithoutMovimentacoesInput = {
+    where?: ItemEstoqueWhereInput
+    data: XOR<ItemEstoqueUpdateWithoutMovimentacoesInput, ItemEstoqueUncheckedUpdateWithoutMovimentacoesInput>
+  }
+
+  export type ItemEstoqueUpdateWithoutMovimentacoesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    unidade?: StringFieldUpdateOperationsInput | string
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    quantidadeAtual?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    obra?: ObraUpdateOneRequiredWithoutItensEstoqueNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutItensEstoqueNestedInput
+  }
+
+  export type ItemEstoqueUncheckedUpdateWithoutMovimentacoesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    unidade?: StringFieldUpdateOperationsInput | string
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    quantidadeAtual?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    obraId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ObraUpsertWithoutMovimentacoesEstoqueInput = {
+    update: XOR<ObraUpdateWithoutMovimentacoesEstoqueInput, ObraUncheckedUpdateWithoutMovimentacoesEstoqueInput>
+    create: XOR<ObraCreateWithoutMovimentacoesEstoqueInput, ObraUncheckedCreateWithoutMovimentacoesEstoqueInput>
+    where?: ObraWhereInput
+  }
+
+  export type ObraUpdateToOneWithWhereWithoutMovimentacoesEstoqueInput = {
+    where?: ObraWhereInput
+    data: XOR<ObraUpdateWithoutMovimentacoesEstoqueInput, ObraUncheckedUpdateWithoutMovimentacoesEstoqueInput>
+  }
+
+  export type ObraUpdateWithoutMovimentacoesEstoqueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    cep?: StringFieldUpdateOperationsInput | string
+    responsavel?: StringFieldUpdateOperationsInput | string
+    cliente?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataPrevisaoFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumObraStatusFieldUpdateOperationsInput | $Enums.ObraStatus
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    organization?: OrganizationUpdateOneRequiredWithoutObrasNestedInput
+    user?: UserUpdateOneRequiredWithoutObrasNestedInput
+    funcionarios?: FuncionarioUpdateManyWithoutObraNestedInput
+    maquinarios?: MaquinarioUpdateManyWithoutObraNestedInput
+    transacoes?: TransacaoFinanceiraUpdateManyWithoutObraNestedInput
+    categorias?: CategoriaFinanceiraUpdateManyWithoutObraNestedInput
+    alertas?: AlertaUpdateManyWithoutObraNestedInput
+    documentos?: DocumentoUpdateManyWithoutObraNestedInput
+    pagamentos?: PagamentoUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutObraNestedInput
+  }
+
+  export type ObraUncheckedUpdateWithoutMovimentacoesEstoqueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    cep?: StringFieldUpdateOperationsInput | string
+    responsavel?: StringFieldUpdateOperationsInput | string
+    cliente?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataPrevisaoFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumObraStatusFieldUpdateOperationsInput | $Enums.ObraStatus
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
+    orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    organizationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    funcionarios?: FuncionarioUncheckedUpdateManyWithoutObraNestedInput
+    maquinarios?: MaquinarioUncheckedUpdateManyWithoutObraNestedInput
+    transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutObraNestedInput
+    categorias?: CategoriaFinanceiraUncheckedUpdateManyWithoutObraNestedInput
+    alertas?: AlertaUncheckedUpdateManyWithoutObraNestedInput
+    documentos?: DocumentoUncheckedUpdateManyWithoutObraNestedInput
+    pagamentos?: PagamentoUncheckedUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutObraNestedInput
+  }
+
+  export type OrganizationUpsertWithoutMovimentacoesEstoqueInput = {
+    update: XOR<OrganizationUpdateWithoutMovimentacoesEstoqueInput, OrganizationUncheckedUpdateWithoutMovimentacoesEstoqueInput>
+    create: XOR<OrganizationCreateWithoutMovimentacoesEstoqueInput, OrganizationUncheckedCreateWithoutMovimentacoesEstoqueInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutMovimentacoesEstoqueInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutMovimentacoesEstoqueInput, OrganizationUncheckedUpdateWithoutMovimentacoesEstoqueInput>
+  }
+
+  export type OrganizationUpdateWithoutMovimentacoesEstoqueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutOrganizationNestedInput
+    obras?: ObraUpdateManyWithoutOrganizationNestedInput
+    funcionarios?: FuncionarioUpdateManyWithoutOrganizationNestedInput
+    maquinarios?: MaquinarioUpdateManyWithoutOrganizationNestedInput
+    transacoes?: TransacaoFinanceiraUpdateManyWithoutOrganizationNestedInput
+    categorias?: CategoriaFinanceiraUpdateManyWithoutOrganizationNestedInput
+    alertas?: AlertaUpdateManyWithoutOrganizationNestedInput
+    documentos?: DocumentoUpdateManyWithoutOrganizationNestedInput
+    pagamentos?: PagamentoUpdateManyWithoutOrganizationNestedInput
+    cargos?: CargoUpdateManyWithoutOrganizationNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutMovimentacoesEstoqueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
+    obras?: ObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionarios?: FuncionarioUncheckedUpdateManyWithoutOrganizationNestedInput
+    maquinarios?: MaquinarioUncheckedUpdateManyWithoutOrganizationNestedInput
+    transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutOrganizationNestedInput
+    categorias?: CategoriaFinanceiraUncheckedUpdateManyWithoutOrganizationNestedInput
+    alertas?: AlertaUncheckedUpdateManyWithoutOrganizationNestedInput
+    documentos?: DocumentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    pagamentos?: PagamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    cargos?: CargoUncheckedUpdateManyWithoutOrganizationNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutOrganizationNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutOrganizationNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutOrganizationNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutOrganizationNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type UserUpsertWithoutMovimentacoesEstoqueInput = {
+    update: XOR<UserUpdateWithoutMovimentacoesEstoqueInput, UserUncheckedUpdateWithoutMovimentacoesEstoqueInput>
+    create: XOR<UserCreateWithoutMovimentacoesEstoqueInput, UserUncheckedCreateWithoutMovimentacoesEstoqueInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMovimentacoesEstoqueInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMovimentacoesEstoqueInput, UserUncheckedUpdateWithoutMovimentacoesEstoqueInput>
+  }
+
+  export type UserUpdateWithoutMovimentacoesEstoqueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    perfil?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneWithoutUsersNestedInput
+    obras?: ObraUpdateManyWithoutUserNestedInput
+    documentos?: DocumentoUpdateManyWithoutUserNestedInput
+    transacoes?: TransacaoFinanceiraUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMovimentacoesEstoqueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    perfil?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    obras?: ObraUncheckedUpdateManyWithoutUserNestedInput
+    documentos?: DocumentoUncheckedUpdateManyWithoutUserNestedInput
     transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -27007,6 +42693,7 @@ export namespace Prisma {
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type FuncionarioCreateManyOrganizationInput = {
@@ -27025,6 +42712,7 @@ export namespace Prisma {
     obraId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type MaquinarioCreateManyOrganizationInput = {
@@ -27047,6 +42735,7 @@ export namespace Prisma {
     obraId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type TransacaoFinanceiraCreateManyOrganizationInput = {
@@ -27121,6 +42810,7 @@ export namespace Prisma {
   export type OrcamentoCreateManyOrganizationInput = {
     id?: string
     titulo: string
+    obraId?: string | null
     empresa?: string | null
     cnpj?: string | null
     responsavel?: string | null
@@ -27141,6 +42831,76 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type RegistroFrequenciaCreateManyOrganizationInput = {
+    id?: string
+    funcionarioId: string
+    obraId: string
+    data: Date | string
+    presente?: boolean
+    periodo?: number
+    horasExtras?: number
+    observacao?: string | null
+    createdAt?: Date | string
+  }
+
+  export type EtapaObraCreateManyOrganizationInput = {
+    id?: string
+    nome: string
+    descricao?: string | null
+    ordem: number
+    obraId: string
+    dataInicioPrev?: Date | string | null
+    dataFimPrev?: Date | string | null
+    dataInicioReal?: Date | string | null
+    dataFimReal?: Date | string | null
+    percentual?: number
+    status?: $Enums.EtapaStatus
+    valorPrevisto?: Decimal | DecimalJsLike | number | string | null
+    observacoes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ItemEstoqueCreateManyOrganizationInput = {
+    id?: string
+    nome: string
+    unidade: string
+    categoria?: string | null
+    quantidadeAtual?: Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    obraId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MovimentacaoEstoqueCreateManyOrganizationInput = {
+    id?: string
+    itemEstoqueId: string
+    tipo: $Enums.MovimentacaoTipo
+    quantidade: Decimal | DecimalJsLike | number | string
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    motivo?: string | null
+    fornecedor?: string | null
+    notaFiscal?: string | null
+    responsavel?: string | null
+    obraId: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type FuncionarioObraCreateManyOrganizationInput = {
+    id?: string
+    funcionarioId: string
+    obraId: string
+    dataInicio: Date | string
+    dataFim?: Date | string | null
+    funcao?: string | null
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type UserUpdateWithoutOrganizationInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome?: StringFieldUpdateOperationsInput | string
@@ -27153,6 +42913,7 @@ export namespace Prisma {
     obras?: ObraUpdateManyWithoutUserNestedInput
     documentos?: DocumentoUpdateManyWithoutUserNestedInput
     transacoes?: TransacaoFinanceiraUpdateManyWithoutUserNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrganizationInput = {
@@ -27167,6 +42928,7 @@ export namespace Prisma {
     obras?: ObraUncheckedUpdateManyWithoutUserNestedInput
     documentos?: DocumentoUncheckedUpdateManyWithoutUserNestedInput
     transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutUserNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutOrganizationInput = {
@@ -27199,6 +42961,7 @@ export namespace Prisma {
     orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutObrasNestedInput
     funcionarios?: FuncionarioUpdateManyWithoutObraNestedInput
     maquinarios?: MaquinarioUpdateManyWithoutObraNestedInput
@@ -27207,6 +42970,12 @@ export namespace Prisma {
     alertas?: AlertaUpdateManyWithoutObraNestedInput
     documentos?: DocumentoUpdateManyWithoutObraNestedInput
     pagamentos?: PagamentoUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutObraNestedInput
   }
 
   export type ObraUncheckedUpdateWithoutOrganizationInput = {
@@ -27229,6 +42998,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     funcionarios?: FuncionarioUncheckedUpdateManyWithoutObraNestedInput
     maquinarios?: MaquinarioUncheckedUpdateManyWithoutObraNestedInput
     transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutObraNestedInput
@@ -27236,6 +43006,12 @@ export namespace Prisma {
     alertas?: AlertaUncheckedUpdateManyWithoutObraNestedInput
     documentos?: DocumentoUncheckedUpdateManyWithoutObraNestedInput
     pagamentos?: PagamentoUncheckedUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutObraNestedInput
   }
 
   export type ObraUncheckedUpdateManyWithoutOrganizationInput = {
@@ -27258,6 +43034,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type FuncionarioUpdateWithoutOrganizationInput = {
@@ -27275,8 +43052,11 @@ export namespace Prisma {
     fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     obra?: ObraUpdateOneRequiredWithoutFuncionariosNestedInput
     pagamentos?: PagamentoUpdateManyWithoutFuncionarioNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutFuncionarioNestedInput
+    obrasVinculadas?: FuncionarioObraUpdateManyWithoutFuncionarioNestedInput
   }
 
   export type FuncionarioUncheckedUpdateWithoutOrganizationInput = {
@@ -27295,7 +43075,10 @@ export namespace Prisma {
     obraId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     pagamentos?: PagamentoUncheckedUpdateManyWithoutFuncionarioNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutFuncionarioNestedInput
+    obrasVinculadas?: FuncionarioObraUncheckedUpdateManyWithoutFuncionarioNestedInput
   }
 
   export type FuncionarioUncheckedUpdateManyWithoutOrganizationInput = {
@@ -27314,6 +43097,7 @@ export namespace Prisma {
     obraId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MaquinarioUpdateWithoutOrganizationInput = {
@@ -27335,6 +43119,7 @@ export namespace Prisma {
     fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     obra?: ObraUpdateOneRequiredWithoutMaquinariosNestedInput
   }
 
@@ -27358,6 +43143,7 @@ export namespace Prisma {
     obraId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MaquinarioUncheckedUpdateManyWithoutOrganizationInput = {
@@ -27380,6 +43166,7 @@ export namespace Prisma {
     obraId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TransacaoFinanceiraUpdateWithoutOrganizationInput = {
@@ -27610,11 +43397,13 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    obra?: ObraUpdateOneWithoutOrcamentosNestedInput
   }
 
   export type OrcamentoUncheckedUpdateWithoutOrganizationInput = {
     id?: StringFieldUpdateOperationsInput | string
     titulo?: StringFieldUpdateOperationsInput | string
+    obraId?: NullableStringFieldUpdateOperationsInput | string | null
     empresa?: NullableStringFieldUpdateOperationsInput | string | null
     cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     responsavel?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27638,6 +43427,7 @@ export namespace Prisma {
   export type OrcamentoUncheckedUpdateManyWithoutOrganizationInput = {
     id?: StringFieldUpdateOperationsInput | string
     titulo?: StringFieldUpdateOperationsInput | string
+    obraId?: NullableStringFieldUpdateOperationsInput | string | null
     empresa?: NullableStringFieldUpdateOperationsInput | string | null
     cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     responsavel?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27654,6 +43444,218 @@ export namespace Prisma {
     obs?: NullableStringFieldUpdateOperationsInput | string | null
     rows?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RegistroFrequenciaUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    presente?: BoolFieldUpdateOperationsInput | boolean
+    periodo?: FloatFieldUpdateOperationsInput | number
+    horasExtras?: FloatFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    funcionario?: FuncionarioUpdateOneRequiredWithoutFrequenciasNestedInput
+    obra?: ObraUpdateOneRequiredWithoutFrequenciasNestedInput
+  }
+
+  export type RegistroFrequenciaUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    funcionarioId?: StringFieldUpdateOperationsInput | string
+    obraId?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    presente?: BoolFieldUpdateOperationsInput | boolean
+    periodo?: FloatFieldUpdateOperationsInput | number
+    horasExtras?: FloatFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RegistroFrequenciaUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    funcionarioId?: StringFieldUpdateOperationsInput | string
+    obraId?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    presente?: BoolFieldUpdateOperationsInput | boolean
+    periodo?: FloatFieldUpdateOperationsInput | number
+    horasExtras?: FloatFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EtapaObraUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    ordem?: IntFieldUpdateOperationsInput | number
+    dataInicioPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataInicioReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    percentual?: FloatFieldUpdateOperationsInput | number
+    status?: EnumEtapaStatusFieldUpdateOperationsInput | $Enums.EtapaStatus
+    valorPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    obra?: ObraUpdateOneRequiredWithoutEtapasNestedInput
+  }
+
+  export type EtapaObraUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    ordem?: IntFieldUpdateOperationsInput | number
+    obraId?: StringFieldUpdateOperationsInput | string
+    dataInicioPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataInicioReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    percentual?: FloatFieldUpdateOperationsInput | number
+    status?: EnumEtapaStatusFieldUpdateOperationsInput | $Enums.EtapaStatus
+    valorPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EtapaObraUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    ordem?: IntFieldUpdateOperationsInput | number
+    obraId?: StringFieldUpdateOperationsInput | string
+    dataInicioPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataInicioReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    percentual?: FloatFieldUpdateOperationsInput | number
+    status?: EnumEtapaStatusFieldUpdateOperationsInput | $Enums.EtapaStatus
+    valorPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ItemEstoqueUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    unidade?: StringFieldUpdateOperationsInput | string
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    quantidadeAtual?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    obra?: ObraUpdateOneRequiredWithoutItensEstoqueNestedInput
+    movimentacoes?: MovimentacaoEstoqueUpdateManyWithoutItemEstoqueNestedInput
+  }
+
+  export type ItemEstoqueUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    unidade?: StringFieldUpdateOperationsInput | string
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    quantidadeAtual?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    obraId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    movimentacoes?: MovimentacaoEstoqueUncheckedUpdateManyWithoutItemEstoqueNestedInput
+  }
+
+  export type ItemEstoqueUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    unidade?: StringFieldUpdateOperationsInput | string
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    quantidadeAtual?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    obraId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MovimentacaoEstoqueUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumMovimentacaoTipoFieldUpdateOperationsInput | $Enums.MovimentacaoTipo
+    quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    motivo?: NullableStringFieldUpdateOperationsInput | string | null
+    fornecedor?: NullableStringFieldUpdateOperationsInput | string | null
+    notaFiscal?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    itemEstoque?: ItemEstoqueUpdateOneRequiredWithoutMovimentacoesNestedInput
+    obra?: ObraUpdateOneRequiredWithoutMovimentacoesEstoqueNestedInput
+    user?: UserUpdateOneRequiredWithoutMovimentacoesEstoqueNestedInput
+  }
+
+  export type MovimentacaoEstoqueUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemEstoqueId?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumMovimentacaoTipoFieldUpdateOperationsInput | $Enums.MovimentacaoTipo
+    quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    motivo?: NullableStringFieldUpdateOperationsInput | string | null
+    fornecedor?: NullableStringFieldUpdateOperationsInput | string | null
+    notaFiscal?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel?: NullableStringFieldUpdateOperationsInput | string | null
+    obraId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MovimentacaoEstoqueUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemEstoqueId?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumMovimentacaoTipoFieldUpdateOperationsInput | $Enums.MovimentacaoTipo
+    quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    motivo?: NullableStringFieldUpdateOperationsInput | string | null
+    fornecedor?: NullableStringFieldUpdateOperationsInput | string | null
+    notaFiscal?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel?: NullableStringFieldUpdateOperationsInput | string | null
+    obraId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FuncionarioObraUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    funcao?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    funcionario?: FuncionarioUpdateOneRequiredWithoutObrasVinculadasNestedInput
+    obra?: ObraUpdateOneRequiredWithoutFuncionariosVinculadosNestedInput
+  }
+
+  export type FuncionarioObraUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    funcionarioId?: StringFieldUpdateOperationsInput | string
+    obraId?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    funcao?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FuncionarioObraUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    funcionarioId?: StringFieldUpdateOperationsInput | string
+    obraId?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    funcao?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -27678,6 +43680,7 @@ export namespace Prisma {
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type DocumentoCreateManyUserInput = {
@@ -27711,6 +43714,21 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type MovimentacaoEstoqueCreateManyUserInput = {
+    id?: string
+    itemEstoqueId: string
+    tipo: $Enums.MovimentacaoTipo
+    quantidade: Decimal | DecimalJsLike | number | string
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    motivo?: string | null
+    fornecedor?: string | null
+    notaFiscal?: string | null
+    responsavel?: string | null
+    obraId: string
+    organizationId: string
+    createdAt?: Date | string
+  }
+
   export type ObraUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome?: StringFieldUpdateOperationsInput | string
@@ -27730,6 +43748,7 @@ export namespace Prisma {
     orcamentoPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     organization?: OrganizationUpdateOneRequiredWithoutObrasNestedInput
     funcionarios?: FuncionarioUpdateManyWithoutObraNestedInput
     maquinarios?: MaquinarioUpdateManyWithoutObraNestedInput
@@ -27738,6 +43757,12 @@ export namespace Prisma {
     alertas?: AlertaUpdateManyWithoutObraNestedInput
     documentos?: DocumentoUpdateManyWithoutObraNestedInput
     pagamentos?: PagamentoUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUpdateManyWithoutObraNestedInput
   }
 
   export type ObraUncheckedUpdateWithoutUserInput = {
@@ -27760,6 +43785,7 @@ export namespace Prisma {
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     funcionarios?: FuncionarioUncheckedUpdateManyWithoutObraNestedInput
     maquinarios?: MaquinarioUncheckedUpdateManyWithoutObraNestedInput
     transacoes?: TransacaoFinanceiraUncheckedUpdateManyWithoutObraNestedInput
@@ -27767,6 +43793,12 @@ export namespace Prisma {
     alertas?: AlertaUncheckedUpdateManyWithoutObraNestedInput
     documentos?: DocumentoUncheckedUpdateManyWithoutObraNestedInput
     pagamentos?: PagamentoUncheckedUpdateManyWithoutObraNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutObraNestedInput
+    orcamentos?: OrcamentoUncheckedUpdateManyWithoutObraNestedInput
+    etapas?: EtapaObraUncheckedUpdateManyWithoutObraNestedInput
+    itensEstoque?: ItemEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    movimentacoesEstoque?: MovimentacaoEstoqueUncheckedUpdateManyWithoutObraNestedInput
+    funcionariosVinculados?: FuncionarioObraUncheckedUpdateManyWithoutObraNestedInput
   }
 
   export type ObraUncheckedUpdateManyWithoutUserInput = {
@@ -27789,6 +43821,7 @@ export namespace Prisma {
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type DocumentoUpdateWithoutUserInput = {
@@ -27884,6 +43917,51 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MovimentacaoEstoqueUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumMovimentacaoTipoFieldUpdateOperationsInput | $Enums.MovimentacaoTipo
+    quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    motivo?: NullableStringFieldUpdateOperationsInput | string | null
+    fornecedor?: NullableStringFieldUpdateOperationsInput | string | null
+    notaFiscal?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    itemEstoque?: ItemEstoqueUpdateOneRequiredWithoutMovimentacoesNestedInput
+    obra?: ObraUpdateOneRequiredWithoutMovimentacoesEstoqueNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutMovimentacoesEstoqueNestedInput
+  }
+
+  export type MovimentacaoEstoqueUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemEstoqueId?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumMovimentacaoTipoFieldUpdateOperationsInput | $Enums.MovimentacaoTipo
+    quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    motivo?: NullableStringFieldUpdateOperationsInput | string | null
+    fornecedor?: NullableStringFieldUpdateOperationsInput | string | null
+    notaFiscal?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel?: NullableStringFieldUpdateOperationsInput | string | null
+    obraId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MovimentacaoEstoqueUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemEstoqueId?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumMovimentacaoTipoFieldUpdateOperationsInput | $Enums.MovimentacaoTipo
+    quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    motivo?: NullableStringFieldUpdateOperationsInput | string | null
+    fornecedor?: NullableStringFieldUpdateOperationsInput | string | null
+    notaFiscal?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel?: NullableStringFieldUpdateOperationsInput | string | null
+    obraId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type FuncionarioCreateManyObraInput = {
     id?: string
     nome: string
@@ -27900,6 +43978,7 @@ export namespace Prisma {
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type MaquinarioCreateManyObraInput = {
@@ -27922,6 +44001,7 @@ export namespace Prisma {
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type TransacaoFinanceiraCreateManyObraInput = {
@@ -27985,6 +44065,100 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type RegistroFrequenciaCreateManyObraInput = {
+    id?: string
+    funcionarioId: string
+    organizationId: string
+    data: Date | string
+    presente?: boolean
+    periodo?: number
+    horasExtras?: number
+    observacao?: string | null
+    createdAt?: Date | string
+  }
+
+  export type OrcamentoCreateManyObraInput = {
+    id?: string
+    titulo: string
+    organizationId: string
+    empresa?: string | null
+    cnpj?: string | null
+    responsavel?: string | null
+    contato?: string | null
+    cliente?: string | null
+    cnpjCliente?: string | null
+    nomeObra?: string | null
+    area?: number
+    endereco?: string | null
+    dataOrcamento?: Date | string | null
+    validade?: number
+    margem?: number
+    desconto?: number
+    obs?: string | null
+    rows?: JsonNullValueInput | InputJsonValue
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EtapaObraCreateManyObraInput = {
+    id?: string
+    nome: string
+    descricao?: string | null
+    ordem: number
+    organizationId: string
+    dataInicioPrev?: Date | string | null
+    dataFimPrev?: Date | string | null
+    dataInicioReal?: Date | string | null
+    dataFimReal?: Date | string | null
+    percentual?: number
+    status?: $Enums.EtapaStatus
+    valorPrevisto?: Decimal | DecimalJsLike | number | string | null
+    observacoes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ItemEstoqueCreateManyObraInput = {
+    id?: string
+    nome: string
+    unidade: string
+    categoria?: string | null
+    quantidadeAtual?: Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    organizationId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MovimentacaoEstoqueCreateManyObraInput = {
+    id?: string
+    itemEstoqueId: string
+    tipo: $Enums.MovimentacaoTipo
+    quantidade: Decimal | DecimalJsLike | number | string
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    motivo?: string | null
+    fornecedor?: string | null
+    notaFiscal?: string | null
+    responsavel?: string | null
+    organizationId: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type FuncionarioObraCreateManyObraInput = {
+    id?: string
+    funcionarioId: string
+    organizationId: string
+    dataInicio: Date | string
+    dataFim?: Date | string | null
+    funcao?: string | null
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type FuncionarioUpdateWithoutObraInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome?: StringFieldUpdateOperationsInput | string
@@ -28000,8 +44174,11 @@ export namespace Prisma {
     fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     organization?: OrganizationUpdateOneRequiredWithoutFuncionariosNestedInput
     pagamentos?: PagamentoUpdateManyWithoutFuncionarioNestedInput
+    frequencias?: RegistroFrequenciaUpdateManyWithoutFuncionarioNestedInput
+    obrasVinculadas?: FuncionarioObraUpdateManyWithoutFuncionarioNestedInput
   }
 
   export type FuncionarioUncheckedUpdateWithoutObraInput = {
@@ -28020,7 +44197,10 @@ export namespace Prisma {
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     pagamentos?: PagamentoUncheckedUpdateManyWithoutFuncionarioNestedInput
+    frequencias?: RegistroFrequenciaUncheckedUpdateManyWithoutFuncionarioNestedInput
+    obrasVinculadas?: FuncionarioObraUncheckedUpdateManyWithoutFuncionarioNestedInput
   }
 
   export type FuncionarioUncheckedUpdateManyWithoutObraInput = {
@@ -28039,6 +44219,7 @@ export namespace Prisma {
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MaquinarioUpdateWithoutObraInput = {
@@ -28060,6 +44241,7 @@ export namespace Prisma {
     fotoPath?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     organization?: OrganizationUpdateOneRequiredWithoutMaquinariosNestedInput
   }
 
@@ -28083,6 +44265,7 @@ export namespace Prisma {
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MaquinarioUncheckedUpdateManyWithoutObraInput = {
@@ -28105,6 +44288,7 @@ export namespace Prisma {
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TransacaoFinanceiraUpdateWithoutObraInput = {
@@ -28290,6 +44474,290 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RegistroFrequenciaUpdateWithoutObraInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    presente?: BoolFieldUpdateOperationsInput | boolean
+    periodo?: FloatFieldUpdateOperationsInput | number
+    horasExtras?: FloatFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    funcionario?: FuncionarioUpdateOneRequiredWithoutFrequenciasNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutFrequenciasNestedInput
+  }
+
+  export type RegistroFrequenciaUncheckedUpdateWithoutObraInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    funcionarioId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    presente?: BoolFieldUpdateOperationsInput | boolean
+    periodo?: FloatFieldUpdateOperationsInput | number
+    horasExtras?: FloatFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RegistroFrequenciaUncheckedUpdateManyWithoutObraInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    funcionarioId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    presente?: BoolFieldUpdateOperationsInput | boolean
+    periodo?: FloatFieldUpdateOperationsInput | number
+    horasExtras?: FloatFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OrcamentoUpdateWithoutObraInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    empresa?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel?: NullableStringFieldUpdateOperationsInput | string | null
+    contato?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpjCliente?: NullableStringFieldUpdateOperationsInput | string | null
+    nomeObra?: NullableStringFieldUpdateOperationsInput | string | null
+    area?: FloatFieldUpdateOperationsInput | number
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    dataOrcamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    validade?: IntFieldUpdateOperationsInput | number
+    margem?: FloatFieldUpdateOperationsInput | number
+    desconto?: FloatFieldUpdateOperationsInput | number
+    obs?: NullableStringFieldUpdateOperationsInput | string | null
+    rows?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutOrcamentosNestedInput
+  }
+
+  export type OrcamentoUncheckedUpdateWithoutObraInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    empresa?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel?: NullableStringFieldUpdateOperationsInput | string | null
+    contato?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpjCliente?: NullableStringFieldUpdateOperationsInput | string | null
+    nomeObra?: NullableStringFieldUpdateOperationsInput | string | null
+    area?: FloatFieldUpdateOperationsInput | number
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    dataOrcamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    validade?: IntFieldUpdateOperationsInput | number
+    margem?: FloatFieldUpdateOperationsInput | number
+    desconto?: FloatFieldUpdateOperationsInput | number
+    obs?: NullableStringFieldUpdateOperationsInput | string | null
+    rows?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OrcamentoUncheckedUpdateManyWithoutObraInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    empresa?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel?: NullableStringFieldUpdateOperationsInput | string | null
+    contato?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpjCliente?: NullableStringFieldUpdateOperationsInput | string | null
+    nomeObra?: NullableStringFieldUpdateOperationsInput | string | null
+    area?: FloatFieldUpdateOperationsInput | number
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    dataOrcamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    validade?: IntFieldUpdateOperationsInput | number
+    margem?: FloatFieldUpdateOperationsInput | number
+    desconto?: FloatFieldUpdateOperationsInput | number
+    obs?: NullableStringFieldUpdateOperationsInput | string | null
+    rows?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EtapaObraUpdateWithoutObraInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    ordem?: IntFieldUpdateOperationsInput | number
+    dataInicioPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataInicioReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    percentual?: FloatFieldUpdateOperationsInput | number
+    status?: EnumEtapaStatusFieldUpdateOperationsInput | $Enums.EtapaStatus
+    valorPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutEtapasNestedInput
+  }
+
+  export type EtapaObraUncheckedUpdateWithoutObraInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    ordem?: IntFieldUpdateOperationsInput | number
+    organizationId?: StringFieldUpdateOperationsInput | string
+    dataInicioPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataInicioReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    percentual?: FloatFieldUpdateOperationsInput | number
+    status?: EnumEtapaStatusFieldUpdateOperationsInput | $Enums.EtapaStatus
+    valorPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EtapaObraUncheckedUpdateManyWithoutObraInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    ordem?: IntFieldUpdateOperationsInput | number
+    organizationId?: StringFieldUpdateOperationsInput | string
+    dataInicioPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimPrev?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataInicioReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataFimReal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    percentual?: FloatFieldUpdateOperationsInput | number
+    status?: EnumEtapaStatusFieldUpdateOperationsInput | $Enums.EtapaStatus
+    valorPrevisto?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ItemEstoqueUpdateWithoutObraInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    unidade?: StringFieldUpdateOperationsInput | string
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    quantidadeAtual?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutItensEstoqueNestedInput
+    movimentacoes?: MovimentacaoEstoqueUpdateManyWithoutItemEstoqueNestedInput
+  }
+
+  export type ItemEstoqueUncheckedUpdateWithoutObraInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    unidade?: StringFieldUpdateOperationsInput | string
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    quantidadeAtual?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    organizationId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    movimentacoes?: MovimentacaoEstoqueUncheckedUpdateManyWithoutItemEstoqueNestedInput
+  }
+
+  export type ItemEstoqueUncheckedUpdateManyWithoutObraInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    unidade?: StringFieldUpdateOperationsInput | string
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    quantidadeAtual?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidadeMinima?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    organizationId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MovimentacaoEstoqueUpdateWithoutObraInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumMovimentacaoTipoFieldUpdateOperationsInput | $Enums.MovimentacaoTipo
+    quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    motivo?: NullableStringFieldUpdateOperationsInput | string | null
+    fornecedor?: NullableStringFieldUpdateOperationsInput | string | null
+    notaFiscal?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    itemEstoque?: ItemEstoqueUpdateOneRequiredWithoutMovimentacoesNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutMovimentacoesEstoqueNestedInput
+    user?: UserUpdateOneRequiredWithoutMovimentacoesEstoqueNestedInput
+  }
+
+  export type MovimentacaoEstoqueUncheckedUpdateWithoutObraInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemEstoqueId?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumMovimentacaoTipoFieldUpdateOperationsInput | $Enums.MovimentacaoTipo
+    quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    motivo?: NullableStringFieldUpdateOperationsInput | string | null
+    fornecedor?: NullableStringFieldUpdateOperationsInput | string | null
+    notaFiscal?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MovimentacaoEstoqueUncheckedUpdateManyWithoutObraInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemEstoqueId?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumMovimentacaoTipoFieldUpdateOperationsInput | $Enums.MovimentacaoTipo
+    quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    motivo?: NullableStringFieldUpdateOperationsInput | string | null
+    fornecedor?: NullableStringFieldUpdateOperationsInput | string | null
+    notaFiscal?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FuncionarioObraUpdateWithoutObraInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    funcao?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    funcionario?: FuncionarioUpdateOneRequiredWithoutObrasVinculadasNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutFuncionariosVinculadosNestedInput
+  }
+
+  export type FuncionarioObraUncheckedUpdateWithoutObraInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    funcionarioId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    funcao?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FuncionarioObraUncheckedUpdateManyWithoutObraInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    funcionarioId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    funcao?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PagamentoCreateManyFuncionarioInput = {
     id?: string
     obraId: string
@@ -28299,6 +44767,30 @@ export namespace Prisma {
     referencia?: string | null
     comprovantePath?: string | null
     createdAt?: Date | string
+  }
+
+  export type RegistroFrequenciaCreateManyFuncionarioInput = {
+    id?: string
+    obraId: string
+    organizationId: string
+    data: Date | string
+    presente?: boolean
+    periodo?: number
+    horasExtras?: number
+    observacao?: string | null
+    createdAt?: Date | string
+  }
+
+  export type FuncionarioObraCreateManyFuncionarioInput = {
+    id?: string
+    obraId: string
+    organizationId: string
+    dataInicio: Date | string
+    dataFim?: Date | string | null
+    funcao?: string | null
+    ativo?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type PagamentoUpdateWithoutFuncionarioInput = {
@@ -28331,6 +44823,138 @@ export namespace Prisma {
     dataPagamento?: DateTimeFieldUpdateOperationsInput | Date | string
     referencia?: NullableStringFieldUpdateOperationsInput | string | null
     comprovantePath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RegistroFrequenciaUpdateWithoutFuncionarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    presente?: BoolFieldUpdateOperationsInput | boolean
+    periodo?: FloatFieldUpdateOperationsInput | number
+    horasExtras?: FloatFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    obra?: ObraUpdateOneRequiredWithoutFrequenciasNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutFrequenciasNestedInput
+  }
+
+  export type RegistroFrequenciaUncheckedUpdateWithoutFuncionarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    obraId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    presente?: BoolFieldUpdateOperationsInput | boolean
+    periodo?: FloatFieldUpdateOperationsInput | number
+    horasExtras?: FloatFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RegistroFrequenciaUncheckedUpdateManyWithoutFuncionarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    obraId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    presente?: BoolFieldUpdateOperationsInput | boolean
+    periodo?: FloatFieldUpdateOperationsInput | number
+    horasExtras?: FloatFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FuncionarioObraUpdateWithoutFuncionarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    funcao?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    obra?: ObraUpdateOneRequiredWithoutFuncionariosVinculadosNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutFuncionariosVinculadosNestedInput
+  }
+
+  export type FuncionarioObraUncheckedUpdateWithoutFuncionarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    obraId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    funcao?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FuncionarioObraUncheckedUpdateManyWithoutFuncionarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    obraId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    funcao?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MovimentacaoEstoqueCreateManyItemEstoqueInput = {
+    id?: string
+    tipo: $Enums.MovimentacaoTipo
+    quantidade: Decimal | DecimalJsLike | number | string
+    valorUnitario?: Decimal | DecimalJsLike | number | string | null
+    motivo?: string | null
+    fornecedor?: string | null
+    notaFiscal?: string | null
+    responsavel?: string | null
+    obraId: string
+    organizationId: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type MovimentacaoEstoqueUpdateWithoutItemEstoqueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumMovimentacaoTipoFieldUpdateOperationsInput | $Enums.MovimentacaoTipo
+    quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    motivo?: NullableStringFieldUpdateOperationsInput | string | null
+    fornecedor?: NullableStringFieldUpdateOperationsInput | string | null
+    notaFiscal?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    obra?: ObraUpdateOneRequiredWithoutMovimentacoesEstoqueNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutMovimentacoesEstoqueNestedInput
+    user?: UserUpdateOneRequiredWithoutMovimentacoesEstoqueNestedInput
+  }
+
+  export type MovimentacaoEstoqueUncheckedUpdateWithoutItemEstoqueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumMovimentacaoTipoFieldUpdateOperationsInput | $Enums.MovimentacaoTipo
+    quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    motivo?: NullableStringFieldUpdateOperationsInput | string | null
+    fornecedor?: NullableStringFieldUpdateOperationsInput | string | null
+    notaFiscal?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel?: NullableStringFieldUpdateOperationsInput | string | null
+    obraId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MovimentacaoEstoqueUncheckedUpdateManyWithoutItemEstoqueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumMovimentacaoTipoFieldUpdateOperationsInput | $Enums.MovimentacaoTipo
+    quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorUnitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    motivo?: NullableStringFieldUpdateOperationsInput | string | null
+    fornecedor?: NullableStringFieldUpdateOperationsInput | string | null
+    notaFiscal?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel?: NullableStringFieldUpdateOperationsInput | string | null
+    obraId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

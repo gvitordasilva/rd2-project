@@ -11,6 +11,10 @@ import {
   BarChart3,
   ClipboardList,
   CheckCircle2,
+  Building2,
+  TrendingUp,
+  TrendingDown,
+  ExternalLink,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,6 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useApi } from "@/hooks/use-api";
 import { useToast } from "@/components/ui/toast";
 import { TooltipIcon } from "@/components/ui/tooltip";
@@ -69,6 +74,9 @@ interface OrcData {
   obs?: string;
   status: string;
   rows: OrcRow[];
+  obraId?: string | null;
+  obra?: { id: string; nome: string; status: string } | null;
+  realizado?: Record<string, number> | null;
 }
 
 const BASE_AREA = 991;
@@ -134,14 +142,15 @@ function calcTotals(rows: OrcRow[], margem: number, desconto: number) {
   };
 }
 
-const TABS = [
+const TABS_BASE = [
   { id: "dados", label: "Dados da Obra", icon: ClipboardList },
   { id: "planilha", label: "Planilha", icon: LayoutGrid },
   { id: "resumo", label: "Resumo", icon: BarChart3 },
+  { id: "realizado", label: "Orçado vs. Realizado", icon: TrendingUp },
   { id: "proposta", label: "Proposta", icon: FileText },
 ] as const;
 
-type TabId = (typeof TABS)[number]["id"];
+type TabId = (typeof TABS_BASE)[number]["id"];
 
 // ─── Main component ───────────────────────────────────────────────────────────
 export default function OrcamentoEditorPage({
@@ -158,6 +167,9 @@ export default function OrcamentoEditorPage({
   const [saving, setSaving] = useState(false);
   const [tab, setTab] = useState<TabId>("planilha");
   const [orc, setOrc] = useState<OrcData | null>(null);
+  const [showConverterDialog, setShowConverterDialog] = useState(false);
+  const [converterData, setConverterData] = useState({ dataInicio: "", dataPrevisaoFim: "", responsavel: "", endereco: "", cidade: "", estado: "SP", cep: "" });
+  const [converting, setConverting] = useState(false);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // ── Load ──
@@ -369,6 +381,23 @@ export default function OrcamentoEditorPage({
         </div>
 
         <div className="flex items-center gap-2">
+          {orc.obraId ? (
+            <a href={`/obras/${orc.obraId}`} className="flex items-center gap-1.5 text-xs text-emerald-600 font-medium bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-lg hover:bg-emerald-100 transition-colors">
+              <Building2 className="w-3.5 h-3.5" />
+              Ver Obra
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          ) : (
+            <Button
+              size="sm"
+              variant="outline"
+              className="h-8 text-xs gap-1.5 border-amber-500/50 text-amber-600 hover:bg-amber-50"
+              onClick={() => setShowConverterDialog(true)}
+            >
+              <Building2 className="w-3.5 h-3.5" />
+              Converter em Obra
+            </Button>
+          )}
           <Select
             value={orc.status}
             onValueChange={(v) => update({ status: v })}
@@ -387,14 +416,16 @@ export default function OrcamentoEditorPage({
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-0 border-b border-[var(--border)] bg-[var(--card)] shrink-0 px-4">
-        {TABS.map((t) => {
+      <div className="flex gap-0 border-b border-[var(--border)] bg-[var(--card)] shrink-0 px-4 overflow-x-auto">
+        {TABS_BASE.map((t) => {
           const Icon = t.icon;
+          const isRealizado = t.id === "realizado";
+          if (isRealizado && !orc.obraId) return null;
           return (
             <button
               key={t.id}
               onClick={() => setTab(t.id)}
-              className={`flex items-center gap-1.5 px-4 py-3 text-xs font-medium border-b-2 transition-colors ${
+              className={`flex items-center gap-1.5 px-4 py-3 text-xs font-medium border-b-2 transition-colors whitespace-nowrap ${
                 tab === t.id
                   ? "border-amber-500 text-amber-500"
                   : "border-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
@@ -1173,7 +1204,173 @@ export default function OrcamentoEditorPage({
             </div>
           </div>
         )}
+
+        {/* ── REALIZADO ── */}
+        {tab === "realizado" && orc.obraId && (
+          <div className="p-6 max-w-4xl mx-auto space-y-6">
+            <div className="flex items-center justify-between mb-2">
+              <div>
+                <h3 className="font-semibold text-sm">Orçado vs. Realizado</h3>
+                {orc.obra && (
+                  <p className="text-xs text-[var(--muted-foreground)]">Obra vinculada: <strong>{orc.obra.nome}</strong></p>
+                )}
+              </div>
+              <a href={`/obras/${orc.obraId}`}>
+                <Button size="sm" variant="outline" className="h-8 text-xs gap-1.5">
+                  <ExternalLink className="w-3 h-3" /> Abrir Obra
+                </Button>
+              </a>
+            </div>
+
+            <div className="bg-[var(--card)] border border-[var(--border)] rounded-xl overflow-hidden">
+              <table className="w-full text-sm">
+                <thead className="bg-[var(--secondary)] text-[var(--muted-foreground)] text-xs">
+                  <tr>
+                    <th className="text-left px-4 py-3 font-semibold">Categoria</th>
+                    <th className="text-right px-4 py-3 font-semibold">Orçado</th>
+                    <th className="text-right px-4 py-3 font-semibold">Realizado</th>
+                    <th className="text-right px-4 py-3 font-semibold">Desvio</th>
+                    <th className="px-4 py-3 w-32"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orc.rows.filter((r) => r.type === "cat").map((cat) => {
+                    const orcado = getCatTotal(orc.rows, cat.idx) ?? 0;
+                    const realizado = orc.realizado?.[cat.nome] ?? 0;
+                    const desvio = realizado - orcado;
+                    const desvioPerc = orcado > 0 ? ((desvio / orcado) * 100).toFixed(1) : null;
+                    const acimaBudget = desvio > 0;
+                    return (
+                      <tr key={cat.id} className="border-b border-[var(--border)]/40 hover:bg-[var(--secondary)]/30">
+                        <td className="px-4 py-3 font-medium">{cat.nome}</td>
+                        <td className="px-4 py-3 text-right">{fmt(orcado || null)}</td>
+                        <td className="px-4 py-3 text-right font-semibold">{realizado > 0 ? fmt(realizado) : <span className="text-[var(--muted-foreground)]">—</span>}</td>
+                        <td className={`px-4 py-3 text-right font-semibold ${desvio === 0 ? "text-[var(--muted-foreground)]" : acimaBudget ? "text-red-600" : "text-emerald-600"}`}>
+                          {realizado > 0 || orcado > 0 ? (
+                            <>
+                              {acimaBudget ? "+" : ""}{fmt(desvio)}
+                              {desvioPerc && <span className="text-xs ml-1">({acimaBudget ? "+" : ""}{desvioPerc}%)</span>}
+                            </>
+                          ) : "—"}
+                        </td>
+                        <td className="px-4 py-3">
+                          {realizado > 0 && orcado > 0 && (
+                            <div className="w-full bg-[var(--secondary)] rounded-full h-1.5 overflow-hidden">
+                              <div
+                                className={`h-full rounded-full ${acimaBudget ? "bg-red-500" : "bg-emerald-500"}`}
+                                style={{ width: `${Math.min((realizado / orcado) * 100, 100)}%` }}
+                              />
+                            </div>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+                <tfoot>
+                  <tr className="bg-amber-500/10 border-t-2 border-amber-500/30">
+                    <td className="px-4 py-3 font-bold text-amber-500">TOTAL</td>
+                    <td className="px-4 py-3 text-right font-bold text-amber-500">{fmt(totals.final)}</td>
+                    <td className="px-4 py-3 text-right font-bold text-amber-500">
+                      {fmt(Object.values(orc.realizado ?? {}).reduce((a, b) => a + b, 0) || null)}
+                    </td>
+                    <td colSpan={2} className="px-4 py-3 text-xs text-[var(--muted-foreground)]">
+                      {(() => {
+                        const totalRealizado = Object.values(orc.realizado ?? {}).reduce((a, b) => a + b, 0);
+                        const desvioTotal = totalRealizado - totals.final;
+                        if (totalRealizado === 0) return "Nenhuma despesa registrada";
+                        return desvioTotal > 0
+                          ? `${fmt(desvioTotal)} acima do orçamento`
+                          : desvioTotal < 0
+                          ? `${fmt(Math.abs(desvioTotal))} abaixo do orçamento`
+                          : "Dentro do orçamento";
+                      })()}
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        )}
       </div>
+
+      {/* Dialog: Converter em Obra */}
+      <Dialog open={showConverterDialog} onOpenChange={setShowConverterDialog}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Building2 className="w-5 h-5 text-amber-500" />
+              Converter Orçamento em Obra
+            </DialogTitle>
+          </DialogHeader>
+          <p className="text-sm text-[var(--muted-foreground)] -mt-2">
+            Isso criará uma nova Obra com base nos dados deste orçamento. O valor total ({fmt(totals.final)}) será definido como orçamento previsto.
+          </p>
+          <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="space-y-1.5">
+              <Label className="text-xs">Data de Início *</Label>
+              <Input type="date" value={converterData.dataInicio} onChange={(e) => setConverterData((p) => ({ ...p, dataInicio: e.target.value }))} />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-xs">Previsão de Fim *</Label>
+              <Input type="date" value={converterData.dataPrevisaoFim} onChange={(e) => setConverterData((p) => ({ ...p, dataPrevisaoFim: e.target.value }))} />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-xs">Responsável Técnico</Label>
+              <Input placeholder={orc?.responsavel || "Nome do responsável"} value={converterData.responsavel} onChange={(e) => setConverterData((p) => ({ ...p, responsavel: e.target.value }))} />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-xs">Cidade</Label>
+              <Input placeholder="São Paulo" value={converterData.cidade} onChange={(e) => setConverterData((p) => ({ ...p, cidade: e.target.value }))} />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-xs">Estado</Label>
+              <Input placeholder="SP" maxLength={2} value={converterData.estado} onChange={(e) => setConverterData((p) => ({ ...p, estado: e.target.value.toUpperCase() }))} />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-xs">CEP</Label>
+              <Input placeholder="00000-000" value={converterData.cep} onChange={(e) => setConverterData((p) => ({ ...p, cep: e.target.value }))} />
+            </div>
+            <div className="col-span-2 space-y-1.5">
+              <Label className="text-xs">Endereço</Label>
+              <Input placeholder={orc?.endereco || "Rua, número"} value={converterData.endereco} onChange={(e) => setConverterData((p) => ({ ...p, endereco: e.target.value }))} />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowConverterDialog(false)} disabled={converting}>Cancelar</Button>
+            <Button
+              className="bg-amber-500 hover:bg-amber-600 text-black gap-1.5"
+              disabled={converting || !converterData.dataInicio || !converterData.dataPrevisaoFim}
+              onClick={async () => {
+                setConverting(true);
+                try {
+                  const res = await apiFetch<{ data: { id: string } }>(`/api/orcamentos/${id}/converter`, {
+                    method: "POST",
+                    body: {
+                      ...converterData,
+                      responsavel: converterData.responsavel || orc?.responsavel || "A definir",
+                      endereco: converterData.endereco || orc?.endereco || "A definir",
+                      cidade: converterData.cidade || "A definir",
+                      cep: converterData.cep || "00000-000",
+                    },
+                  });
+                  toast({ title: "Obra criada com sucesso!", variant: "success" });
+                  setShowConverterDialog(false);
+                  setOrc((prev) => prev ? { ...prev, obraId: res.data.id, status: "APROVADO" } : prev);
+                  router.push(`/obras/${res.data.id}`);
+                } catch (err) {
+                  toast({ title: "Erro", description: (err as Error).message, variant: "error" });
+                } finally {
+                  setConverting(false);
+                }
+              }}
+            >
+              {converting && <Loader2 className="w-4 h-4 animate-spin" />}
+              Criar Obra
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* Print styles */}
       <style jsx global>{`

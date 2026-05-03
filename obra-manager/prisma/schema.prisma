@@ -65,6 +65,19 @@ enum AlertaTipo {
   DESPESA_PENDENTE
 }
 
+enum EtapaStatus {
+  PENDENTE
+  EM_ANDAMENTO
+  CONCLUIDA
+  PARALISADA
+}
+
+enum MovimentacaoTipo {
+  ENTRADA
+  SAIDA
+  AJUSTE
+}
+
 model Organization {
   id        String   @id @default(cuid())
   nome      String
@@ -73,18 +86,22 @@ model Organization {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  users      User[]
-  obras      Obra[]
-  funcionarios  Funcionario[]
-  maquinarios   Maquinario[]
-  transacoes    TransacaoFinanceira[]
-  categorias    CategoriaFinanceira[]
-  alertas       Alerta[]
-  documentos    Documento[]
-  pagamentos    Pagamento[]
-  cargos        Cargo[]
-  orcamentos    Orcamento[]
-  frequencias   RegistroFrequencia[]
+  users                 User[]
+  obras                 Obra[]
+  funcionarios          Funcionario[]
+  maquinarios           Maquinario[]
+  transacoes            TransacaoFinanceira[]
+  categorias            CategoriaFinanceira[]
+  alertas               Alerta[]
+  documentos            Documento[]
+  pagamentos            Pagamento[]
+  cargos                Cargo[]
+  orcamentos            Orcamento[]
+  frequencias           RegistroFrequencia[]
+  etapas                EtapaObra[]
+  itensEstoque          ItemEstoque[]
+  movimentacoesEstoque  MovimentacaoEstoque[]
+  funcionariosVinculados FuncionarioObra[]
 
   @@index([slug])
 }
@@ -114,9 +131,10 @@ model User {
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
 
-  obras      Obra[]
-  documentos Documento[]
-  transacoes TransacaoFinanceira[]
+  obras                Obra[]
+  documentos           Documento[]
+  transacoes           TransacaoFinanceira[]
+  movimentacoesEstoque MovimentacaoEstoque[]
 
   @@index([email])
   @@index([organizationId])
@@ -146,14 +164,19 @@ model Obra {
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @updatedAt
 
-  funcionarios Funcionario[]
-  maquinarios  Maquinario[]
-  transacoes   TransacaoFinanceira[]
-  categorias   CategoriaFinanceira[]
-  alertas      Alerta[]
-  documentos   Documento[]
-  pagamentos   Pagamento[]
-  frequencias  RegistroFrequencia[]
+  funcionarios           Funcionario[]
+  maquinarios            Maquinario[]
+  transacoes             TransacaoFinanceira[]
+  categorias             CategoriaFinanceira[]
+  alertas                Alerta[]
+  documentos             Documento[]
+  pagamentos             Pagamento[]
+  frequencias            RegistroFrequencia[]
+  orcamentos             Orcamento[]
+  etapas                 EtapaObra[]
+  itensEstoque           ItemEstoque[]
+  movimentacoesEstoque   MovimentacaoEstoque[]
+  funcionariosVinculados FuncionarioObra[]
 
   deletedAt DateTime?
 
@@ -186,8 +209,9 @@ model Funcionario {
   updatedAt      DateTime          @updatedAt
   deletedAt      DateTime?
 
-  pagamentos  Pagamento[]
-  frequencias RegistroFrequencia[]
+  pagamentos       Pagamento[]
+  frequencias      RegistroFrequencia[]
+  obrasVinculadas  FuncionarioObra[]
 
   @@unique([cpf, organizationId])
   @@index([obraId, status])
@@ -195,6 +219,29 @@ model Funcionario {
   @@index([status])
   @@index([cpf])
   @@index([deletedAt])
+}
+
+// Junction table: funcionário alocado em múltiplas obras
+model FuncionarioObra {
+  id             String       @id @default(cuid())
+  funcionarioId  String
+  funcionario    Funcionario  @relation(fields: [funcionarioId], references: [id], onDelete: Cascade)
+  obraId         String
+  obra           Obra         @relation(fields: [obraId], references: [id], onDelete: Cascade)
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  dataInicio     DateTime
+  dataFim        DateTime?
+  funcao         String?
+  ativo          Boolean      @default(true)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@unique([funcionarioId, obraId])
+  @@index([funcionarioId])
+  @@index([obraId])
+  @@index([organizationId])
+  @@index([ativo])
 }
 
 model Pagamento {
@@ -317,6 +364,9 @@ model Orcamento {
   titulo         String
   organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  // Vínculo opcional com Obra (preenchido ao converter orçamento em obra)
+  obraId         String?
+  obra           Obra?        @relation(fields: [obraId], references: [id], onDelete: SetNull)
   empresa        String?
   cnpj           String?
   responsavel    String?
@@ -337,6 +387,7 @@ model Orcamento {
   updatedAt      DateTime     @updatedAt
 
   @@index([organizationId])
+  @@index([obraId])
 }
 
 model Documento {
@@ -375,11 +426,88 @@ model RegistroFrequencia {
   observacao     String?
   createdAt      DateTime     @default(now())
 
-  @@unique([funcionarioId, data])
+  // Alterado: funcionário pode ter frequência em obras diferentes no mesmo dia
+  @@unique([funcionarioId, obraId, data])
   @@index([obraId])
   @@index([funcionarioId])
   @@index([organizationId])
   @@index([data])
+}
+
+// Etapas/fases de execução de uma obra com percentual de avanço
+model EtapaObra {
+  id              String       @id @default(cuid())
+  nome            String
+  descricao       String?
+  ordem           Int
+  obraId          String
+  obra            Obra         @relation(fields: [obraId], references: [id], onDelete: Cascade)
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id])
+  dataInicioPrev  DateTime?
+  dataFimPrev     DateTime?
+  dataInicioReal  DateTime?
+  dataFimReal     DateTime?
+  percentual      Float        @default(0)
+  status          EtapaStatus  @default(PENDENTE)
+  valorPrevisto   Decimal?     @db.Decimal(15, 2)
+  observacoes     String?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  @@index([obraId])
+  @@index([organizationId])
+  @@index([obraId, ordem])
+}
+
+// Item de estoque vinculado a uma obra
+model ItemEstoque {
+  id               String       @id @default(cuid())
+  nome             String
+  unidade          String
+  categoria        String?
+  quantidadeAtual  Decimal      @default(0) @db.Decimal(12, 3)
+  quantidadeMinima Decimal?     @db.Decimal(12, 3)
+  valorUnitario    Decimal?     @db.Decimal(10, 2)
+  obraId           String
+  obra             Obra         @relation(fields: [obraId], references: [id], onDelete: Cascade)
+  organizationId   String
+  organization     Organization @relation(fields: [organizationId], references: [id])
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  movimentacoes MovimentacaoEstoque[]
+
+  @@index([obraId])
+  @@index([organizationId])
+  @@index([categoria])
+}
+
+// Entradas, saídas e ajustes de materiais no estoque
+model MovimentacaoEstoque {
+  id             String           @id @default(cuid())
+  itemEstoqueId  String
+  itemEstoque    ItemEstoque      @relation(fields: [itemEstoqueId], references: [id], onDelete: Cascade)
+  tipo           MovimentacaoTipo
+  quantidade     Decimal          @db.Decimal(12, 3)
+  valorUnitario  Decimal?         @db.Decimal(10, 2)
+  motivo         String?
+  fornecedor     String?
+  notaFiscal     String?
+  responsavel    String?
+  obraId         String
+  obra           Obra             @relation(fields: [obraId], references: [id], onDelete: Cascade)
+  organizationId String
+  organization   Organization     @relation(fields: [organizationId], references: [id])
+  userId         String
+  user           User             @relation(fields: [userId], references: [id])
+  createdAt      DateTime         @default(now())
+
+  @@index([itemEstoqueId])
+  @@index([obraId])
+  @@index([organizationId])
+  @@index([createdAt])
+  @@index([tipo])
 }
 
 model RefreshToken {

@@ -170,7 +170,8 @@ exports.Prisma.ObraScalarFieldEnum = {
   organizationId: 'organizationId',
   userId: 'userId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.FuncionarioScalarFieldEnum = {
@@ -188,6 +189,20 @@ exports.Prisma.FuncionarioScalarFieldEnum = {
   fotoPath: 'fotoPath',
   organizationId: 'organizationId',
   obraId: 'obraId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.FuncionarioObraScalarFieldEnum = {
+  id: 'id',
+  funcionarioId: 'funcionarioId',
+  obraId: 'obraId',
+  organizationId: 'organizationId',
+  dataInicio: 'dataInicio',
+  dataFim: 'dataFim',
+  funcao: 'funcao',
+  ativo: 'ativo',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -224,7 +239,8 @@ exports.Prisma.MaquinarioScalarFieldEnum = {
   organizationId: 'organizationId',
   obraId: 'obraId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.TransacaoFinanceiraScalarFieldEnum = {
@@ -271,6 +287,7 @@ exports.Prisma.OrcamentoScalarFieldEnum = {
   id: 'id',
   titulo: 'titulo',
   organizationId: 'organizationId',
+  obraId: 'obraId',
   empresa: 'empresa',
   cnpj: 'cnpj',
   responsavel: 'responsavel',
@@ -305,12 +322,101 @@ exports.Prisma.DocumentoScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.RegistroFrequenciaScalarFieldEnum = {
+  id: 'id',
+  funcionarioId: 'funcionarioId',
+  obraId: 'obraId',
+  organizationId: 'organizationId',
+  data: 'data',
+  presente: 'presente',
+  periodo: 'periodo',
+  horasExtras: 'horasExtras',
+  observacao: 'observacao',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.EtapaObraScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  descricao: 'descricao',
+  ordem: 'ordem',
+  obraId: 'obraId',
+  organizationId: 'organizationId',
+  dataInicioPrev: 'dataInicioPrev',
+  dataFimPrev: 'dataFimPrev',
+  dataInicioReal: 'dataInicioReal',
+  dataFimReal: 'dataFimReal',
+  percentual: 'percentual',
+  status: 'status',
+  valorPrevisto: 'valorPrevisto',
+  observacoes: 'observacoes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ItemEstoqueScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  unidade: 'unidade',
+  categoria: 'categoria',
+  quantidadeAtual: 'quantidadeAtual',
+  quantidadeMinima: 'quantidadeMinima',
+  valorUnitario: 'valorUnitario',
+  obraId: 'obraId',
+  organizationId: 'organizationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MovimentacaoEstoqueScalarFieldEnum = {
+  id: 'id',
+  itemEstoqueId: 'itemEstoqueId',
+  tipo: 'tipo',
+  quantidade: 'quantidade',
+  valorUnitario: 'valorUnitario',
+  motivo: 'motivo',
+  fornecedor: 'fornecedor',
+  notaFiscal: 'notaFiscal',
+  responsavel: 'responsavel',
+  obraId: 'obraId',
+  organizationId: 'organizationId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.RefreshTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  userId: 'userId',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.AuditLogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  userEmail: 'userEmail',
+  organizationId: 'organizationId',
+  acao: 'acao',
+  entidade: 'entidade',
+  entidadeId: 'entidadeId',
+  dadosAntes: 'dadosAntes',
+  dadosDepois: 'dadosDepois',
+  ip: 'ip',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
 };
 
 exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
 };
 
@@ -387,19 +493,39 @@ exports.AlertaTipo = exports.$Enums.AlertaTipo = {
   DESPESA_PENDENTE: 'DESPESA_PENDENTE'
 };
 
+exports.EtapaStatus = exports.$Enums.EtapaStatus = {
+  PENDENTE: 'PENDENTE',
+  EM_ANDAMENTO: 'EM_ANDAMENTO',
+  CONCLUIDA: 'CONCLUIDA',
+  PARALISADA: 'PARALISADA'
+};
+
+exports.MovimentacaoTipo = exports.$Enums.MovimentacaoTipo = {
+  ENTRADA: 'ENTRADA',
+  SAIDA: 'SAIDA',
+  AJUSTE: 'AJUSTE'
+};
+
 exports.Prisma.ModelName = {
   Organization: 'Organization',
   Cargo: 'Cargo',
   User: 'User',
   Obra: 'Obra',
   Funcionario: 'Funcionario',
+  FuncionarioObra: 'FuncionarioObra',
   Pagamento: 'Pagamento',
   Maquinario: 'Maquinario',
   TransacaoFinanceira: 'TransacaoFinanceira',
   CategoriaFinanceira: 'CategoriaFinanceira',
   Alerta: 'Alerta',
   Orcamento: 'Orcamento',
-  Documento: 'Documento'
+  Documento: 'Documento',
+  RegistroFrequencia: 'RegistroFrequencia',
+  EtapaObra: 'EtapaObra',
+  ItemEstoque: 'ItemEstoque',
+  MovimentacaoEstoque: 'MovimentacaoEstoque',
+  RefreshToken: 'RefreshToken',
+  AuditLog: 'AuditLog'
 };
 
 /**

@@ -11,9 +11,29 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 
   const orc = await prisma.orcamento.findFirst({
     where: { id, organizationId: auth.user.organizationId },
+    include: { obra: { select: { id: true, nome: true, status: true } } },
   });
   if (!orc) return errorResponse("Não encontrado", 404);
-  return successResponse(orc);
+
+  // Se vinculado a uma obra, retorna o realizado por categoria
+  let realizado: Record<string, number> | null = null;
+  if (orc.obraId) {
+    const transacoes = await prisma.transacaoFinanceira.groupBy({
+      by: ["categoria"],
+      where: {
+        obraId: orc.obraId,
+        tipo: "SAIDA",
+        status: { not: "CANCELADO" },
+        organizationId: auth.user.organizationId,
+      },
+      _sum: { valor: true },
+    });
+    realizado = Object.fromEntries(
+      transacoes.map((t) => [t.categoria, Number(t._sum.valor ?? 0)])
+    );
+  }
+
+  return successResponse({ ...orc, realizado });
 }
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {

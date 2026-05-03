@@ -71,8 +71,9 @@ export async function POST(req: NextRequest) {
         }) =>
           prisma.registroFrequencia.upsert({
             where: {
-              funcionarioId_data: {
+              funcionarioId_obraId_data: {
                 funcionarioId: r.funcionarioId,
+                obraId: r.obraId,
                 data: new Date(r.data),
               },
             },
